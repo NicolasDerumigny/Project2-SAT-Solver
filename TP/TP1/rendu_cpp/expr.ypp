@@ -48,14 +48,14 @@ input: expression  { res = $1; }
 
 expression:
       TK_VAR                                    { $$ = new EConst($1);                       }
-    | TK_ENOT expression             { $$ = new Enot($2);                }
-    | TK_VNOT TK_VAR           { $$ = new Vnot($2);                }
+    | TK_ENOT expression             { $$ = new ENot($2);                }
+    | TK_VNOT TK_VAR           { $$ = new VNot($2);                }
     | TK_LPAREN expression TK_RPAREN            { $$ = $2;                                      }
     | expression TK_CONJ expression             { $$ = new EConj($1, $3);                }
     | expression TK_DISJ expression             { $$ = new EDisj($1, $3);                }
-    | expression TK_XOR expression             { $$ = new Exor($1, $3);                }
+    | expression TK_XOR expression             { $$ = new EXor($1, $3);                }
     | expression TK_IMPLY expression             { $$ = new EImply($1, $3);                }
-    | expression TK_EQ expression             { $$ = new Eeq($1, $3);                }
+    | expression TK_EQ expression             { $$ = new EEq($1, $3);                }
     | expression TK_EOF                             { $$ = new Expr($1);                }
     ;
 %%

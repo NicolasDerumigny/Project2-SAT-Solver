@@ -32,13 +32,13 @@ private:
 };
 
 /***********************************/
-/**********  Additions   ***********/
+/********** Conjonctions ***********/
 /***********************************/
 
-class EAdd : public Expr
+class EConj : public Expr
 {
 public:
-    EAdd(Expr * e1, Expr * e2);
+    EConj(Expr * e1, Expr * e2);
     virtual std::string to_string();
     virtual int eval();
 private:
@@ -46,17 +46,88 @@ private:
 };
 
 /***********************************/
-/********  Multiplications  ********/
+/********   Disjonctions    ********/
 /***********************************/
 
-class EMul : public Expr
+class EDisj : public Expr
 {
 public:
-    EMul(Expr * e1, Expr * e2);
+    EDisj(Expr * e1, Expr * e2);
     virtual std::string to_string();
     virtual int eval();
 private:
     Expr * op1, * op2;
+};
+
+/***********************************/
+/********   Implications    ********/
+/***********************************/
+
+class EImply : public Expr
+{
+public:
+    EImply(Expr * e1, Expr * e2);
+    virtual std::string to_string();
+    virtual int eval();
+private:
+    Expr * op1, * op2;
+};
+
+/***********************************/
+/********   XOR    ********/
+/***********************************/
+
+class EXor : public Expr
+{
+public:
+    EXor(Expr * e1, Expr * e2);
+    virtual std::string to_string();
+    virtual int eval();
+private:
+    Expr * op1, * op2;
+};
+
+/***********************************/
+/********   Equal    ********/
+/***********************************/
+
+class EEq : public Expr
+{
+public:
+    EEq(Expr * e1, Expr * e2);
+    virtual std::string to_string();
+    virtual int eval();
+private:
+    Expr * op1, * op2;
+};
+
+/***********************************/
+/********** Negation d'une expression ***********/
+/***********************************/
+
+class ENot : public Expr
+{
+public:
+    ENot(Expr * e1);
+    virtual std::string to_string();
+    virtual int eval();
+private:
+    Expr * op1;
+};
+
+/***********************************************/
+/********   Negation d'une variable   ********/
+/***********************************************/
+
+class VNot : public Expr
+{
+public:
+    VNot(int val);
+    virtual std::string to_string();
+    virtual int eval();
+private:
+    int value;
 };
 
 #endif // ! DEF_EXPR
+
