@@ -8,7 +8,7 @@ using namespace std;
 %}
 %%
 [ \t\n]         ;
-[0-9]+          { yylval.ival = atoi(yytext); return TK_VAR; }
+[1-9]+[0-9]*          { yylval.ival = atoi(yytext); return TK_VAR; }
 "("             { return TK_LPAREN; }
 ")"             { return TK_RPAREN; }
 "/\"            { return TK_CONJ; }
@@ -16,8 +16,8 @@ using namespace std;
 "X"             { return TK_XOR; }
 "=>"            { return TK_IMPLY; }
 "<=>"           { return TK_EQ; }
-"~"             { return TK_NOT; }
+"~"             { return TK_ENOT; }
 "0"             { return TK_EOF; }
-"-"             { return TK_NOTVAR; }
+"-"             { return TK_VNOT; }
 .               ;
 %%
