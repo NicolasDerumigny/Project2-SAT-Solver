@@ -8,7 +8,7 @@ using namespace std;
 %}
 %%
 [ \t\n]         ;
-[0-9]+          { yylval.ival = atoi(yytext); return TK_VAR; }
+[1-9]+[0-9]*          { yylval.ival = atoi(yytext); return TK_VAR; }
 "("             { return TK_LPAREN; }
 ")"             { return TK_RPAREN; }
 "/\"            { return TK_CONJ; }
