@@ -27,13 +27,16 @@ Expr *res = NULL;
 
 // define the "terminal symbol" token types I'm going to use (in CAPS
 // by convention), and associate each with a field of the union:
-%token TK_PLUS TK_MULT 
-%token TK_LPAREN TK_RPAREN
-%token <ival> TK_VAL
+%token TK_CONJ TK_DISJ TK_XOR TK_IMPLY TK_EQ
+%token TK_LPAREN TK_RPAREN TK_ENOT TK_VNOT
+%token <ival> TK_VAR
 %type <exp> expression
 
-%left TK_PLUS 
-%left TK_MULT
+
+%left TK_DISJ
+%left TK_CONJ
+%left TK_ENOT
+
 
 %%
 // this is the actual grammar that bison will parse, but for right now it's just
@@ -44,9 +47,16 @@ input: expression  { res = $1; }
      ;
 
 expression:
-      TK_INT                                    { $$ = new EConst($1);                       }
+      TK_VAR                                    { $$ = new EConst($1);                       }
+    | TK_ENOT expression             { $$ = new ENot($2);                }
+    | TK_VNOT TK_VAR           { $$ = new VNot($2);                }
     | TK_LPAREN expression TK_RPAREN            { $$ = $2;                                      }
-    | expression TK_PLUS expression             { $$ = new EAdd($1, $3);                }
-    | expression TK_MULT expression             { $$ = new EMul($1, $3);                }
+    | expression TK_CONJ expression             { $$ = new EConj($1, $3);                }
+    | expression TK_DISJ expression             { $$ = new EDisj($1, $3);                }
+    | expression TK_XOR expression             { $$ = new EXor($1, $3);                }
+    | expression TK_IMPLY expression             { $$ = new EImply($1, $3);                }
+    | expression TK_EQ expression             { $$ = new EEq($1, $3);                }
+    | expression TK_EOF                             { $$ = new Expr($1);                }
     ;
 %%
+
