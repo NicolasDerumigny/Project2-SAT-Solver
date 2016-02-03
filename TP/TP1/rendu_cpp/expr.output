@@ -1,11 +1,3 @@
-État 8 conflits: 3 décalage/réduction
-État 18 conflits: 3 décalage/réduction
-État 19 conflits: 3 décalage/réduction
-État 20 conflits: 5 décalage/réduction
-État 21 conflits: 5 décalage/réduction
-État 22 conflits: 5 décalage/réduction
-
-
 Grammaire
 
     0 $accept: input $end
@@ -179,17 +171,13 @@ expression (16)
     9           | expression . TK_IMPLY expression
    10           | expression . TK_EQ expression
 
-    TK_XOR    décalage et aller à l'état 13
-    TK_IMPLY  décalage et aller à l'état 14
-    TK_EQ     décalage et aller à l'état 15
-
-    TK_XOR    [réduction par utilisation de la règle 3 (expression)]
-    TK_IMPLY  [réduction par utilisation de la règle 3 (expression)]
-    TK_EQ     [réduction par utilisation de la règle 3 (expression)]
     $défaut  réduction par utilisation de la règle 3 (expression)
 
     Conflit entre la règle 3 et le jeton TK_CONJ résolu par réduction (TK_CONJ < TK_ENOT).
     Conflit entre la règle 3 et le jeton TK_DISJ résolu par réduction (TK_DISJ < TK_ENOT).
+    Conflit entre la règle 3 et le jeton TK_XOR résolu par réduction (TK_XOR < TK_ENOT).
+    Conflit entre la règle 3 et le jeton TK_IMPLY résolu par réduction (TK_IMPLY < TK_ENOT).
+    Conflit entre la règle 3 et le jeton TK_EQ résolu par réduction (TK_EQ < TK_ENOT).
 
 
 État 9
@@ -334,40 +322,34 @@ expression (16)
     9           | expression . TK_IMPLY expression
    10           | expression . TK_EQ expression
 
-    TK_XOR    décalage et aller à l'état 13
-    TK_IMPLY  décalage et aller à l'état 14
-    TK_EQ     décalage et aller à l'état 15
-
-    TK_XOR    [réduction par utilisation de la règle 6 (expression)]
-    TK_IMPLY  [réduction par utilisation de la règle 6 (expression)]
-    TK_EQ     [réduction par utilisation de la règle 6 (expression)]
     $défaut  réduction par utilisation de la règle 6 (expression)
 
     Conflit entre la règle 6 et le jeton TK_CONJ résolu par réduction (%left TK_CONJ).
     Conflit entre la règle 6 et le jeton TK_DISJ résolu par réduction (TK_DISJ < TK_CONJ).
+    Conflit entre la règle 6 et le jeton TK_XOR résolu par réduction (TK_XOR < TK_CONJ).
+    Conflit entre la règle 6 et le jeton TK_IMPLY résolu par réduction (TK_IMPLY < TK_CONJ).
+    Conflit entre la règle 6 et le jeton TK_EQ résolu par réduction (TK_EQ < TK_CONJ).
 
 
 État 19
 
     6 expression: expression . TK_CONJ expression
     7           | expression . TK_DISJ expression
-    7           | expression TK_DISJ expression .  [TK_DISJ, TK_XOR, TK_IMPLY, TK_EQ, TK_RPAREN, TK_EOF]
+    7           | expression TK_DISJ expression .  [TK_DISJ, TK_IMPLY, TK_EQ, TK_RPAREN, TK_EOF]
     8           | expression . TK_XOR expression
     9           | expression . TK_IMPLY expression
    10           | expression . TK_EQ expression
 
-    TK_CONJ   décalage et aller à l'état 11
-    TK_XOR    décalage et aller à l'état 13
-    TK_IMPLY  décalage et aller à l'état 14
-    TK_EQ     décalage et aller à l'état 15
+    TK_CONJ  décalage et aller à l'état 11
+    TK_XOR   décalage et aller à l'état 13
 
-    TK_XOR    [réduction par utilisation de la règle 7 (expression)]
-    TK_IMPLY  [réduction par utilisation de la règle 7 (expression)]
-    TK_EQ     [réduction par utilisation de la règle 7 (expression)]
     $défaut  réduction par utilisation de la règle 7 (expression)
 
     Conflit entre la règle 7 et le jeton TK_CONJ résolu par décalage (TK_DISJ < TK_CONJ).
     Conflit entre la règle 7 et le jeton TK_DISJ résolu par réduction (%left TK_DISJ).
+    Conflit entre la règle 7 et le jeton TK_XOR résolu par décalage (TK_DISJ < TK_XOR).
+    Conflit entre la règle 7 et le jeton TK_IMPLY résolu par réduction (TK_IMPLY < TK_DISJ).
+    Conflit entre la règle 7 et le jeton TK_EQ résolu par réduction (TK_EQ < TK_DISJ).
 
 
 État 20
@@ -375,22 +357,19 @@ expression (16)
     6 expression: expression . TK_CONJ expression
     7           | expression . TK_DISJ expression
     8           | expression . TK_XOR expression
-    8           | expression TK_XOR expression .  [TK_CONJ, TK_DISJ, TK_XOR, TK_IMPLY, TK_EQ, TK_RPAREN, TK_EOF]
+    8           | expression TK_XOR expression .  [TK_DISJ, TK_XOR, TK_IMPLY, TK_EQ, TK_RPAREN, TK_EOF]
     9           | expression . TK_IMPLY expression
    10           | expression . TK_EQ expression
 
-    TK_CONJ   décalage et aller à l'état 11
-    TK_DISJ   décalage et aller à l'état 12
-    TK_XOR    décalage et aller à l'état 13
-    TK_IMPLY  décalage et aller à l'état 14
-    TK_EQ     décalage et aller à l'état 15
+    TK_CONJ  décalage et aller à l'état 11
 
-    TK_CONJ   [réduction par utilisation de la règle 8 (expression)]
-    TK_DISJ   [réduction par utilisation de la règle 8 (expression)]
-    TK_XOR    [réduction par utilisation de la règle 8 (expression)]
-    TK_IMPLY  [réduction par utilisation de la règle 8 (expression)]
-    TK_EQ     [réduction par utilisation de la règle 8 (expression)]
     $défaut  réduction par utilisation de la règle 8 (expression)
+
+    Conflit entre la règle 8 et le jeton TK_CONJ résolu par décalage (TK_XOR < TK_CONJ).
+    Conflit entre la règle 8 et le jeton TK_DISJ résolu par réduction (TK_DISJ < TK_XOR).
+    Conflit entre la règle 8 et le jeton TK_XOR résolu par réduction (%left TK_XOR).
+    Conflit entre la règle 8 et le jeton TK_IMPLY résolu par réduction (TK_IMPLY < TK_XOR).
+    Conflit entre la règle 8 et le jeton TK_EQ résolu par réduction (TK_EQ < TK_XOR).
 
 
 État 21
@@ -399,21 +378,20 @@ expression (16)
     7           | expression . TK_DISJ expression
     8           | expression . TK_XOR expression
     9           | expression . TK_IMPLY expression
-    9           | expression TK_IMPLY expression .  [TK_CONJ, TK_DISJ, TK_XOR, TK_IMPLY, TK_EQ, TK_RPAREN, TK_EOF]
+    9           | expression TK_IMPLY expression .  [TK_IMPLY, TK_EQ, TK_RPAREN, TK_EOF]
    10           | expression . TK_EQ expression
 
-    TK_CONJ   décalage et aller à l'état 11
-    TK_DISJ   décalage et aller à l'état 12
-    TK_XOR    décalage et aller à l'état 13
-    TK_IMPLY  décalage et aller à l'état 14
-    TK_EQ     décalage et aller à l'état 15
+    TK_CONJ  décalage et aller à l'état 11
+    TK_DISJ  décalage et aller à l'état 12
+    TK_XOR   décalage et aller à l'état 13
 
-    TK_CONJ   [réduction par utilisation de la règle 9 (expression)]
-    TK_DISJ   [réduction par utilisation de la règle 9 (expression)]
-    TK_XOR    [réduction par utilisation de la règle 9 (expression)]
-    TK_IMPLY  [réduction par utilisation de la règle 9 (expression)]
-    TK_EQ     [réduction par utilisation de la règle 9 (expression)]
     $défaut  réduction par utilisation de la règle 9 (expression)
+
+    Conflit entre la règle 9 et le jeton TK_CONJ résolu par décalage (TK_IMPLY < TK_CONJ).
+    Conflit entre la règle 9 et le jeton TK_DISJ résolu par décalage (TK_IMPLY < TK_DISJ).
+    Conflit entre la règle 9 et le jeton TK_XOR résolu par décalage (TK_IMPLY < TK_XOR).
+    Conflit entre la règle 9 et le jeton TK_IMPLY résolu par réduction (%left TK_IMPLY).
+    Conflit entre la règle 9 et le jeton TK_EQ résolu par réduction (TK_EQ < TK_IMPLY).
 
 
 État 22
@@ -423,17 +401,17 @@ expression (16)
     8           | expression . TK_XOR expression
     9           | expression . TK_IMPLY expression
    10           | expression . TK_EQ expression
-   10           | expression TK_EQ expression .  [TK_CONJ, TK_DISJ, TK_XOR, TK_IMPLY, TK_EQ, TK_RPAREN, TK_EOF]
+   10           | expression TK_EQ expression .  [TK_EQ, TK_RPAREN, TK_EOF]
 
     TK_CONJ   décalage et aller à l'état 11
     TK_DISJ   décalage et aller à l'état 12
     TK_XOR    décalage et aller à l'état 13
     TK_IMPLY  décalage et aller à l'état 14
-    TK_EQ     décalage et aller à l'état 15
 
-    TK_CONJ   [réduction par utilisation de la règle 10 (expression)]
-    TK_DISJ   [réduction par utilisation de la règle 10 (expression)]
-    TK_XOR    [réduction par utilisation de la règle 10 (expression)]
-    TK_IMPLY  [réduction par utilisation de la règle 10 (expression)]
-    TK_EQ     [réduction par utilisation de la règle 10 (expression)]
     $défaut  réduction par utilisation de la règle 10 (expression)
+
+    Conflit entre la règle 10 et le jeton TK_CONJ résolu par décalage (TK_EQ < TK_CONJ).
+    Conflit entre la règle 10 et le jeton TK_DISJ résolu par décalage (TK_EQ < TK_DISJ).
+    Conflit entre la règle 10 et le jeton TK_XOR résolu par décalage (TK_EQ < TK_XOR).
+    Conflit entre la règle 10 et le jeton TK_IMPLY résolu par décalage (TK_EQ < TK_IMPLY).
+    Conflit entre la règle 10 et le jeton TK_EQ résolu par réduction (%left TK_EQ).

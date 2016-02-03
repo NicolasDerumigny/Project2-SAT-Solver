@@ -33,8 +33,10 @@ Expr *res = NULL;
 %token <ival> TK_VAR
 %type <exp> expression
 
-
+%left TK_EQ
+%left TK_IMPLY
 %left TK_DISJ
+%left TK_XOR
 %left TK_CONJ
 %left TK_ENOT
 
