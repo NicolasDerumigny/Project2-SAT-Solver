@@ -27,7 +27,7 @@ Expr *res = NULL;
 
 // define the "terminal symbol" token types I'm going to use (in CAPS
 // by convention), and associate each with a field of the union:
-%token TK_CONJ TK_DISJ TK_XOR TK_IMPLY TK_EQ 
+%token TK_PLUS TK_MULT 
 %token TK_LPAREN TK_RPAREN
 %token <ival> TK_VAL
 %type <exp> expression

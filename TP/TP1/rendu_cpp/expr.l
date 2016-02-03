@@ -16,8 +16,8 @@ using namespace std;
 "X"             { return TK_XOR; }
 "=>"            { return TK_IMPLY; }
 "<=>"           { return TK_EQ; }
-"~"             { return TK_NOT; }
+"~"             { return TK_ENOT; }
 "0"             { return TK_EOF; }
--[0-9]+         { yylval.ival = atoi(yytext); return TK_NOT TK_VAR; }
+"-"             { return TK_VNOT; }
 .               ;
 %%
