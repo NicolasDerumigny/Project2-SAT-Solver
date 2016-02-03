@@ -29,6 +29,7 @@ Expr *res = NULL;
 // by convention), and associate each with a field of the union:
 %token TK_CONJ TK_DISJ TK_XOR TK_IMPLY TK_EQ
 %token TK_LPAREN TK_RPAREN TK_ENOT TK_VNOT
+%token TK_EOF
 %token <ival> TK_VAR
 %type <exp> expression
 
@@ -47,7 +48,7 @@ input: expression TK_EOF { res = $1; }
      ;
 
 expression:
-    | TK_VAR                                    { $$ = new EConst($1);                       }
+     TK_VAR                                    { $$ = new EConst($1);                       }
     | TK_ENOT expression             { $$ = new ENot($2);                }
     | TK_VNOT TK_VAR           { $$ = new VNot($2);                }
     | TK_LPAREN expression TK_RPAREN            { $$ = $2;                                      }

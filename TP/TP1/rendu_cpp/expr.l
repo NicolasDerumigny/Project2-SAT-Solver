@@ -11,9 +11,9 @@ using namespace std;
 [1-9]+[0-9]*          { yylval.ival = atoi(yytext); return TK_VAR; }
 "("             { return TK_LPAREN; }
 ")"             { return TK_RPAREN; }
-"/\"            { return TK_CONJ; }
+"/\\"            { return TK_CONJ; }
 "\n"            { return TK_CONJ; }
-"\/"            { return TK_DISJ; }
+"\\/"            { return TK_DISJ; }
 "X"             { return TK_XOR; }
 "=>"            { return TK_IMPLY; }
 "<=>"           { return TK_EQ; }
