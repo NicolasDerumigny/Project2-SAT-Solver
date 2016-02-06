@@ -2,11 +2,14 @@
 #include "litt.h"
 #ifndef CLAUSE_H
 #define CLAUSE_H
+using namespace std;
 
 class clause{
-    map<unsigned int,litt> mElement_alive;
-    map<unsigned int,litt> mElement_dead;
+public:
+    map<unsigned int,litt> mElementAlive;
+    map<unsigned int,litt> mElementDead;
     bool isSatisfied();
+    void merge(clause* cl);
 };
 
 #endif // CLAUSE_H

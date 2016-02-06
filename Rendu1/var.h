@@ -1,6 +1,7 @@
 #include <map>
 #ifndef VAR_H
 #define VAR_H
+using namespace std;
 
 class var{
 public:

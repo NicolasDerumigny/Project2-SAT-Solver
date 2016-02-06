@@ -1,6 +1,7 @@
 #ifndef DEF_EXPR
 #define DEF_EXPR
 
+#include "formule.h"
 #include <iostream>
 #include <sstream> 
 #include <string>
@@ -15,7 +16,8 @@ class Expr
 public:
     Expr(){}
     virtual std::string to_string()=0;
-    virtual int eval()=0;
+    virtual formule* eval()=0;
+    formule *form;
 };
 
 /***********************************/
@@ -27,7 +29,7 @@ class EConst : public Expr
 public:
     EConst(int val); 
     virtual std::string to_string();
-    virtual int eval();
+    virtual formule* eval();
 private:
     int value;
 };
@@ -41,7 +43,7 @@ class EConj : public Expr
 public:
     EConj(Expr * e1, Expr * e2);
     virtual std::string to_string();
-    virtual int eval();
+    virtual formule* eval();
 private:
     Expr * op1, * op2;
 };
@@ -55,7 +57,7 @@ class EDisj : public Expr
 public:
     EDisj(Expr * e1, Expr * e2);
     virtual std::string to_string();
-    virtual int eval();
+    virtual formule* eval();
 private:
     Expr * op1, * op2;
 };
@@ -63,45 +65,46 @@ private:
 /***********************************/
 /********   Implications    ********/
 /***********************************/
+/*
 
 class EImply : public Expr
 {
 public:
     EImply(Expr * e1, Expr * e2);
     virtual std::string to_string();
-    virtual int eval();
+    virtual formule* eval();
 private:
     Expr * op1, * op2;
 };
-
+*/
 /***********************************/
 /********   XOR    ********/
 /***********************************/
-
+/*
 class EXor : public Expr
 {
 public:
     EXor(Expr * e1, Expr * e2);
     virtual std::string to_string();
-    virtual int eval();
+    virtual formule* eval();
 private:
     Expr * op1, * op2;
 };
-
+*/
 /***********************************/
 /********   Equal    ********/
 /***********************************/
-
+/*
 class EEq : public Expr
 {
 public:
     EEq(Expr * e1, Expr * e2);
     virtual std::string to_string();
-    virtual int eval();
+    virtual formule* eval();
 private:
     Expr * op1, * op2;
 };
-
+*/
 /***********************************/
 /********** Negation d'une expression ***********/
 /***********************************/
@@ -111,7 +114,7 @@ class ENot : public Expr
 public:
     ENot(Expr * e1);
     virtual std::string to_string();
-    virtual int eval();
+    virtual formule* eval();
 private:
     Expr * op1;
 };
@@ -125,7 +128,7 @@ class VNot : public Expr
 public:
     VNot(int val);
     virtual std::string to_string();
-    virtual int eval();
+    virtual formule* eval();
 private:
     int value;
 };
