@@ -25,4 +25,6 @@ SOURCES += \
     var.cpp
 
 HEADERS += \
-    var.h
+    var.h \
+    litt.h \
+    clause.h
