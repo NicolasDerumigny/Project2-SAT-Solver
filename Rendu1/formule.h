@@ -5,8 +5,10 @@
 
 class formule{
 public:
-    map<clause> m_clause_satisfied;
-    map<clause> m_clause_unsatisfied;
+    map<unsigned int,clause> m_clause_satisfied;
+    map<unsigned int,clause> m_clause_unsatisfied;
+    void merge(formule formule2);
+    //merge this and formule 2 and place it into this
 };
 
 #endif // FORMULE_H

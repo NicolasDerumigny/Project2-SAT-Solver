@@ -4,8 +4,8 @@
 #define CLAUSE_H
 
 class clause{
-    map<litt> mElement_alive;
-    map<litt> mElement_dead;
+    map<unsigned int,litt> mElement_alive;
+    map<unsigned int,litt> mElement_dead;
     bool isSatisfied();
 };
 
