@@ -1,10 +1,11 @@
+#include <map>
 #ifndef VAR_H
 #define VAR_H
 
-class variable{
+class var{
 public:
     int id;
-    int valeur;
+    int value;
     int setValue();
 };
 

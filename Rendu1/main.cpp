@@ -1,10 +1,15 @@
 #include <cstdio>
 #include <cstdlib>
 #include <iostream>
+#include <map>
 using namespace std;
 
 #include "expr.hpp"
 #include "expr.tab.hpp"
+#include "clause.h"
+#include "var.h"
+#include "litt.h"
+#include "formule.h"
 
 //extern "C" int yyparse();
 extern "C" FILE *yyin;

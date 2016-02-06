@@ -27,4 +27,5 @@ SOURCES += \
 HEADERS += \
     var.h \
     litt.h \
-    clause.h
+    clause.h \
+    formule.h
