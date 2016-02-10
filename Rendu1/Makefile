@@ -9,7 +9,7 @@ LIBLEX=-lfl
 YACC=bison
 
 all: $(NAME).tab.cpp $(NAME).yy.c $(NAME).cpp main.cpp
-	$(CC) -g -Wall -Wextra -Wno-write-strings -o resol $^ $(LIBLEX)
+	$(CC) -g -std=c++11 -Wall -Wextra -Wno-write-strings -o resol $^ $(LIBLEX)
 
 $(NAME).yy.c :  $(NAME).l
 	$(LEX)  -o $@ $^

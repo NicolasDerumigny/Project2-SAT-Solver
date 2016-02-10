@@ -22,10 +22,10 @@ string EConst::to_string()
 
 formule* EConst::eval()
 {
-    var * constante;
-    constante = new var;
-    constante->setNewVar(value);
-    return constante;
+    formule* new_form;
+    new_form= new formule();
+    new_form->set_formule(value, false);
+    return new_form;
 }
 
 /****************************************/
@@ -130,7 +130,7 @@ formule* EEq::eval()
 /***********************************/
 /********  ENOT  *****************/
 /**********************************/
-
+/*
 ENot::ENot(Expr * e1) : op1(e1) {}
 
 string ENot::to_string()
@@ -142,7 +142,7 @@ formule* ENot::eval()
 {
     return op1->eval();
 }
-
+*/
 /***********************************/
 /********  VNOT                *******/
 /**********************************/
@@ -160,6 +160,9 @@ string VNot::to_string()
 
 formule* VNot::eval()
 {
-    return value;
+    formule* new_form;
+    new_form= new formule();
+    new_form->set_formule(value, true);
+    return new_form;
 }
 

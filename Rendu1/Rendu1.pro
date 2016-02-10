@@ -24,7 +24,8 @@ SOURCES += \
     expr.hpp \
     var.cpp \
     formule.cpp \
-    clause.cpp
+    clause.cpp \
+    litt.cpp
 
 HEADERS += \
     var.h \

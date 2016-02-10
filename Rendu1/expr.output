@@ -1,247 +1,209 @@
-Terminals unused in grammar
+Terminaux inutilisés dans la grammaire
 
    TK_XOR
    TK_IMPLY
    TK_EQ
+   TK_ENOT
 
 
-Grammar
+Grammaire
 
     0 $accept: input $end
 
     1 input: expression TK_EOF
 
     2 expression: TK_VAR
-    3           | TK_ENOT expression
-    4           | TK_VNOT TK_VAR
-    5           | TK_LPAREN expression TK_RPAREN
-    6           | expression TK_CONJ expression
-    7           | expression TK_DISJ expression
+    3           | TK_VNOT TK_VAR
+    4           | TK_LPAREN expression TK_RPAREN
+    5           | expression TK_CONJ expression
+    6           | expression TK_DISJ expression
 
 
-Terminals, with rules where they appear
+Terminaux, suivis des règles où ils apparaissent
 
 $end (0) 0
 error (256)
-TK_CONJ (258) 6
-TK_DISJ (259) 7
+TK_CONJ (258) 5
+TK_DISJ (259) 6
 TK_XOR (260)
 TK_IMPLY (261)
 TK_EQ (262)
-TK_LPAREN (263) 5
-TK_RPAREN (264) 5
-TK_ENOT (265) 3
-TK_VNOT (266) 4
+TK_LPAREN (263) 4
+TK_RPAREN (264) 4
+TK_ENOT (265)
+TK_VNOT (266) 3
 TK_EOF (267) 1
-TK_VAR (268) 2 4
+TK_VAR (268) 2 3
 
 
-Nonterminals, with rules where they appear
+Non-terminaux, suivis des règles où ils apparaissent
 
 $accept (14)
-    on left: 0
+    à gauche: 0
 input (15)
-    on left: 1, on right: 0
+    à gauche: 1, à droite: 0
 expression (16)
-    on left: 2 3 4 5 6 7, on right: 1 3 5 6 7
+    à gauche: 2 3 4 5 6, à droite: 1 4 5 6
 
 
-State 0
+État 0
 
     0 $accept: . input $end
     1 input: . expression TK_EOF
     2 expression: . TK_VAR
-    3           | . TK_ENOT expression
-    4           | . TK_VNOT TK_VAR
-    5           | . TK_LPAREN expression TK_RPAREN
-    6           | . expression TK_CONJ expression
-    7           | . expression TK_DISJ expression
+    3           | . TK_VNOT TK_VAR
+    4           | . TK_LPAREN expression TK_RPAREN
+    5           | . expression TK_CONJ expression
+    6           | . expression TK_DISJ expression
 
-    TK_LPAREN  shift, and go to state 1
-    TK_ENOT    shift, and go to state 2
-    TK_VNOT    shift, and go to state 3
-    TK_VAR     shift, and go to state 4
+    TK_LPAREN  décalage et aller à l'état 1
+    TK_VNOT    décalage et aller à l'état 2
+    TK_VAR     décalage et aller à l'état 3
 
-    input       go to state 5
-    expression  go to state 6
+    input       aller à l'état 4
+    expression  aller à l'état 5
 
 
-State 1
+État 1
 
     2 expression: . TK_VAR
-    3           | . TK_ENOT expression
-    4           | . TK_VNOT TK_VAR
-    5           | . TK_LPAREN expression TK_RPAREN
-    5           | TK_LPAREN . expression TK_RPAREN
-    6           | . expression TK_CONJ expression
-    7           | . expression TK_DISJ expression
+    3           | . TK_VNOT TK_VAR
+    4           | . TK_LPAREN expression TK_RPAREN
+    4           | TK_LPAREN . expression TK_RPAREN
+    5           | . expression TK_CONJ expression
+    6           | . expression TK_DISJ expression
 
-    TK_LPAREN  shift, and go to state 1
-    TK_ENOT    shift, and go to state 2
-    TK_VNOT    shift, and go to state 3
-    TK_VAR     shift, and go to state 4
+    TK_LPAREN  décalage et aller à l'état 1
+    TK_VNOT    décalage et aller à l'état 2
+    TK_VAR     décalage et aller à l'état 3
 
-    expression  go to state 7
+    expression  aller à l'état 6
 
 
-State 2
+État 2
 
-    2 expression: . TK_VAR
-    3           | . TK_ENOT expression
-    3           | TK_ENOT . expression
-    4           | . TK_VNOT TK_VAR
-    5           | . TK_LPAREN expression TK_RPAREN
-    6           | . expression TK_CONJ expression
-    7           | . expression TK_DISJ expression
+    3 expression: TK_VNOT . TK_VAR
 
-    TK_LPAREN  shift, and go to state 1
-    TK_ENOT    shift, and go to state 2
-    TK_VNOT    shift, and go to state 3
-    TK_VAR     shift, and go to state 4
-
-    expression  go to state 8
+    TK_VAR  décalage et aller à l'état 7
 
 
-State 3
-
-    4 expression: TK_VNOT . TK_VAR
-
-    TK_VAR  shift, and go to state 9
-
-
-State 4
+État 3
 
     2 expression: TK_VAR .
 
-    $default  reduce using rule 2 (expression)
+    $défaut  réduction par utilisation de la règle 2 (expression)
 
 
-State 5
+État 4
 
     0 $accept: input . $end
 
-    $end  shift, and go to state 10
+    $end  décalage et aller à l'état 8
 
 
-State 6
+État 5
 
     1 input: expression . TK_EOF
-    6 expression: expression . TK_CONJ expression
-    7           | expression . TK_DISJ expression
+    5 expression: expression . TK_CONJ expression
+    6           | expression . TK_DISJ expression
 
-    TK_CONJ  shift, and go to state 11
-    TK_DISJ  shift, and go to state 12
-    TK_EOF   shift, and go to state 13
-
-
-State 7
-
-    5 expression: TK_LPAREN expression . TK_RPAREN
-    6           | expression . TK_CONJ expression
-    7           | expression . TK_DISJ expression
-
-    TK_CONJ    shift, and go to state 11
-    TK_DISJ    shift, and go to state 12
-    TK_RPAREN  shift, and go to state 14
+    TK_CONJ  décalage et aller à l'état 9
+    TK_DISJ  décalage et aller à l'état 10
+    TK_EOF   décalage et aller à l'état 11
 
 
-State 8
+État 6
 
-    3 expression: TK_ENOT expression .  [TK_CONJ, TK_DISJ, TK_RPAREN, TK_EOF]
-    6           | expression . TK_CONJ expression
-    7           | expression . TK_DISJ expression
+    4 expression: TK_LPAREN expression . TK_RPAREN
+    5           | expression . TK_CONJ expression
+    6           | expression . TK_DISJ expression
 
-    $default  reduce using rule 3 (expression)
-
-    Conflict between rule 3 and token TK_CONJ resolved as reduce (TK_CONJ < TK_ENOT).
-    Conflict between rule 3 and token TK_DISJ resolved as reduce (TK_DISJ < TK_ENOT).
-
-
-State 9
-
-    4 expression: TK_VNOT TK_VAR .
-
-    $default  reduce using rule 4 (expression)
+    TK_CONJ    décalage et aller à l'état 9
+    TK_DISJ    décalage et aller à l'état 10
+    TK_RPAREN  décalage et aller à l'état 12
 
 
-State 10
+État 7
+
+    3 expression: TK_VNOT TK_VAR .
+
+    $défaut  réduction par utilisation de la règle 3 (expression)
+
+
+État 8
 
     0 $accept: input $end .
 
-    $default  accept
+    $défaut  accepter
 
 
-State 11
-
-    2 expression: . TK_VAR
-    3           | . TK_ENOT expression
-    4           | . TK_VNOT TK_VAR
-    5           | . TK_LPAREN expression TK_RPAREN
-    6           | . expression TK_CONJ expression
-    6           | expression TK_CONJ . expression
-    7           | . expression TK_DISJ expression
-
-    TK_LPAREN  shift, and go to state 1
-    TK_ENOT    shift, and go to state 2
-    TK_VNOT    shift, and go to state 3
-    TK_VAR     shift, and go to state 4
-
-    expression  go to state 15
-
-
-State 12
+État 9
 
     2 expression: . TK_VAR
-    3           | . TK_ENOT expression
-    4           | . TK_VNOT TK_VAR
-    5           | . TK_LPAREN expression TK_RPAREN
-    6           | . expression TK_CONJ expression
-    7           | . expression TK_DISJ expression
-    7           | expression TK_DISJ . expression
+    3           | . TK_VNOT TK_VAR
+    4           | . TK_LPAREN expression TK_RPAREN
+    5           | . expression TK_CONJ expression
+    5           | expression TK_CONJ . expression
+    6           | . expression TK_DISJ expression
 
-    TK_LPAREN  shift, and go to state 1
-    TK_ENOT    shift, and go to state 2
-    TK_VNOT    shift, and go to state 3
-    TK_VAR     shift, and go to state 4
+    TK_LPAREN  décalage et aller à l'état 1
+    TK_VNOT    décalage et aller à l'état 2
+    TK_VAR     décalage et aller à l'état 3
 
-    expression  go to state 16
+    expression  aller à l'état 13
 
 
-State 13
+État 10
+
+    2 expression: . TK_VAR
+    3           | . TK_VNOT TK_VAR
+    4           | . TK_LPAREN expression TK_RPAREN
+    5           | . expression TK_CONJ expression
+    6           | . expression TK_DISJ expression
+    6           | expression TK_DISJ . expression
+
+    TK_LPAREN  décalage et aller à l'état 1
+    TK_VNOT    décalage et aller à l'état 2
+    TK_VAR     décalage et aller à l'état 3
+
+    expression  aller à l'état 14
+
+
+État 11
 
     1 input: expression TK_EOF .
 
-    $default  reduce using rule 1 (input)
+    $défaut  réduction par utilisation de la règle 1 (input)
 
 
-State 14
+État 12
 
-    5 expression: TK_LPAREN expression TK_RPAREN .
+    4 expression: TK_LPAREN expression TK_RPAREN .
 
-    $default  reduce using rule 5 (expression)
-
-
-State 15
-
-    6 expression: expression . TK_CONJ expression
-    6           | expression TK_CONJ expression .  [TK_CONJ, TK_DISJ, TK_RPAREN, TK_EOF]
-    7           | expression . TK_DISJ expression
-
-    $default  reduce using rule 6 (expression)
-
-    Conflict between rule 6 and token TK_CONJ resolved as reduce (%left TK_CONJ).
-    Conflict between rule 6 and token TK_DISJ resolved as reduce (TK_DISJ < TK_CONJ).
+    $défaut  réduction par utilisation de la règle 4 (expression)
 
 
-State 16
+État 13
 
-    6 expression: expression . TK_CONJ expression
-    7           | expression . TK_DISJ expression
-    7           | expression TK_DISJ expression .  [TK_DISJ, TK_RPAREN, TK_EOF]
+    5 expression: expression . TK_CONJ expression
+    5           | expression TK_CONJ expression .  [TK_CONJ, TK_DISJ, TK_RPAREN, TK_EOF]
+    6           | expression . TK_DISJ expression
 
-    TK_CONJ  shift, and go to state 11
+    $défaut  réduction par utilisation de la règle 5 (expression)
 
-    $default  reduce using rule 7 (expression)
+    Conflit entre la règle 5 et le jeton TK_CONJ résolu par réduction (%left TK_CONJ).
+    Conflit entre la règle 5 et le jeton TK_DISJ résolu par réduction (TK_DISJ < TK_CONJ).
 
-    Conflict between rule 7 and token TK_CONJ resolved as shift (TK_DISJ < TK_CONJ).
-    Conflict between rule 7 and token TK_DISJ resolved as reduce (%left TK_DISJ).
+
+État 14
+
+    5 expression: expression . TK_CONJ expression
+    6           | expression . TK_DISJ expression
+    6           | expression TK_DISJ expression .  [TK_DISJ, TK_RPAREN, TK_EOF]
+
+    TK_CONJ  décalage et aller à l'état 9
+
+    $défaut  réduction par utilisation de la règle 6 (expression)
+
+    Conflit entre la règle 6 et le jeton TK_CONJ résolu par décalage (TK_DISJ < TK_CONJ).
+    Conflit entre la règle 6 et le jeton TK_DISJ résolu par réduction (%left TK_DISJ).

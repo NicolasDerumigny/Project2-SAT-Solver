@@ -1,5 +1,5 @@
 #include "var.h"
-int setNewVar(int id){
+void var::set_var(int id){
     this->id=id;
     this->value=-1;
 }

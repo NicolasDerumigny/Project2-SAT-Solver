@@ -51,7 +51,7 @@ input: expression TK_EOF { res = $1; }
 
 expression:
      TK_VAR                                    { $$ = new EConst($1);                       }
-    | TK_ENOT expression             { $$ = new ENot($2);                }
+    //| TK_ENOT expression             { $$ = new ENot($2);                }
     | TK_VNOT TK_VAR           { $$ = new VNot($2);                }
     | TK_LPAREN expression TK_RPAREN            { $$ = $2;                                      }
     | expression TK_CONJ expression             { $$ = new EConj($1, $3);                }

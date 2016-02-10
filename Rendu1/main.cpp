@@ -6,14 +6,16 @@ using namespace std;
 
 #include "expr.hpp"
 #include "expr.tab.hpp"
-#include "clause.h"
-#include "var.h"
-#include "litt.h"
-#include "formule.h"
+#include "clause.cpp"
+#include "var.cpp"
+#include "litt.cpp"
+#include "formule.cpp"
 
 //extern "C" int yyparse();
 extern "C" FILE *yyin;
 extern Expr *res;
+
+
 
 int main(int, char**) {
     // parse through the input until there is no more:

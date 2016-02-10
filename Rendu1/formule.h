@@ -1,5 +1,5 @@
-#include <map>
 #include "clause.h"
+#include <map>
 #ifndef FORMULE_H
 #define FORMULE_H
 using namespace std;
@@ -7,10 +7,11 @@ using namespace std;
 
 class formule{
 public:
+    void set_formule(int varid, bool neg);
+
     map<unsigned int,clause> mClauseSatisfied;
     map<unsigned int,clause> mClauseUnsatisfied;
     void merge(formule* formule2);
-    void setFromOneVar(int id);
     //merge this and formule 2 and place it into this
 };
 
