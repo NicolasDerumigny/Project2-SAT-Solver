@@ -27,11 +27,13 @@ SOURCES += \
     litt.cpp \
     deduce.cpp \
     decide.cpp \
-    backtrack.cpp
+    backtrack.cpp \
+    assignation.cpp
 
 HEADERS += \
     var.h \
     litt.h \
     clause.h \
     formule.h \
-    expr.hpp
+    expr.hpp \
+    assignation.h
