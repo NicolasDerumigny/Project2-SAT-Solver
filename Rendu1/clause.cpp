@@ -23,6 +23,6 @@ void clause::print(){
     cout<<"\tElements morts :"<<endl;
     for (auto& s:this->mElementDead)
         s.second.print();
-    cout<<endl;
+    cout<<"----------------------------";
     cout<<endl;
 }
