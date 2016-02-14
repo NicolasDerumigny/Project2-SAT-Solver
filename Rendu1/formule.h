@@ -1,7 +1,7 @@
-#include "clause.h"
-#include <map>
 #ifndef FORMULE_H
 #define FORMULE_H
+#include "clause.h"
+#include <map>
 using namespace std;
 
 class formule{

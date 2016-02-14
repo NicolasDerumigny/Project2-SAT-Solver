@@ -20,6 +20,9 @@ vector<assignation*> assignations;//création du vector qui contient les assigna
 #include "litt.cpp"
 #include "clause.cpp"
 #include "formule.cpp"
+#include "decide.cpp"
+#include "deduce.cpp"
+#include "backtrack.cpp"
 
 
 //extern "C" int yyparse();

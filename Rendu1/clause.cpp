@@ -13,6 +13,10 @@ void clause::merge(clause* cl2){
         this->mElementAlive[this->mElementAlive.size()]=s.second;
     for (auto& s:cl2->mElementDead)
         this->mElementDead[this->mElementDead.size()]=s.second;
+    for (auto& s:v_var)
+        for (auto& s2:s->clauseInto)
+            if (s2 == cl2)
+                s2 = this;
 }
 
 void clause::print(){

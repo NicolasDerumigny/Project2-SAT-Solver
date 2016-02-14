@@ -1,4 +1,5 @@
 #ifndef ASSIGNATION_H
+#include "var.h"
 #define ASSIGNATION_H
 
 class assignation

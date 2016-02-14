@@ -1,7 +1,7 @@
-#include "litt.h"
-#include <map>
 #ifndef CLAUSE_H
 #define CLAUSE_H
+#include "litt.h"
+#include <map>
 using namespace std;
 
 class clause{
