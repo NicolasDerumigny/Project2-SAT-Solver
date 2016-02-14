@@ -1,6 +1,7 @@
 #include "formule.h"
 void formule::set_formule(int varid, bool neg){
     var* new_var;
+    //Afficher une erreur dans le cas ou la variable n'y est pas ET CONTINUER QUAND MEME
     if (v_var[varid]==nullptr){
         new_var= new var;
         new_var->set_var(varid);
@@ -25,4 +26,14 @@ void formule::merge(formule* formule2){
         this->mClauseSatisfied[this->mClauseSatisfied.size()]=s.second;
     for (auto& s:formule2->mClauseUnsatisfied)
         this->mClauseUnsatisfied[this->mClauseUnsatisfied.size()]=s.second;
+}
+
+void formule::print(){
+    cout<<"Clauses satisfaites :"<<endl;
+    for (auto& s:this->mClauseSatisfied)
+        s.second.print();
+    cout<<"Clauses non satisfaites :"<<endl;
+    for (auto& s:this->mClauseUnsatisfied)
+        s.second.print();
+
 }

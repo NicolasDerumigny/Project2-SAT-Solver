@@ -2,6 +2,7 @@
 #include <cstdlib>
 #include <iostream>
 #include <map>
+#include <vector>
 #include <fstream>
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -24,27 +25,22 @@ extern "C" FILE *yyin;
 extern Expr *res;
 
 int main(int argc, char** argv) {
-    if (argc==1){
+    if (argc==2){
 
         struct stat buff;
-        if (lstat(argv[1], &buff)){
+        if (!stat(argv[1], &buff)){//si l'ouverture à fonctionnée
             if (!S_ISREG(buff.st_mode)){
                 cout<<"This file specified is not a regular file"<<endl;
                 return 1;
             }//on vérifie que le fichier en entrée est bien un fichier normal
         }else{
-            cout<<"Failed to open file"<<endl;
+            cout<<"Failed to open file : "<<argv[1]<<endl;
             return 1;
         }
 
-        {
-            ofstream eFile;//EntryFile
-            eFile.open(argv[1], ofstream::out | ofstream::app);
-            eFile<<'x';
-            eFile.close();//on rajout un caractère pour faciliter la lecture syntaxique
-        }
 
         ifstream eFile;
+        string temp;
         eFile.open(argv[1], ifstream::in);
 
         string p,cnf;
@@ -52,7 +48,6 @@ int main(int argc, char** argv) {
 
         eFile >> p >> cnf >> V >> C;
         eFile.close();
-
 
 
         if (p!="p" or cnf!="cnf"){
@@ -65,7 +60,6 @@ int main(int argc, char** argv) {
         for(int i=0;i<V;i++)
             v_var.push_back(nullptr);
 
-
         FILE* inputFile;
         inputFile=fopen(argv[1],"r");
 
@@ -73,18 +67,14 @@ int main(int argc, char** argv) {
         yyin = inputFile;
         do {
             yyparse();
-            cout << res->to_string() << endl ;//<< res->eval() << endl;
+            cout << res->to_string() << endl;
+            formule * instance;
+            instance =  res->eval();
+            instance->print();
+            //A Faire : dire si le nombre de clause est correct
         } while (!feof(yyin));
 
         fclose(inputFile);
-        {
-            ofstream eFile;//EntryFile
-            eFile.open(argv[1], ofstream::out | ofstream::app);
-            long pos=eFile.tellp();
-            eFile.seekp (pos-1);
-            eFile<<EOF;
-            eFile.close();
-        }
 
 
         return 0;

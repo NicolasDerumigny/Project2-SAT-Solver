@@ -7,6 +7,7 @@ using namespace std;
 class clause{
 public:
     void set_clause(litt litt_entry);
+    void print();
 
     map<unsigned int,litt> mElementAlive;
     map<unsigned int,litt> mElementDead;

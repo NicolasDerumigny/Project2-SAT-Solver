@@ -24,12 +24,16 @@ SOURCES += \
     var.cpp \
     formule.cpp \
     clause.cpp \
-    litt.cpp
+    litt.cpp \
+    deduce.cpp \
+    decide.cpp \
+    backtrack.cpp \
+    assignation.cpp
 
 HEADERS += \
     var.h \
     litt.h \
     clause.h \
     formule.h \
-    expr.tab.hpp \
-    expr.hpp
+    expr.hpp \
+    assignation.h

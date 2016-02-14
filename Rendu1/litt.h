@@ -8,6 +8,8 @@ class litt{
 
 public:
     void set_litt(var* var_entry, bool neg);
+    void print();
+
     var* variable;
     bool neg;
 };
