@@ -1230,7 +1230,7 @@ yyreduce:
 
   case 3:
 #line 53 "expr.ypp" /* yacc.c:1646  */
-    { cout<<"variable"<<(yyvsp[0].ival)<<endl;(yyval.exp) = new EConst((yyvsp[0].ival));              }
+    { (yyval.exp) = new EConst((yyvsp[0].ival));              }
 #line 1235 "expr.tab.cpp" /* yacc.c:1646  */
     break;
 
@@ -1248,7 +1248,7 @@ yyreduce:
 
   case 6:
 #line 56 "expr.ypp" /* yacc.c:1646  */
-    { cout<<"PB\n"; (yyval.exp) = new EConj((yyvsp[-2].exp), (yyvsp[0].exp));           }
+    { (yyval.exp) = new EConj((yyvsp[-2].exp), (yyvsp[0].exp));           }
 #line 1253 "expr.tab.cpp" /* yacc.c:1646  */
     break;
 

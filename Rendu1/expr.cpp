@@ -7,7 +7,7 @@
 using namespace std;
 
 /*************************************/
-/**********  Constants   ***********/
+/**********  Constants   ************/
 /***********************************/
 
 EConst::EConst(int val) : value(val) {}
@@ -25,11 +25,12 @@ formule* EConst::eval()
     formule* new_form;
     new_form= new formule();
     new_form->set_formule(value, false);
-    return new_form;
+    this->form=new_form;
+    return this->form;
 }
 
-/****************************************/
-/**********  Conjonctions   ***********/
+/*****************************************/
+/**********  Conjonctions   *************/
 /***************************************/
 
 EConj::EConj(Expr * e1, Expr * e2) : op1(e1), op2(e2) {}
@@ -41,18 +42,23 @@ string EConj::to_string()
 
 formule* EConj::eval()//op1 et op2 seront des formules
 {
+    op1->form=op1->eval();
+    op2->form=op2->eval();
     if(op1->form->mClauseUnsatisfied.size() > op2->form->mClauseUnsatisfied.size()){
         op1->form->merge(op2->form);
-        return op1->eval();
+        delete op2->form;
+        this->form=op1->form;
     }
     else{
         op2->form->merge(op1->form);
-        return op2->eval();
+        delete op1->form;
+        this->form=op2->form;
     }
+    return this->form;
 }
 
-/************************************/
-/********  Disjonctions   **********/
+/*************************************/
+/********  Disjonctions   ***********/
 /***********************************/
 
 EDisj::EDisj(Expr * e1, Expr * e2) : op1(e1), op2(e2) {}
@@ -65,21 +71,48 @@ string EDisj::to_string()
 formule* EDisj::eval()
 //we assume that the formula are only composed of one unique clause, that we merge together
 {
+    op1->form=op1->eval();
+    op2->form=op2->eval();
     if(op1->form->mClauseUnsatisfied.size() > op2->form->mClauseUnsatisfied.size()){
         (op1->form->mClauseUnsatisfied[0]).merge(&(op2->form->mClauseUnsatisfied[0]));
         delete op2->form;
-        return op1->eval();
+        this->form=op1->form;
     }
     else{
         (op2->form->mClauseUnsatisfied[0]).merge(&(op1->form->mClauseUnsatisfied[0]));
         delete op1->form;
-        return op2->eval();
+        this->form=op2->form;
     }
+    return this->form;
+}
+
+/************************************/
+/********  VNOT              *******/
+/**********************************/
+
+
+VNot::VNot(int val) : value(val) {}
+
+string VNot::to_string()
+{
+    ostringstream oss;
+    oss << "¬v" << value;
+    string result = oss.str();
+    return result;
+}
+
+formule* VNot::eval()
+{
+    formule* new_form;
+    new_form= new formule();
+    new_form->set_formule(value, true);
+    this->form=new_form;
+    return this->form;
 }
 
 
 /************************************/
-/********  XOR  *******************/
+/********  XOR  ********************/
 /**********************************/
 /*
 EXor::EXor(Expr * e1, Expr * e2) : op1(e1), op2(e2) {}
@@ -95,7 +128,7 @@ formule* EXor::eval()
 }
 */
 /************************************/
-/********  IMPLY   ****************/
+/********  IMPLY   *****************/
 /**********************************/
 /*
 
@@ -127,8 +160,8 @@ formule* EEq::eval()
     return op1->eval() * op2->eval();
 }
 */
-/***********************************/
-/********  ENOT  *****************/
+/************************************/
+/********  ENOT  *******************/
 /**********************************/
 /*
 ENot::ENot(Expr * e1) : op1(e1) {}
@@ -143,26 +176,3 @@ formule* ENot::eval()
     return op1->eval();
 }
 */
-/***********************************/
-/********  VNOT                *******/
-/**********************************/
-
-
-VNot::VNot(int val) : value(val) {}
-
-string VNot::to_string()
-{
-    ostringstream oss;
-    oss << "¬v" << value;
-    string result = oss.str();
-    return result;
-}
-
-formule* VNot::eval()
-{
-    formule* new_form;
-    new_form= new formule();
-    new_form->set_formule(value, true);
-    return new_form;
-}
-

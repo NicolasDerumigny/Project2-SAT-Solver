@@ -67,7 +67,11 @@ int main(int argc, char** argv) {
         yyin = inputFile;
         do {
             yyparse();
-            cout << res->to_string() << endl ;//<< res->eval() << endl;
+            cout << res->to_string() << endl;
+            formule * instance;
+            instance =  res->eval();
+            instance->print();
+            //A Faire : dire si le nombre de clause est correct
         } while (!feof(yyin));
 
         fclose(inputFile);

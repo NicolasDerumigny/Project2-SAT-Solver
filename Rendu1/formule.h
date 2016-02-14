@@ -7,6 +7,7 @@ using namespace std;
 class formule{
 public:
     void set_formule(int varid, bool neg);
+    void print();
 
     map<unsigned int,clause> mClauseSatisfied;
     map<unsigned int,clause> mClauseUnsatisfied;

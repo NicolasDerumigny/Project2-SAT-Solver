@@ -14,3 +14,15 @@ void clause::merge(clause* cl2){
     for (auto& s:cl2->mElementDead)
         this->mElementDead[this->mElementDead.size()]=s.second;
 }
+
+void clause::print(){
+    cout<<"\tElements vivants :"<<endl;
+    for (auto& s:this->mElementAlive)
+        s.second.print();
+    cout<<endl;
+    cout<<"\tElements morts :"<<endl;
+    for (auto& s:this->mElementDead)
+        s.second.print();
+    cout<<endl;
+    cout<<endl;
+}
