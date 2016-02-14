@@ -3,7 +3,7 @@
 
 #include "formule.h"
 #include <iostream>
-#include <sstream> 
+#include <sstream>
 #include <string>
 
 
@@ -27,7 +27,7 @@ public:
 class EConst : public Expr
 {
 public:
-    EConst(int val); 
+    EConst(int val);
     virtual std::string to_string();
     virtual formule* eval();
 private:

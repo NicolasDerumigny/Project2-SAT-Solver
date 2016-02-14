@@ -55,7 +55,8 @@ extern int yydebug;
     TK_ENOT = 265,
     TK_VNOT = 266,
     TK_EOF = 267,
-    TK_VAR = 268
+    TK_FLINE = 268,
+    TK_VAR = 269
   };
 #endif
 
@@ -69,7 +70,7 @@ union YYSTYPE
     int ival;
     class Expr *exp;
 
-#line 73 "expr.tab.hpp" /* yacc.c:1909  */
+#line 74 "expr.tab.hpp" /* yacc.c:1909  */
 };
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1

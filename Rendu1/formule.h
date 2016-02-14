@@ -4,7 +4,6 @@
 #define FORMULE_H
 using namespace std;
 
-
 class formule{
 public:
     void set_formule(int varid, bool neg);

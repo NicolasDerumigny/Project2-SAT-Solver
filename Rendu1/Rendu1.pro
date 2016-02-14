@@ -21,7 +21,6 @@ SOURCES += \
     expr.cpp \
     expr.l \
     expr.ypp \
-    expr.hpp \
     var.cpp \
     formule.cpp \
     clause.cpp \
@@ -31,4 +30,6 @@ HEADERS += \
     var.h \
     litt.h \
     clause.h \
-    formule.h
+    formule.h \
+    expr.tab.hpp \
+    expr.hpp

@@ -29,7 +29,7 @@ Expr *res = NULL;
 // by convention), and associate each with a field of the union:
 %token TK_CONJ TK_DISJ TK_XOR TK_IMPLY TK_EQ
 %token TK_LPAREN TK_RPAREN TK_ENOT TK_VNOT
-%token TK_EOF
+%token TK_EOF TK_FLINE
 %token <ival> TK_VAR
 %type <exp> expression
 
@@ -46,19 +46,19 @@ Expr *res = NULL;
 // something silly to echo to the screen what bison gets from flex.  We'll
 // make a real one shortly:
 
-input: expression TK_EOF { res = $1; }
+input: TK_FLINE expression TK_EOF { res = $2; }
      ;
 
 expression:
-     TK_VAR                                    { $$ = new EConst($1);                       }
-    //| TK_ENOT expression             { $$ = new ENot($2);                }
-    | TK_VNOT TK_VAR           { $$ = new VNot($2);                }
-    | TK_LPAREN expression TK_RPAREN            { $$ = $2;                                      }
-    | expression TK_CONJ expression             { $$ = new EConj($1, $3);                }
-    | expression TK_DISJ expression             { $$ = new EDisj($1, $3);                }
-    //| expression TK_XOR expression             { $$ = new EXor($1, $3);                }
-    //| expression TK_IMPLY expression             { $$ = new EImply($1, $3);                }
-    //| expression TK_EQ expression             { $$ = new EEq($1, $3);                }
+     TK_VAR                                     { $$ = new EConst($1);              }
+    //| TK_ENOT expression                        { $$ = new ENot($2);                }
+    | TK_VNOT TK_VAR                            { $$ = new VNot($2);                }
+    | TK_LPAREN expression TK_RPAREN            { $$ = $2;                          }
+    | expression TK_CONJ expression             { $$ = new EConj($1, $3);           }
+    | expression TK_DISJ expression             { $$ = new EDisj($1, $3);           }
+    //| expression TK_XOR expression              { $$ = new EXor($1, $3);            }
+    //| expression TK_IMPLY expression            { $$ = new EImply($1, $3);          }
+    //| expression TK_EQ expression               { $$ = new EEq($1, $3);             }
     ;
 %%
 
