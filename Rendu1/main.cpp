@@ -47,11 +47,10 @@ int main(int argc, char** argv) {
         ifstream eFile;
         eFile.open(argv[1], ifstream::in);
 
-        string p,cnf,lastLine;
+        string p,cnf;
         int V, C;
 
         eFile >> p >> cnf >> V >> C;
-        //A FAIRE : garder la derniere ligne;
         eFile.close();
 
 
@@ -81,7 +80,9 @@ int main(int argc, char** argv) {
         {
             ofstream eFile;//EntryFile
             eFile.open(argv[1], ofstream::out | ofstream::app);
-            //A FAIRE : remettre la derniere ligne;
+            long pos=eFile.tellp();
+            eFile.seekp (pos-1);
+            eFile<<EOF;
             eFile.close();
         }
 
