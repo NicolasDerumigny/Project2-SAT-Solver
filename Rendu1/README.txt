@@ -1,85 +1,37 @@
+SOLVEUR SAT DPLL -- Projet 2 R.Staub et N.Derumigny
+(S'applique uniquement aux formules sous forme normales conjonctives)
 
-1/ Les conflits shift/reduce
-  --------------------------
 
-pour compiler, lancer
+
+Pour compiler, lancer
 make
 
-pour executer le programme, lancer
-./calc
+Pour executer le programme, lancer
+./resol FichierSource.cnf
 
-entrer une expression arithmetique (avec juste + et *)
-valider l'expression avec Ctrl-D (end of file)
+Le fichier source doit être de la forme :
 
+p cnf X Y
+   où X est l'indice maximal des variables utilisées, Y le nombre de clauses
 
-lors de la compilation de l'analyseur syntaxique (bison), 
-allez contempler le fichier "expr.output"
+suivis de Y lignes de la forme :
+X1 X2 ... Xn 0
 
-Exemple: dans expr.ypp, supprimez la ligne commencant par "%left
-TK_MULT", sauvegardez, et recompilez. En principe, vous voyez apparaitre
-des messages "shift/reduce conflicts" lors de la compilation (qui
-aboutit neanmoins: une ambiguite est signalee, mais une decision par
-defaut est prise).
+Ou le Xi sont soit le numéro de la variable, soit -Yi où Yi est le numéro de la variable, symbolisant non(Yi).
 
-Ouvrez a nouveau le fichier expr.output
+Chaque ligne représente une clause (disjonction de ses variable).
+La formule finale est la conjonction de toutes ses clauses.
+0 marque la fin de la ligne est ne doit pas être utilisé comme variable.
 
-Vous voyez que le fichier commence par lister les conflits puis associer 
-des nombres aux regles de grammaire:
-
-<<
-    0 $accept: input $end
-
-    1 input: expression
-
-    2 expression: TK_INT
-    3           | TK_LPAREN expression TK_RPAREN
-    4           | expression TK_PLUS expression
-    5           | expression TK_MULT expression
->>
-
-en cherchant "Conflit" dans le fichier, vous tombez sur:
-
-<<
-État 10
-
-    4 expression: expression . TK_PLUS expression
-    4           | expression TK_PLUS expression .  [$end, TK_PLUS, TK_MULT, TK_RPAREN]
-    5           | expression . TK_MULT expression
-
-    TK_MULT  décalage et aller à l'état 8
-
-    TK_MULT   [réduction par utilisation de la règle 4 (expression)]
-    $défaut  réduction par utilisation de la règle 4 (expression)
-
-    Conflit entre la règle 4 et le jeton TK_PLUS résolu par réduction (%left TK_PLUS).
->>
-
-L'etat 10 de l'automate signale une ambiguite: il a le choix entre
-d'une part faire "shift" lorsqu'il lit TK_MULT, puis passer a l'etat 8,
-et d'autre part faire "reduce" pour reconnaitre qu'il peut appliquer
-la regle 4. Par defaut, on lit qu'il fait une réduction, ce qui le conduit a
-l'etat 8, ou l'on peut voir que le TK_MULT a ete empile (le point s'est
-"deplace sur la droite"):
-
-État 8
-    5           | expression TK_MULT . expression
+-------------
 
 
-2/ Extension de la grammaire: le symbole moins
-  --------------------------------------------
+Ce programme évalue le fichier à l'aide de bison/flex : et construit au fur et à mesure :
+- Des objets de type formules, contenants des objets de types clauses séparées en satisfaites et insatisfaites
+- Des objets de type clauses, contenant des objets de types littéraux séparées en vivants et morts
+- Des objets de type littéraux, contenant un pointeur vers un objet de type variable et un bouléen désignant si la variable est niée ou non
+- Des objets de type variables, contenant leur numéro et leur affectation (vrai/faux/non attribuée)
 
-En l'etat, on ne peut reconnaitre que des sommes ou multiplications
-d'entiers positifs. 
-
-Etendez le programme (en modifiant les differents fichiers) de maniere
-a pouvoir traiter
- . les soustractions, et
- . le "moins unaire"
-
-Il faudra pouvoir taper des expressions comme
-  3 + 5 - (-4)
-  3 + - (10+2)
-
-Indication: le moins unaire doit avoir la priorite la plus grande, et
-ce n'est pas un operateur binaire comme +, - ou *. 
+Une fonction d'affichage de la sortie bison est implémentée au moyen da la méthode to_string()
+Une fonction d'affichage de l'objet de type formule ainsi crée est aussi implémenté par la méthode print()
 
