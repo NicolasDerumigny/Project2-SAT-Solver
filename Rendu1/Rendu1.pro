@@ -24,7 +24,10 @@ SOURCES += \
     var.cpp \
     formule.cpp \
     clause.cpp \
-    litt.cpp
+    litt.cpp \
+    deduce.cpp \
+    decide.cpp \
+    backtrack.cpp
 
 HEADERS += \
     var.h \
