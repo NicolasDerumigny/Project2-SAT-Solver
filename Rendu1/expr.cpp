@@ -37,7 +37,7 @@ EConj::EConj(Expr * e1, Expr * e2) : op1(e1), op2(e2) {}
 
 string EConj::to_string()
 {
-    return "(" + op1->to_string() + " /\\ " +  op2->to_string() + ")";
+    return "(" + op1->to_string() + ")" + " /\\ " + "(" +  op2->to_string() + ")";
 }
 
 formule* EConj::eval()//op1 et op2 seront des formules
@@ -65,7 +65,7 @@ EDisj::EDisj(Expr * e1, Expr * e2) : op1(e1), op2(e2) {}
 
 string EDisj::to_string()
 {
-    return "(" + op1->to_string() + " \\/ " +  op2->to_string() + ")";
+    return op1->to_string() + " \\/ " +  op2->to_string();
 }
 
 formule* EDisj::eval()
