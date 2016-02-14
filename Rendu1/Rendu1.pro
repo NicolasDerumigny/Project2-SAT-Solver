@@ -31,5 +31,4 @@ HEADERS += \
     litt.h \
     clause.h \
     formule.h \
-    expr.tab.hpp \
     expr.hpp

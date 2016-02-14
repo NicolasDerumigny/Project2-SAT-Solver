@@ -35,9 +35,9 @@ Expr *res = NULL;
 
 %left TK_EQ
 %left TK_IMPLY
+%left TK_CONJ
 %left TK_DISJ
 %left TK_XOR
-%left TK_CONJ
 %left TK_ENOT
 
 
@@ -46,16 +46,16 @@ Expr *res = NULL;
 // something silly to echo to the screen what bison gets from flex.  We'll
 // make a real one shortly:
 
-input: TK_FLINE expression TK_EOF { res = $2; }
+input: TK_FLINE expression TK_CONJ { res = $2; }
      ;
 
 expression:
-     TK_VAR                                     { $$ = new EConst($1);              }
-    //| TK_ENOT expression                        { $$ = new ENot($2);                }
+     TK_VAR                                     { cout<<"variable"<<$1<<endl;$$ = new EConst($1);              }
     | TK_VNOT TK_VAR                            { $$ = new VNot($2);                }
     | TK_LPAREN expression TK_RPAREN            { $$ = $2;                          }
-    | expression TK_CONJ expression             { $$ = new EConj($1, $3);           }
+    | expression TK_CONJ expression             { cout<<"PB\n"; $$ = new EConj($1, $3);           }
     | expression TK_DISJ expression             { $$ = new EDisj($1, $3);           }
+    //| TK_ENOT expression                        { $$ = new ENot($2);                }
     //| expression TK_XOR expression              { $$ = new EXor($1, $3);            }
     //| expression TK_IMPLY expression            { $$ = new EImply($1, $3);          }
     //| expression TK_EQ expression               { $$ = new EEq($1, $3);             }

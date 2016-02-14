@@ -11,14 +11,13 @@ using namespace std;
 "("                                     { return TK_LPAREN; }
 ")"                                     { return TK_RPAREN; }
 "/\\"                                   { return TK_CONJ; }
-"0\n"                                   { return TK_CONJ; }
+" 0"$                                    { return TK_CONJ; }
 "\\/"                                   { return TK_DISJ; }
 " "                                     { return TK_DISJ; }
 "X"                                     { return TK_XOR; }
 "=>"                                    { return TK_IMPLY; }
 "<=>"                                   { return TK_EQ; }
 "~"                                     { return TK_ENOT; }
-"0x"                                    { return TK_EOF; }
 "-"                                     { return TK_VNOT; }
 "c "[^'\n']*"\n"                        ;
 "p cnf "[1-9][0-9]*" "[1-9][0-9]*"\n"   { return TK_FLINE; };
