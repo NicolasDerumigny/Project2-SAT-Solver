@@ -13,5 +13,11 @@ var* getFreeVar() {
 
 void assignValue(var* variable) {
 	variable->value=1;//Par défaut on assigne à la variable la valeur 1.
+//On met à jour les variables mortes/vivantes
 	
+//On ajoute cette assignation dans la pile d'assignations en précisant qu'il s'agit d'un pari.
+	assignation* new_assign;
+	new_assign = new assignation;
+	new_assign->set_assign(variable,true);
+	assignations.push_back(new_assign);
 }
