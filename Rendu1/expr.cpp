@@ -74,12 +74,12 @@ formule* EDisj::eval()
     op1->form=op1->eval();
     op2->form=op2->eval();
     if(op1->form->mClauseUnsatisfied.size() > op2->form->mClauseUnsatisfied.size()){
-        (op1->form->mClauseUnsatisfied[0]).merge(&(op2->form->mClauseUnsatisfied[0]));
+        (op1->form->mClauseUnsatisfied[0])->merge(op2->form->mClauseUnsatisfied[0]);
         delete op2->form;
         this->form=op1->form;
     }
     else{
-        (op2->form->mClauseUnsatisfied[0]).merge(&(op1->form->mClauseUnsatisfied[0]));
+        (op2->form->mClauseUnsatisfied[0])->merge(op1->form->mClauseUnsatisfied[0]);
         delete op1->form;
         this->form=op2->form;
     }

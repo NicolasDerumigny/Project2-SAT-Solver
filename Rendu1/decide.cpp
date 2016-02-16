@@ -1,4 +1,5 @@
 #include <vector>
+#include "assignation.h"
 //#include <stdlib.h>
 //#include <time.h>
 
@@ -13,8 +14,8 @@ var* getFreeVar() {
 
 void assignValue(var* variable) {
 	variable->value=1;//Par défaut on assigne à la variable la valeur 1.
-//On met à jour les variables mortes/vivantes
-	
+//On met à jour les variables mortes/vivantes, vis-à-vis du passage de variable de vivant à mort.
+	variable->updateStatus(false);
 //On ajoute cette assignation dans la pile d'assignations en précisant qu'il s'agit d'un pari.
 	assignation* new_assign;
 	new_assign = new assignation;

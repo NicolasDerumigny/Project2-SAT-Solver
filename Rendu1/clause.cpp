@@ -1,10 +1,12 @@
 #include "clause.h"
 void clause::set_clause(litt* litt_entry){
-    map<unsigned int,litt*> mElementAlive_Entry;
-    map<unsigned int,litt*> arg_null;
-    mElementAlive_Entry[0]=litt_entry;
-    this->mElementAlive= mElementAlive_Entry;
-    this->mElementDead= arg_null;
+//    map<unsigned int,litt*> mElementAlive_Entry;
+//    map<unsigned int,litt*> arg_null;
+//    mElementAlive_Entry[0]=litt_entry;
+//    this->mElementAlive= mElementAlive_Entry;
+//    this->mElementDead= arg_null;
+	this->mElementAlive[0]=litt_entry;
+	this->mElementDead[0]=nullptr;
 }
 
 
@@ -22,11 +24,13 @@ void clause::merge(clause* cl2){
 void clause::print(){
     cout<<"\tElements vivants :"<<endl;
     for (auto& s:this->mElementAlive)
-        s.second.print();
+        if (s.second != nullptr)
+			s.second->print();
     cout<<endl;
     cout<<"\tElements morts :"<<endl;
     for (auto& s:this->mElementDead)
-        s.second.print();
+        if (s.second != nullptr)
+			s.second->print();
     cout<<"----------------------------";
     cout<<endl;
 }

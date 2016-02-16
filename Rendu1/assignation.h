@@ -7,7 +7,6 @@ class assignation
 public:
     void set_assign(var* variable,bool bet);
 
-    assignation();
     bool bet;//True si l'assignation est dûe à un paris
     var* variable;
 };

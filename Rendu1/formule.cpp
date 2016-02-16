@@ -17,8 +17,9 @@ void formule::set_formule(int varid, bool neg){
     new_clause->set_clause(new_litt);
 	new_var->clauseInto.push_back(new_clause);
     this->mClauseUnsatisfied[0]=new_clause;
-    map<unsigned int,clause*> atr_null;
-    this->mClauseSatisfied=atr_null;
+//	map<unsigned int,clause*> atr_null;
+//	this->mClauseSatisfied=atr_null;
+    this->mClauseSatisfied[0]=nullptr;
 }
 
 
@@ -32,9 +33,11 @@ void formule::merge(formule* formule2){
 void formule::print(){
     cout<<"Clauses satisfaites :"<<endl;
     for (auto& s:this->mClauseSatisfied)
-        s.second->print();
+        if (s.second != nullptr)
+			s.second->print();
     cout<<"Clauses non satisfaites :"<<endl;
     for (auto& s:this->mClauseUnsatisfied)
-        s.second->print();
+        if (s.second != nullptr)
+			s.second->print();
 
 }
