@@ -1,10 +1,5 @@
 #include "clause.h"
 void clause::set_clause(litt* litt_entry){
-//    map<unsigned int,litt*> mElementAlive_Entry;
-//    map<unsigned int,litt*> arg_null;
-//    mElementAlive_Entry[0]=litt_entry;
-//    this->mElementAlive= mElementAlive_Entry;
-//    this->mElementDead= arg_null;
 	this->mElementAlive[0]=litt_entry;
 	this->mElementDead[0]=nullptr;
 }
