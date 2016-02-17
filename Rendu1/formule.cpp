@@ -17,8 +17,6 @@ void formule::set_formule(int varid, bool neg){
     new_clause->set_clause(new_litt);
 	new_var->clauseInto.push_back(new_clause);
     this->mClauseUnsatisfied[0]=new_clause;
-//	map<unsigned int,clause*> atr_null;
-//	this->mClauseSatisfied=atr_null;
     this->mClauseSatisfied[0]=nullptr;
 }
 
