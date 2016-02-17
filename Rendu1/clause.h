@@ -10,6 +10,8 @@ public:
     void print();
 	bool isSatisfied();
     void merge(clause* cl);
+	void nbLittAlive();
+	litt* getUniqueLittAlive();
 
     map<unsigned int,litt*> mElementAlive;
     map<unsigned int,litt*> mElementDead;
