@@ -39,3 +39,16 @@ void formule::print(){
 			s.second->print();
 
 }
+
+void formule::free_formule(){
+    for (auto& s:this->mClauseSatisfied)
+        if (s.second != nullptr){
+             s.second->free_clause();
+             delete s.second;
+        }
+    for (auto& s:this->mClauseUnsatisfied)
+        if (s.second != nullptr){
+             s.second->free_clause();
+             delete s.second;
+        }
+}

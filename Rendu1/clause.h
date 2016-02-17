@@ -12,6 +12,8 @@ public:
     void merge(clause* cl);
 	void nbLittAlive();
 	litt* getUniqueLittAlive();
+    void free_clause();
+
 
     map<unsigned int,litt*> mElementAlive;
     map<unsigned int,litt*> mElementDead;
