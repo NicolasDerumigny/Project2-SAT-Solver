@@ -18,6 +18,28 @@ void clause::merge(clause* cl2){
            }
 }
 
+int clause::nbLittAlive(){
+	int result=0;
+	for (auto& li:this->mElementAlive)
+		if (li != nullptr)
+			result++;
+	return result;
+}
+
+litt* clause::getUniqueLittAlive(){ //renvoie un pointeur vers l'unique littéral de la clause s'il existe et est unique. Sinon, renvoie nullptr.
+	int result=0;
+	litt* unique_litt;
+	for (auto& li:this->mElementAlive)
+		if (li != nullptr){
+			result++;
+			unique_litt=li;
+		}
+	if (result == 1)
+		return li;
+	else
+		return nullptr;
+}
+
 void clause::print(){
     cout<<"\tElements vivants :"<<endl;
     for (auto& s:this->mElementAlive)
