@@ -44,6 +44,7 @@ formule* EConj::eval()//op1 et op2 seront des formules
 {
     op1->form=op1->eval();
     op2->form=op2->eval();
+
     if(op1->form->mClauseUnsatisfied.size() > op2->form->mClauseUnsatisfied.size()){
         op1->form->merge(op2->form);
         delete op2->form;

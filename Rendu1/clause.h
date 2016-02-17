@@ -10,6 +10,7 @@ public:
     void print();
 	bool isSatisfied();
     void merge(clause* cl);
+    void free_clause();
 
     map<unsigned int,litt*> mElementAlive;
     map<unsigned int,litt*> mElementDead;

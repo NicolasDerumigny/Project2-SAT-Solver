@@ -8,6 +8,7 @@ class formule{
 public:
     void set_formule(int varid, bool neg);
     void print();
+    void free_formule();
 
     map<unsigned int,clause*> mClauseSatisfied;
     map<unsigned int,clause*> mClauseUnsatisfied;

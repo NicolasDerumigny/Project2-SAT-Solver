@@ -23,7 +23,7 @@ vector<assignation*> assignations;//création du vector qui contient les assigna
 #include "decide.cpp"
 #include "deduce.cpp"
 #include "backtrack.cpp"
-
+formule * instance; // une formule pour les gouverner tous
 
 //extern "C" int yyparse();
 extern "C" FILE *yyin;
@@ -62,7 +62,7 @@ int main(int argc, char** argv) {
             return 1;
         }
 
-        for(int i=0;i<V;i++)
+        for(int i=0;i<=V;i++)
             v_var.push_back(nullptr);
 
         FILE* inputFile;
@@ -73,7 +73,6 @@ int main(int argc, char** argv) {
         do {
             yyparse();
             cout << res->to_string() << endl;
-            formule * instance;
             instance =  res->eval();
             instance->print();
             //A Faire : dire si le nombre de clause est correct
@@ -81,6 +80,17 @@ int main(int argc, char** argv) {
 
         fclose(inputFile);
 
+
+        /*while(getFreeVar()!=nullptr){
+            assignValue(getFreeVar());
+            //verifier que tout est cohérent
+        }
+
+
+        //Destruction des objets
+        instance->free_formule();
+        for (unsigned long i=0; i<v_var.size(); i++)
+            delete v_var[i];*/
 
         return 0;
 

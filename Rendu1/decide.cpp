@@ -5,7 +5,7 @@
 
 var* getFreeVar() {
 	for (auto& s:v_var) {
-		if (s->value == -1) {
+        if (s != nullptr && s->value == -1) {
 			return s;
 		}
 	}
