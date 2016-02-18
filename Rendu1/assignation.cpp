@@ -21,3 +21,8 @@ void assignation::updateLitt(bool alive){
 				}
 		}
 }
+
+void assignation::updateClause(bool alive){
+	for (auto& cl:this->variable->clauseInto)
+		if (alive == false)
+}

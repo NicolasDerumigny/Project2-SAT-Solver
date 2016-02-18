@@ -21,7 +21,7 @@ void clause::merge(clause* cl2){
 int clause::nbLittAlive(){
 	int result=0;
 	for (auto& li:this->mElementAlive)
-		if (li != nullptr)
+		if (li.second != nullptr)
 			result++;
 	return result;
 }
@@ -30,14 +30,18 @@ litt* clause::getUniqueLittAlive(){ //renvoie un pointeur vers l'unique littéra
 	int result=0;
 	litt* unique_litt;
 	for (auto& li:this->mElementAlive)
-		if (li != nullptr){
+		if (li.second != nullptr){
 			result++;
-			unique_litt=li;
+			unique_litt=li.second;
 		}
 	if (result == 1)
-		return li;
+		return unique_litt;
 	else
 		return nullptr;
+}
+
+bool clause::isSatisfied(){
+	
 }
 
 void clause::print(){
