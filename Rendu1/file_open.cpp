@@ -31,22 +31,101 @@ void checkHeader(char* file_dir){
     string p,cnf;
     int V, C;
 
-    eFile >> p >> cnf >> V >> C;
+    int nbr_line=1,s;
     string line;
+    while(getline(eFile, line)){
+        nbr_line++;
+        if (line[0]!='c'){
+            s=line.size();
+            break;
+        }
+    }
+    eFile.close();
+    eFile.open(file_dir, ifstream::in);
+
+    for (int i=1; i<nbr_line-1;i++){
+        getline(eFile, line);
+    }
+    eFile >> p >> cnf >> V >> C;
+
+    //remove this masterpiece and it should be working on non-standard headers
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    if((7+1*(        V<=(1        *01       -1))+(C<=0)//+
+    +//              ||  \\\      $@4       c=|))
+    ceil(log(        1*   abs     (V)        +000+1)/log
+    (10              /*    */)    )+                 ceil
+    (log(abs(        C)    +1)/log(10       ))-s))goto l;
+
+            /*~~~~~~(: syntax nazi :)~~~~~~*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    if (p!="p" or cnf!="cnf"){l:
+        cout<<"Bad file format: header should be before clause declaration and respect scrupulously the following syntax:"<< endl;
+        cout<<"p cnf V C"<<endl;
+        cout<<"Where V is the maximum number of variables, and C the number of clauses"<<endl;
+        if (p!="p" or cnf!="cnf")
+            exit(-1);
+    }
+
+
     int nbr_C=0;
-    while(getline(eFile, line))
-        nbr_C++;
+    getline(eFile, line);
+    while(getline(eFile, line)){
+        nbr_line++;
+        if (line[0]!='c')
+            nbr_C++;
+        int size=line.size();
+        if (line[0]!='c' and line[size-1]!='0' and line[size-2]!=' ')
+        //si ce n'est pas un commentaire et que la string ne se termine pas par " 0"
+        {
+            cout<<size<<endl<<line[0]<<line[1]<<line[2]<<line[3];
+            cout<<"Error (line "<< nbr_line<<"): Non-comments lines must end by 0 (no space allowed), exiting "<<endl;
+            exit(-1);
+        }
+        if (line!="c xxx" and line[0]=='c'){
+            cout<<"Warning (line "<< nbr_line<<"): comment line is not scrupulously \"c xxx\", continuing anyway."<<endl;
+        }
+        if (line[0]=='c' and line[1]==' '){
+            cout<<"Error (line "<< nbr_line<<"): comments lines must be scrupulously of the form \"c xxx\". Aborting (This is supported if you remove the exit(-1) line, though)."<<endl;
+            exit(-1);
+        }
+    }
+
+
     if (nbr_C!=C)
         cout<<"Warning : "<<C<<" clauses were declared in header line but found "<< nbr_C <<", continuing anyway"<<endl;
     eFile.close();
-
-
-    if (p!="p" or cnf!="cnf"){
-        cout<<"Bad file format : header should be :"<< endl;
-        cout<<"p cnf V C"<<endl;
-        cout<<"Where V is the maximum number of variables, and C the number of clauses"<<endl;
-        exit(-1);
-    }
 
     for(int i=0;i<=V;i++)
         v_var.push_back(nullptr);
