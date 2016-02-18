@@ -45,13 +45,12 @@ int main(int argc, char** argv) {
     parse(argv[1]);
 
     while(getFreeVar()!=nullptr){
-        //decide
+		//decide
         getFreeVar()->assignValue(1,true);
-        //on fait un paris : la freeVar est à vrai
-
+        //on fait un pari : la freeVar est à vrai
         //deduce
-
-
+		while(assignUniqueLitt() or assignUniquePolarity())
+			continue;
         //backtrack
         while(!check()){
             if(!backtrack()){
@@ -60,7 +59,6 @@ int main(int argc, char** argv) {
                 return 0;
             }
         }
-        //verifier que tout est cohérent
     }
 
 
