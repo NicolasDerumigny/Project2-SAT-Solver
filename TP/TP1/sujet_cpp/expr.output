@@ -1,0 +1,166 @@
+Grammar
+
+    0 $accept: input $end
+
+    1 input: expression
+
+    2 expression: TK_INT
+    3           | TK_LPAREN expression TK_RPAREN
+    4           | expression TK_PLUS expression
+    5           | expression TK_MULT expression
+
+
+Terminals, with rules where they appear
+
+$end (0) 0
+error (256)
+TK_PLUS (258) 4
+TK_MULT (259) 5
+TK_LPAREN (260) 3
+TK_RPAREN (261) 3
+TK_INT (262) 2
+
+
+Nonterminals, with rules where they appear
+
+$accept (8)
+    on left: 0
+input (9)
+    on left: 1, on right: 0
+expression (10)
+    on left: 2 3 4 5, on right: 1 3 4 5
+
+
+State 0
+
+    0 $accept: . input $end
+    1 input: . expression
+    2 expression: . TK_INT
+    3           | . TK_LPAREN expression TK_RPAREN
+    4           | . expression TK_PLUS expression
+    5           | . expression TK_MULT expression
+
+    TK_LPAREN  shift, and go to state 1
+    TK_INT     shift, and go to state 2
+
+    input       go to state 3
+    expression  go to state 4
+
+
+State 1
+
+    2 expression: . TK_INT
+    3           | . TK_LPAREN expression TK_RPAREN
+    3           | TK_LPAREN . expression TK_RPAREN
+    4           | . expression TK_PLUS expression
+    5           | . expression TK_MULT expression
+
+    TK_LPAREN  shift, and go to state 1
+    TK_INT     shift, and go to state 2
+
+    expression  go to state 5
+
+
+State 2
+
+    2 expression: TK_INT .
+
+    $default  reduce using rule 2 (expression)
+
+
+State 3
+
+    0 $accept: input . $end
+
+    $end  shift, and go to state 6
+
+
+State 4
+
+    1 input: expression .  [$end]
+    4 expression: expression . TK_PLUS expression
+    5           | expression . TK_MULT expression
+
+    TK_PLUS  shift, and go to state 7
+    TK_MULT  shift, and go to state 8
+
+    $default  reduce using rule 1 (input)
+
+
+State 5
+
+    3 expression: TK_LPAREN expression . TK_RPAREN
+    4           | expression . TK_PLUS expression
+    5           | expression . TK_MULT expression
+
+    TK_PLUS    shift, and go to state 7
+    TK_MULT    shift, and go to state 8
+    TK_RPAREN  shift, and go to state 9
+
+
+State 6
+
+    0 $accept: input $end .
+
+    $default  accept
+
+
+State 7
+
+    2 expression: . TK_INT
+    3           | . TK_LPAREN expression TK_RPAREN
+    4           | . expression TK_PLUS expression
+    4           | expression TK_PLUS . expression
+    5           | . expression TK_MULT expression
+
+    TK_LPAREN  shift, and go to state 1
+    TK_INT     shift, and go to state 2
+
+    expression  go to state 10
+
+
+State 8
+
+    2 expression: . TK_INT
+    3           | . TK_LPAREN expression TK_RPAREN
+    4           | . expression TK_PLUS expression
+    5           | . expression TK_MULT expression
+    5           | expression TK_MULT . expression
+
+    TK_LPAREN  shift, and go to state 1
+    TK_INT     shift, and go to state 2
+
+    expression  go to state 11
+
+
+State 9
+
+    3 expression: TK_LPAREN expression TK_RPAREN .
+
+    $default  reduce using rule 3 (expression)
+
+
+State 10
+
+    4 expression: expression . TK_PLUS expression
+    4           | expression TK_PLUS expression .  [$end, TK_PLUS, TK_RPAREN]
+    5           | expression . TK_MULT expression
+
+    TK_MULT  shift, and go to state 8
+
+    $default  reduce using rule 4 (expression)
+
+    Conflict between rule 4 and token TK_PLUS resolved as reduce (%left TK_PLUS).
+    Conflict between rule 4 and token TK_MULT resolved as shift (TK_PLUS < TK_MULT).
+
+
+State 11
+
+    4 expression: expression . TK_PLUS expression
+    5           | expression . TK_MULT expression
+    5           | expression TK_MULT expression .  [$end, TK_PLUS, TK_MULT, TK_RPAREN]
+
+    $default  reduce using rule 5 (expression)
+
+    Conflict between rule 5 and token TK_PLUS resolved as reduce (TK_PLUS < TK_MULT).
+    Conflict between rule 5 and token TK_MULT resolved as reduce (%left TK_MULT).

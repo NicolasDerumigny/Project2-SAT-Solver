@@ -5,6 +5,7 @@
 #include <math.h>
 #include <vector>
 #include <fstream>
+#include <algorithm>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>

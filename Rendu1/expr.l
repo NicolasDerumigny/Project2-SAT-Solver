@@ -8,11 +8,11 @@ using namespace std;
 %}
 %%
 [1-9][0-9]*                                                { yylval.ival = atoi(yytext); return TK_VAR; }
-^[" "]*                                                    ;
+^[ \t]*                                                    ;
 "("                                                        { return TK_LPAREN; }
 ")"                                                        { return TK_RPAREN; }
 "/\\"                                                      { return TK_CONJ;   }
-" 0"$                                                      { return TK_CONJ;   }
+" 0"[ \t]*\n                                                { return TK_CONJ;   }
 "\\/"                                                      { return TK_DISJ;   }
 [ \t]+                                                     { return TK_DISJ;   }
 "X"                                                        { return TK_XOR;    }
