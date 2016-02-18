@@ -21,7 +21,7 @@ void clause::merge(clause* cl2){
 int clause::nbLittAlive(){
 	int result=0;
 	for (auto& li:this->mElementAlive)
-		if (li != nullptr)
+        if (li != nullptr)
 			result++;
 	return result;
 }

@@ -29,7 +29,8 @@ SOURCES += \
     deduce.cpp \
     decide.cpp \
     backtrack.cpp \
-    assignation.cpp
+    assignation.cpp \
+    file_open.cpp
 
 HEADERS += \
     var.h \
