@@ -152,8 +152,8 @@ void parse(char* file_dir){
         yyin = inputFile;
         do {
             yyparse();
-            cout << "Formula in input:"<<endl;
-            cout <<res->to_string() << endl;
+            /*cout << "Formula in input:"<<endl;
+            cout <<res->to_string() << endl;*/
             instance =  res->eval();
         } while (!feof(yyin));
 
