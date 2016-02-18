@@ -21,3 +21,23 @@ void assignation::updateLitt(bool alive){
 				}
 		}
 }
+
+void assignation::updateClause(bool alive){// Amélioration : au lieu de revérifier s'il existe un littéral qui satifait la clause (méthode isSatisfied), if faudrait uniquement vérifier les littéraux associées à la variable
+	for (auto& cl:this->variable->clauseInto)
+		if (alive == false) { //si on assigne (on tue) une variable, on recherche les clauses associés qui sont encore non satisfaites, et on les met à jour
+			if (instance.mClauseUnsatisfied[cl.id] != nullptr && cl.isSatisfied()) {//si la clause est déjà satisfaite on ne fait rien
+				instance.mClauseSatisfied[cl.id] = instance.mClauseUnsatisfied[cl.id];
+				instance.mClauseUnsatisfied[cl.id] = nullptr;
+			}
+		} else {//et réciproquement...
+			if (instance.mClauseSatisfied[cl.id] != nullptr && !cl.isSatisfied()) {
+				instance.mClauseUnsatisfied[cl.id] = instance.mClauseSatisfied[cl.id];
+				instance.mClauseSatisfied[cl.id] = nullptr;
+			}
+		}
+}
+
+void assignation::updateStatus(bool alive){
+	this->updateLitt(alive);
+	this->updateClause(alive);
+}

@@ -29,9 +29,9 @@ void assignUniquePolarity(){
 				}
 	int id=0;
 	for (auto& variable:variables){ //pour chaque variable non assignée, on vérifie qu'elle n'apparait pas à la fois comme variable niée et non niée
-		if (v_var[id] != nullptr && variables[id].first == 0 && variables[id].second != 0)
+		if (v_var[id] != nullptr && variable.first == 0 && variable.second != 0)
 			v_var[id]->assignValue(1,false);
-		if (v_var[id] != nullptr && variables[id].first != 0 && variables[id].second == 0)
+		if (v_var[id] != nullptr && variable.first != 0 && variable.second == 0)
 			v_var[id]->assignValue(0,false);
 	}
 }
