@@ -1,8 +1,6 @@
 #ifndef ASSIGNATION_H
 #define ASSIGNATION_H
 
-class var;
-
 class assignation
 {
 public:

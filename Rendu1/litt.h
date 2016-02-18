@@ -1,6 +1,5 @@
 #ifndef LITT_H
 #define LITT_H
-#include "var.h"
 #include <map>
 using namespace std;
 

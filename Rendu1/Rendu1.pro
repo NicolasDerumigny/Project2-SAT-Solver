@@ -38,4 +38,5 @@ HEADERS += \
     clause.h \
     formule.h \
     expr.hpp \
-    assignation.h
+    assignation.h \
+    global_variables.h

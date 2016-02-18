@@ -7,35 +7,18 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>
-
 using namespace std;
-
-
+#include "global_variables.h"
 #include "expr.hpp"
 #include "expr.tab.hpp"
-#include "assignation.cpp"
-vector<assignation*> assignations;
-//création du vector qui contient les assignations réalisées
-
 #include "var.cpp"
-vector<var*> v_var;
-//création du vector qui contiendra tous les pointeurs vers les variables
-
-
-
 #include "litt.cpp"
 #include "clause.cpp"
 #include "formule.cpp"
-formule * instance;
-//une formule pour les gouverner tous
-
+#include "assignation.cpp"
 #include "decide.cpp"
 #include "deduce.cpp"
 #include "backtrack.cpp"
-
-//extern "C" int yyparse();
-extern "C" FILE *yyin;
-extern Expr *res;
 #include "file_open.cpp"
 
 int main(int argc, char** argv) {

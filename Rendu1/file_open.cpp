@@ -1,3 +1,7 @@
+//extern "C" int yyparse();
+extern "C" FILE *yyin;
+extern Expr *res;
+
 void checkCorrectFile(char* file_dir){
     struct stat buff;
     if (!stat(file_dir, &buff)){//si l'ouverture à fonctionnée
@@ -42,14 +46,11 @@ void checkHeader(char* file_dir){
         v_var.push_back(nullptr);
 }
 
-
-
 void yyerror(const char *s) {
     cout << "EEK, parse error!  Message: " << s << endl;
     // might as well halt now:
     exit(-1);
 }
-
 
 void parse(char* file_dir){
     FILE* inputFile;
@@ -78,8 +79,8 @@ void freeAll(){
 }
 
 void print_output(){
-    for(int i=1; i<v_var.size();i++){
-        v_var[i].print();
+    for(int i=1; i<int(v_var.size());i++){
+        v_var[i]->print();
         cout<<" ";
     }
     cout<<0<<endl;

@@ -2,11 +2,7 @@
 #define VAR_H
 #include <map>
 #include <vector>
-#include "clause.h"
-#include "assignation.h"
 using namespace std;
-
-class clause;
 
 class var{
 public:
