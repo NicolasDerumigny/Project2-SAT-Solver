@@ -28,10 +28,14 @@ void formule::set_formule(int varid, bool neg){
 
 
 void formule::merge(formule* formule2){
-    for (auto& s:formule2->mClauseSatisfied)
+    for (auto& s:formule2->mClauseSatisfied){
         this->mClauseSatisfied[this->mClauseSatisfied.size()]=s.second;
-    for (auto& s:formule2->mClauseUnsatisfied)
+        this->mClauseSatisfied[this->mClauseSatisfied.size()-1]->id=this->mClauseSatisfied.size()-1;
+    }
+    for (auto& s:formule2->mClauseUnsatisfied){
         this->mClauseUnsatisfied[this->mClauseUnsatisfied.size()]=s.second;
+        this->mClauseSatisfied[this->mClauseSatisfied.size()-1]->id=this->mClauseSatisfied.size()-1;
+    }
 }
 
 void formule::print(){

@@ -2,6 +2,7 @@
 void clause::set_clause(litt* litt_entry){
 	this->mElementAlive[0]=litt_entry;
 	this->mElementDead[0]=nullptr;
+    this->id=0;
 }
 
 

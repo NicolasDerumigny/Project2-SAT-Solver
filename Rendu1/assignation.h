@@ -11,7 +11,8 @@ public:
 	void updateClause(bool alive);
 	void updateStatus(bool alive);
 
-    bool bet;//True si l'assignation est dûe à un paris
+    bool bet;
+    //True si l'assignation est dûe à un paris
     var* variable;
 };
 

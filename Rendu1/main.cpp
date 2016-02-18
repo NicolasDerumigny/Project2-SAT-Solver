@@ -13,13 +13,15 @@ using namespace std;
 
 #include "expr.hpp"
 #include "expr.tab.hpp"
+#include "assignation.cpp"
+vector<assignation*> assignations;
+//création du vector qui contient les assignations réalisées
+
 #include "var.cpp"
 vector<var*> v_var;
 //création du vector qui contiendra tous les pointeurs vers les variables
 
-#include "assignation.cpp"
-vector<assignation*> assignations;
-//création du vector qui contient les assignations réalisées
+
 
 #include "litt.cpp"
 #include "clause.cpp"
@@ -45,7 +47,7 @@ int main(int argc, char** argv) {
     while(getFreeVar()!=nullptr){
         //decide
         getFreeVar()->assignValue(1,true);
-        //on fait un paris que la freeVar est à vrai
+        //on fait un paris : la freeVar est à vrai
 
         //deduce
 
@@ -54,6 +56,7 @@ int main(int argc, char** argv) {
         while(!check()){
             if(!backtrack()){
                 cout<<"s UNSATISFIABLE"<<endl;
+                freeAll();
                 return 0;
             }
         }
@@ -61,11 +64,10 @@ int main(int argc, char** argv) {
     }
 
 
-    //Destruction des objets
-    instance->free_formule();
-    for (unsigned long i=0; i<v_var.size(); i++)
-        delete v_var[i];
+    cout<<"s SATISFIABLE"<<endl;
 
+
+    freeAll();
     return 0;
 }
 

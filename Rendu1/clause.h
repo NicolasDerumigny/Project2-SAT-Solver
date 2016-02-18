@@ -16,6 +16,7 @@ public:
 
     map<unsigned int,litt*> mElementAlive;
     map<unsigned int,litt*> mElementDead;
+    int id;
 };
 
 #endif // CLAUSE_H

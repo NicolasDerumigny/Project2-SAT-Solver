@@ -70,3 +70,9 @@ void parse(char* file_dir){
         exit(-1);
     }
 }
+
+void freeAll(){
+    instance->free_formule();
+    for (unsigned long i=0; i<v_var.size(); i++)
+        delete v_var[i];
+}
