@@ -26,7 +26,9 @@ int clause::nbLittAlive(){
 	return result;
 }
 
-litt* clause::getUniqueLittAlive(){ //renvoie un pointeur vers l'unique littéral de la clause s'il existe et est unique. Sinon, renvoie nullptr.
+litt* clause::getUniqueLittAlive(){
+    //renvoie un pointeur vers l'unique littéral de la clause s'il existe
+    //et est unique. Sinon, renvoie nullptr.
 	int result=0;
 	litt* unique_litt;
 	for (auto& li:this->mElementAlive)
@@ -63,4 +65,22 @@ void clause::free_clause(){
         if (s.second != nullptr){
              delete s.second;
         }
+}
+
+bool clause::isSatisfied(){
+    for (auto& s:this->mElementDead)
+        if (s.second != nullptr){
+            if (s.second->neg){
+                //si nié, le litt est vraie si la variable est à 0
+                if (s.second->variable->value==0){
+                    return true;
+                }
+            }else{
+                //si non nié, le litt est vrai si une variable est à 1
+                if (s.second->variable->value==1){
+                    return true;
+                }
+            }
+        }
+    return false;
 }

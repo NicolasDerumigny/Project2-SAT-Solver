@@ -25,7 +25,7 @@ vector<assignation*> assignations;
 #include "clause.cpp"
 #include "formule.cpp"
 formule * instance;
-// une formule pour les gouverner tous
+//une formule pour les gouverner tous
 
 #include "decide.cpp"
 #include "deduce.cpp"

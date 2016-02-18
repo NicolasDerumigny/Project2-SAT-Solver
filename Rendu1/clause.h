@@ -8,13 +8,13 @@ class clause{
 public:
     void set_clause(litt* litt_entry);
     void print();
-	bool isSatisfied();
+    bool isSatisfied();
     void merge(clause* cl);
     int nbLittAlive();
 	litt* getUniqueLittAlive();
     void free_clause();
 
-
+    bool satisfied;
     map<unsigned int,litt*> mElementAlive;
     map<unsigned int,litt*> mElementDead;
 };

@@ -18,7 +18,8 @@ bool backtrack(){
     bool hasChanged=false;
     while (i>=0){
         if (assignations[i]->bet==false){
-            assignations[i]->reverseStatus();//TODO
+            assignations[i]->variable->value=-1;
+            assignations[i]->updateStatus(true);//TODO
             delete assignations[i];
             assignations.pop_back();
             i--;
@@ -29,7 +30,7 @@ bool backtrack(){
             //(value == -1), le backtrack fail lamentablement
             //ceci n'est pas possible en théorie, car toute variable dans
             //assignation est assignée
-            assignations[i]->updateStatus();
+            assignations[i]->updateStatus(false);
             hasChanged=true;
             break;
         }
