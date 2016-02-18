@@ -15,8 +15,10 @@ public:
 	void assignValue(int value,bool bet);
 
     int id;
-    int value;//-1 : unassigned, 0=false, 1 = true
-    vector<clause*> clauseInto;//amélioration possible : metttre deux map des clauses la contenant et ne la contenant pas
+    int value;
+    //-1 : unassigned, 0=false, 1 = true
+    vector<clause*> clauseInto;
+    //amélioration possible : metttre deux map des clauses la contenant et ne la contenant pas
 };
 
 #endif // VAR_H

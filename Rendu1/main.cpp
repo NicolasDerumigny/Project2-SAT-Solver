@@ -47,7 +47,7 @@ int main(int argc, char** argv) {
     while(getFreeVar()!=nullptr){
         //decide
         getFreeVar()->assignValue(1,true);
-        //on fait un paris que la freeVar est à vrai
+        //on fait un paris : la freeVar est à vrai
 
         //deduce
 
@@ -56,6 +56,7 @@ int main(int argc, char** argv) {
         while(!check()){
             if(!backtrack()){
                 cout<<"s UNSATISFIABLE"<<endl;
+                freeAll();
                 return 0;
             }
         }
@@ -63,11 +64,10 @@ int main(int argc, char** argv) {
     }
 
 
-    //Destruction des objets
-    instance->free_formule();
-    for (unsigned long i=0; i<v_var.size(); i++)
-        delete v_var[i];
+    cout<<"s SATISFIABLE"<<endl;
 
+
+    freeAll();
     return 0;
 }
 
