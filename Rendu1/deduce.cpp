@@ -1,7 +1,7 @@
 #include <vector>
 #include <utility>
 
-void assignUniqueLitt() {
+void assignUniqueLitt(){
 	litt* li;
 	for (auto& variable:v_var)
 		if (variable != nullptr && variable->value == -1) //on vérifie que la variable est définie, et qu'elle est non assignée
@@ -16,7 +16,7 @@ void assignUniqueLitt() {
 			}
 }
 
-void assignUniquePolarity() {
+void assignUniquePolarity(){
 	vector<pair<int,int> > variables (v_var.size(), std::make_pair(0,0)); //vector contenant pour chaque variable une paire (nb_fois_vue_niée,nb_fois_vue_non_niée)
 	for (auto& cl:instance->mClauseUnsatisfied)
 		if (cl.second != nullptr)

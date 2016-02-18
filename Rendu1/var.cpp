@@ -31,6 +31,6 @@ void var::assignValue(int value,bool bet) {
 	assignation* new_assign;
 	new_assign = new assignation;
 	new_assign->set_assign(this,bet);
-	new_assign->updateStatus()
+    new_assign->updateStatus(false);
 	assignations.push_back(new_assign);
 }
