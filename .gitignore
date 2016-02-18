@@ -32,3 +32,6 @@
 
 # Resol
 resol
+
+# Temp QT Creator
+*.pro.user*
