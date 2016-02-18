@@ -76,3 +76,11 @@ void freeAll(){
     for (unsigned long i=0; i<v_var.size(); i++)
         delete v_var[i];
 }
+
+void print_output(){
+    for(int i=1; i<v_var.size();i++){
+        v_var[i].print();
+        cout<<" ";
+    }
+    cout<<0<<endl;
+}

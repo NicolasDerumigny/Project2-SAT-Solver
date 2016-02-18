@@ -45,11 +45,11 @@ int main(int argc, char** argv) {
     parse(argv[1]);
 
     while(getFreeVar()!=nullptr){
+        //deduce
+
         //decide
         getFreeVar()->assignValue(1,true);
         //on fait un paris : la freeVar est à vrai
-
-        //deduce
 
 
         //backtrack
@@ -60,12 +60,11 @@ int main(int argc, char** argv) {
                 return 0;
             }
         }
-        //verifier que tout est cohérent
     }
 
 
     cout<<"s SATISFIABLE"<<endl;
-
+    print_output();
 
     freeAll();
     return 0;

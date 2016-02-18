@@ -10,6 +10,7 @@ public:
 	void updateLitt(bool alive);
 	void updateClause(bool alive);
 	void updateStatus(bool alive);
+    void print();
 
     bool bet;
     //True si l'assignation est dûe à un paris

@@ -41,3 +41,8 @@ void assignation::updateStatus(bool alive){
 	this->updateLitt(alive);
 	this->updateClause(alive);
 }
+
+
+void assignation::print(){
+    this->variable.print();
+}
