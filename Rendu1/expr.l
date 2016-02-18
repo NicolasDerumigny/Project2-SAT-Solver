@@ -12,7 +12,7 @@ using namespace std;
 "("                                                        { return TK_LPAREN; }
 ")"                                                        { return TK_RPAREN; }
 "/\\"                                                      { return TK_CONJ;   }
-" 0"[ \t]*\n                                                { return TK_CONJ;   }
+[ \t]+"0"[ \t]*\n                                          { return TK_CONJ;   }
 "\\/"                                                      { return TK_DISJ;   }
 [ \t]+                                                     { return TK_DISJ;   }
 "X"                                                        { return TK_XOR;    }
