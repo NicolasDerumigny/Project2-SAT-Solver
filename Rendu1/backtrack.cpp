@@ -24,6 +24,8 @@ bool backtrack(){
             assignations.pop_back();
             i--;
         }else{
+            assignations[i]->updateStatus(true);
+            //on ne change les clauses que là où les variables sont mortes !
             assignations[i]->bet=false;
             assignations[i]->variable->value=1-assignations[i]->variable->value;
             //attention, si la variable venait à ne pas etre assignée

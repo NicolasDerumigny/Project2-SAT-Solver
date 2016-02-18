@@ -51,6 +51,7 @@ void formule::print(){
     for (auto& s:this->mClauseUnsatisfied)
         if (s.second != nullptr)
 			s.second->print();
+    cout<<endl<<endl;
 
 }
 

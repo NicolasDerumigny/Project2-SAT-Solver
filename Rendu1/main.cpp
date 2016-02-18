@@ -2,6 +2,7 @@
 #include <cstdlib>
 #include <iostream>
 #include <map>
+#include <math.h>
 #include <vector>
 #include <fstream>
 #include <sys/types.h>
@@ -30,7 +31,7 @@ int main(int argc, char** argv) {
     parse(argv[1]);
 
     while(getFreeVar()!=nullptr){
-		//decide
+        //decide
         getFreeVar()->assignValue(1,true);
         //on fait un pari : la freeVar est à vrai
 
@@ -47,12 +48,8 @@ int main(int argc, char** argv) {
             }
         }
     }
-
-
     cout<<"s SATISFIABLE"<<endl;
     print_output();
-
     freeAll();
     return 0;
 }
-
