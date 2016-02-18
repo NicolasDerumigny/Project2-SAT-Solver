@@ -21,6 +21,6 @@ using namespace std;
 "~"                                                        { return TK_ENOT;   }
 "-"                                                        { return TK_VNOT;   }
 c[^\n]*\n                                                  ;
-(c[^\n]*\n)*p[ \t]+cnf[ \t]+[-]?[0-9]+[ \t][-]?[0-9]+\n    { return TK_FLINE;  }
+(c[^\n]*\n)*p[ \t]+cnf[ \t]+[-]?[0-9]+[ \t]+[-]?[0-9]+[ \t]*\n    { return TK_FLINE;  }
 .                                                          ;
 %%

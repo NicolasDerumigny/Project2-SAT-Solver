@@ -94,7 +94,8 @@ void checkHeader(char* file_dir){
         cout<<"Bad file format: header should be before clause declaration and respect scrupulously the following syntax:"<< endl;
         cout<<"p cnf V C"<<endl;
         cout<<"Where V is the maximum number of variables, and C the number of clauses"<<endl;
-        exit(-1);
+        if (p!="p" or cnf!="cnf")
+            exit(-1);
     }
 
 
@@ -109,7 +110,7 @@ void checkHeader(char* file_dir){
         //si ce n'est pas un commentaire et que la string ne se termine pas par " 0"
         {
             cout<<size<<endl<<line[0]<<line[1]<<line[2]<<line[3];
-            cout<<"Error (line "<< nbr_line<<"): Non-comments lines must end by 0, exiting "<<endl;
+            cout<<"Error (line "<< nbr_line<<"): Non-comments lines must end by 0 (no space allowed), exiting "<<endl;
             exit(-1);
         }
         if (line!="c xxx" and line[0]=='c'){
