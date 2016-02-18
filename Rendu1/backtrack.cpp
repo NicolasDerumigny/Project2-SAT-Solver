@@ -1,6 +1,6 @@
 using namespace std;
 
-bool check(){
+bool check(){//renvoie false si il existe une clause insatisfaite qui n'a plus de littéraux vivants (formule insatisfiable)
     for (auto& s:instance->mClauseUnsatisfied){
         if (s.second != nullptr and s.second->nbLittAlive()==0){
             return false;
@@ -19,7 +19,7 @@ bool backtrack(){
     while (i>=0){
         if (assignations[i]->bet==false){
             assignations[i]->variable->value=-1;
-            assignations[i]->updateStatus(true);//TODO
+            assignations[i]->updateStatus(true);
             delete assignations[i];
             assignations.pop_back();
             i--;
