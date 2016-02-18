@@ -112,7 +112,7 @@ void checkHeader(char* file_dir){
             str >> D;
         }
 
-        if (line[0]!='0'){
+        if (line[0]!='0' and line[size-1]!='c'){
             cout<<"Warning (line "<< nbr_line<<"): Non-comments lines must end by 0 and ends by one or more spaces"<<endl;
         }
         if (line[size-1]!='c' and D!=0){
@@ -123,7 +123,7 @@ void checkHeader(char* file_dir){
         /*if (line!="c xxx" and line[0]=='c'){
             cout<<"Warning (line "<< nbr_line<<"): comment line is not scrupulously \"c xxx\", continuing anyway."<<endl;
         }*/
-        if (line[size-1]=='c' and line[size-2]==' '){
+        if (line[size-1]=='c' and line[size-2]!=' '){
             cout<<"Warning (line "<< nbr_line<<"): comments lines must be scrupulously of the form \"c xxx\", continuing anyway."<<endl;
         }
         nbr_line++;
