@@ -1,5 +1,23 @@
 #include "var.h"
 
+void var::print(){
+    //affiche juste l'affectation, pas d'espace ni de endl
+    switch (this->value){
+        case 1:
+            cout<<this->id;
+            break;
+
+        case 0:
+            cout<<"-"<<this->id;
+            break;
+
+       case -1:
+            cout<<"±"<<this->id;
+            break;
+   }
+}
+
+
 void var::set_var(int id){
     this->id=id;
     this->value=-1;

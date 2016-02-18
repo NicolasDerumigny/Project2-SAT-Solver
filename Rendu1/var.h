@@ -3,6 +3,7 @@
 #include <map>
 #include <vector>
 #include "clause.h"
+#include "assignation.h"
 using namespace std;
 
 class clause;
@@ -12,6 +13,7 @@ public:
     void set_var(int id);
     void print();
 	void updateStatus(bool alive);
+    void assignValue(int value,bool bet);
 
     int id;
     int value;//-1 : unassigned, 0=false, 1 = true
