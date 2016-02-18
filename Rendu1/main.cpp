@@ -13,13 +13,15 @@ using namespace std;
 
 #include "expr.hpp"
 #include "expr.tab.hpp"
+#include "assignation.cpp"
+vector<assignation*> assignations;
+//création du vector qui contient les assignations réalisées
+
 #include "var.cpp"
 vector<var*> v_var;
 //création du vector qui contiendra tous les pointeurs vers les variables
 
-#include "assignation.cpp"
-vector<assignation*> assignations;
-//création du vector qui contient les assignations réalisées
+
 
 #include "litt.cpp"
 #include "clause.cpp"

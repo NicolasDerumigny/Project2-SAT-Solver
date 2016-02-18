@@ -2,6 +2,7 @@
 void clause::set_clause(litt* litt_entry){
 	this->mElementAlive[0]=litt_entry;
 	this->mElementDead[0]=nullptr;
+    this->id=0;
 }
 
 
@@ -40,10 +41,6 @@ litt* clause::getUniqueLittAlive(){
 		return unique_litt;
 	else
 		return nullptr;
-}
-
-bool clause::isSatisfied(){
-	
 }
 
 void clause::print(){

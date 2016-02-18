@@ -14,9 +14,9 @@ public:
 	litt* getUniqueLittAlive();
     void free_clause();
 
-    bool satisfied;
     map<unsigned int,litt*> mElementAlive;
     map<unsigned int,litt*> mElementDead;
+    int id;
 };
 
 #endif // CLAUSE_H
