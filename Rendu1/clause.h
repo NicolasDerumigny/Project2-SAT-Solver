@@ -10,7 +10,7 @@ public:
     void print();
 	bool isSatisfied();
     void merge(clause* cl);
-	void nbLittAlive();
+    int nbLittAlive();
 	litt* getUniqueLittAlive();
     void free_clause();
 

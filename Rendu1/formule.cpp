@@ -2,6 +2,12 @@
 void formule::set_formule(int varid, bool neg){
     var* new_var;
     //Afficher une erreur dans le cas ou la variable n'y est pas ET CONTINUER QUAND MEME
+    if (varid>=int(v_var.size())){
+        cout<<"Warning : variable number "<<varid<<" not declared in header line (max "<< v_var.size() - 1;
+        cout<<"), continuing anyway"<<endl;
+        for (int i=0; i<=varid-int(v_var.size());i++)
+            v_var.push_back(nullptr);
+    }
     if (v_var[varid]==nullptr){
         new_var= new var;
         new_var->set_var(varid);

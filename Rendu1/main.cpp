@@ -20,10 +20,10 @@ vector<assignation*> assignations;//création du vector qui contient les assigna
 #include "litt.cpp"
 #include "clause.cpp"
 #include "formule.cpp"
+formule * instance; // une formule pour les gouverner tous
 #include "decide.cpp"
 #include "deduce.cpp"
 #include "backtrack.cpp"
-formule * instance; // une formule pour les gouverner tous
 
 //extern "C" int yyparse();
 extern "C" FILE *yyin;
@@ -81,8 +81,21 @@ int main(int argc, char** argv) {
         fclose(inputFile);
 
 
-        /*while(getFreeVar()!=nullptr){
-            assignValue(getFreeVar());
+        while(getFreeVar()!=nullptr){
+            //decide
+            getFreeVar()->assignValue(1,true);
+            //on fait un paris que la freeVar est à vrai
+
+            //deduce
+
+
+            //backtrack
+            while(!check()){
+                if(!backtrack()){
+                    cout<<"s UNSATISFIABLE"<<endl;
+                    return 0;
+                }
+            }
             //verifier que tout est cohérent
         }
 
@@ -90,7 +103,7 @@ int main(int argc, char** argv) {
         //Destruction des objets
         instance->free_formule();
         for (unsigned long i=0; i<v_var.size(); i++)
-            delete v_var[i];*/
+            delete v_var[i];
 
         return 0;
 
