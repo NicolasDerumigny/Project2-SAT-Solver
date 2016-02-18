@@ -6,7 +6,7 @@ SOLVEUR SAT DPLL -- Projet 2 R.Staub et N.Derumigny
 Pour compiler, lancer
 make
 
-Pour executer le programme, lancer
+Pour exécuter le programme, lancer
 ./resol FichierSource.cnf
 
 Le fichier source doit être de la forme :
@@ -52,13 +52,15 @@ Une fonction d'affichage de l'objet de type formule ainsi créée est aussi impl
 
 Améliorations :
 
-Gérer les retours à la ligne intempestifs dans Bison/Flex...
-
-Mettre à jour Bison/Flex (warning lié au passage au C++11 dans expr.yy.c lors de la compilation exigeante avec l'option -Wall)
+Mettre à jour Bison/Flex (warning lié au passage au C++11 dans expr.yy.c lors de la compilation exigeante avec l'option -Wall).
 
 On ne prend pas en compte les clauses déclarées avant la ligne d'en-tête.
 
-Les lignes de définition de clauses doivent se terminer par un 0 (sans espace après).
+On gère mal des commentaires ne commençant pas par 'c'.
+
+Pré-traiter les entrées.
+
+Temps de construction de la formule beaucoup trop long (comparé à minisat).
 
 -------------
 
