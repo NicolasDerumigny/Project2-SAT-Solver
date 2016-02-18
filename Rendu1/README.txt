@@ -25,13 +25,52 @@ La formule finale est la conjonction de toutes ses clauses.
 
 -------------
 
+Générateur aléatoire de formules :
 
-Ce programme évalue le fichier à l'aide de bison/flex : et construit au fur et à mesure :
+./Rendu1/Examples/generate_cnf.sh
+
+usage : generate_cnf.sh [nombre de variables] [nombre de clauses] [nombre max de littéraux par clauses]
+
+L'ajout aléatoire de commentaires n'a pas été pris en compte (par manque de générateur aléatoire de phrases installé par défaut sur les machines libre-service)
+
+-------------
+
+Description :
+
+Ce programme évalue le fichier à l'aide de bison/flex : et construit au fur et à mesure (par appels à la méthode Expr::eval) :
 - Des objets de type formules, contenants des objets de types clauses séparées en satisfaites et insatisfaites
 - Des objets de type clauses, contenant des objets de types littéraux séparées en vivants et morts
 - Des objets de type littéraux, contenant un pointeur vers un objet de type variable et un bouléen désignant si la variable est niée ou non
 - Des objets de type variables, contenant leur numéro et leur affectation (vrai/faux/non attribuée)
 
 Une fonction d'affichage de la sortie bison est implémentée au moyen da la méthode to_string()
-Une fonction d'affichage de l'objet de type formule ainsi crée est aussi implémenté par la méthode print()
+Une fonction d'affichage de l'objet de type formule ainsi créée est aussi implémenté par la méthode print()
 
+
+
+-------------
+
+Améliorations :
+
+Gérer les retours à la ligne intempestifs dans Bison/Flex...
+
+Mettre à jour Bison/Flex (warning lié au passage au C++11 dans expr.yy.c lors de la compilation exigeante avec l'option -Wall)
+
+On ne prend pas en compte les clauses déclarées avant la ligne d'en-tête.
+
+Les lignes de définition de clauses doivent se terminer par un 0 (sans espace après).
+
+-------------
+
+Répartition du travail :
+
+La grande majorité du code a été écrit ensemble. Les exceptions étant définies ci-après.
+
+Nicolas D. :
+- file_open.cpp
+- backtrack.cpp
+
+Ruben S. :
+- deduce.cpp
+- decide.cpp
+- generate_cnf.sh
