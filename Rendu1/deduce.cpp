@@ -19,13 +19,13 @@ void assignUniqueLitt(){
 void assignUniquePolarity(){
 	vector<pair<int,int> > variables (v_var.size(), std::make_pair(0,0)); //vector contenant pour chaque variable une paire (nb_fois_vue_niée,nb_fois_vue_non_niée)
 	for (auto& cl:instance->mClauseUnsatisfied)
-		if (cl != nullptr)
+		if (cl.second != nullptr)
 			for (auto& li:cl->mElementAlive)
-				if (li != nullptr) {
-					if (li->neg == true)
-						variables[li->variable->id].first++; //on met à jour le vector variables
-					if (li->neg == false)
-						variables[li->variable->id].second++;
+				if (li.second != nullptr) {
+					if (li.second->neg == true)
+						variables[li.second->variable->id].first++; //on met à jour le vector variables
+					if (li.second->neg == false)
+						variables[li.second->variable->id].second++;
 				}
 	int id=0;
 	for (auto& variable:variables){ //pour chaque variable non assignée, on vérifie qu'elle n'apparait pas à la fois comme variable niée et non niée
