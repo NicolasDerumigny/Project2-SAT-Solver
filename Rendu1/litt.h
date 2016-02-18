@@ -2,6 +2,7 @@
 #define LITT_H
 #include <map>
 using namespace std;
+class var;
 
 class litt{
 

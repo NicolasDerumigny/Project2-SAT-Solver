@@ -11,11 +11,13 @@ using namespace std;
 #include "global_variables.h"
 #include "expr.hpp"
 #include "expr.tab.hpp"
+
 #include "var.cpp"
 #include "litt.cpp"
 #include "clause.cpp"
 #include "formule.cpp"
 #include "assignation.cpp"
+
 #include "decide.cpp"
 #include "deduce.cpp"
 #include "backtrack.cpp"

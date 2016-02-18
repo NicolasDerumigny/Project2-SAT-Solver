@@ -32,6 +32,12 @@ void checkHeader(char* file_dir){
     int V, C;
 
     eFile >> p >> cnf >> V >> C;
+    string line;
+    int nbr_C=0;
+    while(getline(eFile, line))
+        nbr_C++;
+    if (nbr_C!=C)
+        cout<<"Warning : "<<C<<" clauses were declared in header line but found "<< nbr_C <<", continuing anyway"<<endl;
     eFile.close();
 
 
@@ -60,9 +66,9 @@ void parse(char* file_dir){
         yyin = inputFile;
         do {
             yyparse();
-            cout << res->to_string() << endl;
+            cout << "Formula in input:"<<endl;
+            cout <<res->to_string() << endl;
             instance =  res->eval();
-            instance->print();
         } while (!feof(yyin));
 
         fclose(inputFile);
@@ -76,11 +82,18 @@ void freeAll(){
     instance->free_formule();
     for (unsigned long i=0; i<v_var.size(); i++)
         delete v_var[i];
+    for (unsigned long i=0; i<assignations.size(); i++){
+        delete assignations[i];
+        assignations[i]=nullptr;
+    }
 }
 
 void print_output(){
     for(int i=1; i<int(v_var.size());i++){
-        v_var[i]->print();
+        if (v_var[i]!=nullptr)
+            v_var[i]->print();
+        else
+            cout<<i;
         cout<<" ";
     }
     cout<<0<<endl;

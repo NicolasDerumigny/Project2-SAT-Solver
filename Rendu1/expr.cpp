@@ -47,12 +47,10 @@ formule* EConj::eval()//op1 et op2 seront des formules
 
     if(op1->form->mClauseUnsatisfied.size() > op2->form->mClauseUnsatisfied.size()){
         op1->form->merge(op2->form);
-        delete op2->form;
         this->form=op1->form;
     }
     else{
         op2->form->merge(op1->form);
-        delete op1->form;
         this->form=op2->form;
     }
     return this->form;
@@ -76,12 +74,10 @@ formule* EDisj::eval()
     op2->form=op2->eval();
     if(op1->form->mClauseUnsatisfied.size() > op2->form->mClauseUnsatisfied.size()){
         (op1->form->mClauseUnsatisfied[0])->merge(op2->form->mClauseUnsatisfied[0]);
-        delete op2->form;
         this->form=op1->form;
     }
     else{
         (op2->form->mClauseUnsatisfied[0])->merge(op1->form->mClauseUnsatisfied[0]);
-        delete op1->form;
         this->form=op2->form;
     }
     return this->form;

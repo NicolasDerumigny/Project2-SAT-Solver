@@ -1,6 +1,8 @@
 #ifndef DEF_EXPR
 #define DEF_EXPR
 
+#include "litt.h"
+#include "clause.h"
 #include "formule.h"
 #include <iostream>
 #include <sstream>
