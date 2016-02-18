@@ -42,10 +42,6 @@ litt* clause::getUniqueLittAlive(){
 		return nullptr;
 }
 
-bool clause::isSatisfied(){
-	
-}
-
 void clause::print(){
     cout<<"\tElements vivants :"<<endl;
     for (auto& s:this->mElementAlive)
