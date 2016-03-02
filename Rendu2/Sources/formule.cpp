@@ -4,8 +4,8 @@ void formule::set_formule(int varid, bool neg){
     //Afficher une erreur dans le cas ou la variable n'y est pas ET CONTINUER QUAND MEME
     if (varid>=int(v_var.size())){
         int oldsize=int(v_var.size());
-        cout<<"Warning : variable number "<<varid<<" not declared in header line (max "<< oldsize - 1;
-        cout<<"), continuing anyway"<<endl;
+        cerr<<"Warning : variable number "<<varid<<" not declared in header line (max "<< oldsize - 1;
+        cerr<<"), continuing anyway"<<endl;
         for (int i=0; i<varid-oldsize+1;i++)
             v_var.push_back(nullptr);
     }

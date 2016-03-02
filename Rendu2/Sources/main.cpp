@@ -25,17 +25,24 @@ using namespace std;
 #include "deduce.cpp"
 #include "backtrack.cpp"
 clock_t checkpoint = clock();
+
+#include "parser.cpp"
 #include "file_open.cpp"
+#include "cast_arg.cpp"
 
 
 int main(int argc, char** argv) {
 	fprintf(stderr,"begin: %f s\n",(double) checkpoint/CLOCKS_PER_SEC);
-	checkCorrectFile(argv[1]);
-    checkRightArg(argc, argv[0]);
-    checkHeader(argv[1]);
-	checkpoint = clock();
-	fprintf(stderr,"check: %f s\n",(double) checkpoint/CLOCKS_PER_SEC);
-    parse(argv[1]);
+    if(is_tseitin(argc, argv)){
+        //TODO
+        parse_bison(argv[1]);
+    }else{
+        checkCorrectFile(argv[1]);
+        checkRightArg(argc, argv[0]);
+        checkHeaderAndParse(argv[1]);
+		checkpoint = clock();
+		fprintf(stderr,"check: %f s\n",(double) checkpoint/CLOCKS_PER_SEC);
+    }
 
     while(getFreeVar()!=nullptr){
         //decide
