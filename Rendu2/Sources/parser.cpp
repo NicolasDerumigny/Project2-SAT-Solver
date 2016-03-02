@@ -9,5 +9,5 @@ bool parse_manual(string line, int nbLine){
     if (line[i]=='c'){
        return true;
     }
-
+    return true;
 }

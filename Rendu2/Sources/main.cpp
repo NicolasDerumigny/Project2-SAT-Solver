@@ -28,13 +28,14 @@ using namespace std;
 #include "cast_arg.cpp"
 
 int main(int argc, char** argv) {
-    if(is_zeitin(argc, argv)){
+    if(is_tseitin(argc, argv)){
         //TODO
         parse_bison(argv[1]);
     }else{
         checkCorrectFile(argv[1]);
         checkRightArg(argc, argv[0]);
-        checkHeader(argv[1]);
+        checkHeaderAndParse(argv[1]);
+    }
 
     while(getFreeVar()!=nullptr){
         //decide
