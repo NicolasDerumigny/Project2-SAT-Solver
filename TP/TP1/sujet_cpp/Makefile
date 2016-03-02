@@ -1,7 +1,7 @@
 #example name
 NAME=expr
 #compiler name
-CC=clang++
+CC=g++
 #lex name+path
 LEX=flex
 LIBLEX=-lfl
@@ -9,7 +9,7 @@ LIBLEX=-lfl
 YACC=bison
 
 all: $(NAME).tab.cpp $(NAME).yy.c $(NAME).cpp main.cpp
-	$(CC) -g -std=c++11 -Wall -Wextra -Wpedantic -Wno-write-strings -o resol $^ $(LIBLEX)
+	$(CC) -g -Wno-write-strings -o calc $^ $(LIBLEX)
 
 $(NAME).yy.c :  $(NAME).l
 	$(LEX)  -o $@ $^
