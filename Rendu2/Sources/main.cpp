@@ -10,7 +10,7 @@
 #include <sys/stat.h>
 #include <unistd.h>
 using namespace std;
-#include "global_variables.h"
+#include "../Header/global_variables.h"
 #include "../Bison/expr.hpp"
 #include "../Bison/expr.tab.hpp"
 

@@ -1,9 +1,9 @@
 #ifndef DEF_EXPR
 #define DEF_EXPR
 
-#include "litt.h"
-#include "clause.h"
-#include "formule.h"
+#include "../Header/litt.h"
+#include "../Header/clause.h"
+#include "../Header/formule.h"
 #include <iostream>
 #include <sstream>
 #include <string>
