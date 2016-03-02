@@ -1,0 +1,230 @@
+Terminals unused in grammar
+
+   TK_XOR
+   TK_IMPLY
+   TK_EQ
+   TK_ENOT
+   TK_EOF
+
+
+Grammar
+
+    0 $accept: input $end
+
+    1 input: TK_FLINE expression TK_CONJ
+
+    2 expression: TK_VAR
+    3           | TK_VNOT TK_VAR
+    4           | TK_LPAREN expression TK_RPAREN
+    5           | expression TK_CONJ expression
+    6           | expression TK_DISJ expression
+
+
+Terminals, with rules where they appear
+
+$end (0) 0
+error (256)
+TK_CONJ (258) 1 5
+TK_DISJ (259) 6
+TK_XOR (260)
+TK_IMPLY (261)
+TK_EQ (262)
+TK_LPAREN (263) 4
+TK_RPAREN (264) 4
+TK_ENOT (265)
+TK_VNOT (266) 3
+TK_EOF (267)
+TK_FLINE (268) 1
+TK_VAR (269) 2 3
+
+
+Nonterminals, with rules where they appear
+
+$accept (15)
+    on left: 0
+input (16)
+    on left: 1, on right: 0
+expression (17)
+    on left: 2 3 4 5 6, on right: 1 4 5 6
+
+
+State 0
+
+    0 $accept: . input $end
+    1 input: . TK_FLINE expression TK_CONJ
+
+    TK_FLINE  shift, and go to state 1
+
+    input  go to state 2
+
+
+State 1
+
+    1 input: TK_FLINE . expression TK_CONJ
+    2 expression: . TK_VAR
+    3           | . TK_VNOT TK_VAR
+    4           | . TK_LPAREN expression TK_RPAREN
+    5           | . expression TK_CONJ expression
+    6           | . expression TK_DISJ expression
+
+    TK_LPAREN  shift, and go to state 3
+    TK_VNOT    shift, and go to state 4
+    TK_VAR     shift, and go to state 5
+
+    expression  go to state 6
+
+
+State 2
+
+    0 $accept: input . $end
+
+    $end  shift, and go to state 7
+
+
+State 3
+
+    2 expression: . TK_VAR
+    3           | . TK_VNOT TK_VAR
+    4           | . TK_LPAREN expression TK_RPAREN
+    4           | TK_LPAREN . expression TK_RPAREN
+    5           | . expression TK_CONJ expression
+    6           | . expression TK_DISJ expression
+
+    TK_LPAREN  shift, and go to state 3
+    TK_VNOT    shift, and go to state 4
+    TK_VAR     shift, and go to state 5
+
+    expression  go to state 8
+
+
+State 4
+
+    3 expression: TK_VNOT . TK_VAR
+
+    TK_VAR  shift, and go to state 9
+
+
+State 5
+
+    2 expression: TK_VAR .
+
+    $default  reduce using rule 2 (expression)
+
+
+State 6
+
+    1 input: TK_FLINE expression . TK_CONJ
+    5 expression: expression . TK_CONJ expression
+    6           | expression . TK_DISJ expression
+
+    TK_CONJ  shift, and go to state 10
+    TK_DISJ  shift, and go to state 11
+
+
+State 7
+
+    0 $accept: input $end .
+
+    $default  accept
+
+
+State 8
+
+    4 expression: TK_LPAREN expression . TK_RPAREN
+    5           | expression . TK_CONJ expression
+    6           | expression . TK_DISJ expression
+
+    TK_CONJ    shift, and go to state 12
+    TK_DISJ    shift, and go to state 11
+    TK_RPAREN  shift, and go to state 13
+
+
+State 9
+
+    3 expression: TK_VNOT TK_VAR .
+
+    $default  reduce using rule 3 (expression)
+
+
+State 10
+
+    1 input: TK_FLINE expression TK_CONJ .  [$end]
+    2 expression: . TK_VAR
+    3           | . TK_VNOT TK_VAR
+    4           | . TK_LPAREN expression TK_RPAREN
+    5           | . expression TK_CONJ expression
+    5           | expression TK_CONJ . expression
+    6           | . expression TK_DISJ expression
+
+    TK_LPAREN  shift, and go to state 3
+    TK_VNOT    shift, and go to state 4
+    TK_VAR     shift, and go to state 5
+
+    $default  reduce using rule 1 (input)
+
+    expression  go to state 14
+
+
+State 11
+
+    2 expression: . TK_VAR
+    3           | . TK_VNOT TK_VAR
+    4           | . TK_LPAREN expression TK_RPAREN
+    5           | . expression TK_CONJ expression
+    6           | . expression TK_DISJ expression
+    6           | expression TK_DISJ . expression
+
+    TK_LPAREN  shift, and go to state 3
+    TK_VNOT    shift, and go to state 4
+    TK_VAR     shift, and go to state 5
+
+    expression  go to state 15
+
+
+State 12
+
+    2 expression: . TK_VAR
+    3           | . TK_VNOT TK_VAR
+    4           | . TK_LPAREN expression TK_RPAREN
+    5           | . expression TK_CONJ expression
+    5           | expression TK_CONJ . expression
+    6           | . expression TK_DISJ expression
+
+    TK_LPAREN  shift, and go to state 3
+    TK_VNOT    shift, and go to state 4
+    TK_VAR     shift, and go to state 5
+
+    expression  go to state 14
+
+
+State 13
+
+    4 expression: TK_LPAREN expression TK_RPAREN .
+
+    $default  reduce using rule 4 (expression)
+
+
+State 14
+
+    5 expression: expression . TK_CONJ expression
+    5           | expression TK_CONJ expression .  [TK_CONJ, TK_RPAREN]
+    6           | expression . TK_DISJ expression
+
+    TK_DISJ  shift, and go to state 11
+
+    $default  reduce using rule 5 (expression)
+
+    Conflict between rule 5 and token TK_CONJ resolved as reduce (%left TK_CONJ).
+    Conflict between rule 5 and token TK_DISJ resolved as shift (TK_CONJ < TK_DISJ).
+
+
+State 15
+
+    5 expression: expression . TK_CONJ expression
+    6           | expression . TK_DISJ expression
+    6           | expression TK_DISJ expression .  [TK_CONJ, TK_DISJ, TK_RPAREN]
+
+    $default  reduce using rule 6 (expression)
+
+    Conflict between rule 6 and token TK_CONJ resolved as reduce (TK_CONJ < TK_DISJ).
+    Conflict between rule 6 and token TK_DISJ resolved as reduce (%left TK_DISJ).
