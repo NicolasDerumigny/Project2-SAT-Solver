@@ -151,7 +151,7 @@ void parse(char* file_dir){
         // parse through the input until there is no more:
         yyin = inputFile;
         do {
-            yyparse();
+            yyparse();//TODO implement parser in C++ using cout.
             /*cout << "Formula in input:"<<endl;
             cout <<res->to_string() << endl;*/
             instance =  res->eval();
