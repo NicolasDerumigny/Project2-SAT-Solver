@@ -30,7 +30,9 @@ SOURCES += \
     Sources/decide.cpp \
     Sources/backtrack.cpp \
     Sources/assignation.cpp \
-    Sources/file_open.cpp
+    Sources/file_open.cpp \
+    Sources/cast_arg.cpp \
+    Sources/parser.cpp
 
 HEADERS += \
     Header/var.h \

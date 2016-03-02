@@ -23,13 +23,18 @@ using namespace std;
 #include "decide.cpp"
 #include "deduce.cpp"
 #include "backtrack.cpp"
+#include "parser.cpp"
 #include "file_open.cpp"
+#include "cast_arg.cpp"
 
 int main(int argc, char** argv) {
-    checkCorrectFile(argv[1]);
-    checkRightArg(argc, argv[0]);
-    checkHeader(argv[1]);
-    parse(argv[1]);
+    if(is_zeitin(argc, argv)){
+        //TODO
+        parse_bison(argv[1]);
+    }else{
+        checkCorrectFile(argv[1]);
+        checkRightArg(argc, argv[0]);
+        checkHeader(argv[1]);
 
     while(getFreeVar()!=nullptr){
         //decide
