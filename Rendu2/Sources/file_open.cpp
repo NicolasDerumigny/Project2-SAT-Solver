@@ -155,13 +155,13 @@ void parse_bison(char* file_dir){
         yyin = inputFile;
         do {
             yyparse();
-			checkpoint = clock();
-			fprintf(stderr,"parse: %f s\n",(double) checkpoint/CLOCKS_PER_SEC);
+			//checkpoint = clock();
+			//fprintf(stderr,"parse: %f s\n",(double) checkpoint/CLOCKS_PER_SEC);
             /*cout << "Formula in input:"<<endl;
             cout <<res->to_string() << endl;*/
             instance =  res->eval();
-			checkpoint = clock();
-			fprintf(stderr,"create: %f s\n",(double) checkpoint/CLOCKS_PER_SEC);
+			//checkpoint = clock();
+			//fprintf(stderr,"create: %f s\n",(double) checkpoint/CLOCKS_PER_SEC);
         } while (!feof(yyin));
 
         fclose(inputFile);

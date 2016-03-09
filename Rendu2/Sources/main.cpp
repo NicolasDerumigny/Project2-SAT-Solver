@@ -24,7 +24,7 @@ using namespace std;
 #include "decide.cpp"
 #include "deduce.cpp"
 #include "backtrack.cpp"
-clock_t checkpoint = clock();
+//clock_t checkpoint = clock();
 
 #include "parser.cpp"
 #include "file_open.cpp"
@@ -32,7 +32,7 @@ clock_t checkpoint = clock();
 
 
 int main(int argc, char** argv) {
-	fprintf(stderr,"begin: %f s\n",(double) checkpoint/CLOCKS_PER_SEC);
+	//fprintf(stderr,"begin: %f s\n",(double) checkpoint/CLOCKS_PER_SEC);
     if(is_tseitin(argc, argv)){
         //TODO
         parse_bison(argv[1]);
@@ -40,8 +40,8 @@ int main(int argc, char** argv) {
         checkCorrectFile(argv[1]);
         checkRightArg(argc, argv[0]);
         checkHeaderAndParse(argv[1]);
-		checkpoint = clock();
-		fprintf(stderr,"check: %f s\n",(double) checkpoint/CLOCKS_PER_SEC);
+		//checkpoint = clock();
+		//fprintf(stderr,"check: %f s\n",(double) checkpoint/CLOCKS_PER_SEC);
     }
 
     while(getFreeVar()!=nullptr){
@@ -65,7 +65,7 @@ int main(int argc, char** argv) {
     cout<<"s SATISFIABLE"<<endl;
     print_output();
     freeAll();
-	checkpoint = clock();
-	fprintf(stderr,"end: %f s\n",(double) checkpoint/CLOCKS_PER_SEC);
+	//checkpoint = clock();
+	//fprintf(stderr,"end: %f s\n",(double) checkpoint/CLOCKS_PER_SEC);
     return 0;
 }
