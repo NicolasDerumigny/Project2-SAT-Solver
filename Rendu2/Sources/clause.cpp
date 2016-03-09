@@ -13,7 +13,22 @@ void clause::set_clause(litt* litt_entry){
 
 
 void clause::merge(clause* cl2){
-    //TODO : listes
+    int nbrLitt_before=this->nbrLitt;
+    int nbrLitt_before2=cl2->nbrLitt;
+
+    this->ElementAlive=(litt**)realloc(this->ElementAlive,sizeof(litt*)*(nbrLitt_before+nbrLitt_before2));
+    this->ElementDead=(litt**)realloc(this->ElementDead,sizeof(litt*)*(nbrLitt_before+nbrLitt_before2));
+
+
+    for(int i=0; i<nbrLitt_before2;i++)
+        this->ElementAlive[nbrLitt_before+i]=cl2->ElementAlive[i];
+
+    for(int i=0; i<nbrLitt_before2;i++)
+        this->ElementDead[nbrLitt_before+i]=cl2->ElementDead[i];
+
+    this->nbrLitt+=nbrLitt_before2;
+
+    //compatibilité : garder les maps actuelles
     for (auto& s:cl2->mElementAlive)
         this->mElementAlive[this->mElementAlive.size()]=s.second;
     for (auto& s:cl2->mElementDead)
@@ -24,6 +39,9 @@ void clause::merge(clause* cl2){
                 if (s2 == cl2)
                     s2 = this;
        }
+
+
+    //retirer les mallocs
     delete cl2;
 }
 
@@ -66,6 +84,7 @@ void clause::print(){
 }
 
 void clause::free_clause(){
+    //TODO : free malloc
     for (auto& s:this->mElementAlive)
         if (s.second != nullptr){
              delete s.second;
