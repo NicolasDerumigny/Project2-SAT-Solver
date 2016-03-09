@@ -1,5 +1,12 @@
 #include "../Header/clause.h"
 void clause::set_clause(litt* litt_entry){
+    this->nbrLitt=1;
+
+    this->ElementAlive=malloc(sizeof(litt*));
+    this->ElementAlive[0]=litt_entry;
+    this->ElementDead=malloc(sizeof(litt*));
+    this->ElementDead[0]=nullptr;
+
 	this->mElementAlive[0]=litt_entry;
 	this->mElementDead[0]=nullptr;
     this->id=0;
@@ -7,6 +14,7 @@ void clause::set_clause(litt* litt_entry){
 
 
 void clause::merge(clause* cl2){
+    //TODO : listes
     for (auto& s:cl2->mElementAlive)
         this->mElementAlive[this->mElementAlive.size()]=s.second;
     for (auto& s:cl2->mElementDead)

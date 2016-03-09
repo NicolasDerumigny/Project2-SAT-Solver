@@ -13,6 +13,10 @@ public:
 	litt* getUniqueLittAlive();
     void free_clause();
 
+    int nbrLitt;
+    litt** ElementAlive;
+    litt** ElementDead;
+
     map<unsigned int,litt*> mElementAlive;
     map<unsigned int,litt*> mElementDead;
     int id;

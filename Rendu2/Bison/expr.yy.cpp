@@ -1,6 +1,13 @@
-#line 2 "expr.yy.c"
+#ifdef __clang__
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-register"
+#endif
 
-#line 4 "expr.yy.c"
+#pragma GCC diagnostic ignored "-Wunused-function"
+
+#line 2 "expr.yy.cpp"
+
+#line 4 "expr.yy.cpp"
 
 #define  YY_INT_ALIGNED short int
 
@@ -499,7 +506,7 @@ using namespace std;
 #define YY_DECL extern "C" int yylex()
 
 #include "expr.tab.hpp"
-#line 503 "expr.yy.c"
+#line 503 "expr.yy.cpp"
 
 #define INITIAL 0
 
@@ -691,7 +698,7 @@ YY_DECL
     
 #line 9 "expr.l"
 
-#line 695 "expr.yy.c"
+#line 695 "expr.yy.cpp"
 
 	if ( !(yy_init) )
 		{
@@ -863,7 +870,7 @@ YY_RULE_SETUP
 #line 26 "expr.l"
 ECHO;
 	YY_BREAK
-#line 867 "expr.yy.c"
+#line 867 "expr.yy.cpp"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1866,5 +1873,6 @@ void yyfree (void * ptr )
 
 #line 26 "expr.l"
 
-
-
+#ifdef __clang__
+#pragma clang diagnostic pop
+#endif

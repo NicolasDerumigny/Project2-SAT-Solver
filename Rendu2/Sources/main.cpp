@@ -15,6 +15,7 @@ using namespace std;
 #include "../Bison/expr.hpp"
 #include "../Bison/expr.tab.hpp"
 
+
 #include "var.cpp"
 #include "litt.cpp"
 #include "clause.cpp"
@@ -40,6 +41,7 @@ int main(int argc, char** argv) {
         checkCorrectFile(argv[1]);
         checkRightArg(argc, argv[0]);
         checkHeaderAndParse(argv[1]);
+        parse_bison(argv[1]);
 		//checkpoint = clock();
 		//fprintf(stderr,"check: %f s\n",(double) checkpoint/CLOCKS_PER_SEC);
     }
@@ -66,6 +68,8 @@ int main(int argc, char** argv) {
     print_output();
     freeAll();
 	//checkpoint = clock();
-	//fprintf(stderr,"end: %f s\n",(double) checkpoint/CLOCKS_PER_SEC);
+    //fprintf(stderr,"end: %f s\n",(double) checkpoint/CLOCKS_PER_SEC);
+
     return 0;
 }
+

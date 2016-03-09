@@ -8,14 +8,16 @@ LIBLEX=-lfl
 #yacc/bison
 YACC=bison
 
-all: Bison/$(NAME).tab.cpp Bison/$(NAME).yy.c Bison/$(NAME).cpp Sources/main.cpp
-	$(CC) -g -std=c++11 -pg -Wall -Wextra -Wpedantic -Wno-write-strings -I ./Headers -o resol $^ $(LIBLEX)
 
-Bison/$(NAME).yy.c :  Bison/$(NAME).l
-	$(LEX)  -o $@ $^
+all: Bison/$(NAME).tab.cpp Bison/$(NAME).yy.cpp Bison/$(NAME).cpp Sources/main.cpp
+	$(CC) -g -std=c++11 -pg -Wall -Wextra -Wpedantic -Wno-write-strings -I ./Headers -o resol $^ $(LIBLEX)
+	
+
+Bison/$(NAME).yy.cpp :  Bison/$(NAME).l
+	$(LEX)  -w -o $@ $^
 
 Bison/$(NAME).tab.cpp : Bison/$(NAME).ypp
 	$(YACC) --report=all -o $@ -d $^
 
 clean:
-	rm -f *~ Bison/$(NAME).yy.c Bison/$(NAME).tab.cpp Bison/$(NAME).tab.hpp Bison/$(NAME).output
+	rm -f *~ Bison/$(NAME).yy.cpp Bison/$(NAME).tab.cpp Bison/$(NAME).tab.hpp Bison/$(NAME).output
