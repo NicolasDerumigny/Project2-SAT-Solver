@@ -1,10 +1,9 @@
 #include "../Header/clause.h"
 void clause::set_clause(litt* litt_entry){
     this->nbrLitt=1;
-
-    this->ElementAlive=malloc(sizeof(litt*));
+    this->ElementAlive=(litt**)malloc(sizeof(litt*));
     this->ElementAlive[0]=litt_entry;
-    this->ElementDead=malloc(sizeof(litt*));
+    this->ElementDead=(litt**)malloc(sizeof(litt*));
     this->ElementDead[0]=nullptr;
 
 	this->mElementAlive[0]=litt_entry;
