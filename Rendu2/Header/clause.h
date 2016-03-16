@@ -13,11 +13,13 @@ public:
 	litt* getUniqueLittAlive();
     void free_clause();
 
-    litt* ElementAlive;//TODO : liste chainée !
-    litt* ElementDead;
+    litt* f_ElementAlive;//premier de la liste chainée
+    litt* l_ElementAlive;//dernier de la liste chainée
+    litt* f_ElementDead;//premier de la liste chainée
+    litt* l_ElementDead;//dernier de la liste chainée
 
-    map<unsigned int,litt*> mElementAlive;
-    map<unsigned int,litt*> mElementDead;
+    //map<unsigned int,litt*> mElementAlive;
+    //map<unsigned int,litt*> mElementDead;
     int id;
 };
 
