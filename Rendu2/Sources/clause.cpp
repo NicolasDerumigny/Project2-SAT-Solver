@@ -1,11 +1,7 @@
 #include "../Header/clause.h"
 void clause::set_clause(litt* litt_entry){
-    this->nbrLitt=1;
-    this->ElementAlive=(litt**)malloc(sizeof(litt*));
-    this->ElementAlive[0]=litt_entry;
-    this->ElementDead=(litt**)malloc(sizeof(litt*));
-    this->ElementDead[0]=nullptr;
-
+    this->ElementAlive=litt_entry;
+    this->ElementDead=nullptr;
 	this->mElementAlive[0]=litt_entry;
 	this->mElementDead[0]=nullptr;
     this->id=0;
@@ -13,20 +9,11 @@ void clause::set_clause(litt* litt_entry){
 
 
 void clause::merge(clause* cl2){
-    int nbrLitt_before=this->nbrLitt;
-    int nbrLitt_before2=cl2->nbrLitt;
-
-    this->ElementAlive=(litt**)realloc(this->ElementAlive,sizeof(litt*)*(nbrLitt_before+nbrLitt_before2));
-    this->ElementDead=(litt**)realloc(this->ElementDead,sizeof(litt*)*(nbrLitt_before+nbrLitt_before2));
-
-
-    for(int i=0; i<nbrLitt_before2;i++)
-        this->ElementAlive[nbrLitt_before+i]=cl2->ElementAlive[i];
-
-    for(int i=0; i<nbrLitt_before2;i++)
-        this->ElementDead[nbrLitt_before+i]=cl2->ElementDead[i];
-
-    this->nbrLitt+=nbrLitt_before2;
+    litt* course=this->ElementAlive;
+    while (course->next_litt!=nullptr)
+        course=course->next_litt;
+    course->next_litt=cl2->ElementAlive;
+    //fusion des listes simplement chainées
 
     //compatibilité : garder les maps actuelles
     for (auto& s:cl2->mElementAlive)
@@ -39,17 +26,19 @@ void clause::merge(clause* cl2){
                 if (s2 == cl2)
                     s2 = this;
        }
-
-
-    //retirer les mallocs
     delete cl2;
 }
 
 int clause::nbLittAlive(){
 	int result=0;
-	for (auto& li:this->mElementAlive)
+    litt* course=this->ElementAlive;
+    while (course->next_litt!=nullptr){
+        course=course->next_litt;
+        result++;
+    }
+    /*for (auto& li:this->mElementAlive)
 		if (li.second != nullptr)
-			result++;
+            result++;*/
 	return result;
 }
 

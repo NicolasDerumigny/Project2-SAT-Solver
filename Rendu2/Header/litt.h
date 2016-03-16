@@ -13,6 +13,8 @@ public:
 
     var* variable;
     bool neg;
+    litt* next_litt;
+    //struct of chained list
 };
 
 #endif // LITT_H

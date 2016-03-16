@@ -3,6 +3,7 @@
 void litt::set_litt(var* var_entry, bool neg){
     this->neg=neg;
     this->variable=var_entry;
+    this->next_litt=nullptr;
 }
 
 void litt::print(){
