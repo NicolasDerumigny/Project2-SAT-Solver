@@ -13,6 +13,8 @@ public:
 	litt* getUniqueLittAlive();
     void free_clause();
 
+	litt* next_clause;
+
     litt* f_ElementAlive;//premier de la liste chainée
     litt* l_ElementAlive;//dernier de la liste chainée
     litt* f_ElementDead;//premier de la liste chainée

@@ -51,7 +51,7 @@ int clause::nbLittAlive(){
     }
     /*for (auto& li:this->mElementAlive)
 		if (li.second != nullptr)
-            result++;*/
+			result++;*/
 	return result;
 }
 
