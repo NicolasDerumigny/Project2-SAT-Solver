@@ -23,47 +23,75 @@ void formule::set_formule(int varid, bool neg){
     new_clause= new clause;
     new_clause->set_clause(new_litt);
 	new_var->clauseInto.push_back(new_clause);
-    this->mClauseUnsatisfied[0]=new_clause;
-    this->mClauseSatisfied[0]=nullptr;
+	this->f_ClauseUnsatisfied = new_clause;
+	this->l_ClauseUnsatisfied = new_clause;
+	this->f_ClauseSatisfied = nullptr;
+	this->l_ClauseSatisfied = nullptr;
+//    this->mClauseUnsatisfied[0]=new_clause;
+//    this->mClauseSatisfied[0]=nullptr;
 }
 
 
 void formule::merge(formule* formule2){
-    for (auto& s:formule2->mClauseSatisfied){
-        this->mClauseSatisfied[this->mClauseSatisfied.size()]=s.second;
-        if (s.second != nullptr)
-            this->mClauseSatisfied[this->mClauseSatisfied.size()-1]->id=this->mClauseSatisfied.size()-1;
-    }
-    for (auto& s:formule2->mClauseUnsatisfied){
-        this->mClauseUnsatisfied[this->mClauseUnsatisfied.size()]=s.second;
-        if (s.second != nullptr)
-            this->mClauseUnsatisfied[this->mClauseUnsatisfied.size()-1]->id=this->mClauseUnsatisfied.size()-1;
-    }
+	if (this->l_ClauseSatisfied != nullptr){
+		this->f_ClauseSatisfied = formule2->f_ClauseSatisfied;
+		this->l_ClauseSatisfied = formule2->l_ClauseSatisfied;
+	} else {
+		this->l_ClauseSatisfied->next_clause = formule2->f_ClauseSatisfied;
+		this->l_ClauseSatisfied = formule2->l_ClauseSatisfied;
+	}
+	if (this->l_ClauseUnsatisfied != nullptr){
+		this->f_ClauseUnsatisfied = formule2->f_ClauseUnsatisfied;
+		this->l_ClauseUnsatisfied = formule2->l_ClauseUnsatisfied;
+	} else {
+		this->l_ClauseUnsatisfied->next_clause = formule2->f_ClauseUnsatisfied;
+		this->l_ClauseUnsatisfied = formule2->l_ClauseUnsatisfied;
+	}
+//    for (auto& s:formule2->mClauseSatisfied){
+//        this->mClauseSatisfied[this->mClauseSatisfied.size()]=s.second;
+//        if (s.second != nullptr)
+//            this->mClauseSatisfied[this->mClauseSatisfied.size()-1]->id=this->mClauseSatisfied.size()-1;
+//    }
+//    for (auto& s:formule2->mClauseUnsatisfied){
+//        this->mClauseUnsatisfied[this->mClauseUnsatisfied.size()]=s.second;
+//        if (s.second != nullptr)
+//            this->mClauseUnsatisfied[this->mClauseUnsatisfied.size()-1]->id=this->mClauseUnsatisfied.size()-1;
+//    }
     delete formule2;
 }
 
 void formule::print(){
     cout<<"Clauses satisfaites :"<<endl;
-    for (auto& s:this->mClauseSatisfied)
-        if (s.second != nullptr)
-			s.second->print();
+	for (clause* cl = this->f_ClauseSatisfied;cl != nullptr;cl=cl->next_clause){
+		cl->print();
+	}
+//    for (auto& s:this->mClauseSatisfied)
+//        if (s.second != nullptr)
+//			s.second->print();
     cout<<"Clauses non satisfaites :"<<endl;
-    for (auto& s:this->mClauseUnsatisfied)
-        if (s.second != nullptr)
-			s.second->print();
+	for (clause* cl = this->f_ClauseUnsatisfied;cl != nullptr;cl=cl->next_clause){
+		cl->print();
+	}
+//    for (auto& s:this->mClauseUnsatisfied)
+//        if (s.second != nullptr)
+//			s.second->print();
     cout<<endl<<endl;
 
 }
 
 void formule::free_formule(){
-    for (auto& s:this->mClauseSatisfied)
-        if (s.second != nullptr){
-             s.second->free_clause();
-             delete s.second;
-        }
-    for (auto& s:this->mClauseUnsatisfied)
-        if (s.second != nullptr){
-             s.second->free_clause();
-             delete s.second;
-        }
+	clause* cl = this->f_ClauseSatisfied;
+	while (cl != nullptr){
+		cl
+	}
+//    for (auto& s:this->mClauseSatisfied)
+//        if (s.second != nullptr){
+//             s.second->free_clause();
+//             delete s.second;
+//        }
+//    for (auto& s:this->mClauseUnsatisfied)
+//        if (s.second != nullptr){
+//             s.second->free_clause();
+//             delete s.second;
+//        }
 }

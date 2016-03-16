@@ -9,6 +9,11 @@ public:
     void print();
     void free_formule();
 
+	clause* f_ClauseSatisfied;
+	clause* f_ClauseUnsatisfied;
+	clause* l_ClauseSatisfied;
+	clause* l_ClauseUnsatisfied;
+
     map<unsigned int,clause*> mClauseSatisfied;
     map<unsigned int,clause*> mClauseUnsatisfied;
     void merge(formule* formule2);

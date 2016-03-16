@@ -1,7 +1,5 @@
 #include "../Header/clause.h"
 void clause::set_clause(litt* litt_entry){
-    this->ElementAlive=litt_entry;
-    this->ElementDead=nullptr;
 	this->mElementAlive[0]=litt_entry;
 	this->mElementDead[0]=nullptr;
     this->id=0;
@@ -9,13 +7,6 @@ void clause::set_clause(litt* litt_entry){
 
 
 void clause::merge(clause* cl2){
-    litt* course=this->ElementAlive;
-    while (course->next_litt!=nullptr)
-        course=course->next_litt;
-    course->next_litt=cl2->ElementAlive;
-    //fusion des listes simplement chainées
-
-    //compatibilité : garder les maps actuelles
     for (auto& s:cl2->mElementAlive)
         this->mElementAlive[this->mElementAlive.size()]=s.second;
     for (auto& s:cl2->mElementDead)
@@ -31,14 +22,9 @@ void clause::merge(clause* cl2){
 
 int clause::nbLittAlive(){
 	int result=0;
-    litt* course=this->ElementAlive;
-    while (course->next_litt!=nullptr){
-        course=course->next_litt;
-        result++;
-    }
-    /*for (auto& li:this->mElementAlive)
+	for (auto& li:this->mElementAlive)
 		if (li.second != nullptr)
-            result++;*/
+			result++;
 	return result;
 }
 
@@ -73,7 +59,6 @@ void clause::print(){
 }
 
 void clause::free_clause(){
-    //TODO : free malloc
     for (auto& s:this->mElementAlive)
         if (s.second != nullptr){
              delete s.second;

@@ -34,4 +34,15 @@ var* getRandFreeVar() {
 	return new_var;
 }
 
+var* getMomsFreeVar() {
+	int cl_size;
+	int clause_min_size = instance->mClauseUnsatisfied[0]->nbLittAlive();
+	for (auto& cl:instance->mClauseUnsatisfied) {
+		cl_size = cl.second->nbLittAlive();
+		if (cl_size < clause_min_size)
+			clause_min_size = cl_size;
+	}
+	for (v:v_var)
+}
+
 //voir var::assignValue avec value=1 par défaut et bet=true

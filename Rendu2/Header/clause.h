@@ -13,6 +13,8 @@ public:
 	litt* getUniqueLittAlive();
     void free_clause();
 
+	litt* next_clause;
+	
     litt* ElementAlive;//TODO : liste chainée !
     litt* ElementDead;
 
