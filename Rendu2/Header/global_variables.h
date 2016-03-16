@@ -12,6 +12,7 @@ vector<assignation*> assignations;
 //création du vector qui contient les assignations réalisées
 
 vector<var*> v_var;
+vector<var*> v_var_tseitin;
 //création du vector qui contiendra tous les pointeurs vers les variables
 
 formule * instance;

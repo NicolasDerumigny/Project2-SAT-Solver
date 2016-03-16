@@ -34,16 +34,15 @@ using namespace std;
 
 int main(int argc, char** argv) {
 	//fprintf(stderr,"begin: %f s\n",(double) checkpoint/CLOCKS_PER_SEC);
-    if(is_tseitin(argc, argv)){
-        //TODO
-        parse_bison(argv[1]);
-    }else{
+    if(!is_tseitin(argc, argv)){
         checkCorrectFile(argv[1]);
         checkRightArg(argc, argv[0]);
         checkHeaderAndParse(argv[1]);
-        parse_bison(argv[1]);
 		//checkpoint = clock();
-		//fprintf(stderr,"check: %f s\n",(double) checkpoint/CLOCKS_PER_SEC);
+        //fprintf(stderr,"check: %f s\n",(double) checkpoint/CLOCKS_PER_SEC);
+        parse_bison(argv[1]);
+    }else{
+        parse_tseitin(argv[1]);
     }
 
     while(getFreeVar()!=nullptr){

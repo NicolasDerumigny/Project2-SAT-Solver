@@ -44,15 +44,8 @@ formule* EConj::eval()//op1 et op2 seront des formules
 {
     op1->form=op1->eval();
     op2->form=op2->eval();
-
-    if(op1->form->mClauseUnsatisfied.size() > op2->form->mClauseUnsatisfied.size()){
-        op1->form->merge(op2->form);
-        this->form=op1->form;
-    }
-    else{
-        op2->form->merge(op1->form);
-        this->form=op2->form;
-    }
+    op2->form->merge(op1->form);
+    this->form=op2->form;
     return this->form;
 }
 
@@ -72,14 +65,26 @@ formule* EDisj::eval()
 {
     op1->form=op1->eval();
     op2->form=op2->eval();
-    if(op1->form->mClauseUnsatisfied.size() > op2->form->mClauseUnsatisfied.size()){
-        (op1->form->mClauseUnsatisfied[0])->merge(op2->form->mClauseUnsatisfied[0]);
-        this->form=op1->form;
-    }
-    else{
-        (op2->form->mClauseUnsatisfied[0])->merge(op1->form->mClauseUnsatisfied[0]);
-        this->form=op2->form;
-    }
+    (op1->form)->merge(op2->form);
+    this->form=op1->form;
+    return this->form;
+}
+
+formule* EDisj::eval_tseitin()
+//we assume that the formula are only composed of one unique clause, that we merge together
+{
+    op1->form=op1->eval_tseitin();
+    op2->form=op2->eval_tseitin();
+    (op1->form)->merge(op2->form);
+    this->form=op1->form;
+    var* var_form, var_form1, var_form2;
+    var_form = new var;
+    var_form1 = new var;
+    var_form2 = new var;
+    v_var_tseitin.push_back(var_form);
+    v_var_tseitin.push_back(var_form1);
+    v_var_tseitin.push_back(var_form2);
+
     return this->form;
 }
 
@@ -105,6 +110,22 @@ formule* VNot::eval()
     new_form->set_formule(value, true);
     this->form=new_form;
     return this->form;
+}
+
+/************************************/
+/********  ENOT  *******************/
+/**********************************/
+
+ENot::ENot(Expr * e1) : op1(e1) {}
+
+string ENot::to_string()
+{
+    return "¬(" + op1->to_string() + ")";
+}
+
+formule* ENot::eval()
+{
+    return op1->eval();
 }
 
 
@@ -155,21 +176,5 @@ string EEq::to_string()
 formule* EEq::eval()
 {
     return op1->eval() * op2->eval();
-}
-*/
-/************************************/
-/********  ENOT  *******************/
-/**********************************/
-/*
-ENot::ENot(Expr * e1) : op1(e1) {}
-
-string ENot::to_string()
-{
-    return "¬(" + op1->to_string() + ")";
-}
-
-formule* ENot::eval()
-{
-    return op1->eval();
 }
 */

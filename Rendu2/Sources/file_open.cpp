@@ -171,6 +171,31 @@ void parse_bison(char* file_dir){
     }
 }
 
+void parse_tseitin(char* file_dir){
+    var_tseitin = 0;
+    FILE* inputFile;
+    inputFile=fopen(file_dir,"r");
+    if(inputFile!=nullptr){
+        // parse through the input until there is no more:
+        yyin = inputFile;
+        do {
+            yyparse();
+            //checkpoint = clock();
+            //fprintf(stderr,"parse: %f s\n",(double) checkpoint/CLOCKS_PER_SEC);
+            /*cout << "Formula in input:"<<endl;
+            cout <<res->to_string() << endl;*/
+            instance =  res->eval_tseitin();
+            //checkpoint = clock();
+            //fprintf(stderr,"create: %f s\n",(double) checkpoint/CLOCKS_PER_SEC);
+        } while (!feof(yyin));
+
+        fclose(inputFile);
+    }else{
+        cerr<<"Error : couldn't open file : "<<file_dir<<endl;
+        exit(-1);
+    }
+}
+
 void freeAll(){
     instance->free_formule();
     for (unsigned long i=0; i<v_var.size(); i++)
