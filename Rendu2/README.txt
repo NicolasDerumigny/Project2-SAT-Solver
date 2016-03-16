@@ -64,7 +64,9 @@ On ne prend pas en compte les clauses déclarées avant la ligne d'en-tête.
 
 On gère mal des commentaires ne commençant pas par 'c'.
 
-Pré-traiter les entrées.
+Pré-traiter les entrées. (en particulier, gérer le linkage (clauseInto) avec le prétraitement).
+
+Tseitin (gérer les => via non(B et non A), ... ).
 
 Temps de construction de la formule beaucoup trop long (comparé à minisat).
 

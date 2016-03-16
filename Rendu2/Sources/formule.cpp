@@ -33,19 +33,23 @@ void formule::set_formule(int varid, bool neg){
 
 
 void formule::merge(formule* formule2){
-	if (this->l_ClauseSatisfied != nullptr){
-		this->f_ClauseSatisfied = formule2->f_ClauseSatisfied;
-		this->l_ClauseSatisfied = formule2->l_ClauseSatisfied;
-	} else {
-		this->l_ClauseSatisfied->next_clause = formule2->f_ClauseSatisfied;
-		this->l_ClauseSatisfied = formule2->l_ClauseSatisfied;
+	if (formule2->l_ClauseSatisfied != nullptr){//formule2 n'est pas vide
+		if (this->l_ClauseSatisfied == nullptr){//formule est vide
+			this->f_ClauseSatisfied = formule2->f_ClauseSatisfied;
+			this->l_ClauseSatisfied = formule2->l_ClauseSatisfied;
+		} else {//formule n'est pas vide
+			this->l_ClauseSatisfied->next_clause = formule2->f_ClauseSatisfied;
+			this->l_ClauseSatisfied = formule2->l_ClauseSatisfied;
+		}
 	}
-	if (this->l_ClauseUnsatisfied != nullptr){
-		this->f_ClauseUnsatisfied = formule2->f_ClauseUnsatisfied;
-		this->l_ClauseUnsatisfied = formule2->l_ClauseUnsatisfied;
-	} else {
-		this->l_ClauseUnsatisfied->next_clause = formule2->f_ClauseUnsatisfied;
-		this->l_ClauseUnsatisfied = formule2->l_ClauseUnsatisfied;
+	if (formule2->l_ClauseSatisfied != nullptr){
+		if (this->l_ClauseUnsatisfied == nullptr){
+			this->f_ClauseUnsatisfied = formule2->f_ClauseUnsatisfied;
+			this->l_ClauseUnsatisfied = formule2->l_ClauseUnsatisfied;
+		} else {
+			this->l_ClauseUnsatisfied->next_clause = formule2->f_ClauseUnsatisfied;
+			this->l_ClauseUnsatisfied = formule2->l_ClauseUnsatisfied;
+		}
 	}
 //    for (auto& s:formule2->mClauseSatisfied){
 //        this->mClauseSatisfied[this->mClauseSatisfied.size()]=s.second;
@@ -81,8 +85,20 @@ void formule::print(){
 
 void formule::free_formule(){
 	clause* cl = this->f_ClauseSatisfied;
+	clause* old_cl = nullptr;
 	while (cl != nullptr){
-		cl
+		old_cl = cl;
+		cl = cl->next_clause;
+		old_cl->free_clause();
+		delete old_cl;
+	}
+	clause* cl = this->f_ClauseUnsatisfied;
+	clause* old_cl = nullptr;
+	while (cl != nullptr){
+		old_cl = cl;
+		cl = cl->next_clause;
+		old_cl->free_clause();
+		delete old_cl;
 	}
 //    for (auto& s:this->mClauseSatisfied)
 //        if (s.second != nullptr){
