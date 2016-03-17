@@ -172,7 +172,6 @@ void parse_bison(char* file_dir){
 }
 
 void parse_tseitin(char* file_dir){
-    var_tseitin = 0;
     FILE* inputFile;
     inputFile=fopen(file_dir,"r");
     if(inputFile!=nullptr){
@@ -188,8 +187,16 @@ void parse_tseitin(char* file_dir){
             //checkpoint = clock();
             //fprintf(stderr,"create: %f s\n",(double) checkpoint/CLOCKS_PER_SEC);
         } while (!feof(yyin));
-
         fclose(inputFile);
+        //merge les variables tseitin et les autres
+        int nbr_tseitin=v_var_tseitin.size();
+        int shift=v_var.size();
+        for(int i=0;i<nbr_tseitin;i++)
+            v_var_tseitin[i]->id+=shift;
+
+        v_var.insert(v_var.end(),v_var_tseitin.begin(),v_var_tseitin.end());
+        v_var_tseitin.clear();
+
     }else{
         cerr<<"Error : couldn't open file : "<<file_dir<<endl;
         exit(-1);

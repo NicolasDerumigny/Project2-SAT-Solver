@@ -8,7 +8,7 @@ public:
     void set_formule(int varid, bool neg);
     void new_formule_tsetin_conj();
     void new_formule_tsetin_disj();
-    void new_formule_tsetin_not();
+    void new_formule_tsetin_enot();
     void new_formule_tsetin_var(int varid, bool neg);
     void print();
     void free_formule();
