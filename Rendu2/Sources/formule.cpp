@@ -92,8 +92,8 @@ void formule::free_formule(){
 		old_cl->free_clause();
 		delete old_cl;
 	}
-	clause* cl = this->f_ClauseUnsatisfied;
-	clause* old_cl = nullptr;
+	cl = this->f_ClauseUnsatisfied;
+	old_cl = nullptr;
 	while (cl != nullptr){
 		old_cl = cl;
 		cl = cl->next_clause;
