@@ -1,9 +1,12 @@
 bool check(){//renvoie false si il existe une clause insatisfaite qui n'a plus de littéraux vivants (formule insatisfiable)
-    for (auto& s:instance->mClauseUnsatisfied){
-        if (s.second != nullptr and s.second->nbLittAlive()==0){
-            return false;
-        }
-    }
+	for (clause* cl=instance->f_ClauseUnsatisfied;cl != nullptr;cl=cl->next_clause)
+		if (cl != nullptr and cl->nbLittAlive()==0)
+			return false;
+//    for (auto& s:instance->mClauseUnsatisfied){
+//        if (s.second != nullptr and s.second->nbLittAlive()==0){
+//            return false;
+//        }
+//    }
     return true;
 }
 
