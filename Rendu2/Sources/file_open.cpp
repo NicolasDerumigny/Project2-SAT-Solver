@@ -105,9 +105,6 @@ void checkHeaderAndParse(char* file_dir){
             nbr_C++;
         int size=line.size();
 
-        parse_manual(line, nbr_line);
-        //TODO : parser la ligne !
-
         {
             stringstream str;
             reverse(line.begin(), line.end());
@@ -147,7 +144,7 @@ void yyerror(const char *s) {
     exit(-1);
 }
 
-void parse_bison(char* file_dir){
+void parse(char* file_dir){
     FILE* inputFile;
     inputFile=fopen(file_dir,"r");
     if(inputFile!=nullptr){
@@ -155,47 +152,39 @@ void parse_bison(char* file_dir){
         yyin = inputFile;
         do {
             yyparse();
-			//checkpoint = clock();
-			//fprintf(stderr,"parse: %f s\n",(double) checkpoint/CLOCKS_PER_SEC);
-            /*cout << "Formula in input:"<<endl;
-            cout <<res->to_string() << endl;*/
-            instance =  res->eval();
-			//checkpoint = clock();
-			//fprintf(stderr,"create: %f s\n",(double) checkpoint/CLOCKS_PER_SEC);
-        } while (!feof(yyin));
+            if (timePerf){
+                checkpoint = clock();
+                fprintf(stderr,"parse: %f s\n",(double) checkpoint/CLOCKS_PER_SEC);
+            }
+            if(verbose){
+                cerr << "Formula in input:"<<endl;
+                cerr <<res->to_string() << endl;
+            }
 
-        fclose(inputFile);
-    }else{
-        cerr<<"Error : couldn't open file : "<<file_dir<<endl;
-        exit(-1);
-    }
-}
+            if (isTseitin)
+                instance =  res->eval_tseitin();
+            else
+                instance =  res->eval();
 
-void parse_tseitin(char* file_dir){
-    FILE* inputFile;
-    inputFile=fopen(file_dir,"r");
-    if(inputFile!=nullptr){
-        // parse through the input until there is no more:
-        yyin = inputFile;
-        do {
-            yyparse();
-            //checkpoint = clock();
-            //fprintf(stderr,"parse: %f s\n",(double) checkpoint/CLOCKS_PER_SEC);
-            /*cout << "Formula in input:"<<endl;
-            cout <<res->to_string() << endl;*/
-            instance =  res->eval_tseitin();
-            //checkpoint = clock();
-            //fprintf(stderr,"create: %f s\n",(double) checkpoint/CLOCKS_PER_SEC);
+
+
+            if (timePerf){
+                checkpoint = clock();
+                fprintf(stderr,"create: %f s\n",(double) checkpoint/CLOCKS_PER_SEC);
+            }
         } while (!feof(yyin));
         fclose(inputFile);
-        //merge les variables tseitin et les autres
-        int nbr_tseitin=v_var_tseitin.size();
-        int shift=v_var.size();
-        for(int i=0;i<nbr_tseitin;i++)
-            v_var_tseitin[i]->id+=shift;
 
-        v_var.insert(v_var.end(),v_var_tseitin.begin(),v_var_tseitin.end());
-        v_var_tseitin.clear();
+        if(isTseitin){
+            //merge les variables tseitin et les autres
+            int nbr_tseitin=v_var_tseitin.size();
+            int shift=v_var.size();
+            for(int i=0;i<nbr_tseitin;i++)
+                v_var_tseitin[i]->id+=shift;
+
+            v_var.insert(v_var.end(),v_var_tseitin.begin(),v_var_tseitin.end());
+            v_var_tseitin.clear();
+        }
 
     }else{
         cerr<<"Error : couldn't open file : "<<file_dir<<endl;
