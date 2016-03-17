@@ -6,25 +6,64 @@ void assignation::set_assign(var* variable,bool bet) {
 }
 
 void assignation::updateLitt(bool alive){
+	litt* li_prev = nullptr;
     for (auto& cl:this->variable->clauseInto)
         if (alive == false) { //si on tue une variable, on recherche les littéraux associés dans les éléments vivants et on les transfères vers les morts.
-            for (auto& li:cl->mElementAlive)//si un littéral (donc la variable) est déjà mort on ne fait rien.
-                if (li.second != nullptr && li.second->variable == this->variable) {
-                    cl->mElementDead[li.first] = li.second;
-                    li.second = nullptr;
+            li_prev = nullptr;
+			for (litt* li = cl->f_ElementAlive;li != nullptr;li=li->next_litt)//si un littéral (donc la variable) est déjà mort on ne fait rien.
+                if (li != nullptr && li->variable == this->variable) {
+                    if (li == cl->f_ElementAlive){//On est au début de la liste
+						cl->f_ElementAlive = li->next_litt;
+					} else {
+						li_prev->next_litt = li->next_litt;
+					}
+					if (li == cl->l_ElementAlive){//On est à la fin de la liste
+						cl->l_ElementAlive = li_prev;
+					}
+					if (cl->l_ElementDead == nullptr){//Il n'y a pas encore de littéraux morts
+						cl->f_ElementDead = li;
+						cl->l_ElementDead = li;
+					} else {
+						cl->l_ElementDead->next_litt = li;
+						cl->l_ElementDead = li;
+					}
                 }
+//			for (auto& li:cl->mElementAlive)//si un littéral (donc la variable) est déjà mort on ne fait rien.
+//                if (li.second != nullptr && li.second->variable == this->variable) {
+//                    cl->mElementDead[li.first] = li.second;
+//                    li.second = nullptr;
+//				}
         } else { //et réciproquement...
-            for (auto& li:cl->mElementDead)
-                if (li.second != nullptr && li.second->variable == this->variable) {
-                    cl->mElementAlive[li.first] = li.second;
-                    li.second = nullptr;
+            li_prev = nullptr;
+			for (litt* li = cl->f_ElementDead;li != nullptr;li=li->next_litt)//si un littéral (donc la variable) est déjà mort on ne fait rien.
+                if (li != nullptr && li->variable == this->variable) {
+                    if (li == cl->f_ElementDead){//On est au début de la liste
+						cl->f_ElementDead = li->next_litt;
+					} else {
+						li_prev->next_litt = li->next_litt;
+					}
+					if (li == cl->l_ElementDead){//On est à la fin de la liste
+						cl->l_ElementDead = li_prev;
+					}
+					if (cl->l_ElementAlive == nullptr){//Il n'y a pas encore de littéraux morts
+						cl->f_ElementAlive = li;
+						cl->l_ElementAlive = li;
+					} else {
+						cl->l_ElementAlive->next_litt = li;
+						cl->l_ElementAlive = li;
+					}
                 }
+//			for (auto& li:cl->mElementDead)
+//                if (li.second != nullptr && li.second->variable == this->variable) {
+//                    cl->mElementAlive[li.first] = li.second;
+//                    li.second = nullptr;
+//                }
         }
 }
 
 void assignation::updateClause(bool alive){
     // Amélioration : au lieu de revérifier s'il existe un littéral qui satifait la clause (méthode isSatisfied), if faudrait uniquement vérifier les littéraux associées à la variable
-clause* cl_prev = nullptr;
+	clause* cl_prev = nullptr;
     for (auto& cl:this->variable->clauseInto)
         if (alive == false) {
             //si on assigne (on tue) une variable, on recherche les clauses associés qui sont encore non satisfaites, et on les met à jour
