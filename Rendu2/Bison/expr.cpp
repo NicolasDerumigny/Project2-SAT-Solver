@@ -29,6 +29,15 @@ formule* EConst::eval()
     return this->form;
 }
 
+formule* EConst::eval_tseitin()
+{
+    formule* new_form;
+    new_form= new formule();
+    new_form->new_formule_tsetin_var(value,true);
+    this->form=new_form;
+    return this->form;
+}
+
 /*****************************************/
 /**********  Conjonctions   *************/
 /***************************************/
@@ -48,6 +57,20 @@ formule* EConj::eval()//op1 et op2 seront des formules
     this->form=op2->form;
     return this->form;
 }
+
+formule* EConj::eval_tseitin()//op1 et op2 seront des formules
+{
+    op1->form=op1->eval();
+    op2->form=op2->eval();
+    (op1->form)->merge(op2->form);
+    formule* form_tseitin;
+    form_tseitin = new formule();
+    form_tseitin->new_formule_tsetin_conj();
+    (op1->form)->merge(form_tseitin);
+    this->form=op1->form;
+    return this->form;
+}
+
 
 /*************************************/
 /********  Disjonctions   ***********/
@@ -76,15 +99,11 @@ formule* EDisj::eval_tseitin()
     op1->form=op1->eval_tseitin();
     op2->form=op2->eval_tseitin();
     (op1->form)->merge(op2->form);
+    formule* form_tseitin;
+    form_tseitin = new formule();
+    form_tseitin->new_formule_tsetin_disj();
+    (op1->form)->merge(form_tseitin);
     this->form=op1->form;
-    var* var_form, var_form1, var_form2;
-    var_form = new var;
-    var_form1 = new var;
-    var_form2 = new var;
-    v_var_tseitin.push_back(var_form);
-    v_var_tseitin.push_back(var_form1);
-    v_var_tseitin.push_back(var_form2);
-
     return this->form;
 }
 
@@ -112,6 +131,16 @@ formule* VNot::eval()
     return this->form;
 }
 
+formule* VNot::eval_tseitin()
+{
+    formule* new_form;
+    new_form= new formule();
+    new_form->new_formule_tsetin_var(value,false);
+    this->form=new_form;
+    return this->form;
+}
+
+
 /************************************/
 /********  ENOT  *******************/
 /**********************************/
@@ -125,9 +154,22 @@ string ENot::to_string()
 
 formule* ENot::eval()
 {
+    cerr<<"Fatal error : Negated expression shall never be use in input, use -tseitin for this."<<endl;
+    exit(-1);
     return op1->eval();
 }
 
+
+formule* ENot::eval_tseitin()
+{
+    op1->form=op1->eval_tseitin();
+    formule* form_tseitin;
+    form_tseitin = new formule();
+    form_tseitin->new_formule_tsetin_enot();
+    (op1->form)->merge(form_tseitin);
+    this->form=op1->form;
+    return this->form;
+}
 
 /************************************/
 /********  XOR  ********************/
