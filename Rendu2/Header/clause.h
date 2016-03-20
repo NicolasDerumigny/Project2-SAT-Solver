@@ -12,6 +12,8 @@ public:
     int nbLittAlive();
 	litt* getUniqueLittAlive();
     void free_clause();
+    void removeClause(clause **first_cl,clause **last_cl,clause *cur_cl,clause *prev_cl);
+    void appendClause(clause **first_cl, clause **last_cl,clause *cur_cl);
 
 	clause* next_clause = nullptr;
 

@@ -10,6 +10,8 @@ public:
     void set_litt(var* var_entry, bool neg);
     void print();
     void free_litt();
+    void appendLitt(litt **first_li,litt **last_li,litt *cur_li);
+    void removeLitt(litt **first_li,litt **last_li,litt *cur_li,litt *prev_li);
 
     var* variable;
     bool neg;

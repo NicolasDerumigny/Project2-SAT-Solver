@@ -10,8 +10,7 @@ bool assignUniqueLitt(){
             if (li != nullptr){
                 if (li->variable->value != -1){
                     cerr << "Warning: clause contains an assigned litteral that is still alive\n";
-					cl->print();
-					exit(-1);
+                    cl->print();
 				}
                 if (li->neg == false)
                     li->variable->assignValue(1,false);

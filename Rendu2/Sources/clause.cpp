@@ -160,28 +160,28 @@ bool clause::isSatisfied(){
     return false;
 }
 
-void removeClause(clause *first_cl,clause *last_cl,clause *cur_cl,clause *prev_cl) {
-	if (cur_cl == first_cl){//On est au début de la liste
-		first_cl = cur_cl->next_clause;
+void removeClause(clause **first_cl,clause **last_cl,clause *cur_cl,clause *prev_cl) {
+    if (cur_cl == *first_cl){//On est au début de la liste
+        *first_cl = cur_cl->next_clause;
 	} else {
 		if (prev_cl == nullptr) fprintf(stderr, "Fatal: An unexpected error occured in removeClause (prev_cl==nullptr but cur_cl!=first_cl)");
 		prev_cl->next_clause = cur_cl->next_clause;
 	}
-	if (cur_cl == last_cl){//On est à la fin de la liste
-		last_cl = prev_cl;
-		if (last_cl != nullptr)
-			last_cl->next_clause = nullptr;
+    if (cur_cl == *last_cl){//On est à la fin de la liste
+        *last_cl = prev_cl;
+        if (*last_cl != nullptr)
+            (*last_cl)->next_clause = nullptr;
 	}
 }
 
-void appendClause(clause *first_cl,clause *last_cl,clause *cur_cl) {
+void appendClause(clause **first_cl, clause **last_cl,clause *cur_cl) {
 	if (last_cl == nullptr){//Il n'y a pas encore de clauses
-		first_cl = cur_cl;
-		last_cl = cur_cl;
-		last_cl->next_clause = nullptr;
+        *first_cl = cur_cl;
+        *last_cl = cur_cl;
+        (*last_cl)->next_clause = nullptr;
 	} else {
-		last_cl->next_clause = cur_cl;
-		last_cl = cur_cl;
-		last_cl->next_clause = nullptr;
+        (*last_cl)->next_clause = cur_cl;
+        *last_cl = cur_cl;
+        (*last_cl)->next_clause = nullptr;
 	}
 }

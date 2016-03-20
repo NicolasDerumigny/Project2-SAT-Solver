@@ -56,6 +56,8 @@ int main(int argc, char** argv) {
 		while(assignUniqueLitt() or assignUniquePolarity())
             continue;
 
+        if(verbose) instance->print();
+
         //backtrack
         while(!check()){
             if(!backtrack()){
