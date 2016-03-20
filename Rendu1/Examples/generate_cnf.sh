@@ -9,10 +9,10 @@ nb_litt=$3
 echo "p cnf $nb_var $nb_clauses"
 for i in $(seq 1 $nb_clauses)
 do
-	for j in $(seq 1 $[($RANDOM*$nb_litt)/(2**15)+1])
+	for j in $(seq 1 $[($RANDOM%$nb_litt)+1])
 	do
-		[[ $RANDOM -gt $[2**14] ]] && printf "-"
-		printf "$[($RANDOM*$nb_var)/(2**15)+1] "
+		[[ $RANDOM%2 -eq 1 ]] && printf "-"
+		printf "$[($RANDOM%$nb_var)+1] "
 	done
 	printf "0\n"
 done
