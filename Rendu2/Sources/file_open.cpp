@@ -152,8 +152,9 @@ void parse(char* file_dir){
                 cerr <<res->to_string() << endl;
             }
 
-            if (isTseitin)
+            if (isTseitin){
                 instance =  res->eval_tseitin();
+            }
             else
                 instance =  res->eval();
 

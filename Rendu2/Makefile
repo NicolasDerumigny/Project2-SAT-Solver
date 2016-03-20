@@ -10,7 +10,7 @@ YACC=bison
 
 
 all: Bison/$(NAME).tab.cpp Bison/$(NAME).yy.cpp Bison/$(NAME).cpp Sources/main.cpp
-	$(CC) -g -std=c++11 -pg -Wall -Wextra -Wpedantic -Wno-write-strings -I ./Headers -o resol $^ $(LIBLEX)
+	$(CC) -g -std=c++11 -Wall -Wextra -Wpedantic -Wno-write-strings -I ./Headers -O3 -o resol $^ $(LIBLEX)
 	
 
 Bison/$(NAME).yy.cpp :  Bison/$(NAME).l
