@@ -87,3 +87,9 @@ Ruben S. :
 - deduce.cpp
 - decide.cpp
 - generate_cnf.sh
+
+
+-------------
+Test :
+
+for i in {1..10};do Examples/generate_cnf.sh $[10*$i] $[10*$i] $[10] > /tmp/test.cnf;./resol /tmp/test.cnf;done 2> /tmp/results.dat;i=1;rm /tmp/results2.dat;cat /tmp/results.dat|tr '\n' '\t'|sed -e 's/begin/\n/g' -e 's/[^0-9.\t\n]//g'|while read line;do echo -e "$[10*i]\t$line" >> /tmp/results2.dat;i=$[$i+1];done;gnuplot -p -e "set xlabel 'Number of variables/clauses';set ylabel 'Time elapsed (sec)';plot '/tmp/results2.dat' u 1:2 title 'begin' w l, '/tmp/results2.dat' u 1:3 title 'check' w l, '/tmp/results2.dat' u 1:4 title 'parse' w l, '/tmp/results2.dat' u 1:5 title 'create' w l, '/tmp/results2.dat' u 1:6 title 'end' w l"

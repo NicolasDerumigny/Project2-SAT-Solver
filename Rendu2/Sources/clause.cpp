@@ -164,11 +164,13 @@ void removeClause(clause *first_cl,clause *last_cl,clause *cur_cl,clause *prev_c
 	if (cur_cl == first_cl){//On est au début de la liste
 		first_cl = cur_cl->next_clause;
 	} else {
+		if (prev_cl == nullptr) fprintf(stderr, "Fatal: An unexpected error occured in removeClause (prev_cl==nullptr but cur_cl!=first_cl)");
 		prev_cl->next_clause = cur_cl->next_clause;
 	}
 	if (cur_cl == last_cl){//On est à la fin de la liste
 		last_cl = prev_cl;
-		last_cl->next_clause = nullptr;
+		if (last_cl != nullptr)
+			last_cl->next_clause = nullptr;
 	}
 }
 

@@ -137,19 +137,57 @@ void formule::free_formule(){
 /* ----------- formula preprocessing --------------- */
 /*void formule::preprocessing() {
 	//la détection des clauses unitaires se fait via la function assignUniqueLitt() de deduce.cpp
-	//élimination des doublons et des clauses tautologiques
+	//élimination des doublons (vivants) et des clauses tautologiques (non satisfaites)
 	vector<pair<int,int> > variables (v_var.size(), std::make_pair(0,0));
 	//vector contenant pour chaque variable une paire (nb_fois_vue_niée,nb_fois_vue_non_niée)
+	bool isTauto;
+	litt* li_prev;
+	clause* cl_prev = nullptr;
 	for (clause* cl=this->f_ClauseUnsatisfied;cl != nullptr;cl=cl->next_clause) {
         li_prev = nullptr;
 		for (litt* li = cl->f_ElementAlive;li != nullptr;li = li->next_litt) {
 			if (li->neg){
-				if (variables[li->variable->id] != 0){//si on a un doublon dans la clause, on l'élimine
-					
+				if (variables[li->variable->id].first > 0){//si on a un doublon dans la clause, on l'élimine
+					removeLitt(f_ElementAlive,l_ElementAlive,li,li_prev);
+					if (li_prev != nullptr)
+						li = li_prev;//On évite de casser la chaîne de parcours de la boucle for...
+					else if (f_ElementAlive != nullptr)
+						li = instance->f_ElementAlive;
+					else//there is nothing left
+						break;
 				} else { 
 					variables[li->variable->id].first++;
 				}
+			} else {
+				if (variables[li->variable->id].second > 0){//si on a un doublon dans la clause, on l'élimine
+					removeLitt(f_ElementAlive,l_ElementAlive,li,li_prev);
+					if (li_prev != nullptr)
+						li = li_prev;//On évite de casser la chaîne de parcours de la boucle for...
+					else if (f_ElementAlive != nullptr)
+						li = instance->f_ElementAlive;
+					else//there is nothing left
+						break;
+				} else { 
+					variables[li->variable->id].second++;
+				}
 			}
+		}
+		isTauto = false;
+		for (auto& v:variables){
+			if (v.first != 0 and v.second != 0){//la clause est tautologique
+				isTauto = true;
+			}
+			v.first = 0;
+			v.second = 0;
+		}
+		if (isTauto) {
+			removeClause(this->f_ClauseUnsatisfied,this->l_ClauseUnsatisfied,cl,cl_prev);
+			if (cl_prev != nullptr)
+				cl = cl_prev;//On évite de casser la chaîne de parcours de la boucle for...
+			else if (this->f_ClauseUnsatisfied != nullptr)
+				cl = this->f_ClauseUnsatisfied;
+			else//there is nothing left
+				break;
 		}
 	}
 }*/
