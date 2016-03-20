@@ -175,7 +175,7 @@ void removeClause(clause **first_cl,clause **last_cl,clause *cur_cl,clause *prev
 }
 
 void appendClause(clause **first_cl, clause **last_cl,clause *cur_cl) {
-	if (last_cl == nullptr){//Il n'y a pas encore de clauses
+    if (*last_cl == nullptr){//Il n'y a pas encore de clauses
         *first_cl = cur_cl;
         *last_cl = cur_cl;
         (*last_cl)->next_clause = nullptr;
