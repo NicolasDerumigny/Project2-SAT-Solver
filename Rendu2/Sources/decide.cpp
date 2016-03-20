@@ -62,4 +62,37 @@ var* getMomsFreeVar() {
 	return new_var;
 }
 
+var* getDlisFreeVar() {
+	vector<pair<int,int> > variables (v_var.size(), std::make_pair(0,0));
+	vector<pair<int,int> > track_var (v_var.size(), std::make_pair(0,0));
+	//vector contenant pour chaque variable une paire (nb_clauses_vue_niée,nb_clauses_vue_non_niée)
+	for (clause* cl = instance->f_ClauseUnsatisfied;cl != nullptr;cl=cl->next_clause) {
+		for (litt* li = cl->f_ElementAlive;li != nullptr;li = li->new_litt) {
+			if (li->neg == true)
+				track_var[li->variable->id].first += 1;
+			else
+				track_var[li->variable->id].second += 1;
+		}
+		for (int varid = 0;varid < v_var.size();varid++) {
+			variables[varid].first += (track_var[varid].first > 0);
+			track_var[varid].first = 0;
+			variables[varid].second += (track_var[varid].second > 0);
+			track_var[varid].second = 0;
+		}
+	}
+	int occ_max = 0;
+	var* new_var = nullptr;
+	for (int varid = 0;varid < v_var.size();varid++) {
+		if (variables[varid].first > occ_max) {
+			occ_max = variables[varid].first;
+			new_var = v_var[varid];
+		}
+		if (variables[varid].second > occ_max) {
+			occ_max = variables[varid].second;
+			new_var = v_var[varid];
+		}
+	}
+	return new_var;
+}
+
 //voir var::assignValue avec value=1 par défaut et bet=true
