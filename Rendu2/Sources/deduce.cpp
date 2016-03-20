@@ -28,7 +28,6 @@ bool assignUniquePolarity(){
     for (clause* cl=instance->f_ClauseUnsatisfied;cl != nullptr;cl=cl->next_clause)
 // 	for (auto& cl:instance->mClauseUnsatisfied)
 		if (cl != nullptr)
-
             for(litt* course=cl->f_ElementAlive;course!=nullptr;course=course->next_litt){
                 if (course->neg == true)
                     variables[course->variable->id].first++; //on met à jour le vector variables

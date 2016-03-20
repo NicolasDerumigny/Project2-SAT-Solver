@@ -157,3 +157,27 @@ bool clause::isSatisfied(){
         }*/
     return false;
 }
+
+void removeClause(first_cl,last_cl,cur_cl,prev_cl) {
+	if (cur_cl == first_cl){//On est au début de la liste
+		first_cl = cur_cl->next_clause;
+	} else {
+		prev_cl->next_clause = cur_cl->next_clause;
+	}
+	if (cur_cl == last_cl){//On est à la fin de la liste
+		last_cl = prev_cl;
+		last_cl->next_clause = nullptr;
+	}
+}
+
+void appendClause(first_cl,last_cl,cur_cl) {
+	if (last_cl == nullptr){//Il n'y a pas encore de clauses
+		first_cl = cur_cl;
+		last_cl = cur_cl;
+		last_cl->next_clause = nullptr;
+	} else {
+		last_cl->next_clause = cur_cl;
+		last_cl = cur_cl;
+		last_cl->next_clause = nullptr;
+	}
+}

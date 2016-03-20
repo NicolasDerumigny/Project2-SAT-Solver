@@ -134,6 +134,26 @@ void formule::free_formule(){
 //        }
 }
 
+/* ----------- formula preprocessing --------------- */
+void formule::preprocessing() {
+	//la détection des clauses unitaires se fait via la function assignUniqueLitt() de deduce.cpp
+	//élimination des doublons et des clauses tautologiques
+	vector<pair<int,int> > variables (v_var.size(), std::make_pair(0,0));
+	//vector contenant pour chaque variable une paire (nb_fois_vue_niée,nb_fois_vue_non_niée)
+	for (clause* cl=this->f_ClauseUnsatisfied;cl != nullptr;cl=cl->next_clause) {
+		li_prev = nullptr;
+		for (litt* li = cl->f_ElementAlive;li != nullptr;li = li->next_litt) {
+			if (li->neg){
+				if (variables[li->variable->id] != 0){//si on a un doublon dans la clause, on l'élimine
+					
+				} else { 
+					variables[li->variable->id].first++;
+				}
+			}
+		}
+	}
+}
+
 /* ----------- creation of tsetin formula --------------- */
 void new_formule_tsetin_conj(){
 
