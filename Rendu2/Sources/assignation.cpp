@@ -10,7 +10,7 @@ void assignation::updateLitt(bool alive){
     for (auto& cl:this->variable->clauseInto)
         if (alive == false) { //si on tue une variable, on recherche les littéraux associés dans les éléments vivants et on les transfères vers les morts.
             li_prev = nullptr;
-			for (litt* li = cl->f_ElementAlive;li != nullptr;li=li->next_litt)//si un littéral (donc la variable) est déjà mort on ne fait rien.
+			for (litt* li = cl->f_ElementAlive;li != nullptr;li=li->next_litt){//si un littéral (donc la variable) est déjà mort on ne fait rien.
                 if (li != nullptr && li->variable == this->variable) {
                     if (li == cl->f_ElementAlive){//On est au début de la liste
 						cl->f_ElementAlive = li->next_litt;
@@ -23,11 +23,16 @@ void assignation::updateLitt(bool alive){
 					if (cl->l_ElementDead == nullptr){//Il n'y a pas encore de littéraux morts
 						cl->f_ElementDead = li;
 						cl->l_ElementDead = li;
+						cl->l_ElementDead->next_litt = nullptr;
 					} else {
 						cl->l_ElementDead->next_litt = li;
 						cl->l_ElementDead = li;
+						cl->l_ElementDead->next_litt = nullptr;
 					}
+					li = li_prev;//On évite de casser la chaîne de parcours de la boucle for...
                 }
+				li_prev = li;
+			}
 //			for (auto& li:cl->mElementAlive)//si un littéral (donc la variable) est déjà mort on ne fait rien.
 //                if (li.second != nullptr && li.second->variable == this->variable) {
 //                    cl->mElementDead[li.first] = li.second;
@@ -35,7 +40,7 @@ void assignation::updateLitt(bool alive){
 //				}
         } else { //et réciproquement...
             li_prev = nullptr;
-			for (litt* li = cl->f_ElementDead;li != nullptr;li=li->next_litt)//si un littéral (donc la variable) est déjà mort on ne fait rien.
+			for (litt* li = cl->f_ElementDead;li != nullptr;li=li->next_litt) {//si un littéral (donc la variable) est déjà mort on ne fait rien.
                 if (li != nullptr && li->variable == this->variable) {
                     if (li == cl->f_ElementDead){//On est au début de la liste
 						cl->f_ElementDead = li->next_litt;
@@ -48,11 +53,16 @@ void assignation::updateLitt(bool alive){
 					if (cl->l_ElementAlive == nullptr){//Il n'y a pas encore de littéraux morts
 						cl->f_ElementAlive = li;
 						cl->l_ElementAlive = li;
+						cl->l_ElementAlive->next_litt = nullptr;
 					} else {
 						cl->l_ElementAlive->next_litt = li;
 						cl->l_ElementAlive = li;
+						cl->l_ElementAlive->next_litt = nullptr;
 					}
+					li = li_prev;//On évite de casser la chaîne de parcours de la boucle for...
                 }
+				li_prev = li;
+			}
 //			for (auto& li:cl->mElementDead)
 //                if (li.second != nullptr && li.second->variable == this->variable) {
 //                    cl->mElementAlive[li.first] = li.second;
@@ -82,10 +92,13 @@ void assignation::updateClause(bool alive){
 						if (instance->l_ClauseSatisfied == nullptr){//Il n'y a pas encore de clauses satisfaites
 							instance->f_ClauseSatisfied = cl2;
 							instance->l_ClauseSatisfied = cl2;
+							instance->l_ClauseSatisfied->next_clause = nullptr;
 						} else {
 							instance->l_ClauseSatisfied->next_clause = cl2;
 							instance->l_ClauseSatisfied = cl2;
+							instance->l_ClauseSatisfied->next_clause = nullptr;
 						}
+						cl2 = cl_prev;//On évite de casser la chaîne de parcours de la boucle for...
 					}
 				cl_prev = cl2;
 			}
@@ -110,10 +123,13 @@ void assignation::updateClause(bool alive){
 						if (instance->l_ClauseUnsatisfied == nullptr){//Il n'y a pas encore de clauses non satisfaites
 							instance->f_ClauseUnsatisfied = cl2;
 							instance->l_ClauseUnsatisfied = cl2;
+							instance->l_ClauseUnsatisfied->next_clause = nullptr;
 						} else {
 							instance->l_ClauseUnsatisfied->next_clause = cl2;
 							instance->l_ClauseUnsatisfied = cl2;
+							instance->l_ClauseUnsatisfied->next_clause = nullptr;
 						}
+						cl2 = cl_prev;//On évite de casser la chaîne de parcours de la boucle for...
 					}
 				cl_prev = cl2;
 			}
