@@ -65,7 +65,7 @@ extern int yydebug;
 typedef union YYSTYPE YYSTYPE;
 union YYSTYPE
 {
-#line 21 "Bison/expr.ypp" /* yacc.c:1909  */
+#line 20 "Bison/expr.ypp" /* yacc.c:1909  */
 
     int ival;
     class Expr *exp;

@@ -158,7 +158,7 @@ bool clause::isSatisfied(){
     return false;
 }
 
-void removeClause(first_cl,last_cl,cur_cl,prev_cl) {
+void removeClause(clause *first_cl,clause *last_cl,clause *cur_cl,clause *prev_cl) {
 	if (cur_cl == first_cl){//On est au début de la liste
 		first_cl = cur_cl->next_clause;
 	} else {
@@ -170,7 +170,7 @@ void removeClause(first_cl,last_cl,cur_cl,prev_cl) {
 	}
 }
 
-void appendClause(first_cl,last_cl,cur_cl) {
+void appendClause(clause *first_cl,clause *last_cl,clause *cur_cl) {
 	if (last_cl == nullptr){//Il n'y a pas encore de clauses
 		first_cl = cur_cl;
 		last_cl = cur_cl;

@@ -34,10 +34,10 @@ void formule::set_formule(int varid, bool neg){
 }
 
 void formule::set_formule_tseitin(bool neg){
-    var* new_var=nullptr;
+    var* new_var;
+    new_var= new var;
     new_var->set_var(v_var_tseitin.size());
     v_var_tseitin.push_back(new_var);
-
     litt* new_litt;
     new_litt=new litt;
     new_litt->set_litt(new_var, neg);
@@ -135,13 +135,13 @@ void formule::free_formule(){
 }
 
 /* ----------- formula preprocessing --------------- */
-void formule::preprocessing() {
+/*void formule::preprocessing() {
 	//la détection des clauses unitaires se fait via la function assignUniqueLitt() de deduce.cpp
 	//élimination des doublons et des clauses tautologiques
 	vector<pair<int,int> > variables (v_var.size(), std::make_pair(0,0));
 	//vector contenant pour chaque variable une paire (nb_fois_vue_niée,nb_fois_vue_non_niée)
 	for (clause* cl=this->f_ClauseUnsatisfied;cl != nullptr;cl=cl->next_clause) {
-		li_prev = nullptr;
+        li_prev = nullptr;
 		for (litt* li = cl->f_ElementAlive;li != nullptr;li = li->next_litt) {
 			if (li->neg){
 				if (variables[li->variable->id] != 0){//si on a un doublon dans la clause, on l'élimine
@@ -152,14 +152,5 @@ void formule::preprocessing() {
 			}
 		}
 	}
-}
-
-/* ----------- creation of tsetin formula --------------- */
-void new_formule_tsetin_conj(){
-
-}
-
-void new_formule_tsetin_disj();
-void new_formule_tsetin_enot();
-void new_formule_tsetin_var(int varid, bool neg);
+}*/
 

@@ -17,7 +17,7 @@ void litt::print(){
     }
 }
 
-void removeLitt(first_li,last_li,cur_li,prev_li) {
+void removeLitt(litt *first_li,litt *last_li,litt *cur_li,litt *prev_li) {
 	if (cur_li == first_li){//On est au début de la liste
 		first_li = cur_li->next_litt;
 	} else {
@@ -29,7 +29,7 @@ void removeLitt(first_li,last_li,cur_li,prev_li) {
 	}
 }
 
-void appendLitt(first_li,last_li,cur_li) {
+void appendLitt(litt *first_li,litt *last_li,litt *cur_li) {
 	if (last_li == nullptr){//Il n'y a pas encore de littéraux
 		first_li = cur_li;
 		last_li = cur_li;

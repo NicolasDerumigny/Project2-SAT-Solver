@@ -67,7 +67,6 @@
 #include <cstdio>
 #include <iostream>
 using namespace std;
-
 #include "expr.hpp"
 
 // stuff from flex that bison needs to know about:
@@ -77,7 +76,7 @@ void yyerror(const char *s);
 
 Expr *res = NULL;
 
-#line 81 "Bison/expr.tab.cpp" /* yacc.c:339  */
+#line 80 "Bison/expr.tab.cpp" /* yacc.c:339  */
 
 # ifndef YY_NULLPTR
 #  if defined __cplusplus && 201103L <= __cplusplus
@@ -132,12 +131,12 @@ extern int yydebug;
 typedef union YYSTYPE YYSTYPE;
 union YYSTYPE
 {
-#line 21 "Bison/expr.ypp" /* yacc.c:355  */
+#line 20 "Bison/expr.ypp" /* yacc.c:355  */
 
     int ival;
     class Expr *exp;
 
-#line 141 "Bison/expr.tab.cpp" /* yacc.c:355  */
+#line 140 "Bison/expr.tab.cpp" /* yacc.c:355  */
 };
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1
@@ -152,7 +151,7 @@ int yyparse (void);
 
 /* Copy the second part of user declarations.  */
 
-#line 156 "Bison/expr.tab.cpp" /* yacc.c:358  */
+#line 155 "Bison/expr.tab.cpp" /* yacc.c:358  */
 
 #ifdef short
 # undef short
@@ -450,7 +449,7 @@ static const yytype_uint8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    49,    49,    53,    54,    55,    56,    57,    58
+       0,    48,    48,    52,    53,    54,    55,    56,    57
 };
 #endif
 
@@ -1223,49 +1222,49 @@ yyreduce:
   switch (yyn)
     {
         case 2:
-#line 49 "Bison/expr.ypp" /* yacc.c:1646  */
+#line 48 "Bison/expr.ypp" /* yacc.c:1646  */
     { res = (yyvsp[-1].exp); }
-#line 1229 "Bison/expr.tab.cpp" /* yacc.c:1646  */
+#line 1228 "Bison/expr.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 3:
-#line 53 "Bison/expr.ypp" /* yacc.c:1646  */
+#line 52 "Bison/expr.ypp" /* yacc.c:1646  */
     { (yyval.exp) = new EConst((yyvsp[0].ival));              }
-#line 1235 "Bison/expr.tab.cpp" /* yacc.c:1646  */
+#line 1234 "Bison/expr.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 4:
-#line 54 "Bison/expr.ypp" /* yacc.c:1646  */
+#line 53 "Bison/expr.ypp" /* yacc.c:1646  */
     { (yyval.exp) = new VNot((yyvsp[0].ival));                }
-#line 1241 "Bison/expr.tab.cpp" /* yacc.c:1646  */
+#line 1240 "Bison/expr.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 5:
-#line 55 "Bison/expr.ypp" /* yacc.c:1646  */
+#line 54 "Bison/expr.ypp" /* yacc.c:1646  */
     { (yyval.exp) = (yyvsp[-1].exp);                          }
-#line 1247 "Bison/expr.tab.cpp" /* yacc.c:1646  */
+#line 1246 "Bison/expr.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 6:
-#line 56 "Bison/expr.ypp" /* yacc.c:1646  */
+#line 55 "Bison/expr.ypp" /* yacc.c:1646  */
     { (yyval.exp) = new EConj((yyvsp[-2].exp), (yyvsp[0].exp));           }
-#line 1253 "Bison/expr.tab.cpp" /* yacc.c:1646  */
+#line 1252 "Bison/expr.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 7:
-#line 57 "Bison/expr.ypp" /* yacc.c:1646  */
+#line 56 "Bison/expr.ypp" /* yacc.c:1646  */
     { (yyval.exp) = new EDisj((yyvsp[-2].exp), (yyvsp[0].exp));           }
-#line 1259 "Bison/expr.tab.cpp" /* yacc.c:1646  */
+#line 1258 "Bison/expr.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 8:
-#line 58 "Bison/expr.ypp" /* yacc.c:1646  */
+#line 57 "Bison/expr.ypp" /* yacc.c:1646  */
     { (yyval.exp) = new ENot((yyvsp[0].exp));                }
-#line 1265 "Bison/expr.tab.cpp" /* yacc.c:1646  */
+#line 1264 "Bison/expr.tab.cpp" /* yacc.c:1646  */
     break;
 
 
-#line 1269 "Bison/expr.tab.cpp" /* yacc.c:1646  */
+#line 1268 "Bison/expr.tab.cpp" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1493,6 +1492,6 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 63 "Bison/expr.ypp" /* yacc.c:1906  */
+#line 62 "Bison/expr.ypp" /* yacc.c:1906  */
 
 
