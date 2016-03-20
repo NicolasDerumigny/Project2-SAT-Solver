@@ -36,7 +36,7 @@ var* getRandFreeVar() {
 
 var* getMomsFreeVar() {
 	int cl_size;
-	if (instance->f_ClauseUnsatisfied = nullptr)//Si toutes les clauses sont déjà satisfaites, on renvoie la première variable encore vivante qu'on voit
+	if (instance->f_ClauseUnsatisfied == nullptr)//Si toutes les clauses sont déjà satisfaites, on renvoie la première variable encore vivante qu'on voit
 		return getFreeVar();
 	int clause_min_size = instance->f_ClauseUnsatisfied->nbLittAlive();//Sinon on récupère la taille minimale des clauses satisfaites
 	for (clause* cl = instance->f_ClauseUnsatisfied;cl != nullptr;cl=cl->next_clause) {
@@ -67,13 +67,13 @@ var* getDlisFreeVar() {
 	vector<pair<int,int> > track_var (v_var.size(), std::make_pair(0,0));
 	//vector contenant pour chaque variable une paire (nb_clauses_vue_niée,nb_clauses_vue_non_niée)
 	for (clause* cl = instance->f_ClauseUnsatisfied;cl != nullptr;cl=cl->next_clause) {
-		for (litt* li = cl->f_ElementAlive;li != nullptr;li = li->new_litt) {
+		for (litt* li = cl->f_ElementAlive;li != nullptr;li = li->next_litt) {
 			if (li->neg == true)
 				track_var[li->variable->id].first += 1;
 			else
 				track_var[li->variable->id].second += 1;
 		}
-		for (int varid = 0;varid < v_var.size();varid++) {
+		for (unsigned long varid = 0;varid < v_var.size();varid++) {
 			variables[varid].first += (track_var[varid].first > 0);
 			track_var[varid].first = 0;
 			variables[varid].second += (track_var[varid].second > 0);
@@ -82,7 +82,7 @@ var* getDlisFreeVar() {
 	}
 	int occ_max = 0;
 	var* new_var = nullptr;
-	for (int varid = 0;varid < v_var.size();varid++) {
+	for (unsigned long varid = 0;varid < v_var.size();varid++) {
 		if (variables[varid].first > occ_max) {
 			occ_max = variables[varid].first;
 			new_var = v_var[varid];
