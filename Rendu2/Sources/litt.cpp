@@ -16,3 +16,27 @@ void litt::print(){
         cout<<" (and v"<<this->variable->id<<" = "<<this->variable->value<<")"<<endl;
     }
 }
+
+void removeLitt(first_li,last_li,cur_li,prev_li) {
+	if (cur_li == first_li){//On est au début de la liste
+		first_li = cur_li->next_litt;
+	} else {
+		prev_li->next_litt = cur_li->next_litt;
+	}
+	if (cur_li == last_li){//On est à la fin de la liste
+		last_li = prev_li;
+		last_li->next_litt = nullptr;
+	}
+}
+
+void appendLitt(first_li,last_li,cur_li) {
+	if (last_li == nullptr){//Il n'y a pas encore de littéraux
+		first_li = cur_li;
+		last_li = cur_li;
+		last_li->next_litt = nullptr;
+	} else {
+		last_li->next_litt = cur_li;
+		last_li = cur_li;
+		last_li->next_litt = nullptr;
+	}
+}
