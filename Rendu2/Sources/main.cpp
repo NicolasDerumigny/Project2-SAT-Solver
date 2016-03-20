@@ -36,7 +36,6 @@ int main(int argc, char** argv) {
     if (timePerf) fprintf(stderr,"begin: %f s\n",(double) checkpoint/CLOCKS_PER_SEC);
     if(!isTseitin){
         checkCorrectFile(argv[1]);
-        checkRightArg(argc, argv[0]);
         checkHeaderAndParse(argv[1]);
     }
     if (timePerf){

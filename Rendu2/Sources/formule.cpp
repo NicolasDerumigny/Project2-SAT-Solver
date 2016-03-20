@@ -1,11 +1,13 @@
 #include "../Header/formule.h"
 void formule::set_formule(int varid, bool neg){
-    var* new_var;
+    var* new_var=nullptr;
     //Afficher une erreur dans le cas ou la variable n'y est pas ET CONTINUER QUAND MEME
     if (varid>=int(v_var.size())){
         int oldsize=int(v_var.size());
-        cerr<<"Warning : variable number "<<varid<<" not declared in header line (max "<< oldsize - 1;
-        cerr<<"), continuing anyway"<<endl;
+        if (!isTseitin){
+            cerr<<"Warning : variable number "<<varid<<" not declared in header line (max "<< oldsize - 1;
+            cerr<<"), continuing anyway"<<endl;
+        }
         for (int i=0; i<varid-oldsize+1;i++)
             v_var.push_back(nullptr);
     }
@@ -32,7 +34,7 @@ void formule::set_formule(int varid, bool neg){
 }
 
 void formule::set_formule_tseitin(bool neg){
-    var* new_var;
+    var* new_var=nullptr;
     new_var->set_var(v_var_tseitin.size());
     v_var_tseitin.push_back(new_var);
 

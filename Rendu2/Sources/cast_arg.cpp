@@ -2,13 +2,13 @@
 
 void cast_arg(int argc, char** argv){
     for (int i=1; i<argc;i++){
-        if (strncmp(argv[i],"-tseitin",8) and (strlen(argv[i])==8) )
+        if (!strcmp(argv[i],"-tseitin"))
             isTseitin=true;
 
-        if (strncmp(argv[i],"-v",8) and (strlen(argv[i])==8) )
+        if (!strcmp(argv[i],"-v"))
             verbose=true;
 
-        if (strncmp(argv[i],"-time",8) and (strlen(argv[i])==8) )
+        if (!strcmp(argv[i],"-time"))
             timePerf=true;
 
     }

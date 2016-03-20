@@ -15,14 +15,6 @@ void checkCorrectFile(char* file_dir){
     }
 }
 
-void checkRightArg(int nbrOfArg, char* exeFile){
-    if (nbrOfArg!=2){
-            cerr<<"Wrong number of parameters !"<<endl;
-            cerr<<"Usage : "<<exeFile<<" fichier.cnf\n";
-            exit(-1);
-    }
-}
-
 void checkHeaderAndParse(char* file_dir){
     ifstream eFile;
     eFile.open(file_dir, ifstream::in);

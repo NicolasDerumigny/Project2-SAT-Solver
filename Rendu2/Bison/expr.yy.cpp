@@ -1,13 +1,6 @@
-#ifdef __clang__
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-register"
-#endif
+#line 2 "Bison/expr.yy.cpp"
 
-#pragma GCC diagnostic ignored "-Wunused-function"
-
-#line 2 "expr.yy.cpp"
-
-#line 4 "expr.yy.cpp"
+#line 4 "Bison/expr.yy.cpp"
 
 #define  YY_INT_ALIGNED short int
 
@@ -387,7 +380,7 @@ struct yy_trans_info
 	};
 static yyconst flex_int16_t yy_accept[50] =
     {   0,
-        0,    2,   18,   16,    8,   17,    3,    4,   13,   16,
+       15,    2,   18,   16,    8,   17,    3,    4,   13,   16,
         1,   16,   16,    9,   16,   16,   16,   12,    2,    8,
         0,    5,    1,    0,   10,    7,    0,   14,    0,    2,
         0,    6,   11,    0,    0,    0,    0,    0,    0,    0,
@@ -498,15 +491,22 @@ int yy_flex_debug = 0;
 #define YY_MORE_ADJ 0
 #define YY_RESTORE_YY_MORE_OFFSET
 char *yytext;
-#line 1 "expr.l"
-#line 2 "expr.l"
+#line 1 "Bison/expr.l"
+#line 2 "Bison/expr.l"
+#ifdef __clang__
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-register"
+#endif
+
+#pragma GCC diagnostic ignored "-Wunused-function"
+
 #include <iostream>
 #include <cstdlib>
 using namespace std;
 #define YY_DECL extern "C" int yylex()
 
 #include "expr.tab.hpp"
-#line 503 "expr.yy.cpp"
+#line 510 "Bison/expr.yy.cpp"
 
 #define INITIAL 0
 
@@ -696,9 +696,9 @@ YY_DECL
 	register char *yy_cp, *yy_bp;
 	register int yy_act;
     
-#line 9 "expr.l"
+#line 16 "Bison/expr.l"
 
-#line 695 "expr.yy.cpp"
+#line 702 "Bison/expr.yy.cpp"
 
 	if ( !(yy_init) )
 		{
@@ -784,93 +784,93 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 10 "expr.l"
+#line 17 "Bison/expr.l"
 { yylval.ival = atoi(yytext); return TK_VAR; }
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 11 "expr.l"
+#line 18 "Bison/expr.l"
 ;
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 12 "expr.l"
+#line 19 "Bison/expr.l"
 { return TK_LPAREN; }
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 13 "expr.l"
+#line 20 "Bison/expr.l"
 { return TK_RPAREN; }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 14 "expr.l"
+#line 21 "Bison/expr.l"
 { return TK_CONJ;   }
 	YY_BREAK
 case 6:
 /* rule 6 can match eol */
 YY_RULE_SETUP
-#line 15 "expr.l"
+#line 22 "Bison/expr.l"
 { return TK_CONJ;   }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 16 "expr.l"
+#line 23 "Bison/expr.l"
 { return TK_DISJ;   }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 17 "expr.l"
+#line 24 "Bison/expr.l"
 { return TK_DISJ;   }
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 18 "expr.l"
+#line 25 "Bison/expr.l"
 { return TK_XOR;    }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 19 "expr.l"
+#line 26 "Bison/expr.l"
 { return TK_IMPLY;  }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 20 "expr.l"
+#line 27 "Bison/expr.l"
 { return TK_EQ;     }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 21 "expr.l"
+#line 28 "Bison/expr.l"
 { return TK_ENOT;   }
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 22 "expr.l"
+#line 29 "Bison/expr.l"
 { return TK_VNOT;   }
 	YY_BREAK
 case 14:
 /* rule 14 can match eol */
 YY_RULE_SETUP
-#line 23 "expr.l"
+#line 30 "Bison/expr.l"
 ;
 	YY_BREAK
 case 15:
 /* rule 15 can match eol */
 YY_RULE_SETUP
-#line 24 "expr.l"
+#line 31 "Bison/expr.l"
 { return TK_FLINE;  }
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 25 "expr.l"
+#line 32 "Bison/expr.l"
 ;
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 26 "expr.l"
+#line 33 "Bison/expr.l"
 ECHO;
 	YY_BREAK
-#line 867 "expr.yy.cpp"
+#line 874 "Bison/expr.yy.cpp"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1871,8 +1871,11 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 26 "expr.l"
+#line 33 "Bison/expr.l"
+
+
 
 #ifdef __clang__
 #pragma clang diagnostic pop
 #endif
+
