@@ -135,7 +135,7 @@ void formule::free_formule(){
 }
 
 /* ----------- formula preprocessing --------------- */
-/*void formule::preprocessing() {
+void formule::preprocessing() {
 	//la détection des clauses unitaires se fait via la function assignUniqueLitt() de deduce.cpp
 	//élimination des doublons (vivants) et des clauses tautologiques (non satisfaites)
 	vector<pair<int,int> > variables (v_var.size(), std::make_pair(0,0));
@@ -148,7 +148,7 @@ void formule::free_formule(){
 		for (litt* li = cl->f_ElementAlive;li != nullptr;li = li->next_litt) {
 			if (li->neg){
 				if (variables[li->variable->id].first > 0){//si on a un doublon dans la clause, on l'élimine
-					removeLitt(f_ElementAlive,l_ElementAlive,li,li_prev);
+					removeLitt(&f_ElementAlive,&l_ElementAlive,li,li_prev);
 					delete li;
 					if (li_prev != nullptr)
 						li = li_prev;//On évite de casser la chaîne de parcours de la boucle for...
@@ -161,7 +161,7 @@ void formule::free_formule(){
 				}
 			} else {
 				if (variables[li->variable->id].second > 0){//si on a un doublon dans la clause, on l'élimine
-					removeLitt(f_ElementAlive,l_ElementAlive,li,li_prev);
+					removeLitt(&f_ElementAlive,&l_ElementAlive,li,li_prev);
 					delete li;
 					if (li_prev != nullptr)
 						li = li_prev;//On évite de casser la chaîne de parcours de la boucle for...
@@ -183,7 +183,7 @@ void formule::free_formule(){
 			v.second = 0;
 		}
 		if (isTauto) {
-			removeClause(this->f_ClauseUnsatisfied,this->l_ClauseUnsatisfied,cl,cl_prev);
+			removeClause(&this->f_ClauseUnsatisfied,&this->l_ClauseUnsatisfied,cl,cl_prev);
 			cl->free_clause();
 			if (cl_prev != nullptr)
 				cl = cl_prev;//On évite de casser la chaîne de parcours de la boucle for...
@@ -193,5 +193,4 @@ void formule::free_formule(){
 				break;
 		}
 	}
-}*/
-
+}
