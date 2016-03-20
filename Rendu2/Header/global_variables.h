@@ -18,6 +18,9 @@ vector<var*> v_var_tseitin;
 formule * instance;
 //une formule pour les gouverner tous
 
-
+bool isTseitin=false;
+bool verbose=false;
+bool timePerf=false;
+//valeur de base des arguments
 
 #endif // GLOBAL_VARIABLES_H

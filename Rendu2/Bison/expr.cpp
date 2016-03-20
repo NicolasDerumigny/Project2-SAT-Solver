@@ -63,10 +63,53 @@ formule* EConj::eval_tseitin()//op1 et op2 seront des formules
     op1->form=op1->eval();
     op2->form=op2->eval();
     (op1->form)->merge(op2->form);
-    formule* form_tseitin;
-    form_tseitin = new formule();
-    form_tseitin->new_formule_tsetin_conj();
-    (op1->form)->merge(form_tseitin);
+
+    //TODO !!!
+    litt* lroot,l11,l12,l13,l21,l22,l31,l32;
+    clause* croot,c11,c12,c13,c21,c22,c31,c32;
+    formule* formRoot,form1,form2;
+    var* p, p1, p2;
+    p=new var();
+    p1=new var();
+    p2=new var();
+    int id=v_var_tseitin.size();
+    p.set_var(id);
+    p1.set_var(id+1);
+    p2.set_var(id+2);
+    root=new_litt;
+
+    lroot.set_litt(p,true);
+    croot.set_clause(lroot);
+
+
+    l11=new litt;
+    l11.set_litt(p,true);
+    c11.set_clause(l11);
+    l12=new litt;
+    l12.set_litt(p1,false);
+    c12.set_clause(l12);
+    c11.merge(c12);
+    l13=new litt;
+    l13.set_litt(p2,false);
+    c13.set_clause(l13);
+    c11.merge(c13);
+
+
+    l21=new litt;
+    l21.set_litt(p,false);
+    c21.set_clause(l21);
+    l22=new litt;
+    l22.set_litt(p1,true);
+    c22.set_clause(l22);
+    c21.merge(c22);
+
+    l31=new litt;
+    l31.set_litt(p,false);
+    c31.set_clause(l31);
+    l32=new litt;
+    l32.set_litt(p2,true);
+
+    (op1->form)->merge(formRoot);
     this->form=op1->form;
     return this->form;
 }
@@ -88,8 +131,10 @@ formule* EDisj::eval()
 {
     op1->form=op1->eval();
     op2->form=op2->eval();
-    (op1->form)->merge(op2->form);
+    op1->form->f_ClauseUnsatisfied->merge(op2->f_ClauseUnsatisfied);
+    op1->form->f_ClauseSatisfied->merge(op2->f_ClauseSatisfied);
     this->form=op1->form;
+    }
     return this->form;
 }
 

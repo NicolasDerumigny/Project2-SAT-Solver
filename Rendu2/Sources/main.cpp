@@ -25,25 +25,25 @@ using namespace std;
 #include "decide.cpp"
 #include "deduce.cpp"
 #include "backtrack.cpp"
-//clock_t checkpoint = clock();
+clock_t checkpoint = clock();
 
-#include "parser.cpp"
 #include "file_open.cpp"
 #include "cast_arg.cpp"
 
 
 int main(int argc, char** argv) {
-	//fprintf(stderr,"begin: %f s\n",(double) checkpoint/CLOCKS_PER_SEC);
-    if(!is_tseitin(argc, argv)){
+    cast_arg(argc, argv);
+    if (timePerf) fprintf(stderr,"begin: %f s\n",(double) checkpoint/CLOCKS_PER_SEC);
+    if(!isTseitin){
         checkCorrectFile(argv[1]);
         checkRightArg(argc, argv[0]);
         checkHeaderAndParse(argv[1]);
-		//checkpoint = clock();
-        //fprintf(stderr,"check: %f s\n",(double) checkpoint/CLOCKS_PER_SEC);
-        parse_bison(argv[1]);
-    }else{
-        parse_tseitin(argv[1]);
     }
+    if (timePerf){
+        checkpoint = clock();
+        fprintf(stderr,"check: %f s\n",(double) checkpoint/CLOCKS_PER_SEC);
+    }
+    parse(argv[1]);
 
     while(getFreeVar()!=nullptr){
         //decide
@@ -66,8 +66,10 @@ int main(int argc, char** argv) {
     cout<<"s SATISFIABLE"<<endl;
     print_output();
     freeAll();
-	//checkpoint = clock();
-    //fprintf(stderr,"end: %f s\n",(double) checkpoint/CLOCKS_PER_SEC);
+    if (timePerf){
+        checkpoint = clock();
+        fprintf(stderr,"end: %f s\n",(double) checkpoint/CLOCKS_PER_SEC);
+    }
 
     return 0;
 }

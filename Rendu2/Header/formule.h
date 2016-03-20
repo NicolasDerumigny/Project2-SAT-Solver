@@ -6,10 +6,7 @@ using namespace std;
 class formule{
 public:
     void set_formule(int varid, bool neg);
-    void new_formule_tsetin_conj();
-    void new_formule_tsetin_disj();
-    void new_formule_tsetin_enot();
-    void new_formule_tsetin_var(int varid, bool neg);
+    void set_formule_tseitin(int varid, bool neg);
     void print();
     void free_formule();
 
