@@ -43,6 +43,7 @@ formule* EConst::eval_tseitin()
         l11->set_litt(formRoot->f_ClauseUnsatisfied->f_ElementAlive->variable,true);
         // on rajoute non Ep
         form1->f_ClauseUnsatisfied->f_ElementAlive->next_litt=l11;
+        form1->f_ClauseUnsatisfied->l_ElementAlive=l11;
     }
 
     {
@@ -97,19 +98,22 @@ formule *EConj::eval_tseitin()//op1 et op2 seront des formules
 
     formRoot->set_formule_tseitin(false);//la variable est Ep,
     form1->set_formule_tseitin(false);//la variable est Ep1
-    form2->f_ClauseUnsatisfied = new clause;
-    form2->l_ClauseUnsatisfied = form2->f_ClauseUnsatisfied;
-    form3->set_formule_tseitin(false);//la variable est Ep2
+    form2->set_formule_tseitin(false);//la variable est Ep2
+    form3->f_ClauseUnsatisfied = new clause;
+    form3->l_ClauseUnsatisfied = form2->f_ClauseUnsatisfied;
 
     {
         litt *l11 = new litt;
         l11->set_litt(formRoot->f_ClauseUnsatisfied->f_ElementAlive->variable,true);
+        form1->f_ClauseUnsatisfied->f_ElementAlive->next_litt=l11;
         form1->f_ClauseUnsatisfied->l_ElementAlive=l11;
     }
 
     {
         litt *l21 = new litt;
         l21->set_litt(formRoot->f_ClauseUnsatisfied->f_ElementAlive->variable,true);
+        //nonp
+        form2->f_ClauseUnsatisfied->f_ElementAlive->next_litt=l21;
         form2->f_ClauseUnsatisfied->l_ElementAlive=l21;
     }
 
@@ -121,12 +125,12 @@ formule *EConj::eval_tseitin()//op1 et op2 seront des formules
         //Ep
         l32->set_litt(form1->f_ClauseUnsatisfied->f_ElementAlive->variable,true);
         //Ep1
-        l33->set_litt(form3->f_ClauseUnsatisfied->f_ElementAlive->variable,true);
+        l33->set_litt(form2->f_ClauseUnsatisfied->f_ElementAlive->variable,true);
         //Ep2
         l31->next_litt=l32;
         l32->next_litt=l33;
-        form3->f_ClauseUnsatisfied->l_ElementAlive=l31;
-        form3->f_ClauseUnsatisfied->f_ElementAlive->next_litt=l33;
+        form3->f_ClauseUnsatisfied->f_ElementAlive=l31;
+        form3->f_ClauseUnsatisfied->l_ElementAlive=l33;
     }
 
 
