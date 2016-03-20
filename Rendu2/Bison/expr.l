@@ -17,17 +17,17 @@ using namespace std;
 ^[ \t]*                                                              ;
 "("                                                                  { return TK_LPAREN; }
 ")"                                                                  { return TK_RPAREN; }
-"/\\"                                                                { cerr<<"Conjunction"<<endl; return TK_CONJ;   }
-[ \t]+"0"[ \t]*\n                                                    { cerr<<"Conjunction"<<endl; return TK_CONJ;   }
-"\\/"                                                                { cerr<<"Disjunction"<<endl; return TK_DISJ;   }
-[ \t]+                                                               { cerr<<"Disjunction"<<endl; return TK_DISJ;   }
+"/\\"                                                                { return TK_CONJ;   }
+[ \t]*"0"?[ \t]*\n                                                   { return TK_CONJ;   }
+"\\/"                                                                { return TK_DISJ;   }
+[ \t]+                                                               { return TK_DISJ;   }
 "X"                                                                  { return TK_XOR;    }
 "=>"                                                                 { return TK_IMPLY;  }
 "<=>"                                                                { return TK_EQ;     }
-"~"                                                                  { cerr<<"Expression negated"<<endl; return TK_ENOT;   }
-"-"                                                                  { cerr<<"Var negated"<<endl; return TK_VNOT;   }
+"~"                                                                  { return TK_ENOT;   }
+"-"                                                                  { return TK_VNOT;   }
 c[^\n]*\n                                                            ;
-((c[^\n]*\n)*p[ \t]+cnf[ \t]+[-]?[0-9]+[ \t]+[-]?[0-9]+[ \t]*\n)?    { return TK_FLINE;  }
+(c[^\n]*\n)*p[ \t]+cnf[ \t]+[-]?[0-9]+[ \t]+[-]?[0-9]+[ \t]*\n       ;
 .                                                                    ;
 %%
 

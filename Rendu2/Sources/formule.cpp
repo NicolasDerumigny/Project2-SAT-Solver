@@ -64,7 +64,7 @@ void formule::merge(formule* formule2){
 			this->l_ClauseSatisfied = formule2->l_ClauseSatisfied;
 		}
 	}
-	if (formule2->l_ClauseSatisfied != nullptr){
+    if (formule2->l_ClauseUnsatisfied != nullptr){
 		if (this->l_ClauseUnsatisfied == nullptr){
 			this->f_ClauseUnsatisfied = formule2->f_ClauseUnsatisfied;
 			this->l_ClauseUnsatisfied = formule2->l_ClauseUnsatisfied;

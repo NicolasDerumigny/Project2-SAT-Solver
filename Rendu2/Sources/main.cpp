@@ -44,6 +44,8 @@ int main(int argc, char** argv) {
     }
     parse(argv[1]);
 
+    if(verbose) instance->print();
+
     while(getFreeVar()!=nullptr){
         //decide
         getFreeVar()->assignValue(1,true);

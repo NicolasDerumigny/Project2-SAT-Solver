@@ -45,7 +45,7 @@ Expr *res = NULL;
 // something silly to echo to the screen what bison gets from flex.  We'll
 // make a real one shortly:
 
-input: TK_FLINE expression TK_CONJ { res = $2; }
+input: expression TK_CONJ { res = $1; }
      ;
 
 expression:
