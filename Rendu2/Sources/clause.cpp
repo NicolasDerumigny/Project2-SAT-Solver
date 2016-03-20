@@ -11,37 +11,39 @@ void clause::set_clause(litt* litt_entry){
 
 
 void clause::merge(clause* cl2){
-    if (cl2->l_ElementAlive!=nullptr){
-        if(this->l_ElementAlive!=nullptr){
-            this->l_ElementAlive->next_litt=cl2->f_ElementAlive;
-        }else{
-            this->f_ElementAlive=cl2->f_ElementAlive;
+    if (cl2!=nullptr){
+        if (cl2->l_ElementAlive!=nullptr){
+            if(this->l_ElementAlive!=nullptr){
+                this->l_ElementAlive->next_litt=cl2->f_ElementAlive;
+            }else{
+                this->f_ElementAlive=cl2->f_ElementAlive;
+            }
+            this->l_ElementAlive=cl2->l_ElementAlive;
         }
-        this->l_ElementAlive=cl2->l_ElementAlive;
-    }
 
-    if (cl2->l_ElementDead!=nullptr){
-        if(this->l_ElementDead!=nullptr){
-            this->l_ElementDead->next_litt=cl2->f_ElementDead;
-        }else{
-            this->f_ElementDead=cl2->f_ElementDead;
+        if (cl2->l_ElementDead!=nullptr){
+            if(this->l_ElementDead!=nullptr){
+                this->l_ElementDead->next_litt=cl2->f_ElementDead;
+            }else{
+                this->f_ElementDead=cl2->f_ElementDead;
+            }
+            this->l_ElementDead=cl2->l_ElementDead;
         }
-        this->l_ElementDead=cl2->l_ElementDead;
-    }
-    //fusion des listes simplement chainées
+        //fusion des listes simplement chainées
 
-    //Ancien : maps
-    /*for (auto& s:cl2->mElementAlive)
-        this->mElementAlive[this->mElementAlive.size()]=s.second;
-    for (auto& s:cl2->mElementDead)
-        this->mElementDead[this->mElementDead.size()]=s.second;*/
-    for (auto& s:v_var)
-        if (s!=nullptr){
-            for (auto& s2:s->clauseInto)
-                if (s2 == cl2)
-                    s2 = this;
-       }
-    delete cl2;
+        //Ancien : maps
+        /*for (auto& s:cl2->mElementAlive)
+            this->mElementAlive[this->mElementAlive.size()]=s.second;
+        for (auto& s:cl2->mElementDead)
+            this->mElementDead[this->mElementDead.size()]=s.second;*/
+        for (auto& s:v_var)
+            if (s!=nullptr){
+                for (auto& s2:s->clauseInto)
+                    if (s2 == cl2)
+                        s2 = this;
+           }
+        delete cl2;
+    }
 }
 
 int clause::nbLittAlive(){

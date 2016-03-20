@@ -43,13 +43,12 @@ formule* EConst::eval_tseitin()
         l11->set_litt(formRoot->f_ClauseUnsatisfied->f_ElementAlive->variable,true);
         // on rajoute non Ep
         form1->f_ClauseUnsatisfied->f_ElementAlive->next_litt=l11;
-        formRoot->merge(form1);
     }
 
     {
         litt *l21 = new litt, *l22 = new litt;
         form2->f_ClauseUnsatisfied = new clause;
-        form2->l_ClauseUnsatisfied = form1->f_ClauseUnsatisfied;
+        form2->l_ClauseUnsatisfied = form2->f_ClauseUnsatisfied;
         l21->set_litt(formRoot->f_ClauseUnsatisfied->f_ElementAlive->variable,false);
         //on ajoute Ep
         l22->set_litt(form1->f_ClauseUnsatisfied->f_ElementAlive->variable,true);
@@ -57,9 +56,10 @@ formule* EConst::eval_tseitin()
         form2->f_ClauseUnsatisfied->f_ElementAlive=l21;
         form2->f_ClauseUnsatisfied->l_ElementAlive=l22;
         l21->next_litt=l22;
-        formRoot->merge(form2);
     }
 
+    formRoot->merge(form1);
+    formRoot->merge(form2);
     this->form=formRoot;
     return this->form;
 }
@@ -98,21 +98,19 @@ formule *EConj::eval_tseitin()//op1 et op2 seront des formules
     formRoot->set_formule_tseitin(false);//la variable est Ep,
     form1->set_formule_tseitin(false);//la variable est Ep1
     form2->f_ClauseUnsatisfied = new clause;
-    form2->l_ClauseUnsatisfied = form1->f_ClauseUnsatisfied;
+    form2->l_ClauseUnsatisfied = form2->f_ClauseUnsatisfied;
     form3->set_formule_tseitin(false);//la variable est Ep2
 
     {
         litt *l11 = new litt;
         l11->set_litt(formRoot->f_ClauseUnsatisfied->f_ElementAlive->variable,true);
         form1->f_ClauseUnsatisfied->l_ElementAlive=l11;
-        formRoot->merge(form1);
     }
 
     {
         litt *l21 = new litt;
         l21->set_litt(formRoot->f_ClauseUnsatisfied->f_ElementAlive->variable,true);
         form2->f_ClauseUnsatisfied->l_ElementAlive=l21;
-        formRoot->merge(form2);
     }
 
     {
@@ -123,17 +121,19 @@ formule *EConj::eval_tseitin()//op1 et op2 seront des formules
         //Ep
         l32->set_litt(form1->f_ClauseUnsatisfied->f_ElementAlive->variable,true);
         //Ep1
-        l33->set_litt(form2->f_ClauseUnsatisfied->f_ElementAlive->variable,true);
+        l33->set_litt(form3->f_ClauseUnsatisfied->f_ElementAlive->variable,true);
         //Ep2
         l31->next_litt=l32;
         l32->next_litt=l33;
         form3->f_ClauseUnsatisfied->l_ElementAlive=l31;
         form3->f_ClauseUnsatisfied->f_ElementAlive->next_litt=l33;
-        formRoot->merge(form3);
     }
 
 
 
+    formRoot->merge(form1);
+    formRoot->merge(form2);
+    formRoot->merge(form3);
     (op1->form)->merge(formRoot);
     this->form=op1->form;
     return this->form;
@@ -177,7 +177,7 @@ formule* EDisj::eval_tseitin()
     formRoot->set_formule_tseitin(false);//la variable est Ep,
     form1->set_formule_tseitin(false);//la variable est Ep1
     form2->f_ClauseUnsatisfied = new clause;
-    form2->l_ClauseUnsatisfied = form1->f_ClauseUnsatisfied;
+    form2->l_ClauseUnsatisfied = form2->f_ClauseUnsatisfied;
     form3->set_formule_tseitin(true);//la variable est non Ep2
 
     {
@@ -188,7 +188,6 @@ formule* EDisj::eval_tseitin()
         form1->f_ClauseUnsatisfied->l_ElementAlive=l13;
         l11->next_litt=l13;
         form1->f_ClauseUnsatisfied->f_ElementAlive->next_litt=l11;
-        formRoot->merge(form1);
     }
 
     {
@@ -198,7 +197,6 @@ formule* EDisj::eval_tseitin()
         form2->f_ClauseUnsatisfied->f_ElementAlive=l21;
         form2->f_ClauseUnsatisfied->l_ElementAlive=l22;
         l21->next_litt=l22;
-        formRoot->merge(form2);
     }
 
     {
@@ -206,10 +204,12 @@ formule* EDisj::eval_tseitin()
         l31->set_litt(formRoot->f_ClauseUnsatisfied->f_ElementAlive->variable,false);
         form3->f_ClauseUnsatisfied->l_ElementAlive=l31;
         form3->f_ClauseUnsatisfied->f_ElementAlive->next_litt=l31;
-        formRoot->merge(form3);
     }
 
     (op1->form)->merge(formRoot);
+    formRoot->merge(form1);
+    formRoot->merge(form2);
+    formRoot->merge(form3);
     this->form=op1->form;
     return this->form;
 }
@@ -246,7 +246,7 @@ formule* VNot::eval_tseitin()
     formRoot->set_formule_tseitin(false);//la variable est Ep,
     form1->set_formule(value,false);//la variable est x
     form2->f_ClauseUnsatisfied = new clause;
-    form2->l_ClauseUnsatisfied = form1->f_ClauseUnsatisfied;
+    form2->l_ClauseUnsatisfied = form2->f_ClauseUnsatisfied;
 
     {
         litt *l11 = new litt;
@@ -254,7 +254,6 @@ formule* VNot::eval_tseitin()
         // on rajoute non Ep
         form1->f_ClauseUnsatisfied->f_ElementAlive->next_litt=l11;
         form1->f_ClauseUnsatisfied->f_ElementAlive->next_litt=l11;
-        formRoot->merge(form1);
     }
 
     {
@@ -266,9 +265,10 @@ formule* VNot::eval_tseitin()
         form2->f_ClauseUnsatisfied->f_ElementAlive=l21;
         form2->f_ClauseUnsatisfied->l_ElementAlive=l22;
         l21->next_litt=l22;
-        formRoot->merge(form2);
     }
 
+    formRoot->merge(form1);
+    formRoot->merge(form2);
     this->form=formRoot;
     return this->form;
 }
@@ -305,7 +305,7 @@ formule* ENot::eval_tseitin()
     form1->set_formule_tseitin(true);
     //la variable est non Ep1
     form2->f_ClauseUnsatisfied = new clause;
-    form2->l_ClauseUnsatisfied = form1->f_ClauseUnsatisfied;
+    form2->l_ClauseUnsatisfied = form2->f_ClauseUnsatisfied;
 
     {
         litt *l11 = new litt;
@@ -313,7 +313,6 @@ formule* ENot::eval_tseitin()
         //on ajoute non Ep
         form1->f_ClauseUnsatisfied->l_ElementAlive=l11;
         form1->f_ClauseUnsatisfied->f_ElementAlive->next_litt=l11;
-        formRoot->merge(form1);
     }
 
     {
@@ -326,9 +325,11 @@ formule* ENot::eval_tseitin()
         form2->f_ClauseUnsatisfied->f_ElementAlive=l21;
         form2->f_ClauseUnsatisfied->l_ElementAlive=l22;
         l21->next_litt=l22;
-        formRoot->merge(form2);
     }
 
+
+    formRoot->merge(form1);
+    formRoot->merge(form2);
     (op1->form)->merge(formRoot);
     this->form=op1->form;
     return this->form;
