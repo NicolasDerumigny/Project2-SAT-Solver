@@ -16,8 +16,8 @@ void assignation::updateLitt(bool alive){
 					appendLitt(cl->f_ElementDead,cl->l_ElementDead,li);
 					if (li_prev != nullptr)
 						li = li_prev;//On évite de casser la chaîne de parcours de la boucle for...
-					else if (f_ElementAlive != nullptr)//on est au début
-						li = instance->f_ElementAlive;
+					else if (cl->f_ElementAlive != nullptr)//on est au début
+						li = cl->f_ElementAlive;
 					else//there is nothing left
 						break;
                 }
@@ -36,8 +36,8 @@ void assignation::updateLitt(bool alive){
 					appendLitt(cl->f_ElementAlive,cl->l_ElementAlive,li);
 					if (li_prev != nullptr)
 						li = li_prev;//On évite de casser la chaîne de parcours de la boucle for...
-					else if (f_ElementDead != nullptr)
-						li = instance->f_ElementDead;
+					else if (cl->f_ElementDead != nullptr)
+						li = cl->f_ElementDead;
 					else//there is nothing left
 						break;
                 }
@@ -65,7 +65,7 @@ void assignation::updateClause(bool alive){
 						appendClause(instance->f_ClauseSatisfied,instance->l_ClauseSatisfied,cl2);
 						if (cl_prev != nullptr)
 							cl2 = cl_prev;//On évite de casser la chaîne de parcours de la boucle for...
-						else if (f_ClauseUnsatisfied != nullptr)
+						else if (instance->f_ClauseUnsatisfied != nullptr)
 							cl2 = instance->f_ClauseUnsatisfied;
 						else//there is nothing left
 							break;
@@ -86,7 +86,7 @@ void assignation::updateClause(bool alive){
 						appendClause(instance->f_ClauseUnsatisfied,instance->l_ClauseUnsatisfied,cl2);
 						if (cl_prev != nullptr)
 							cl2 = cl_prev;//On évite de casser la chaîne de parcours de la boucle for...
-						else if (f_ClauseSatisfied != nullptr)
+						else if (instance->f_ClauseSatisfied != nullptr)
 							cl2 = instance->f_ClauseSatisfied;
 						else//there is nothing left
 							break;
