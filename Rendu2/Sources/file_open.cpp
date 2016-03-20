@@ -15,14 +15,6 @@ void checkCorrectFile(char* file_dir){
     }
 }
 
-void checkRightArg(int nbrOfArg, char* exeFile){
-    if (nbrOfArg!=2){
-            cerr<<"Wrong number of parameters !"<<endl;
-            cerr<<"Usage : "<<exeFile<<" fichier.cnf\n";
-            exit(-1);
-    }
-}
-
 void checkHeaderAndParse(char* file_dir){
     ifstream eFile;
     eFile.open(file_dir, ifstream::in);
@@ -48,6 +40,13 @@ void checkHeaderAndParse(char* file_dir){
         str.str("");
     }
 
+    if (p!="p" or cnf!="cnf" or C==-1 or D!=-1){l:
+        cerr<<"Bad file format: header should be before clause declaration and respect scrupulously the following syntax:"<< endl;
+        cerr<<"p cnf V C"<<endl;
+        cerr<<"Where V is the maximum number of variables, and C the number of clauses"<<endl;
+        if (p!="p" or cnf!="cnf" or C==-1 or D!=-1)
+            exit(-1);
+    }
 
 
 
@@ -89,14 +88,6 @@ void checkHeaderAndParse(char* file_dir){
 
 
 
-
-    if (p!="p" or cnf!="cnf" or C==-1 or D!=-1){l:
-        cerr<<"Bad file format: header should be before clause declaration and respect scrupulously the following syntax:"<< endl;
-        cerr<<"p cnf V C"<<endl;
-        cerr<<"Where V is the maximum number of variables, and C the number of clauses"<<endl;
-        if (p!="p" or cnf!="cnf" or C==-1 or D!=-1)
-            exit(-1);
-    }
 
 
     int nbr_C=0;
@@ -185,7 +176,7 @@ void parse(char* file_dir){
             v_var.insert(v_var.end(),v_var_tseitin.begin(),v_var_tseitin.end());
             v_var_tseitin.clear();
         }
-
+    exit(-1);
     }else{
         cerr<<"Error : couldn't open file : "<<file_dir<<endl;
         exit(-1);

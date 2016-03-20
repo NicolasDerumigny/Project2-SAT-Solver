@@ -9,7 +9,9 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>
+#include <ctime>
 using namespace std;
+clock_t checkpoint = clock();
 #include "global_variables.h"
 #include "expr.hpp"
 #include "expr.tab.hpp"
@@ -26,9 +28,13 @@ using namespace std;
 #include "file_open.cpp"
 
 int main(int argc, char** argv) {
+    fprintf(stderr,"begin: %f s\n",(double) checkpoint/CLOCKS_PER_SEC);
     checkCorrectFile(argv[1]);
     checkRightArg(argc, argv[0]);
     checkHeader(argv[1]);
+    checkpoint = clock();
+    fprintf(stderr,"check: %f s\n",(double) checkpoint/CLOCKS_PER_SEC);
+
     parse(argv[1]);
 
     while(getFreeVar()!=nullptr){
@@ -52,5 +58,7 @@ int main(int argc, char** argv) {
     cout<<"s SATISFIABLE"<<endl;
     print_output();
     freeAll();
+    checkpoint = clock();
+    fprintf(stderr,"end: %f s\n",(double) checkpoint/CLOCKS_PER_SEC);
     return 0;
 }

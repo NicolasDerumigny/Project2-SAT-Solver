@@ -1,11 +1,13 @@
 #include "../Header/formule.h"
 void formule::set_formule(int varid, bool neg){
-    var* new_var;
+    var* new_var=nullptr;
     //Afficher une erreur dans le cas ou la variable n'y est pas ET CONTINUER QUAND MEME
     if (varid>=int(v_var.size())){
         int oldsize=int(v_var.size());
-        cerr<<"Warning : variable number "<<varid<<" not declared in header line (max "<< oldsize - 1;
-        cerr<<"), continuing anyway"<<endl;
+        if (!isTseitin){
+            cerr<<"Warning : variable number "<<varid<<" not declared in header line (max "<< oldsize - 1;
+            cerr<<"), continuing anyway"<<endl;
+        }
         for (int i=0; i<varid-oldsize+1;i++)
             v_var.push_back(nullptr);
     }
@@ -33,9 +35,9 @@ void formule::set_formule(int varid, bool neg){
 
 void formule::set_formule_tseitin(bool neg){
     var* new_var;
+    new_var= new var;
     new_var->set_var(v_var_tseitin.size());
     v_var_tseitin.push_back(new_var);
-
     litt* new_litt;
     new_litt=new litt;
     new_litt->set_litt(new_var, neg);
@@ -62,7 +64,7 @@ void formule::merge(formule* formule2){
 			this->l_ClauseSatisfied = formule2->l_ClauseSatisfied;
 		}
 	}
-	if (formule2->l_ClauseSatisfied != nullptr){
+    if (formule2->l_ClauseUnsatisfied != nullptr){
 		if (this->l_ClauseUnsatisfied == nullptr){
 			this->f_ClauseUnsatisfied = formule2->f_ClauseUnsatisfied;
 			this->l_ClauseUnsatisfied = formule2->l_ClauseUnsatisfied;
@@ -133,7 +135,7 @@ void formule::free_formule(){
 }
 
 /* ----------- formula preprocessing --------------- */
-void formule::preprocessing() {
+/*void formule::preprocessing() {
 	//la détection des clauses unitaires se fait via la function assignUniqueLitt() de deduce.cpp
 	//élimination des doublons (vivants) et des clauses tautologiques (non satisfaites)
 	vector<pair<int,int> > variables (v_var.size(), std::make_pair(0,0));
@@ -142,7 +144,7 @@ void formule::preprocessing() {
 	litt* li_prev;
 	clause* cl_prev = nullptr;
 	for (clause* cl=this->f_ClauseUnsatisfied;cl != nullptr;cl=cl->next_clause) {
-		li_prev = nullptr;
+        li_prev = nullptr;
 		for (litt* li = cl->f_ElementAlive;li != nullptr;li = li->next_litt) {
 			if (li->neg){
 				if (variables[li->variable->id].first > 0){//si on a un doublon dans la clause, on l'élimine
@@ -188,14 +190,5 @@ void formule::preprocessing() {
 				break;
 		}
 	}
-}
-
-/* ----------- creation of tsetin formula --------------- */
-void new_formule_tsetin_conj(){
-
-}
-
-void new_formule_tsetin_disj();
-void new_formule_tsetin_enot();
-void new_formule_tsetin_var(int varid, bool neg);
+}*/
 

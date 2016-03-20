@@ -15,10 +15,10 @@ public:
 
 	clause* next_clause;
 
-    litt* f_ElementAlive;//premier de la liste chainée
-    litt* l_ElementAlive;//dernier de la liste chainée
-    litt* f_ElementDead;//premier de la liste chainée
-    litt* l_ElementDead;//dernier de la liste chainée
+    litt* f_ElementAlive=nullptr;//premier de la liste chainée
+    litt* l_ElementAlive=nullptr;//dernier de la liste chainée
+    litt* f_ElementDead=nullptr;//premier de la liste chainée
+    litt* l_ElementDead=nullptr;//dernier de la liste chainée
 
     //map<unsigned int,litt*> mElementAlive;
     //map<unsigned int,litt*> mElementDead;
