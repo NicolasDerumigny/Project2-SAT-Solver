@@ -149,6 +149,7 @@ void formule::free_formule(){
 			if (li->neg){
 				if (variables[li->variable->id].first > 0){//si on a un doublon dans la clause, on l'élimine
 					removeLitt(f_ElementAlive,l_ElementAlive,li,li_prev);
+					delete li;
 					if (li_prev != nullptr)
 						li = li_prev;//On évite de casser la chaîne de parcours de la boucle for...
 					else if (f_ElementAlive != nullptr)
@@ -161,6 +162,7 @@ void formule::free_formule(){
 			} else {
 				if (variables[li->variable->id].second > 0){//si on a un doublon dans la clause, on l'élimine
 					removeLitt(f_ElementAlive,l_ElementAlive,li,li_prev);
+					delete li;
 					if (li_prev != nullptr)
 						li = li_prev;//On évite de casser la chaîne de parcours de la boucle for...
 					else if (f_ElementAlive != nullptr)
@@ -182,6 +184,7 @@ void formule::free_formule(){
 		}
 		if (isTauto) {
 			removeClause(this->f_ClauseUnsatisfied,this->l_ClauseUnsatisfied,cl,cl_prev);
+			cl->free_clause();
 			if (cl_prev != nullptr)
 				cl = cl_prev;//On évite de casser la chaîne de parcours de la boucle for...
 			else if (this->f_ClauseUnsatisfied != nullptr)

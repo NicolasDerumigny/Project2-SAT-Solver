@@ -8,8 +8,11 @@ bool assignUniqueLitt(){
         if (cl != nullptr){
             li = cl->getUniqueLittAlive(); //Amélioration : vérifier si la clause est de la forme {x1 or x1 or ... or x1}, la même variable avec la même polarité... Ou au pire on peut faire du prétraitement de la clause...
             if (li != nullptr){
-                if (li->variable->value != -1)
+                if (li->variable->value != -1){
                     cerr << "Warning: clause contains an assigned litteral that is still alive\n";
+					cl->print();
+					exit(-1);
+				}
                 if (li->neg == false)
                     li->variable->assignValue(1,false);
                 else
