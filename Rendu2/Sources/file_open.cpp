@@ -152,8 +152,9 @@ void parse(char* file_dir){
                 cerr <<res->to_string() << endl;
             }
 
-            if (isTseitin)
+            if (isTseitin){
                 instance =  res->eval_tseitin();
+            }
             else
                 instance =  res->eval();
 
@@ -176,7 +177,7 @@ void parse(char* file_dir){
             v_var.insert(v_var.end(),v_var_tseitin.begin(),v_var_tseitin.end());
             v_var_tseitin.clear();
         }
-    exit(-1);
+
     }else{
         cerr<<"Error : couldn't open file : "<<file_dir<<endl;
         exit(-1);

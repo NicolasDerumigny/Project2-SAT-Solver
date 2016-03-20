@@ -55,24 +55,24 @@ void formule::set_formule_tseitin(bool neg){
 
 
 void formule::merge(formule* formule2){
-	if (formule2->l_ClauseSatisfied != nullptr){//formule2 n'est pas vide
-		if (this->l_ClauseSatisfied == nullptr){//formule est vide
-			this->f_ClauseSatisfied = formule2->f_ClauseSatisfied;
-			this->l_ClauseSatisfied = formule2->l_ClauseSatisfied;
-		} else {//formule n'est pas vide
-			this->l_ClauseSatisfied->next_clause = formule2->f_ClauseSatisfied;
-			this->l_ClauseSatisfied = formule2->l_ClauseSatisfied;
-		}
-	}
+    if (formule2->l_ClauseSatisfied != nullptr){//formule2 n'est pas vide
+        if (this->l_ClauseSatisfied == nullptr){//formule est vide
+            this->f_ClauseSatisfied = formule2->f_ClauseSatisfied;
+            this->l_ClauseSatisfied = formule2->l_ClauseSatisfied;
+        } else {//formule n'est pas vide
+            this->l_ClauseSatisfied->next_clause = formule2->f_ClauseSatisfied;
+            this->l_ClauseSatisfied = formule2->l_ClauseSatisfied;
+        }
+    }
     if (formule2->l_ClauseUnsatisfied != nullptr){
-		if (this->l_ClauseUnsatisfied == nullptr){
-			this->f_ClauseUnsatisfied = formule2->f_ClauseUnsatisfied;
-			this->l_ClauseUnsatisfied = formule2->l_ClauseUnsatisfied;
-		} else {
-			this->l_ClauseUnsatisfied->next_clause = formule2->f_ClauseUnsatisfied;
-			this->l_ClauseUnsatisfied = formule2->l_ClauseUnsatisfied;
-		}
-	}
+        if (this->l_ClauseUnsatisfied == nullptr){
+            this->f_ClauseUnsatisfied = formule2->f_ClauseUnsatisfied;
+            this->l_ClauseUnsatisfied = formule2->l_ClauseUnsatisfied;
+        } else {
+            this->l_ClauseUnsatisfied->next_clause = formule2->f_ClauseUnsatisfied;
+            this->l_ClauseUnsatisfied = formule2->l_ClauseUnsatisfied;
+        }
+    }
 //    for (auto& s:formule2->mClauseSatisfied){
 //        this->mClauseSatisfied[this->mClauseSatisfied.size()]=s.second;
 //        if (s.second != nullptr)

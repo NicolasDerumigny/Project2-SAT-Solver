@@ -86,8 +86,8 @@ formule* EConj::eval()//op1 et op2 seront des formules
 
 formule *EConj::eval_tseitin()//op1 et op2 seront des formules
 {
-    op1->form=op1->eval();
-    op2->form=op2->eval();
+    op1->form=op1->eval_tseitin();
+    op2->form=op2->eval_tseitin();
     (op1->form)->merge(op2->form);
 
     formule *formRoot= new formule,
@@ -165,8 +165,8 @@ formule* EDisj::eval()
 formule* EDisj::eval_tseitin()
 //we assume that the formula are only composed of one unique clause, that we merge together
 {
-    op1->form=op1->eval();
-    op2->form=op2->eval();
+    op1->form=op1->eval_tseitin();
+    op2->form=op2->eval_tseitin();
     (op1->form)->merge(op2->form);
 
     formule *formRoot= new formule,
@@ -206,10 +206,11 @@ formule* EDisj::eval_tseitin()
         form3->f_ClauseUnsatisfied->f_ElementAlive->next_litt=l31;
     }
 
-    (op1->form)->merge(formRoot);
+
     formRoot->merge(form1);
     formRoot->merge(form2);
     formRoot->merge(form3);
+    (op1->form)->merge(formRoot);
     this->form=op1->form;
     return this->form;
 }
@@ -260,7 +261,7 @@ formule* VNot::eval_tseitin()
         litt *l21 = new litt, *l22 = new litt;
         l21->set_litt(formRoot->f_ClauseUnsatisfied->f_ElementAlive->variable,false);
         //on ajoute Ep
-        l22->set_litt(form2->f_ClauseUnsatisfied->f_ElementAlive->variable,true);
+        l22->set_litt(form1->f_ClauseUnsatisfied->f_ElementAlive->variable,true);
         //on rajoute non x
         form2->f_ClauseUnsatisfied->f_ElementAlive=l21;
         form2->f_ClauseUnsatisfied->l_ElementAlive=l22;
