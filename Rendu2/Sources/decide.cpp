@@ -36,13 +36,30 @@ var* getRandFreeVar() {
 
 var* getMomsFreeVar() {
 	int cl_size;
-	int clause_min_size = instance->mClauseUnsatisfied[0]->nbLittAlive();
-	for (auto& cl:instance->mClauseUnsatisfied) {
-		cl_size = cl.second->nbLittAlive();
+	if (instance->f_ClauseUnsatisfied = nullptr)//Si toutes les clauses sont déjà satisfaites, on renvoie la première variable encore vivante qu'on voit
+		return getFreeVar();
+	int clause_min_size = instance->f_ClauseUnsatisfied->nbLittAlive();//Sinon on récupère la taille minimale des clauses satisfaites
+	for (clause* cl = instance->f_ClauseUnsatisfied;cl != nullptr;cl=cl->next_clause) {
+		cl_size = cl->nbLittAlive();
 		if (cl_size < clause_min_size)
 			clause_min_size = cl_size;
+	}	
+	int occ_max = 0;
+	int occ_sum = 0;
+	var* new_var = nullptr;
+	for (auto& v:v_var){//puis pour chaque variable, on stocke dans occ_sum le nombre de fois où elle apparait dans une clause de taille minimale.
+		if (v != nullptr && v->value == -1) {
+			occ_sum = 0;
+			for (auto& cl:v->clauseInto)
+				if (cl->nbLittAlive() == clause_min_size)
+					occ_sum++;
+			if (occ_sum > occ_max) {//on met à jour la variable qui apparait le plus (nb_occ)
+				occ_max = occ_sum;
+				new_var = v;
+			}
+		}
 	}
-	for (v:v_var)
+	return new_var;
 }
 
 //voir var::assignValue avec value=1 par défaut et bet=true
