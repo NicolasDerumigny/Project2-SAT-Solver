@@ -64,7 +64,7 @@ On ne prend pas en compte les clauses déclarées avant la ligne d'en-tête.
 
 On gère mal des commentaires ne commençant pas par 'c'.
 
-Pré-traiter les entrées. (en particulier, gérer le linkage (clauseInto) avec le prétraitement).
+Pré-traiter les entrées. (en particulier, gérer le linkage (clauseInto) avec le prétraitement, supprimer les doublons, les tautologies, les clauses/formules vides).
 
 Tseitin (gérer les => via non(B et non A), ... ).
 

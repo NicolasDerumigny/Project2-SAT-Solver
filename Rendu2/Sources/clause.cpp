@@ -138,7 +138,7 @@ bool clause::isSatisfied(){
             }
         }
     }
-
+//Si la clause est vide on renvoie bien qu'elle est insatisfiable
 
 
     /*for (auto& s:this->mElementDead)
