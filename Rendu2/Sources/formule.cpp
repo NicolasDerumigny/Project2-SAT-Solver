@@ -148,12 +148,12 @@ void formule::preprocessing() {
 		for (litt* li = cl->f_ElementAlive;li != nullptr;li = li->next_litt) {
 			if (li->neg){
 				if (variables[li->variable->id].first > 0){//si on a un doublon dans la clause, on l'élimine
-					removeLitt(&f_ElementAlive,&l_ElementAlive,li,li_prev);
+					removeLitt(&cl->f_ElementAlive,&cl->l_ElementAlive,li,li_prev);
 					delete li;
 					if (li_prev != nullptr)
 						li = li_prev;//On évite de casser la chaîne de parcours de la boucle for...
-					else if (f_ElementAlive != nullptr)
-						li = instance->f_ElementAlive;
+					else if (cl->f_ElementAlive != nullptr)
+						li = cl->f_ElementAlive;
 					else//there is nothing left
 						break;
 				} else { 
@@ -161,12 +161,12 @@ void formule::preprocessing() {
 				}
 			} else {
 				if (variables[li->variable->id].second > 0){//si on a un doublon dans la clause, on l'élimine
-					removeLitt(&f_ElementAlive,&l_ElementAlive,li,li_prev);
+					removeLitt(&cl->f_ElementAlive,&cl->l_ElementAlive,li,li_prev);
 					delete li;
 					if (li_prev != nullptr)
 						li = li_prev;//On évite de casser la chaîne de parcours de la boucle for...
-					else if (f_ElementAlive != nullptr)
-						li = instance->f_ElementAlive;
+					else if (cl->f_ElementAlive != nullptr)
+						li = cl->f_ElementAlive;
 					else//there is nothing left
 						break;
 				} else { 

@@ -47,9 +47,9 @@ int main(int argc, char** argv) {
 
     if(verbose) instance->print();
 
-    while(getFreeVar()!=nullptr){
+    while(getDlisFreeVar()!=nullptr){
         //decide
-        getFreeVar()->assignValue(1,true);
+        getDlisFreeVar()->assignValue(1,true);
         //on fait un pari : la freeVar est à vrai
 
         //deduce

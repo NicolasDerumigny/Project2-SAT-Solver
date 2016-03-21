@@ -92,6 +92,8 @@ var* getDlisFreeVar() {
 			new_var = v_var[varid];
 		}
 	}
+	if (new_var == nullptr)
+		new_var = getFreeVar();
 	return new_var;
 }
 
