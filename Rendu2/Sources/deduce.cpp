@@ -1,5 +1,4 @@
-#include <vector>
-#include <utility>
+#include "../Header/deduce.h"
 
 bool assignUniqueLitt(){
 	bool haveChanged = false;

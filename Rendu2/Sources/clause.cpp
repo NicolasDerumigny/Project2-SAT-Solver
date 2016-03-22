@@ -14,12 +14,6 @@ void clause::set_clause(litt* litt_entry){
 
 void clause::merge(clause* cl2){
     if (cl2!=nullptr){
-        /*for (auto& s:v_var)
-            if (s!=nullptr){
-                for (auto& s2:s->clauseInto)
-                    if (s2 == cl2)
-                        s2 = this;
-           }*/
         for (litt* lit=cl2->f_ElementAlive;lit!=nullptr;lit=lit->next_litt)
             for (auto& s2:lit->variable->clauseInto)
                 if (s2 == cl2)

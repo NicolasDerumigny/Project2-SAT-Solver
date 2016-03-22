@@ -1,7 +1,4 @@
-#include <vector>
-#include "../Header/assignation.h"
-#include <stdlib.h>
-#include <time.h>
+#include "../Header/decide.h"
 
 var* getFreeVar() {
 	for (var* s:v_var) {

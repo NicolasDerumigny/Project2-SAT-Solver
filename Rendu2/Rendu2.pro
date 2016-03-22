@@ -40,4 +40,10 @@ HEADERS += \
     Header/formule.h \
     Bison/expr.hpp \
     Header/assignation.h \
-    Header/global_variables.h
+    Header/global_variables.h \
+    Header/deduce.h \
+    Header/decide.h \
+    Header/backtrack.h \
+    Header/file_open.h \
+    Header/global_variable_extern.h \
+    Header/cast_arg.h

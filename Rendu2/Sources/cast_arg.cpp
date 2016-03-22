@@ -1,4 +1,4 @@
-#include <string.h>
+#include "../Header/cast_arg.h"
 
 void cast_arg(int argc, char** argv){
     for (int i=1; i<argc;i++){

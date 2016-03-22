@@ -9,26 +9,22 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>
-#include <ctime>
 using namespace std;
 #include "../Header/global_variables.h"
-#include "../Bison/expr.hpp"
-#include "../Bison/expr.tab.hpp"
 
 
-#include "var.cpp"
-#include "litt.cpp"
-#include "clause.cpp"
-#include "formule.cpp"
-#include "assignation.cpp"
+#include "../Header/var.h"
+#include "../Header/litt.h"
+#include "../Header/clause.h"
+#include "../Header/formule.h"
+#include "../Header/assignation.h"
 
-#include "decide.cpp"
-#include "deduce.cpp"
-#include "backtrack.cpp"
-clock_t checkpoint = clock();
+#include "../Header/decide.h"
+#include "../Header/deduce.h"
+#include "../Header/backtrack.h"
 
-#include "file_open.cpp"
-#include "cast_arg.cpp"
+#include "../Header/file_open.h"
+#include "../Header/cast_arg.h"
 
 
 int main(int argc, char** argv) {

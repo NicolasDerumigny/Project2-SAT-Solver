@@ -1,7 +1,11 @@
 #ifndef CLAUSE_H
 #define CLAUSE_H
 #include <map>
+#include <iostream>
+#include "global_variable_extern.h"
 using namespace std;
+
+class litt;
 
 class clause{
 public:
@@ -10,12 +14,10 @@ public:
     bool isSatisfied();
     void merge(clause* cl);
     int nbLittAlive();
-	litt* getUniqueLittAlive();
+    litt* getUniqueLittAlive();
     void free_clause();
-    void removeClause(clause **first_cl,clause **last_cl,clause *cur_cl,clause *prev_cl);
-    void appendClause(clause **first_cl, clause **last_cl,clause *cur_cl);
 
-	clause* next_clause = nullptr;
+    clause* next_clause = nullptr;
 
     litt* f_ElementAlive=nullptr;//premier de la liste chainée
     litt* l_ElementAlive=nullptr;//dernier de la liste chainée
@@ -26,5 +28,8 @@ public:
     //map<unsigned int,litt*> mElementDead;
     int id;
 };
+
+void removeClause(clause **first_cl,clause **last_cl,clause *cur_cl,clause *prev_cl);
+void appendClause(clause **first_cl, clause **last_cl,clause *cur_cl);
 
 #endif // CLAUSE_H
