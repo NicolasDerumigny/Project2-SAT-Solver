@@ -13,6 +13,7 @@
 using namespace std;
 extern "C" FILE *yyin;
 extern Expr *res;
+extern int yylex_destroy  (void);
 
 void checkCorrectFile(char* file_dir);
 void checkHeaderAndParse(char* file_dir);

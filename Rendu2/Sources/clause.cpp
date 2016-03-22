@@ -105,7 +105,7 @@ void clause::print(){
         if (s.second != nullptr)
 			s.second->print();
             */
-    cout<<"----------------------------";
+    cout<<"--------------------------------------";
     cout<<endl;
 }
 

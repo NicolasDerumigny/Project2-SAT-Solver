@@ -33,16 +33,19 @@ int main(int argc, char** argv) {
 
     if(verbose) instance->print();
 
-    while(getDlisFreeVar()!=nullptr){
+    while(getFreeVar()!=nullptr){
         //decide
-        getDlisFreeVar()->assignValue(1,true);
+        getFreeVar()->assignValue(1,true);
         //on fait un pari : la freeVar est à vrai
 
         //deduce
 		while(assignUniqueLitt() or assignUniquePolarity())
             continue;
 
-        if(verbose) instance->print();
+        if(verbose) {
+            cout<<"\n------------Next step :-----------------\n";
+            instance->print();
+        }
 
         //backtrack
         while(!check()){

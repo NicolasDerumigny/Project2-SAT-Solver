@@ -164,14 +164,18 @@ void parse(char* file_dir){
                 fprintf(stderr,"create: %f s\n",(double) checkpoint/CLOCKS_PER_SEC);
             }
         } while (!feof(yyin));
+        if(0!=yylex_destroy())
+            cerr<<"Warning : can't delete lex parser !";
         fclose(inputFile);
+
+        nbr_var=v_var.size();
 
         if(isTseitin){
             //merge les variables tseitin et les autres
             int nbr_tseitin=v_var_tseitin.size();
             int shift=v_var.size();
             for(int i=0;i<nbr_tseitin;i++)
-                v_var_tseitin[i]->id+=shift;
+                v_var_tseitin[i]->id=i+shift;
 
             v_var.insert(v_var.end(),v_var_tseitin.begin(),v_var_tseitin.end());
             v_var_tseitin.clear();
@@ -195,7 +199,7 @@ void freeAll(){
 }
 
 void print_output(){
-    for(int i=1; i<int(v_var.size());i++){
+    for(int i=1; i<nbr_var;i++){
         if (v_var[i]!=nullptr)
             v_var[i]->print();
         else

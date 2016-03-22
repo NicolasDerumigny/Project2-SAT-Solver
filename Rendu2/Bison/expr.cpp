@@ -97,7 +97,8 @@ void EConj::eval_tseitin()//op1 et op2 seront des formules
     form1->set_formule_tseitin(false);//la variable est Ep1
     form2->set_formule_tseitin(false);//la variable est Ep2
     form3->f_ClauseUnsatisfied = new clause;
-    form3->l_ClauseUnsatisfied = form2->f_ClauseUnsatisfied;
+    form3->l_ClauseUnsatisfied = form3->f_ClauseUnsatisfied;
+    form3->l_ClauseUnsatisfied->next_clause=nullptr;
 
     {
         litt *l11 = new litt;
@@ -136,6 +137,7 @@ void EConj::eval_tseitin()//op1 et op2 seront des formules
     formRoot->merge(form2);
     formRoot->merge(form3);
     (op1->form)->merge(formRoot);
+    delete op2;
     this->form=op1->form;
 }
 
@@ -176,18 +178,18 @@ void EDisj::eval_tseitin()
 
     formRoot->set_formule_tseitin(false);//la variable est Ep,
     form1->set_formule_tseitin(false);//la variable est Ep1
+    form3->set_formule_tseitin(true);//la variable est non Ep2
     form2->f_ClauseUnsatisfied = new clause;
     form2->l_ClauseUnsatisfied = form2->f_ClauseUnsatisfied;
-    form3->set_formule_tseitin(true);//la variable est non Ep2
 
     {
         litt *l11 = new litt,
                 *l13 = new litt;
         l11->set_litt(formRoot->f_ClauseUnsatisfied->f_ElementAlive->variable,true);
         l13->set_litt(form3->f_ClauseUnsatisfied->f_ElementAlive->variable,false);
-        form1->f_ClauseUnsatisfied->l_ElementAlive=l13;
-        l11->next_litt=l13;
         form1->f_ClauseUnsatisfied->f_ElementAlive->next_litt=l11;
+        l11->next_litt=l13;
+        form1->f_ClauseUnsatisfied->l_ElementAlive=l13;
     }
 
     {
@@ -202,8 +204,8 @@ void EDisj::eval_tseitin()
     {
         litt *l31 = new litt;
         l31->set_litt(formRoot->f_ClauseUnsatisfied->f_ElementAlive->variable,false);
-        form3->f_ClauseUnsatisfied->l_ElementAlive=l31;
         form3->f_ClauseUnsatisfied->f_ElementAlive->next_litt=l31;
+        form3->f_ClauseUnsatisfied->l_ElementAlive=l31;
     }
 
 
@@ -212,7 +214,6 @@ void EDisj::eval_tseitin()
     formRoot->merge(form3);
     (op1->form)->merge(formRoot);
     this->form=op1->form;
-	delete op2->form;
 }
 
 /************************************/
@@ -286,7 +287,7 @@ string ENot::to_string()
 
 void ENot::eval()
 {
-    cerr<<"Fatal error : Negated expression shall never be use in input, use -tseitin for this."<<endl;
+    cerr<<"Fatal error : Negated expression shall never be used in input, use -tseitin for this."<<endl;
     exit(-1);
 }
 
@@ -318,7 +319,7 @@ void ENot::eval_tseitin()
                 *l22 = new litt;
         l21->set_litt(formRoot->f_ClauseUnsatisfied->f_ElementAlive->variable,false);
         //on ajoute Ep
-        l21->set_litt(form1->f_ClauseUnsatisfied->f_ElementAlive->variable,false);
+        l22->set_litt(form1->f_ClauseUnsatisfied->f_ElementAlive->variable,false);
         //on ajoute Ep1
         form2->f_ClauseUnsatisfied->f_ElementAlive=l21;
         form2->f_ClauseUnsatisfied->l_ElementAlive=l22;
@@ -335,7 +336,7 @@ void ENot::eval_tseitin()
 /************************************/
 /********  XOR  ********************/
 /**********************************/
-/*
+
 EXor::EXor(Expr * e1, Expr * e2) : op1(e1), op2(e2) {}
 
 string EXor::to_string()
@@ -343,15 +344,16 @@ string EXor::to_string()
     return "(" + op1->to_string() + " X " +  op2->to_string() + ")";
 }
 
-formule* EXor::eval()
+void EXor::eval()
 {
-    return op1->eval() * op2->eval();
+    cerr<<"Fatal error : Negated expression shall never be used in input, use -tseitin for this."<<endl;
+    exit(-1);
 }
-*/
+
 /************************************/
 /********  IMPLY   *****************/
 /**********************************/
-/*
+
 
 EImply::EImply(Expr * e1, Expr * e2) : op1(e1), op2(e2) {}
 
@@ -360,15 +362,16 @@ string EImply::to_string()
     return "(" + op1->to_string() + " → " +  op2->to_string() + ")";
 }
 
-formule* EImply::eval()
+void EImply::eval()
 {
-    return op1->eval() * op2->eval();
+    cerr<<"Fatal error : Negated expression shall never be used in input, use -tseitin for this."<<endl;
+    exit(-1);
 }
-*/
+
 /************************************/
 /********  EQ   ********************/
 /**********************************/
-/*
+
 EEq::EEq(Expr * e1, Expr * e2) : op1(e1), op2(e2) {}
 
 string EEq::to_string()
@@ -376,8 +379,8 @@ string EEq::to_string()
     return "(" + op1->to_string() + " ↔ " +  op2->to_string() + ")";
 }
 
-formule* EEq::eval()
+void EEq::eval()
 {
-    return op1->eval() * op2->eval();
+    cerr<<"Fatal error : Negated expression shall never be used in input, use -tseitin for this."<<endl;
+    exit(-1);
 }
-*/

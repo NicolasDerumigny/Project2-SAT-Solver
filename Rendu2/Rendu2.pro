@@ -16,6 +16,9 @@ TEMPLATE = app
 
 QMAKE_CXXFLAGS += -std=c++11
 
+INCLUDEPATH += Header/ \
+        Bison/
+
 SOURCES += \
     Sources/main.cpp \
     Bison/expr.cpp \
