@@ -11,5 +11,11 @@ void cast_arg(int argc, char** argv){
         if (!strcmp(argv[i],"-time"))
             timePerf=true;
 
+	if (!strcmp(argv[i],"-rand"))
+            heuristic=1;
+	if (!strcmp(argv[i],"-moms"))
+            heuristic=2;
+	if (!strcmp(argv[i],"-dlis"))
+            heuristic=3;
     }
 }

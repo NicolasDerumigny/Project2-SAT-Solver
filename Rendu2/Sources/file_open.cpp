@@ -151,10 +151,11 @@ void parse(char* file_dir){
             }
 
             if (isTseitin){
-                instance =  res->eval_tseitin();
+                res->eval_tseitin();
             }
             else
-                instance =  res->eval();
+                res->eval();
+			instance=res->form;
 
 
 

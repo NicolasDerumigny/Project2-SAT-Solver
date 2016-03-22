@@ -20,16 +20,15 @@ string EConst::to_string()
     return result;
 }
 
-formule* EConst::eval()
+void EConst::eval()
 {
     formule* new_form;
     new_form= new formule();
     new_form->set_formule(value, false);
     this->form=new_form;
-    return this->form;
 }
 
-formule* EConst::eval_tseitin()
+void EConst::eval_tseitin()
 {
     formule *formRoot= new formule,
             *form1 = new formule,
@@ -62,7 +61,6 @@ formule* EConst::eval_tseitin()
     formRoot->merge(form1);
     formRoot->merge(form2);
     this->form=formRoot;
-    return this->form;
 }
 
 /*****************************************/
@@ -76,19 +74,18 @@ string EConj::to_string()
     return "(" + op1->to_string() + ")" + " /\\ " + "(" +  op2->to_string() + ")";
 }
 
-formule* EConj::eval()//op1 et op2 seront des formules
+void EConj::eval()//op1 et op2 seront des formules
 {
-    op1->form=op1->eval();
-    op2->form=op2->eval();
+    op1->eval();
+    op2->eval();
     op2->form->merge(op1->form);
     this->form=op2->form;
-    return this->form;
 }
 
-formule *EConj::eval_tseitin()//op1 et op2 seront des formules
+void EConj::eval_tseitin()//op1 et op2 seront des formules
 {
-    op1->form=op1->eval_tseitin();
-    op2->form=op2->eval_tseitin();
+    op1->eval_tseitin();
+    op2->eval_tseitin();
     (op1->form)->merge(op2->form);
 
     formule *formRoot= new formule,
@@ -140,7 +137,6 @@ formule *EConj::eval_tseitin()//op1 et op2 seront des formules
     formRoot->merge(form3);
     (op1->form)->merge(formRoot);
     this->form=op1->form;
-    return this->form;
 }
 
 
@@ -155,22 +151,22 @@ string EDisj::to_string()
     return op1->to_string() + " \\/ " +  op2->to_string();
 }
 
-formule* EDisj::eval()
+void EDisj::eval()
 //we assume that the formula are only composed of one unique clause, that we merge together
 {
-    op1->form=op1->eval();
-    op2->form=op2->eval();
+    op1->eval();
+    op2->eval();
     op1->form->f_ClauseUnsatisfied->merge(op2->form->f_ClauseUnsatisfied);
     op1->form->f_ClauseSatisfied->merge(op2->form->f_ClauseSatisfied);
     this->form=op1->form;
-    return this->form;
+	delete op2->form;
 }
 
-formule* EDisj::eval_tseitin()
+void EDisj::eval_tseitin()
 //we assume that the formula are only composed of one unique clause, that we merge together
 {
-    op1->form=op1->eval_tseitin();
-    op2->form=op2->eval_tseitin();
+    op1->eval_tseitin();
+    op2->eval_tseitin();
     (op1->form)->merge(op2->form);
 
     formule *formRoot= new formule,
@@ -216,7 +212,11 @@ formule* EDisj::eval_tseitin()
     formRoot->merge(form3);
     (op1->form)->merge(formRoot);
     this->form=op1->form;
-    return this->form;
+	delete op2->form;
+	delete form1;
+	delete form2;
+	delete form3;
+	delete formRoot;
 }
 
 /************************************/
@@ -234,15 +234,14 @@ string VNot::to_string()
     return result;
 }
 
-formule* VNot::eval()
+void VNot::eval()
 {
     formule* new_form = new formule();
     new_form->set_formule(value, true);
     this->form=new_form;
-    return this->form;
 }
 
-formule* VNot::eval_tseitin()
+void VNot::eval_tseitin()
 {
     formule *formRoot= new formule,
             *form1 = new formule,
@@ -275,7 +274,6 @@ formule* VNot::eval_tseitin()
     formRoot->merge(form1);
     formRoot->merge(form2);
     this->form=formRoot;
-    return this->form;
 }
 
 
@@ -290,17 +288,16 @@ string ENot::to_string()
     return "¬(" + op1->to_string() + ")";
 }
 
-formule* ENot::eval()
+void ENot::eval()
 {
     cerr<<"Fatal error : Negated expression shall never be use in input, use -tseitin for this."<<endl;
     exit(-1);
-    return op1->eval();
 }
 
 
-formule* ENot::eval_tseitin()
+void ENot::eval_tseitin()
 {
-    op1->form=op1->eval_tseitin();
+    op1->eval_tseitin();
     formule *formRoot= new formule,
             *form1 = new formule,
             *form2 = new formule;
@@ -337,7 +334,6 @@ formule* ENot::eval_tseitin()
     formRoot->merge(form2);
     (op1->form)->merge(formRoot);
     this->form=op1->form;
-    return this->form;
 }
 
 /************************************/
