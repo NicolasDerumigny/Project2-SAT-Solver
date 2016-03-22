@@ -75,7 +75,7 @@ void assignation::updateClause(bool alive){
 			cl_prev = nullptr;
 			for (clause* cl2 = instance->f_ClauseUnsatisfied;cl2 != nullptr || cl_need_back;cl2=cl2->next_clause){//On parcours les clauses non satisfaites à la recherche de cl
 				if (cl_need_back){
-					cl=cl_prev;
+					cl2=cl_prev;
 					cl_need_back = false;
 				}
 				if (cl2 == cl)
@@ -102,7 +102,7 @@ void assignation::updateClause(bool alive){
 			cl_prev = nullptr;
 			for (clause* cl2 = instance->f_ClauseSatisfied;cl2 != nullptr || cl_need_back;cl2=cl2->next_clause){//On parcours les clauses non satisfaites à la recherche de cl
 				if (cl_need_back){
-					cl=cl_prev;
+					cl2=cl_prev;
 					cl_need_back = false;
 				}
 				if (cl2 == cl)
