@@ -1,8 +1,14 @@
 #ifndef ASSIGNATION_H
 #define ASSIGNATION_H
+#include "global_variable_extern.h"
+#include "litt.h"
+#include "clause.h"
+#include "formule.h"
+using namespace std;
 
-class assignation
-{
+class var;
+
+class assignation{
 public:
     void set_assign(var* variable,bool bet);
 	void updateLitt(bool alive);

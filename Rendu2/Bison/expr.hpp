@@ -20,7 +20,8 @@ public:
     virtual std::string to_string()=0;
     virtual formule* eval()=0;
     virtual formule* eval_tseitin()=0;
-    formule *form;
+    formule *form=nullptr;
+	virtual ~Expr(){}
 };
 
 /***********************************/
@@ -31,9 +32,10 @@ class EConst : public Expr
 {
 public:
     EConst(int val);
-    virtual std::string to_string();
-    virtual formule* eval();
-    virtual formule* eval_tseitin();
+    std::string to_string();
+    formule* eval();
+    formule* eval_tseitin();
+	~EConst(){}
 private:
     int value;
 };
@@ -46,9 +48,10 @@ class EConj : public Expr
 {
 public:
     EConj(Expr * e1, Expr * e2);
-    virtual std::string to_string();
-    virtual formule* eval();
-    virtual formule* eval_tseitin();
+    std::string to_string();
+    formule* eval();
+    formule* eval_tseitin();
+	~EConj(){delete op1; delete op2;}
 private:
     Expr * op1, * op2;
 };
@@ -61,9 +64,10 @@ class EDisj : public Expr
 {
 public:
     EDisj(Expr * e1, Expr * e2);
-    virtual std::string to_string();
-    virtual formule* eval();
-    virtual formule* eval_tseitin();
+    std::string to_string();
+    formule* eval();
+    formule* eval_tseitin();
+	~EDisj(){delete op1; delete op2;}
 private:
     Expr * op1, * op2;
 };
@@ -119,9 +123,9 @@ class ENot : public Expr
 {
 public:
     ENot(Expr * e1);
-    virtual std::string to_string();
-    virtual formule* eval();
-    virtual formule* eval_tseitin();
+    std::string to_string();
+    formule* eval();
+    formule* eval_tseitin();
 private:
     Expr * op1;
 };
@@ -134,9 +138,9 @@ class VNot : public Expr
 {
 public:
     VNot(int val);
-    virtual std::string to_string();
-    virtual formule* eval();
-    virtual formule* eval_tseitin();
+    std::string to_string();
+    formule* eval();
+    formule* eval_tseitin();
 private:
     int value;
 };

@@ -1,10 +1,11 @@
 #ifndef VAR_H
 #define VAR_H
 #include <map>
-#include <vector>
+#include "clause.h"
 #include "assignation.h"
-
+#include "global_variable_extern.h"
 using namespace std;
+class clause;
 
 class var{
 public:

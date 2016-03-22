@@ -1,6 +1,4 @@
-//extern "C" int yyparse();
-extern "C" FILE *yyin;
-extern Expr *res;
+#include "../Header/file_open.h"
 
 void checkCorrectFile(char* file_dir){
     struct stat buff;
@@ -191,6 +189,8 @@ void freeAll(){
         delete assignations[i];
         assignations[i]=nullptr;
     }
+    delete instance;
+	delete res;
 }
 
 void print_output(){

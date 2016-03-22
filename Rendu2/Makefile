@@ -1,17 +1,20 @@
 #example name
 NAME=expr
 #compiler name
-CC=g++
+CC=clang++
 #lex name+path
 LEX=flex
 LIBLEX=-lfl
 #yacc/bison
 YACC=bison
+#flags
+CFLAGS=-g -std=c++11 -Wall -Wextra -Wpedantic -Wno-write-strings 
+SRC= $(wildcard Sources/*.cpp)
+OBJ= $(SRC:.cpp=.o)
 
 
-all: Bison/$(NAME).tab.cpp Bison/$(NAME).yy.cpp Bison/$(NAME).cpp Sources/main.cpp
-	$(CC) -std=c++11 -Wall -Wextra -Wpedantic -Wno-write-strings -I ./Headers -o resol $^ $(LIBLEX)
-	
+all: Bison/$(NAME).tab.cpp Bison/$(NAME).yy.cpp Bison/$(NAME).cpp $(OBJ)
+	$(CC) $(CFLAGS) -I ./Headers  -o resol $^ $(LIBLEX)	
 
 Bison/$(NAME).yy.cpp :  Bison/$(NAME).l
 	$(LEX)  -w -o $@ $^
@@ -21,3 +24,7 @@ Bison/$(NAME).tab.cpp : Bison/$(NAME).ypp
 
 clean:
 	rm -f *~ Bison/$(NAME).yy.cpp Bison/$(NAME).tab.cpp Bison/$(NAME).tab.hpp Bison/$(NAME).output
+
+%.o: %.cpp
+	$(CC) -o $@ -c $< $(CFLAGS) -I ./Headers 
+

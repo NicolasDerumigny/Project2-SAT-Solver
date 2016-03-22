@@ -1,7 +1,12 @@
 #ifndef FORMULE_H
 #define FORMULE_H
 #include <map>
+#include "litt.h"
+#include "global_variable_extern.h"
 using namespace std;
+
+
+class clause;
 
 class formule{
 public:

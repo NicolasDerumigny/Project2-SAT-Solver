@@ -82,8 +82,6 @@ formule* EConj::eval()//op1 et op2 seront des formules
     op2->form=op2->eval();
     op2->form->merge(op1->form);
     this->form=op2->form;
-	delete op1;
-	delete op2;
     return this->form;
 }
 
@@ -142,8 +140,6 @@ formule *EConj::eval_tseitin()//op1 et op2 seront des formules
     formRoot->merge(form3);
     (op1->form)->merge(formRoot);
     this->form=op1->form;
-	delete op1;
-	delete op2;
     return this->form;
 }
 
@@ -167,8 +163,6 @@ formule* EDisj::eval()
     op1->form->f_ClauseUnsatisfied->merge(op2->form->f_ClauseUnsatisfied);
     op1->form->f_ClauseSatisfied->merge(op2->form->f_ClauseSatisfied);
     this->form=op1->form;
-	delete op1;
-	delete op2;
     return this->form;
 }
 
@@ -222,8 +216,6 @@ formule* EDisj::eval_tseitin()
     formRoot->merge(form3);
     (op1->form)->merge(formRoot);
     this->form=op1->form;
-	delete op1;
-	delete op2;
     return this->form;
 }
 
@@ -345,7 +337,6 @@ formule* ENot::eval_tseitin()
     formRoot->merge(form2);
     (op1->form)->merge(formRoot);
     this->form=op1->form;
-	delete op1;
     return this->form;
 }
 
