@@ -20,8 +20,9 @@ extern formule * instance;
 //une formule pour les gouverner tous
 extern clock_t checkpoint;
 
+
+extern int heuristic;
 extern bool isTseitin;
 extern bool verbose;
 extern bool timePerf;
-extern int heuristic;
 #endif // GLOBAL_VARIABLE_EXTERN_H

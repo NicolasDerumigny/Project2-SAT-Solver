@@ -1,4 +1,4 @@
-#include "../Header/backtrack.h"
+#include "backtrack.h"
 
 bool check(){//renvoie false si il existe une clause insatisfaite qui n'a plus de littéraux vivants (formule insatisfiable)
 	for (clause* cl=instance->f_ClauseUnsatisfied;cl != nullptr;cl=cl->next_clause)

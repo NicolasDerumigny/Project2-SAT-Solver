@@ -1,4 +1,4 @@
-#include "../Header/deduce.h"
+#include "deduce.h"
 
 bool assignUniqueLitt(){
 	bool haveChanged = false;

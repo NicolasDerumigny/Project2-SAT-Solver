@@ -1,8 +1,8 @@
 #include "expr.hpp"
-#include "../Header/clause.h"
-#include "../Header/var.h"
-#include "../Header/litt.h"
-#include "../Header/formule.h"
+#include "clause.h"
+#include "var.h"
+#include "litt.h"
+#include "formule.h"
 
 using namespace std;
 

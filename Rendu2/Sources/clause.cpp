@@ -1,5 +1,5 @@
-#include "../Header/clause.h"
-#include "../Header/litt.h"
+#include "clause.h"
+#include "litt.h"
 
 void clause::set_clause(litt* litt_entry){
     this->f_ElementAlive=litt_entry;

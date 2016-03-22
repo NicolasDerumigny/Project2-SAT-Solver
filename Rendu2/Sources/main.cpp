@@ -1,24 +1,20 @@
-#include <cstdio>
-#include <cstdlib>
 #include <vector>
-#include <sys/types.h>
-#include <unistd.h>
 using namespace std;
-#include "../Header/global_variables.h"
+#include "global_variables.h"
 
 
-#include "../Header/var.h"
-#include "../Header/litt.h"
-#include "../Header/clause.h"
-#include "../Header/formule.h"
-#include "../Header/assignation.h"
+#include "var.h"
+#include "litt.h"
+#include "clause.h"
+#include "formule.h"
+#include "assignation.h"
 
-#include "../Header/decide.h"
-#include "../Header/deduce.h"
-#include "../Header/backtrack.h"
+#include "decide.h"
+#include "deduce.h"
+#include "backtrack.h"
 
-#include "../Header/file_open.h"
-#include "../Header/cast_arg.h"
+#include "file_open.h"
+#include "cast_arg.h"
 
 
 int main(int argc, char** argv) {

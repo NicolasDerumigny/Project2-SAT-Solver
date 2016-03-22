@@ -1,4 +1,4 @@
-#include "../Header/file_open.h"
+#include "file_open.h"
 
 void checkCorrectFile(char* file_dir){
     struct stat buff;

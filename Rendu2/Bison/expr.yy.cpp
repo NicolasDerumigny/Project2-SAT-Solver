@@ -503,7 +503,8 @@ char *yytext;
 using namespace std;
 #define YY_DECL extern "C" int yylex()
 #include "expr.tab.hpp"
-#line 507 "Bison/expr.yy.cpp"
+extern bool verbose;
+#line 508 "Bison/expr.yy.cpp"
 
 #define INITIAL 0
 
@@ -693,9 +694,9 @@ YY_DECL
 	register char *yy_cp, *yy_bp;
 	register int yy_act;
     
-#line 15 "Bison/expr.l"
+#line 16 "Bison/expr.l"
 
-#line 699 "Bison/expr.yy.cpp"
+#line 700 "Bison/expr.yy.cpp"
 
 	if ( !(yy_init) )
 		{
@@ -781,93 +782,93 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 16 "Bison/expr.l"
+#line 17 "Bison/expr.l"
 { yylval.ival = atoi(yytext); return TK_VAR; }
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 17 "Bison/expr.l"
+#line 18 "Bison/expr.l"
 ;
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 18 "Bison/expr.l"
-{ return TK_LPAREN; }
+#line 19 "Bison/expr.l"
+{ if (verbose) cout<<"Left par\n"; return TK_LPAREN; }
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 19 "Bison/expr.l"
-{ return TK_RPAREN; }
+#line 20 "Bison/expr.l"
+{ if (verbose) cout<<"Right par\n"; return TK_RPAREN; }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 20 "Bison/expr.l"
-{ return TK_CONJ;   }
+#line 21 "Bison/expr.l"
+{ if (verbose) cout<<"And par\n"; return TK_CONJ;   }
 	YY_BREAK
 case 6:
 /* rule 6 can match eol */
 YY_RULE_SETUP
-#line 21 "Bison/expr.l"
-{ return TK_CONJ;   }
+#line 22 "Bison/expr.l"
+{ if (verbose) cout<<"Conj\n"; return TK_CONJ;   }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 22 "Bison/expr.l"
-{ return TK_DISJ;   }
+#line 23 "Bison/expr.l"
+{ if (verbose) cout<<"Disj\n"; return TK_DISJ;   }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 23 "Bison/expr.l"
-{ return TK_DISJ;   }
+#line 24 "Bison/expr.l"
+{ if (verbose) cout<<"Disj\n"; return TK_DISJ;   }
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 24 "Bison/expr.l"
-{ return TK_XOR;    }
+#line 25 "Bison/expr.l"
+{ if (verbose) cout<<"Xor\n"; return TK_XOR;    }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 25 "Bison/expr.l"
-{ return TK_IMPLY;  }
+#line 26 "Bison/expr.l"
+{ if (verbose) cout<<"Imply\n"; return TK_IMPLY;  }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 26 "Bison/expr.l"
-{ return TK_EQ;     }
+#line 27 "Bison/expr.l"
+{ if (verbose) cout<<"Equivalent\n"; return TK_EQ;     }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 27 "Bison/expr.l"
-{ return TK_ENOT;   }
+#line 28 "Bison/expr.l"
+{ if (verbose) cout<<"Negated expression\n"; return TK_ENOT;   }
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 28 "Bison/expr.l"
-{ return TK_VNOT;   }
+#line 29 "Bison/expr.l"
+{ if (verbose) cout<<"Negated variable\n"; return TK_VNOT;   }
 	YY_BREAK
 case 14:
 /* rule 14 can match eol */
 YY_RULE_SETUP
-#line 29 "Bison/expr.l"
+#line 30 "Bison/expr.l"
 ;
 	YY_BREAK
 case 15:
 /* rule 15 can match eol */
 YY_RULE_SETUP
-#line 30 "Bison/expr.l"
+#line 31 "Bison/expr.l"
 ;
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 31 "Bison/expr.l"
+#line 32 "Bison/expr.l"
 ;
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 32 "Bison/expr.l"
+#line 33 "Bison/expr.l"
 ECHO;
 	YY_BREAK
-#line 871 "Bison/expr.yy.cpp"
+#line 872 "Bison/expr.yy.cpp"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1868,7 +1869,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 32 "Bison/expr.l"
+#line 33 "Bison/expr.l"
 
 
 

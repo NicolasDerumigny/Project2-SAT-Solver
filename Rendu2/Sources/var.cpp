@@ -1,4 +1,4 @@
-#include "../Header/var.h"
+#include "var.h"
 
 void var::print(){
     //affiche juste l'affectation, pas d'espace ni de endl

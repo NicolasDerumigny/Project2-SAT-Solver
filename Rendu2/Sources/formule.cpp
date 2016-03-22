@@ -1,4 +1,4 @@
-#include "../Header/formule.h"
+#include "formule.h"
 void formule::set_formule(int varid, bool neg){
     var* new_var=nullptr;
     //Afficher une erreur dans le cas ou la variable n'y est pas ET CONTINUER QUAND MEME
