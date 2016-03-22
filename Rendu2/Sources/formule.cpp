@@ -141,20 +141,32 @@ void formule::preprocessing() {
 	vector<pair<int,int> > variables (v_var.size(), std::make_pair(0,0));
 	//vector contenant pour chaque variable une paire (nb_fois_vue_niée,nb_fois_vue_non_niée)
 	bool isTauto;
+	bool li_need_back;
 	litt* li_prev;
 	clause* cl_prev = nullptr;
-	for (clause* cl=this->f_ClauseUnsatisfied;cl != nullptr;cl=cl->next_clause) {
-        li_prev = nullptr;
-		for (litt* li = cl->f_ElementAlive;li != nullptr;li = li->next_litt) {
+	bool cl_need_back = false;
+	for (clause* cl=this->f_ClauseUnsatisfied;cl != nullptr || cl_need_back;cl=cl->next_clause) {
+        if (cl_need_back){
+			cl=cl_prev;
+			cl_need_back = false;
+		}
+		li_need_back = false;
+		li_prev = nullptr;
+		for (litt* li = cl->f_ElementAlive;li != nullptr || li_need_back;li = li->next_litt) {
+			if (li_need_back){
+				li=li_prev;
+				li_need_back = false;
+			}
 			if (li->neg){
 				if (variables[li->variable->id].first > 0){//si on a un doublon dans la clause, on l'élimine
 					removeLitt(&cl->f_ElementAlive,&cl->l_ElementAlive,li,li_prev);
 					delete li;
 					if (li_prev != nullptr)
 						li = li_prev;//On évite de casser la chaîne de parcours de la boucle for...
-					else if (cl->f_ElementAlive != nullptr)
+					else if (cl->f_ElementAlive != nullptr){
 						li = cl->f_ElementAlive;
-					else//there is nothing left
+						li_need_back = true;
+					} else//there is nothing left
 						break;
 				} else { 
 					variables[li->variable->id].first++;
@@ -165,14 +177,16 @@ void formule::preprocessing() {
 					delete li;
 					if (li_prev != nullptr)
 						li = li_prev;//On évite de casser la chaîne de parcours de la boucle for...
-					else if (cl->f_ElementAlive != nullptr)
+					else if (cl->f_ElementAlive != nullptr){
 						li = cl->f_ElementAlive;
-					else//there is nothing left
+						li_need_back = true;
+					} else//there is nothing left
 						break;
 				} else { 
 					variables[li->variable->id].second++;
 				}
 			}
+			li_prev = li;
 		}
 		isTauto = false;
 		for (auto& v:variables){
@@ -187,10 +201,12 @@ void formule::preprocessing() {
 			cl->free_clause();
 			if (cl_prev != nullptr)
 				cl = cl_prev;//On évite de casser la chaîne de parcours de la boucle for...
-			else if (this->f_ClauseUnsatisfied != nullptr)
+			else if (this->f_ClauseUnsatisfied != nullptr){
 				cl = this->f_ClauseUnsatisfied;
-			else//there is nothing left
+				cl_need_back = true;
+			} else//there is nothing left
 				break;
 		}
+		cl_prev = cl;
 	}
 }
