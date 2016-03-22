@@ -23,7 +23,7 @@ Bison/$(NAME).tab.cpp : Bison/$(NAME).ypp
 	$(YACC) --report=all -o $@ -d $^
 
 clean:
-	rm -f *~ Bison/$(NAME).yy.cpp Bison/$(NAME).tab.cpp Bison/$(NAME).tab.hpp Bison/$(NAME).output
+	rm -f *~ Bison/$(NAME).yy.cpp Bison/$(NAME).tab.cpp Bison/$(NAME).tab.hpp Bison/$(NAME).output Sources/*.o
 
 %.o: %.cpp
 	$(CC) -o $@ -c $< $(CFLAGS) 

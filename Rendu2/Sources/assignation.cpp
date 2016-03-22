@@ -12,7 +12,7 @@ void assignation::updateLitt(bool alive){
         if (alive == false) { //si on tue une variable, on recherche les littéraux associés dans les éléments vivants et on les transfères vers les morts.
             li_need_back = false;
 			li_prev = nullptr;
-			for (litt* li = cl->f_ElementAlive;li != nullptr;li=li->next_litt){//si un littéral (donc la variable) est déjà mort on ne fait rien.
+			for (litt* li = cl->f_ElementAlive;li != nullptr || li_need_back;li=li->next_litt){//si un littéral (donc la variable) est déjà mort on ne fait rien.
                 if (li_need_back){
 					li=li_prev;
 					li_need_back = false;
@@ -38,7 +38,7 @@ void assignation::updateLitt(bool alive){
         } else { //et réciproquement...
             li_need_back = false;
 			li_prev = nullptr;
-			for (litt* li = cl->f_ElementDead;li != nullptr;li=li->next_litt) {//si un littéral (donc la variable) est déjà mort on ne fait rien.
+			for (litt* li = cl->f_ElementDead;li != nullptr || li_need_back;li=li->next_litt) {//si un littéral (donc la variable) est déjà mort on ne fait rien.
                 if (li_need_back){
 					li=li_prev;
 					li_need_back = false;
@@ -73,7 +73,7 @@ void assignation::updateClause(bool alive){
             //si on assigne (on tue) une variable, on recherche les clauses associés qui sont encore non satisfaites, et on les met à jour
 			cl_need_back = false;
 			cl_prev = nullptr;
-			for (clause* cl2 = instance->f_ClauseUnsatisfied;cl2 != nullptr;cl2=cl2->next_clause){//On parcours les clauses non satisfaites à la recherche de cl
+			for (clause* cl2 = instance->f_ClauseUnsatisfied;cl2 != nullptr || cl_need_back;cl2=cl2->next_clause){//On parcours les clauses non satisfaites à la recherche de cl
 				if (cl_need_back){
 					cl=cl_prev;
 					cl_need_back = false;
@@ -100,7 +100,7 @@ void assignation::updateClause(bool alive){
             //et réciproquement...
 			cl_need_back = false;
 			cl_prev = nullptr;
-			for (clause* cl2 = instance->f_ClauseSatisfied;cl2 != nullptr;cl2=cl2->next_clause){//On parcours les clauses non satisfaites à la recherche de cl
+			for (clause* cl2 = instance->f_ClauseSatisfied;cl2 != nullptr || cl_need_back;cl2=cl2->next_clause){//On parcours les clauses non satisfaites à la recherche de cl
 				if (cl_need_back){
 					cl=cl_prev;
 					cl_need_back = false;

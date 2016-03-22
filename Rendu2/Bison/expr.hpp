@@ -1,9 +1,9 @@
 #ifndef DEF_EXPR
 #define DEF_EXPR
 
-#include "../Header/litt.h"
-#include "../Header/clause.h"
-#include "../Header/formule.h"
+#include "litt.h"
+#include "clause.h"
+#include "formule.h"
 #include <iostream>
 #include <sstream>
 #include <string>
@@ -75,7 +75,7 @@ private:
 /***********************************/
 /********   Implications    ********/
 /***********************************/
-/*
+
 
 class EImply : public Expr
 {
@@ -83,28 +83,30 @@ public:
     EImply(Expr * e1, Expr * e2);
     virtual std::string to_string();
     virtual void eval();
+    ~EImply(){delete op1; delete op2;}
 private:
     Expr * op1, * op2;
 };
-*/
+
 /***********************************/
 /********   XOR    ********/
 /***********************************/
-/*
+
 class EXor : public Expr
 {
 public:
     EXor(Expr * e1, Expr * e2);
     virtual std::string to_string();
     virtual void eval();
+    ~EXor(){delete op1; delete op2;}
 private:
     Expr * op1, * op2;
 };
-*/
+
 /***********************************/
 /********   Equal    ********/
 /***********************************/
-/*
+
 class EEq : public Expr
 {
 public:
@@ -113,8 +115,9 @@ public:
     virtual void eval();
 private:
     Expr * op1, * op2;
+    ~EEq(){delete op1; delete op2;}
 };
-*/
+
 /***********************************/
 /********** Negation d'une expression ***********/
 /***********************************/

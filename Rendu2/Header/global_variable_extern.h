@@ -13,6 +13,7 @@ extern vector<assignation*> assignations;
 //création du vector qui contient les assignations réalisées
 
 extern vector<var*> v_var;
+extern int nbr_var;
 extern vector<var*> v_var_tseitin;
 //création du vector qui contiendra tous les pointeurs vers les variables
 

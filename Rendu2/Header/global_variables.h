@@ -11,6 +11,7 @@ vector<assignation*> assignations;
 
 vector<var*> v_var;
 vector<var*> v_var_tseitin;
+int nbr_var=0;
 //création du vector qui contiendra tous les pointeurs vers les variables
 
 formule *instance;
