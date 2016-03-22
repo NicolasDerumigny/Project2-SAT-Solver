@@ -38,13 +38,12 @@ void checkHeaderAndParse(char* file_dir){
         str.str("");
     }
 
-    if (p!="p" or cnf!="cnf" or C==-1 or D!=-1){l:
-        cerr<<"Bad file format: header should be before clause declaration and respect scrupulously the following syntax:"<< endl;
-        cerr<<"p cnf V C"<<endl;
-        cerr<<"Where V is the maximum number of variables, and C the number of clauses"<<endl;
-        if (p!="p" or cnf!="cnf" or C==-1 or D!=-1)
-            exit(-1);
-    }
+
+
+
+
+
+
 
 
 
@@ -84,6 +83,25 @@ void checkHeaderAndParse(char* file_dir){
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+    if (p!="p" or cnf!="cnf" or C==-1 or D!=-1){l:
+        cerr<<"Bad file format: header should be before clause declaration and respect scrupulously the following syntax:"<< endl;
+        cerr<<"p cnf V C"<<endl;
+        cerr<<"Where V is the maximum number of variables, and C the number of clauses"<<endl;
+        if (p!="p" or cnf!="cnf" or C==-1 or D!=-1)
+            exit(-1);
+    }
 
 
 

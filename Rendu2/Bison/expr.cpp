@@ -384,3 +384,21 @@ void EEq::eval()
     cerr<<"Fatal error : Negated expression shall never be used in input, use -tseitin for this."<<endl;
     exit(-1);
 }
+
+void EEq::eval_tseitin()
+{
+    op1->eval_tseitin();
+    op2->eval_tseitin();
+    delete this;
+
+
+    ENot *Nop1 = new ENot(op1),
+            *Nop2 = new ENot(op2);
+    EConj *tree1 = new EConj(op1,op2),
+            *tree2 = new EConj(Nop1,Nop2)
+
+    EDisj *Root = new EDisj(tree1,tree2);
+
+    Root->eval_tseitin();
+    this=Root;
+}
