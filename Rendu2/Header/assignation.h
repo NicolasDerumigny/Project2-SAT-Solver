@@ -7,7 +7,6 @@
 using namespace std;
 
 class var;
-class clause;
 
 class assignation{
 public:
