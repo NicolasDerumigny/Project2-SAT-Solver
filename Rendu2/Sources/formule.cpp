@@ -199,6 +199,7 @@ void formule::preprocessing() {
 		if (isTauto) {
 			removeClause(&this->f_ClauseUnsatisfied,&this->l_ClauseUnsatisfied,cl,cl_prev);
 			cl->free_clause();
+			//TODO supprimer la clause des clauseInto
 			if (cl_prev != nullptr)
 				cl = cl_prev;//On évite de casser la chaîne de parcours de la boucle for...
 			else if (this->f_ClauseUnsatisfied != nullptr){

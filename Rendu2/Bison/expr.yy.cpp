@@ -517,11 +517,7 @@ using namespace std;
 #define YY_DECL extern "C" int yylex()
 #include "expr.tab.hpp"
 extern bool verbose;
-<<<<<<< HEAD
-#line 509 "Bison/expr.yy.cpp"
-=======
-#line 520 "Bison/expr.yy.cpp"
->>>>>>> e56c4a95e66e858057fd569cd36d4870d8cee597
+#line 521 "Bison/expr.yy.cpp"
 
 #define INITIAL 0
 
@@ -711,13 +707,6 @@ YY_DECL
 	register char *yy_cp, *yy_bp;
 	register int yy_act;
     
-<<<<<<< HEAD
-=======
-#line 16 "Bison/expr.l"
-
-#line 712 "Bison/expr.yy.cpp"
-
->>>>>>> e56c4a95e66e858057fd569cd36d4870d8cee597
 	if ( !(yy_init) )
 		{
 		(yy_init) = 1;
@@ -747,7 +736,7 @@ YY_DECL
 	{
 #line 16 "Bison/expr.l"
 
-#line 728 "Bison/expr.yy.cpp"
+#line 740 "Bison/expr.yy.cpp"
 
 	while ( 1 )		/* loops until end-of-file is reached */
 		{
@@ -893,11 +882,7 @@ YY_RULE_SETUP
 #line 33 "Bison/expr.l"
 ECHO;
 	YY_BREAK
-<<<<<<< HEAD
-#line 874 "Bison/expr.yy.cpp"
-=======
-#line 884 "Bison/expr.yy.cpp"
->>>>>>> e56c4a95e66e858057fd569cd36d4870d8cee597
+#line 886 "Bison/expr.yy.cpp"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
