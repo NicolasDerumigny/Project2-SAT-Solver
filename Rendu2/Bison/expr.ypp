@@ -57,7 +57,7 @@ expression:
     | TK_ENOT expression                        { $$ = new ENot($2);                }
     //| expression TK_XOR expression              { $$ = new EXor($1, $3);            }
     //| expression TK_IMPLY expression            { $$ = new EImply($1, $3);          }
-    //| expression TK_EQ expression               { $$ = new EEq($1, $3);             }
+    | expression TK_EQ expression               { $$ = new EEq($1, $3);             }
     ;
 %%
 

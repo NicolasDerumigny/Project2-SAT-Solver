@@ -372,7 +372,7 @@ void EImply::eval()
 /********  EQ   ********************/
 /**********************************/
 
-EEq::EEq(Expr * e1, Expr * e2) : op1(e1), op2(e2) {}
+EEq::EEq(Expr * e1, Expr * e2) : EDisj(new EConj(e1,e2),new EConj(new ENot(e1),new ENot(e2))) {}
 
 string EEq::to_string()
 {
