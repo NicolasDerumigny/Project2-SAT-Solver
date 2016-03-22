@@ -1,4 +1,6 @@
 #include "../Header/clause.h"
+#include "../Header/litt.h"
+
 void clause::set_clause(litt* litt_entry){
     this->f_ElementAlive=litt_entry;
     this->f_ElementDead=nullptr;
@@ -12,6 +14,23 @@ void clause::set_clause(litt* litt_entry){
 
 void clause::merge(clause* cl2){
     if (cl2!=nullptr){
+        /*for (auto& s:v_var)
+            if (s!=nullptr){
+                for (auto& s2:s->clauseInto)
+                    if (s2 == cl2)
+                        s2 = this;
+           }*/
+        for (litt* lit=cl2->f_ElementAlive;lit!=nullptr;lit=lit->next_litt)
+            for (auto& s2:lit->variable->clauseInto)
+                if (s2 == cl2)
+                    s2 = this;
+
+        for (litt* lit=cl2->f_ElementDead;lit!=nullptr;lit=lit->next_litt)
+            for (auto& s2:lit->variable->clauseInto)
+                if (s2 == cl2)
+                    s2 = this;
+
+
         if (cl2->l_ElementAlive!=nullptr){
             if(this->l_ElementAlive!=nullptr){
                 this->l_ElementAlive->next_litt=cl2->f_ElementAlive;
@@ -36,12 +55,7 @@ void clause::merge(clause* cl2){
             this->mElementAlive[this->mElementAlive.size()]=s.second;
         for (auto& s:cl2->mElementDead)
             this->mElementDead[this->mElementDead.size()]=s.second;*/
-        for (auto& s:v_var)
-            if (s!=nullptr){
-                for (auto& s2:s->clauseInto)
-                    if (s2 == cl2)
-                        s2 = this;
-           }
+
         delete cl2;
     }
 }
