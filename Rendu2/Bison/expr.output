@@ -2,7 +2,6 @@ Terminals unused in grammar
 
    TK_XOR
    TK_IMPLY
-   TK_EQ
    TK_EOF
    TK_FLINE
 
@@ -19,6 +18,7 @@ Grammar
     5           | expression TK_CONJ expression
     6           | expression TK_DISJ expression
     7           | TK_ENOT expression
+    8           | expression TK_EQ expression
 
 
 Terminals, with rules where they appear
@@ -29,7 +29,7 @@ TK_CONJ (258) 1 5
 TK_DISJ (259) 6
 TK_XOR (260)
 TK_IMPLY (261)
-TK_EQ (262)
+TK_EQ (262) 8
 TK_LPAREN (263) 4
 TK_RPAREN (264) 4
 TK_ENOT (265) 7
@@ -46,7 +46,7 @@ $accept (15)
 input (16)
     on left: 1, on right: 0
 expression (17)
-    on left: 2 3 4 5 6 7, on right: 1 4 5 6 7
+    on left: 2 3 4 5 6 7 8, on right: 1 4 5 6 7 8
 
 
 State 0
@@ -59,6 +59,7 @@ State 0
     5           | . expression TK_CONJ expression
     6           | . expression TK_DISJ expression
     7           | . TK_ENOT expression
+    8           | . expression TK_EQ expression
 
     TK_LPAREN  shift, and go to state 1
     TK_ENOT    shift, and go to state 2
@@ -78,6 +79,7 @@ State 1
     5           | . expression TK_CONJ expression
     6           | . expression TK_DISJ expression
     7           | . TK_ENOT expression
+    8           | . expression TK_EQ expression
 
     TK_LPAREN  shift, and go to state 1
     TK_ENOT    shift, and go to state 2
@@ -96,6 +98,7 @@ State 2
     6           | . expression TK_DISJ expression
     7           | . TK_ENOT expression
     7           | TK_ENOT . expression
+    8           | . expression TK_EQ expression
 
     TK_LPAREN  shift, and go to state 1
     TK_ENOT    shift, and go to state 2
@@ -131,9 +134,11 @@ State 6
     1 input: expression . TK_CONJ
     5 expression: expression . TK_CONJ expression
     6           | expression . TK_DISJ expression
+    8           | expression . TK_EQ expression
 
     TK_CONJ  shift, and go to state 11
     TK_DISJ  shift, and go to state 12
+    TK_EQ    shift, and go to state 13
 
 
 State 7
@@ -141,22 +146,26 @@ State 7
     4 expression: TK_LPAREN expression . TK_RPAREN
     5           | expression . TK_CONJ expression
     6           | expression . TK_DISJ expression
+    8           | expression . TK_EQ expression
 
-    TK_CONJ    shift, and go to state 13
+    TK_CONJ    shift, and go to state 14
     TK_DISJ    shift, and go to state 12
-    TK_RPAREN  shift, and go to state 14
+    TK_EQ      shift, and go to state 13
+    TK_RPAREN  shift, and go to state 15
 
 
 State 8
 
     5 expression: expression . TK_CONJ expression
     6           | expression . TK_DISJ expression
-    7           | TK_ENOT expression .  [TK_CONJ, TK_DISJ, TK_RPAREN]
+    7           | TK_ENOT expression .  [TK_CONJ, TK_DISJ, TK_EQ, TK_RPAREN]
+    8           | expression . TK_EQ expression
 
     $default  reduce using rule 7 (expression)
 
     Conflict between rule 7 and token TK_CONJ resolved as reduce (TK_CONJ < TK_ENOT).
     Conflict between rule 7 and token TK_DISJ resolved as reduce (TK_DISJ < TK_ENOT).
+    Conflict between rule 7 and token TK_EQ resolved as reduce (TK_EQ < TK_ENOT).
 
 
 State 9
@@ -183,6 +192,7 @@ State 11
     5           | expression TK_CONJ . expression
     6           | . expression TK_DISJ expression
     7           | . TK_ENOT expression
+    8           | . expression TK_EQ expression
 
     TK_LPAREN  shift, and go to state 1
     TK_ENOT    shift, and go to state 2
@@ -191,7 +201,7 @@ State 11
 
     $default  reduce using rule 1 (input)
 
-    expression  go to state 15
+    expression  go to state 16
 
 
 State 12
@@ -203,6 +213,45 @@ State 12
     6           | . expression TK_DISJ expression
     6           | expression TK_DISJ . expression
     7           | . TK_ENOT expression
+    8           | . expression TK_EQ expression
+
+    TK_LPAREN  shift, and go to state 1
+    TK_ENOT    shift, and go to state 2
+    TK_VNOT    shift, and go to state 3
+    TK_VAR     shift, and go to state 4
+
+    expression  go to state 17
+
+
+State 13
+
+    2 expression: . TK_VAR
+    3           | . TK_VNOT TK_VAR
+    4           | . TK_LPAREN expression TK_RPAREN
+    5           | . expression TK_CONJ expression
+    6           | . expression TK_DISJ expression
+    7           | . TK_ENOT expression
+    8           | . expression TK_EQ expression
+    8           | expression TK_EQ . expression
+
+    TK_LPAREN  shift, and go to state 1
+    TK_ENOT    shift, and go to state 2
+    TK_VNOT    shift, and go to state 3
+    TK_VAR     shift, and go to state 4
+
+    expression  go to state 18
+
+
+State 14
+
+    2 expression: . TK_VAR
+    3           | . TK_VNOT TK_VAR
+    4           | . TK_LPAREN expression TK_RPAREN
+    5           | . expression TK_CONJ expression
+    5           | expression TK_CONJ . expression
+    6           | . expression TK_DISJ expression
+    7           | . TK_ENOT expression
+    8           | . expression TK_EQ expression
 
     TK_LPAREN  shift, and go to state 1
     TK_ENOT    shift, and go to state 2
@@ -212,36 +261,19 @@ State 12
     expression  go to state 16
 
 
-State 13
-
-    2 expression: . TK_VAR
-    3           | . TK_VNOT TK_VAR
-    4           | . TK_LPAREN expression TK_RPAREN
-    5           | . expression TK_CONJ expression
-    5           | expression TK_CONJ . expression
-    6           | . expression TK_DISJ expression
-    7           | . TK_ENOT expression
-
-    TK_LPAREN  shift, and go to state 1
-    TK_ENOT    shift, and go to state 2
-    TK_VNOT    shift, and go to state 3
-    TK_VAR     shift, and go to state 4
-
-    expression  go to state 15
-
-
-State 14
+State 15
 
     4 expression: TK_LPAREN expression TK_RPAREN .
 
     $default  reduce using rule 4 (expression)
 
 
-State 15
+State 16
 
     5 expression: expression . TK_CONJ expression
-    5           | expression TK_CONJ expression .  [TK_CONJ, TK_RPAREN]
+    5           | expression TK_CONJ expression .  [TK_CONJ, TK_EQ, TK_RPAREN]
     6           | expression . TK_DISJ expression
+    8           | expression . TK_EQ expression
 
     TK_DISJ  shift, and go to state 12
 
@@ -249,15 +281,35 @@ State 15
 
     Conflict between rule 5 and token TK_CONJ resolved as reduce (%left TK_CONJ).
     Conflict between rule 5 and token TK_DISJ resolved as shift (TK_CONJ < TK_DISJ).
+    Conflict between rule 5 and token TK_EQ resolved as reduce (TK_EQ < TK_CONJ).
 
 
-State 16
+State 17
 
     5 expression: expression . TK_CONJ expression
     6           | expression . TK_DISJ expression
-    6           | expression TK_DISJ expression .  [TK_CONJ, TK_DISJ, TK_RPAREN]
+    6           | expression TK_DISJ expression .  [TK_CONJ, TK_DISJ, TK_EQ, TK_RPAREN]
+    8           | expression . TK_EQ expression
 
     $default  reduce using rule 6 (expression)
 
     Conflict between rule 6 and token TK_CONJ resolved as reduce (TK_CONJ < TK_DISJ).
     Conflict between rule 6 and token TK_DISJ resolved as reduce (%left TK_DISJ).
+    Conflict between rule 6 and token TK_EQ resolved as reduce (TK_EQ < TK_DISJ).
+
+
+State 18
+
+    5 expression: expression . TK_CONJ expression
+    6           | expression . TK_DISJ expression
+    8           | expression . TK_EQ expression
+    8           | expression TK_EQ expression .  [TK_EQ, TK_RPAREN]
+
+    TK_CONJ  shift, and go to state 14
+    TK_DISJ  shift, and go to state 12
+
+    $default  reduce using rule 8 (expression)
+
+    Conflict between rule 8 and token TK_CONJ resolved as shift (TK_EQ < TK_CONJ).
+    Conflict between rule 8 and token TK_DISJ resolved as shift (TK_EQ < TK_DISJ).
+    Conflict between rule 8 and token TK_EQ resolved as reduce (%left TK_EQ).

@@ -113,7 +113,7 @@ public:
     EEq(Expr * e1, Expr * e2);
     virtual std::string to_string();
     virtual void eval();
-    void eval_tseitin();
+    //void eval_tseitin();
     ~EEq(){/*rien ! le destructeur de EDisj fera le reste*/}
 private:
     Expr * op1, * op2;
