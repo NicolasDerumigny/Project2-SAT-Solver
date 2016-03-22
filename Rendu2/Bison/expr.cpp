@@ -337,7 +337,7 @@ void ENot::eval_tseitin()
 /********  XOR  ********************/
 /**********************************/
 
-EXor::EXor(Expr * e1, Expr * e2) : op1(e1), op2(e2) {}
+EXor::EXor(Expr * e1, Expr * e2) : EDisj(new EConj(e2, new ENot(e1)),new EConj(e1, new ENot(e2))) {}
 
 string EXor::to_string()
 {
@@ -355,7 +355,7 @@ void EXor::eval()
 /**********************************/
 
 
-EImply::EImply(Expr * e1, Expr * e2) : op1(e1), op2(e2) {}
+EImply::EImply(Expr * e1, Expr * e2) : EDisj(e2, new ENot(e1)) {}
 
 string EImply::to_string()
 {
