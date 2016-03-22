@@ -35,12 +35,21 @@ int main(int argc, char** argv) {
 
 //	instance->preprocessing();
 //	if(verbose) {cout << "Formula after preprocessing :\n";instance->print();}
+	var* new_var = nullptr;
+	if (heuristic == 0)
+		new_var = getFreeVar();
+	else if (heuristic == 1)
+		new_var = getRandFreeVar();
+	else if (heuristic == 2)
+		new_var = getMomsFreeVar();
+	else if (heuristic == 3)
+		new_var = getDlisFreeVar();
 
-    while(getFreeVar()!=nullptr){
-        //decide
-        getFreeVar()->assignValue(1,true);
-        //on fait un pari : la freeVar est à vrai
-
+    while(new_var!=nullptr){
+		//decide (suite)
+		new_var->assignValue(1,true);
+        //on fait un pari : la freeVar de decide est à vrai
+		
         //deduce
 		while(assignUniqueLitt() or assignUniquePolarity())
             continue;
@@ -58,6 +67,16 @@ int main(int argc, char** argv) {
                 return 0;
             }
         }
+		
+		//decide
+        if (heuristic == 0)
+			new_var = getFreeVar();
+		else if (heuristic == 1)
+			new_var = getRandFreeVar();
+		else if (heuristic == 2)
+			new_var = getMomsFreeVar();
+		else if (heuristic == 3)
+			new_var = getDlisFreeVar();
     }
     cout<<"s SATISFIABLE"<<endl;
     print_output();

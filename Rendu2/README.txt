@@ -1,5 +1,4 @@
 SOLVEUR SAT DPLL -- Projet 2 R.Staub et N.Derumigny
-(S'applique uniquement aux formules sous forme normales conjonctives)
 
 
 
@@ -29,9 +28,10 @@ Générateur aléatoire de formules :
 
 ./Rendu1/Examples/generate_cnf.sh
 
-usage : generate_cnf.sh [nombre de variables] [nombre de clauses] [nombre max de littéraux par clauses]
+usage : generate_cnf.sh [nombre de variables] [nombre de clauses] [nombre max de littéraux par clauses] ([non-rand])
 
-L'ajout aléatoire de commentaires n'a pas été pris en compte (par manque de générateur aléatoire de phrases installé par défaut sur les machines libre-service)
+L'ajout aléatoire de commentaires n'a pas été pris en compte (par manque de générateur aléatoire de phrases installé par défaut sur les machines libre-service).
+L'option non-rand permet de fixer le nombre de littéraux par clause, utile pour les tests de performance.
 
 -------------
 
@@ -58,20 +58,13 @@ L'ensemble des fonctions des parse, de gestion de l'annalyse syntaxique et de fo
 
 Améliorations :
 
-Mettre à jour Bison/Flex (warning lié au passage au C++11 dans expr.yy.c lors de la compilation exigeante avec l'option -Wall).
-
 On ne prend pas en compte les clauses déclarées avant la ligne d'en-tête.
 
 On gère mal des commentaires ne commençant pas par 'c'.
 
-Pré-traiter les entrées. (en particulier, gérer le linkage (clauseInto) avec le prétraitement, supprimer les doublons, les tautologies, les clauses/formules vides).
+Pré-traiter les entrées. (en particulier, gérer la mise à jour de clauseInto des clauses supprimées, voire gérer le linkage (clauseInto) avec le prétraitement). Majoritairement traité !
 
 Tseitin (gérer les => via non(B et non A), ... ).
-
-Temps de construction de la formule beaucoup trop long (comparé à minisat).
-
-Revoir la structure du programme : séparer .cpp et .h
-
 
 -------------
 
@@ -82,14 +75,10 @@ La grande majorité du code a été écrit ensemble. Les exceptions étant défi
 Nicolas D. :
 - file_open.cpp
 - backtrack.cpp
+- Tseitin
 
 Ruben S. :
 - deduce.cpp
 - decide.cpp
 - generate_cnf.sh
-
-
--------------
-Test :
-
-for i in {1..10};do Examples/generate_cnf.sh $[10*$i] $[10*$i] $[10] > /tmp/test.cnf;./resol /tmp/test.cnf;done 2> /tmp/results.dat;i=1;rm /tmp/results2.dat;cat /tmp/results.dat|tr '\n' '\t'|sed -e 's/begin/\n/g' -e 's/[^0-9.\t\n]//g'|while read line;do echo -e "$[10*i]\t$line" >> /tmp/results2.dat;i=$[$i+1];done;gnuplot -p -e "set xlabel 'Number of variables/clauses';set ylabel 'Time elapsed (sec)';plot '/tmp/results2.dat' u 1:2 title 'begin' w l, '/tmp/results2.dat' u 1:3 title 'check' w l, '/tmp/results2.dat' u 1:4 title 'parse' w l, '/tmp/results2.dat' u 1:5 title 'create' w l, '/tmp/results2.dat' u 1:6 title 'end' w l"
+- Heuristiques
