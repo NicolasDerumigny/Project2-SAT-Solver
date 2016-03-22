@@ -213,10 +213,6 @@ void EDisj::eval_tseitin()
     (op1->form)->merge(formRoot);
     this->form=op1->form;
 	delete op2->form;
-	delete form1;
-	delete form2;
-	delete form3;
-	delete formRoot;
 }
 
 /************************************/
