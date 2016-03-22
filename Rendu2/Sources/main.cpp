@@ -1,13 +1,7 @@
 #include <cstdio>
 #include <cstdlib>
-#include <iostream>
-#include <map>
-#include <math.h>
 #include <vector>
-#include <fstream>
-#include <algorithm>
 #include <sys/types.h>
-#include <sys/stat.h>
 #include <unistd.h>
 using namespace std;
 #include "../Header/global_variables.h"

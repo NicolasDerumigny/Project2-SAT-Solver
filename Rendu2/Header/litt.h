@@ -4,6 +4,8 @@
 #include "global_variable_extern.h"
 using namespace std;
 
+class var;
+
 class litt{
 
 public:

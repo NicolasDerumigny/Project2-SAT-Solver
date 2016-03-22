@@ -189,6 +189,7 @@ void freeAll(){
         delete assignations[i];
         assignations[i]=nullptr;
     }
+    delete instance;
 }
 
 void print_output(){

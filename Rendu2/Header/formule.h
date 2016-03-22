@@ -5,6 +5,9 @@
 #include "global_variable_extern.h"
 using namespace std;
 
+
+class clause;
+
 class formule{
 public:
     void set_formule(int varid, bool neg);
