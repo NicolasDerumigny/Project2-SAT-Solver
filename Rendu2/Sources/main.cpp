@@ -33,6 +33,9 @@ int main(int argc, char** argv) {
 
     if(verbose) instance->print();
 
+//	instance->preprocessing();
+//	if(verbose) {cout << "Formula after preprocessing :\n";instance->print();}
+
     while(getFreeVar()!=nullptr){
         //decide
         getFreeVar()->assignValue(1,true);
