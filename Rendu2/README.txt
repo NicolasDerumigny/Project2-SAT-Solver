@@ -84,3 +84,7 @@ Ruben S. :
 -------------
 
 Les performances sont en grandes augmentation par rapport au rendu 1 : en effet, un parcours du vecteur des var par création de clause a été supprimé, ce qui allège considerablement la création des objects, notemment dans le cas ou le nombre de variable était très grand. Cela a cependant mis à jour des faiblesses du programme sur les grandes formules, ou le resultat est parfois erroné. Nous n'avons pas encore mis à jour l'origine de ces problèmes, mais le changement de structure map -> liste chainée semble être en cause. Le graphes du temps passés selon la taille des entrées sont disponible dans le dossier Examples/.
+
+En effet, le graphe Examples/graph_DI_vcl.pdf montre le temps d'exécution des différentes étapes du programme actuel comparé à Examples/graph_DI_vcl_old.pdf correspondant à la version précédente. On remarquera tout particulièrement l'amélioration du temps de création de la formule.
+
+De plus, en utilisant les optimisations bas niveau de gcc, il est possible d'atteindre une plus grande rapidité (que l'on estime aux alentours d'un facteur 10).
