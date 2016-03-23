@@ -54,9 +54,7 @@ extern int yydebug;
     TK_RPAREN = 264,
     TK_ENOT = 265,
     TK_VNOT = 266,
-    TK_EOF = 267,
-    TK_FLINE = 268,
-    TK_VAR = 269
+    TK_VAR = 267
   };
 #endif
 
@@ -70,7 +68,7 @@ union YYSTYPE
     int ival;
     class Expr *exp;
 
-#line 74 "Bison/expr.tab.hpp" /* yacc.c:1909  */
+#line 72 "Bison/expr.tab.hpp" /* yacc.c:1909  */
 };
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1

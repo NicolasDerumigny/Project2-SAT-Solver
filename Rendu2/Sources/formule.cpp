@@ -22,24 +22,20 @@ void formule::set_formule(int varid, bool neg){
     new_litt=new litt;
     new_litt->set_litt(new_var, neg);
     clause* new_clause;
-    new_clause= new clause;
+    new_clause = new clause;
     new_clause->set_clause(new_litt);
 	new_var->clauseInto.push_back(new_clause);
 	this->f_ClauseUnsatisfied = new_clause;
 	this->l_ClauseUnsatisfied = new_clause;
 	this->f_ClauseSatisfied = nullptr;
-	this->l_ClauseSatisfied = nullptr;
-//    this->mClauseUnsatisfied[0]=new_clause;
-//    this->mClauseSatisfied[0]=nullptr;
+    this->l_ClauseSatisfied = nullptr;
 }
 
 void formule::set_formule_tseitin(bool neg){
-    var* new_var;
-    new_var= new var;
+    var* new_var = new var;
     new_var->set_var(v_var_tseitin.size());
     v_var_tseitin.push_back(new_var);
-    litt* new_litt;
-    new_litt=new litt;
+    litt* new_litt = new litt;
     new_litt->set_litt(new_var, neg);
     clause* new_clause;
     new_clause = new clause;
@@ -49,8 +45,6 @@ void formule::set_formule_tseitin(bool neg){
     this->l_ClauseUnsatisfied = new_clause;
     this->f_ClauseSatisfied = nullptr;
     this->l_ClauseSatisfied = nullptr;
-//    this->mClauseUnsatisfied[0]=new_clause;
-//    this->mClauseSatisfied[0]=nullptr;
 }
 
 

@@ -26,7 +26,6 @@ public:
 
     //map<unsigned int,litt*> mElementAlive;
     //map<unsigned int,litt*> mElementDead;
-    int id;
 };
 
 void removeClause(clause **first_cl,clause **last_cl,clause *cur_cl,clause *prev_cl);

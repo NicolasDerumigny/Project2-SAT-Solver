@@ -81,11 +81,8 @@ class EImply : public EDisj
 {
 public:
     EImply(Expr * e1, Expr * e2);
-    virtual std::string to_string();
-    virtual void eval();
-    ~EImply(){delete op1; delete op2;}
-private:
-    Expr * op1, * op2;
+    void eval();
+    ~EImply(){}
 };
 
 /***********************************/
@@ -96,11 +93,8 @@ class EXor : public EDisj
 {
 public:
     EXor(Expr * e1, Expr * e2);
-    virtual std::string to_string();
-    virtual void eval();
-    ~EXor(){delete op1; delete op2;}
-private:
-    Expr * op1, * op2;
+    void eval();
+    ~EXor(){}
 };
 
 /***********************************/
@@ -111,11 +105,8 @@ class EEq : public EDisj
 {
 public:
     EEq(Expr * e1, Expr * e2);
-    virtual std::string to_string();
-    virtual void eval();
+    void eval();
     ~EEq(){/*rien ! le destructeur de EDisj fera le reste*/}
-private:
-    Expr * op1, * op2;
 };
 
 /***********************************/
