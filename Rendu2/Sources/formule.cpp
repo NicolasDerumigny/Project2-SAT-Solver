@@ -81,14 +81,14 @@ void formule::merge(formule* formule2){
 }
 
 void formule::print(){
-    cout<<"Clauses satisfaites :"<<endl;
+    cout<<"Satisfied :"<<endl;
 	for (clause* cl = this->f_ClauseSatisfied;cl != nullptr;cl=cl->next_clause){
 		cl->print();
 	}
 //    for (auto& s:this->mClauseSatisfied)
 //        if (s.second != nullptr)
 //			s.second->print();
-    cout<<"Clauses non satisfaites :"<<endl;
+    cout<<"Unsatisfied :"<<endl;
 	for (clause* cl = this->f_ClauseUnsatisfied;cl != nullptr;cl=cl->next_clause){
 		cl->print();
 	}

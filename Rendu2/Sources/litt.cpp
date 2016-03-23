@@ -8,12 +8,12 @@ void litt::set_litt(var* var_entry, bool neg){
 
 void litt::print(){
     if (this->neg){
-        cout<<"\t\t¬v"<<this->variable->id;
-        cout<<" (and v"<<this->variable->id<<" = "<<this->variable->value<<")"<<endl;
+        cout<<" ¬v"<<this->variable->id;
+        cout<<"("<<this->variable->id<<" = "<<this->variable->value<<") ";
     }
     else{
-        cout<<"\t\tv"<<this->variable->id;
-        cout<<" (and v"<<this->variable->id<<" = "<<this->variable->value<<")"<<endl;
+        cout<<" v"<<this->variable->id;
+        cout<<"("<<this->variable->id<<" = "<<this->variable->value<<") ";
     }
 }
 
