@@ -68,6 +68,13 @@ int main(int argc, char** argv) {
             }
         }
 		
+		if (verbose){
+			fprintf(stderr,"heap of assignations : [var_id,bet]");
+			for (auto& ass:assignations)
+				fprintf(stderr,"[%i,%i],",ass->variable->id,ass->bet);
+			fprintf(stderr,"\n\n");
+		}
+		
 		//decide
         if (heuristic == 0)
 			new_var = getFreeVar();
