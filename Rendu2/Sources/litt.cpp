@@ -26,7 +26,7 @@ void removeLitt(litt **first_li,litt **last_li,litt *cur_li,litt *prev_li) {
 	}
     if (cur_li == *last_li){//On est à la fin de la liste
         *last_li = prev_li;
-        if (*last_li != nullptr)
+        if (*last_li != nullptr)//il n'etait pas tout seul
             (*last_li)->next_litt = nullptr;
 	}
 }

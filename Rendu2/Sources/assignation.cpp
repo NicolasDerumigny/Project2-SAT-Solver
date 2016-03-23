@@ -17,7 +17,7 @@ void assignation::updateLitt(bool alive){
 					li=li_prev;
 					li_need_back = false;
 				}
-				if (li != nullptr && li->variable == this->variable) {
+                if (li->variable == this->variable) {
                     removeLitt(&cl->f_ElementAlive,&cl->l_ElementAlive,li,li_prev);
                     appendLitt(&cl->f_ElementDead,&cl->l_ElementDead,li);
 					if (li_prev != nullptr)
@@ -43,7 +43,7 @@ void assignation::updateLitt(bool alive){
 					li=li_prev;
 					li_need_back = false;
 				}
-				if (li != nullptr && li->variable == this->variable) {
+                if (li->variable == this->variable) {
                     removeLitt(&cl->f_ElementDead,&cl->l_ElementDead,li,li_prev);
                     appendLitt(&cl->f_ElementAlive,&cl->l_ElementAlive,li);
 					if (li_prev != nullptr)

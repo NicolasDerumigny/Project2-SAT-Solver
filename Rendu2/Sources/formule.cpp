@@ -37,8 +37,7 @@ void formule::set_formule_tseitin(bool neg){
     v_var_tseitin.push_back(new_var);
     litt* new_litt = new litt;
     new_litt->set_litt(new_var, neg);
-    clause* new_clause;
-    new_clause = new clause;
+    clause* new_clause = new clause;
     new_clause->set_clause(new_litt);
     new_var->clauseInto.push_back(new_clause);
     this->f_ClauseUnsatisfied = new_clause;

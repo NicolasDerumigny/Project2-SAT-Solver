@@ -58,6 +58,9 @@ void EConst::eval_tseitin()
         l21->next_litt=l22;
     }
 
+    formRoot->f_ClauseUnsatisfied->f_ElementAlive->variable->clauseInto.push_back(form1->f_ClauseUnsatisfied);
+    form1->f_ClauseUnsatisfied->f_ElementAlive->variable->clauseInto.push_back(formRoot->f_ClauseUnsatisfied);
+
     formRoot->merge(form1);
     formRoot->merge(form2);
     this->form=formRoot;
@@ -131,7 +134,11 @@ void EConj::eval_tseitin()//op1 et op2 seront des formules
         form3->f_ClauseUnsatisfied->l_ElementAlive=l33;
     }
 
-
+    formRoot->f_ClauseUnsatisfied->f_ElementAlive->variable->clauseInto.push_back(form1->f_ClauseUnsatisfied);
+    formRoot->f_ClauseUnsatisfied->f_ElementAlive->variable->clauseInto.push_back(form2->f_ClauseUnsatisfied);
+    formRoot->f_ClauseUnsatisfied->f_ElementAlive->variable->clauseInto.push_back(form3->f_ClauseUnsatisfied);
+    form1->f_ClauseUnsatisfied->f_ElementAlive->variable->clauseInto.push_back(form3->f_ClauseUnsatisfied);
+    form2->f_ClauseUnsatisfied->f_ElementAlive->variable->clauseInto.push_back(form3->f_ClauseUnsatisfied);
 
     formRoot->merge(form1);
     formRoot->merge(form2);
@@ -206,6 +213,12 @@ void EDisj::eval_tseitin()
         form3->f_ClauseUnsatisfied->f_ElementAlive->next_litt=l31;
         form3->f_ClauseUnsatisfied->l_ElementAlive=l31;
     }
+
+    formRoot->f_ClauseUnsatisfied->f_ElementAlive->variable->clauseInto.push_back(form1->f_ClauseUnsatisfied);
+    formRoot->f_ClauseUnsatisfied->f_ElementAlive->variable->clauseInto.push_back(form2->f_ClauseUnsatisfied);
+    formRoot->f_ClauseUnsatisfied->f_ElementAlive->variable->clauseInto.push_back(form3->f_ClauseUnsatisfied);
+    form1->f_ClauseUnsatisfied->f_ElementAlive->variable->clauseInto.push_back(form2->f_ClauseUnsatisfied);
+    form3->f_ClauseUnsatisfied->f_ElementAlive->variable->clauseInto.push_back(form1->f_ClauseUnsatisfied);
 
 
     formRoot->merge(form1);
@@ -298,6 +311,8 @@ void ENot::eval_tseitin()
         l21->next_litt=l22;
     }
 
+    formRoot->f_ClauseUnsatisfied->f_ElementAlive->variable->clauseInto.push_back(formRoot->f_ClauseUnsatisfied);
+    form1->f_ClauseUnsatisfied->f_ElementAlive->variable->clauseInto.push_back(form1->f_ClauseUnsatisfied);
 
     formRoot->merge(form1);
     formRoot->merge(form2);
