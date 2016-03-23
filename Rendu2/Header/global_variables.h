@@ -20,6 +20,7 @@ clock_t checkpoint = clock();
 
 bool isTseitin=false;
 bool verbose=false;
+bool verbose2=false;
 bool timePerf=false;
 int heuristic=0;
 //valeur de base des arguments

@@ -50,47 +50,53 @@ int main(int argc, char** argv) {
 		new_var->assignValue(1,true);
         //on fait un pari : la freeVar de decide est à vrai
 		
-		if(verbose) {
+		if(verbose2) {
             cout<<"\n------------Next step after decide:-----------------\n";
             instance->print();
         }
 		if (verbose){
-			fprintf(stderr,"heap of assignations : [var_id,bet]");
+			fprintf(stderr,"heap of assignations : [var_id,bet,value]\n");
 			for (auto& ass:assignations)
-				fprintf(stderr,"[%i,%i],",ass->variable->id,ass->bet);
+				fprintf(stderr,"[%i,%i,%i],",ass->variable->id,ass->bet,ass->variable->value);
 			fprintf(stderr,"\n\n");
 		}
 		
         //deduce
 		while(assignUniqueLitt() or assignUniquePolarity()){
-            if(verbose) {
+            if(verbose2) {
 	            cout<<"\n------------Next step after deduce:-----------------\n";
 	            instance->print();
 	        }
 			if (verbose){
-				fprintf(stderr,"heap of assignations : [var_id,bet]");
+				fprintf(stderr,"heap of assignations : [var_id,bet,value]\n");
 				for (auto& ass:assignations)
-					fprintf(stderr,"[%i,%i],",ass->variable->id,ass->bet);
+					fprintf(stderr,"[%i,%i,%i],",ass->variable->id,ass->bet,ass->variable->value);
 				fprintf(stderr,"\n\n");
 			}
 			continue;
 		}
 
-        if(verbose) {
+        if(verbose2) {
             cout<<"\n------------Next step after deduce:-----------------\n";
             instance->print();
         }
 		if (verbose){
-			fprintf(stderr,"heap of assignations : [var_id,bet]");
+			fprintf(stderr,"heap of assignations : [var_id,bet,value]\n");
 			for (auto& ass:assignations)
-				fprintf(stderr,"[%i,%i],",ass->variable->id,ass->bet);
+				fprintf(stderr,"[%i,%i,%i],",ass->variable->id,ass->bet,ass->variable->value);
 			fprintf(stderr,"\n\n");
 		}
 
         //backtrack
         while(!check()){
             if(!backtrack()){
-                cout<<"s UNSATISFIABLE"<<endl;
+                if (verbose){
+					fprintf(stderr,"heap of assignations : [var_id,bet,value]\n");
+					for (auto& ass:assignations)
+						fprintf(stderr,"[%i,%i,%i],",ass->variable->id,ass->bet,ass->variable->value);
+					fprintf(stderr,"\n\n");
+				}
+				cout<<"s UNSATISFIABLE"<<endl;
                 freeAll();
                 if (timePerf){
                     checkpoint = clock();
@@ -100,14 +106,14 @@ int main(int argc, char** argv) {
             }
         }
 		
-		if(verbose) {
+		if(verbose2) {
             cout<<"\n------------Next step after backtrack:-----------------\n";
             instance->print();
         }
 		if (verbose){
-			fprintf(stderr,"heap of assignations : [var_id,bet]");
+			fprintf(stderr,"heap of assignations : [var_id,bet,value]\n");
 			for (auto& ass:assignations)
-				fprintf(stderr,"[%i,%i],",ass->variable->id,ass->bet);
+				fprintf(stderr,"[%i,%i,%i],",ass->variable->id,ass->bet,ass->variable->value);
 			fprintf(stderr,"\n\n");
 		}
 		

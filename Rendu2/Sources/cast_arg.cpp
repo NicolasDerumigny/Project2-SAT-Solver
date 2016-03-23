@@ -7,6 +7,10 @@ void cast_arg(int argc, char** argv){
 
         if (!strcmp(argv[i],"-v"))
             verbose=true;
+		if (!strcmp(argv[i],"-vv")){
+			verbose2=true;
+			verbose=true;
+		}
 
         if (!strcmp(argv[i],"-time"))
             timePerf=true;

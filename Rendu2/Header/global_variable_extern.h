@@ -25,5 +25,6 @@ extern clock_t checkpoint;
 extern int heuristic;
 extern bool isTseitin;
 extern bool verbose;
+extern bool verbose2;
 extern bool timePerf;
 #endif // GLOBAL_VARIABLE_EXTERN_H
