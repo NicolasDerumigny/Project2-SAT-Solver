@@ -8,11 +8,11 @@ void assignation::set_assign(var* variable,bool bet) {
 void assignation::updateLitt(bool alive){
 	bool li_need_back = false;
 	litt* li_prev = nullptr;
-    for (auto& cl:this->variable->clauseInto)
+    for (auto& cl:this->variable->clauseInto){
         if (alive == false) { //si on tue une variable, on recherche les littéraux associés dans les éléments vivants et on les transfères vers les morts.
             li_need_back = false;
 			li_prev = nullptr;
-			for (litt* li = cl->f_ElementAlive;li != nullptr || li_need_back;li=li->next_litt){//si un littéral (donc la variable) est déjà mort on ne fait rien.
+            for (litt* li = cl->f_ElementAlive;li != nullptr or li_need_back;li=li->next_litt){//si un littéral (donc la variable) est déjà mort on ne fait rien.
                 if (li_need_back){
 					li=li_prev;
 					li_need_back = false;
@@ -62,6 +62,7 @@ void assignation::updateLitt(bool alive){
 //                    li.second = nullptr;
 //                }
         }
+    }
 }
 
 void assignation::updateClause(bool alive){

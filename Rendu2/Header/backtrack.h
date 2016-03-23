@@ -1,8 +1,8 @@
 #ifndef BACKTRACK_H
 #define BACKTRACK_H
 #include "formule.h"
-#include "assignation.h"
 #include "global_variable_extern.h"
+#include "assignation.h"
 
 
 bool check();

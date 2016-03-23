@@ -1,4 +1,4 @@
-#include "../Header/decide.h"
+#include "decide.h"
 
 var* getFreeVar() {
 	for (var* s:v_var) {

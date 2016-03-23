@@ -14,6 +14,8 @@ CONFIG   -= app_bundle
 
 TEMPLATE = app
 
+LIBS += -lfl -ly
+
 QMAKE_CXXFLAGS += -std=c++11
 
 INCLUDEPATH += Header/ \
@@ -21,10 +23,6 @@ INCLUDEPATH += Header/ \
 
 SOURCES += \
     Sources/main.cpp \
-    Bison/expr.cpp \
-    Bison/expr.cpp \
-    Bison/expr.l \
-    Bison/expr.ypp \
     Sources/var.cpp \
     Sources/formule.cpp \
     Sources/clause.cpp \
@@ -41,7 +39,6 @@ HEADERS += \
     Header/litt.h \
     Header/clause.h \
     Header/formule.h \
-    Bison/expr.hpp \
     Header/assignation.h \
     Header/global_variables.h \
     Header/deduce.h \
@@ -50,3 +47,51 @@ HEADERS += \
     Header/file_open.h \
     Header/global_variable_extern.h \
     Header/cast_arg.h
+
+OTHER_FILES +=  \
+    $$FLEXSOURCES \
+    $$BISONSOURCES \
+    $$BISONHEADERS
+
+FLEXSOURCES = Bison/expr.l
+BISONSOURCES = Bison/expr.cpp\
+    Bison/expr.ypp
+
+
+BISONHEADERS = Bison/expr.hpp
+
+flexsource.input = FLEXSOURCES
+flexsource.output = ${QMAKE_FILE_BASE}.cpp
+flexsource.commands = flex --header-file=${QMAKE_FILE_BASE}.hpp -o ${QMAKE_FILE_BASE}.cpp ${QMAKE_FILE_IN}
+flexsource.variable_out = SOURCES
+flexsource.name = Flex Sources ${QMAKE_FILE_IN}
+flexsource.CONFIG += target_predeps
+
+QMAKE_EXTRA_COMPILERS += flexsource
+
+flexheader.input = FLEXSOURCES
+flexheader.output = ${QMAKE_FILE_BASE}.hpp
+flexheader.commands = @true
+flexheader.variable_out = HEADERS
+flexheader.name = Flex Headers ${QMAKE_FILE_IN}
+flexheader.CONFIG += target_predeps no_link
+
+QMAKE_EXTRA_COMPILERS += flexheader
+
+bisonsource.input = BISONSOURCES
+bisonsource.output = ${QMAKE_FILE_BASE}.cpp
+bisonsource.commands = bison -d --defines=${QMAKE_FILE_BASE}.hpp -o ${QMAKE_FILE_BASE}.cpp ${QMAKE_FILE_IN}
+bisonsource.variable_out = SOURCES
+bisonsource.name = Bison Sources ${QMAKE_FILE_IN}
+bisonsource.CONFIG += target_predeps
+
+QMAKE_EXTRA_COMPILERS += bisonsource
+
+bisonheader.input = BISONSOURCES
+bisonheader.output = ${QMAKE_FILE_BASE}.hpp
+bisonheader.commands = @true
+bisonheader.variable_out = HEADERS
+bisonheader.name = Bison Headers ${QMAKE_FILE_IN}
+bisonheader.CONFIG += target_predeps no_link
+
+QMAKE_EXTRA_COMPILERS += bisonheader
