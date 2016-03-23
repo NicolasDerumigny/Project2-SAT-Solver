@@ -37,8 +37,7 @@ void formule::set_formule_tseitin(bool neg){
     v_var_tseitin.push_back(new_var);
     litt* new_litt = new litt;
     new_litt->set_litt(new_var, neg);
-    clause* new_clause;
-    new_clause = new clause;
+    clause* new_clause = new clause;
     new_clause->set_clause(new_litt);
     new_var->clauseInto.push_back(new_clause);
     this->f_ClauseUnsatisfied = new_clause;
@@ -81,14 +80,14 @@ void formule::merge(formule* formule2){
 }
 
 void formule::print(){
-    cout<<"Clauses satisfaites :"<<endl;
+    cout<<"Satisfied :"<<endl;
 	for (clause* cl = this->f_ClauseSatisfied;cl != nullptr;cl=cl->next_clause){
 		cl->print();
 	}
 //    for (auto& s:this->mClauseSatisfied)
 //        if (s.second != nullptr)
 //			s.second->print();
-    cout<<"Clauses non satisfaites :"<<endl;
+    cout<<"Unsatisfied :"<<endl;
 	for (clause* cl = this->f_ClauseUnsatisfied;cl != nullptr;cl=cl->next_clause){
 		cl->print();
 	}

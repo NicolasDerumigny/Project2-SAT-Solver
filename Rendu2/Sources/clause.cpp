@@ -85,7 +85,8 @@ litt* clause::getUniqueLittAlive(){
 }
 
 void clause::print(){
-    cout<<"\tElements vivants :"<<endl;
+    cout<<"\n------------------------------------------------------\n";
+    cout<<"\tAlive :  ";
     for(litt* course=this->f_ElementAlive;course!=nullptr;course=course->next_litt){
         course->print();
     }
@@ -95,7 +96,7 @@ void clause::print(){
 			s.second->print();
      */
     cout<<endl;
-    cout<<"\tElements morts :"<<endl;
+    cout<<"\tDead :   ";
     for(litt* course=this->f_ElementDead;course!=nullptr;course=course->next_litt){
         course->print();
     }
@@ -104,7 +105,7 @@ void clause::print(){
         if (s.second != nullptr)
 			s.second->print();
             */
-    cout<<"--------------------------------------";
+    cout<<"\n------------------------------------------------------";
     cout<<endl;
 }
 

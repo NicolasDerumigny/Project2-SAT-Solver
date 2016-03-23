@@ -16,7 +16,7 @@ bool check(){//renvoie false si il existe une clause insatisfaite qui n'a plus d
 bool backtrack(){
     //renvoie false si le backtrack n'as pas marché
     //-> plus de retour en arrière possible
-    //rappel : assignation et instances sont globales
+    //rappel : assignations et instance sont globales
     int i=assignations.size()-1;
     bool hasChanged=false;
     while (i>=0){
