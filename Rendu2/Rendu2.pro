@@ -32,10 +32,13 @@ SOURCES += \
     Sources/backtrack.cpp \
     Sources/assignation.cpp \
     Sources/file_open.cpp \
-    Sources/cast_arg.cpp
+    Sources/cast_arg.cpp \
+    Bison/expr.cpp
 
 HEADERS += \
     Header/var.h \
+    Bison/expr.hpp \
+    Bison/expr.tab.hpp \
     Header/litt.h \
     Header/clause.h \
     Header/formule.h \
@@ -53,24 +56,21 @@ OTHER_FILES +=  \
     $$BISONSOURCES
 
 FLEXSOURCES = Bison/expr.l
-BISONSOURCES = Bison/expr.cpp\
-    Bison/expr.ypp
+BISONSOURCES = Bison/expr.ypp
 
 
 flexsource.input = FLEXSOURCES
-flexsource.output = ${QMAKE_FILE_BASE}.cpp
-flexsource.commands = flex -w -o ../Rendu2/Bison/${QMAKE_FILE_BASE}.yy.cpp -d ${QMAKE_FILE_IN}
-flexsource.variable_out = SOURCES
-flexsource.name = Flex Sources ${QMAKE_FILE_IN}
+flexsource.output = ${QMAKE_FILE_BASE}.yy.cpp
+flexsource.commands = flex -w -o ${QMAKE_FILE_BASE}.yy.cpp -d ${QMAKE_FILE_IN}
+flexsource.name = Flex Sources ${QMAKE_FILE_IN}.yy.cpp
 flexsource.CONFIG += target_predeps
 
 QMAKE_EXTRA_COMPILERS += flexsource
 
 bisonsource.input = BISONSOURCES
-bisonsource.output = ${QMAKE_FILE_BASE}.cpp
-bisonsource.commands = bison --report=all -o ../Rendu2/Bison/${QMAKE_FILE_BASE}.tab.cpp ${QMAKE_FILE_IN}
-bisonsource.variable_out = SOURCES
-bisonsource.name = Bison Sources ${QMAKE_FILE_IN}
+bisonsource.output = ${QMAKE_FILE_BASE}.tab.cpp
+bisonsource.commands = bison --report=all -o ${QMAKE_FILE_BASE}.tab.cpp ${QMAKE_FILE_IN}
+bisonsource.name = Bison Sources ${QMAKE_FILE_IN}.ypp
 bisonsource.CONFIG += target_predeps
 
 QMAKE_EXTRA_COMPILERS += bisonsource
