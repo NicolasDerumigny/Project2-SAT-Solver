@@ -64,6 +64,8 @@ On gère mal des commentaires ne commençant pas par 'c'.
 
 Pré-traiter les entrées. (en particulier, gérer la mise à jour de clauseInto des clauses supprimées, voire gérer le linkage (clauseInto) avec le prétraitement). Majoritairement traité !
 
+Improve assignUniquePolarity, if non(x1) et x1 dans clauses.
+
 -------------
 
 Répartition du travail :
