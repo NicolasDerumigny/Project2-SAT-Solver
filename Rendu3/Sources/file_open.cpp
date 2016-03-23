@@ -1,21 +1,21 @@
 #include "file_open.h"
 
-void checkCorrectFile(char* file_dir){
+void checkCorrectFile(){
     struct stat buff;
-    if (!stat(file_dir, &buff)){//si l'ouverture à fonctionnée
+    if (!stat(path, &buff)){//si l'ouverture à fonctionnée
         if (!S_ISREG(buff.st_mode)){
             cerr<<"This file specified is not a regular file"<<endl;
             exit(-1);
         }//on vérifie que le fichier en entrée est bien un fichier normal
     }else{
-        cerr<<"Failed to open file : "<<file_dir<<endl;
+        cerr<<"Failed to open file :"<<path<<endl;
         exit(-1);
     }
 }
 
-void checkHeaderAndParse(char* file_dir){
+void checkHeaderAndParse(){
     ifstream eFile;
-    eFile.open(file_dir, ifstream::in);
+    eFile.open(path, ifstream::in);
 
 
 
@@ -151,9 +151,9 @@ void yyerror(const char *s) {
     exit(-1);
 }
 
-void parse(char* file_dir){
+void parse(){
     FILE* inputFile;
-    inputFile=fopen(file_dir,"r");
+    inputFile=fopen(path,"r");
     if(inputFile!=nullptr){
         // parse through the input until there is no more:
         yyin = inputFile;
@@ -199,7 +199,7 @@ void parse(char* file_dir){
             v_var_tseitin.clear();
         }
     }else{
-        cerr<<"Error : couldn't open file : "<<file_dir<<endl;
+        cerr<<"Error : couldn't open file : "<<path<<endl;
         exit(-1);
     }
 }

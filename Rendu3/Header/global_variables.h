@@ -22,7 +22,9 @@ bool isTseitin=false;
 bool verbose=false;
 bool verbose2=false;
 bool timePerf=false;
+bool interactive=false;
 int heuristic=0;
+char path[1024]="";
 //valeur de base des arguments
 //heuristic = 0 (basic), 1 (rand), 2 (moms), 3 (dlis)
 

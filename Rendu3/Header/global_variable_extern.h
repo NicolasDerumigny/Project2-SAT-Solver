@@ -27,4 +27,6 @@ extern bool isTseitin;
 extern bool verbose;
 extern bool verbose2;
 extern bool timePerf;
+extern bool interactive;
+extern char path[1024];
 #endif // GLOBAL_VARIABLE_EXTERN_H

@@ -21,5 +21,17 @@ void cast_arg(int argc, char** argv){
                 heuristic=2;
         if (!strcmp(argv[i],"-dlis"))
                 heuristic=3;
+
+        if (!strcmp(argv[i],"-cl-interac"))
+                interactive=true;
+
+        if (strlen(argv[i])<1024){
+            char buf[1024]="";
+            strcpy(buf,argv[i]);
+            reverse(buf, &buf[strlen(buf)]);
+            if(!strncmp(buf,"fnc.",4)){
+                strcpy(path,argv[i]);
+            }
+        }
     }
 }

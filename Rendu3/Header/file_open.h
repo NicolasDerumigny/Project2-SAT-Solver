@@ -15,10 +15,10 @@ extern "C" FILE *yyin;
 extern Expr *res;
 extern int yylex_destroy  (void);
 
-void checkCorrectFile(char* file_dir);
-void checkHeaderAndParse(char* file_dir);
+void checkCorrectFile();
+void checkHeaderAndParse();
 void yyerror(const char *s);
-void parse(char* file_dir);
+void parse();
 void freeAll();
 void print_output();
 

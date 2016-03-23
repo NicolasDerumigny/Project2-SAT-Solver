@@ -9,6 +9,6 @@ using namespace std;
 
 bool assignUniqueLitt();
 bool assignUniquePolarity();
-
+bool assignUnique();
 
 #endif // DEDUCE_H
