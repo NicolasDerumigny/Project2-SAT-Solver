@@ -8,15 +8,20 @@ QT       += core
 
 QT       -= gui
 
-TARGET = Rendu2
+TARGET = resol
+CONFIG += c++11
 CONFIG   += console
 CONFIG   -= app_bundle
 
 TEMPLATE = app
 
 LIBS += -lfl
+LIBS += -std=c++11
 
-QMAKE_CXXFLAGS += -std=c++11
+
+QMAKE_CXXFLAGS +=  -Wall -Wextra -Wpedantic -Wno-write-strings
+
+QMAKE_CFLAGS += -std=c++11
 
 INCLUDEPATH += Header/ \
         Bison/
@@ -60,15 +65,15 @@ BISONSOURCES = Bison/expr.ypp
 
 
 flexsource.input = FLEXSOURCES
-flexsource.output = ${QMAKE_FILE_BASE}.yy.cpp
-flexsource.commands = flex -w -o ${QMAKE_FILE_BASE}.yy.cpp -d ${QMAKE_FILE_IN}
+flexsource.output = ../Rendu2/Bison/${QMAKE_FILE_BASE}.yy.cpp
+flexsource.commands = flex -std=c++11 -w -o ${QMAKE_FILE_BASE}.yy.cpp -d ${QMAKE_FILE_IN}
 flexsource.name = Flex Sources ${QMAKE_FILE_IN}.yy.cpp
 flexsource.CONFIG += target_predeps
 
 QMAKE_EXTRA_COMPILERS += flexsource
 
 bisonsource.input = BISONSOURCES
-bisonsource.output = ${QMAKE_FILE_BASE}.tab.cpp
+bisonsource.output = ../Rendu2/Bison/${QMAKE_FILE_BASE}.tab.cpp
 bisonsource.commands = bison --report=all -o ${QMAKE_FILE_BASE}.tab.cpp ${QMAKE_FILE_IN}
 bisonsource.name = Bison Sources ${QMAKE_FILE_IN}.ypp
 bisonsource.CONFIG += target_predeps
