@@ -64,6 +64,10 @@ int main(int argc, char** argv) {
             if(!backtrack()){
                 cout<<"s UNSATISFIABLE"<<endl;
                 freeAll();
+                if (timePerf){
+                    checkpoint = clock();
+                    fprintf(stderr,"end: %f s\n",(double) checkpoint/CLOCKS_PER_SEC);
+                }
                 return 0;
             }
         }

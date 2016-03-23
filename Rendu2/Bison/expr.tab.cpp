@@ -120,9 +120,7 @@ extern int yydebug;
     TK_RPAREN = 264,
     TK_ENOT = 265,
     TK_VNOT = 266,
-    TK_EOF = 267,
-    TK_FLINE = 268,
-    TK_VAR = 269
+    TK_VAR = 267
   };
 #endif
 
@@ -136,7 +134,7 @@ union YYSTYPE
     int ival;
     class Expr *exp;
 
-#line 140 "Bison/expr.tab.cpp" /* yacc.c:355  */
+#line 138 "Bison/expr.tab.cpp" /* yacc.c:355  */
 };
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1
@@ -151,7 +149,7 @@ int yyparse (void);
 
 /* Copy the second part of user declarations.  */
 
-#line 155 "Bison/expr.tab.cpp" /* yacc.c:358  */
+#line 153 "Bison/expr.tab.cpp" /* yacc.c:358  */
 
 #ifdef short
 # undef short
@@ -393,10 +391,10 @@ union yyalloc
 /* YYFINAL -- State number of the termination state.  */
 #define YYFINAL  10
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   34
+#define YYLAST   35
 
 /* YYNTOKENS -- Number of terminals.  */
-#define YYNTOKENS  15
+#define YYNTOKENS  13
 /* YYNNTS -- Number of nonterminals.  */
 #define YYNNTS  3
 /* YYNRULES -- Number of rules.  */
@@ -407,7 +405,7 @@ union yyalloc
 /* YYTRANSLATE[YYX] -- Symbol number corresponding to YYX as returned
    by yylex, with out-of-bounds checking.  */
 #define YYUNDEFTOK  2
-#define YYMAXUTOK   269
+#define YYMAXUTOK   267
 
 #define YYTRANSLATE(YYX)                                                \
   ((unsigned int) (YYX) <= YYMAXUTOK ? yytranslate[YYX] : YYUNDEFTOK)
@@ -442,15 +440,15 @@ static const yytype_uint8 yytranslate[] =
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     1,     2,     3,     4,
-       5,     6,     7,     8,     9,    10,    11,    12,    13,    14
+       5,     6,     7,     8,     9,    10,    11,    12
 };
 
 #if YYDEBUG
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    48,    48,    52,    53,    54,    55,    56,    57,    58,
-      59,    60
+       0,    47,    47,    51,    52,    53,    54,    55,    56,    57,
+      58,    59
 };
 #endif
 
@@ -461,7 +459,7 @@ static const char *const yytname[] =
 {
   "$end", "error", "$undefined", "TK_CONJ", "TK_DISJ", "TK_XOR",
   "TK_IMPLY", "TK_EQ", "TK_LPAREN", "TK_RPAREN", "TK_ENOT", "TK_VNOT",
-  "TK_EOF", "TK_FLINE", "TK_VAR", "$accept", "input", "expression", YY_NULLPTR
+  "TK_VAR", "$accept", "input", "expression", YY_NULLPTR
 };
 #endif
 
@@ -471,14 +469,14 @@ static const char *const yytname[] =
 static const yytype_uint16 yytoknum[] =
 {
        0,   256,   257,   258,   259,   260,   261,   262,   263,   264,
-     265,   266,   267,   268,   269
+     265,   266,   267
 };
 # endif
 
-#define YYPACT_NINF -12
+#define YYPACT_NINF -10
 
 #define yypact_value_is_default(Yystate) \
-  (!!((Yystate) == (-12)))
+  (!!((Yystate) == (-10)))
 
 #define YYTABLE_NINF -1
 
@@ -489,9 +487,9 @@ static const yytype_uint16 yytoknum[] =
      STATE-NUM.  */
 static const yytype_int8 yypact[] =
 {
-       8,     8,     8,   -11,   -12,     9,    20,     1,   -12,   -12,
-     -12,     8,     8,     8,     8,     8,     8,   -12,    16,     6,
-     -12,    29,    25
+      14,    14,    14,    -9,   -10,     9,    13,     1,   -10,   -10,
+     -10,    14,    14,    14,    14,    14,    14,   -10,    23,    26,
+      28,   -10,     5
 };
 
   /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -507,7 +505,7 @@ static const yytype_uint8 yydefact[] =
   /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-     -12,   -12,     0
+     -10,   -10,     0
 };
 
   /* YYDEFGOTO[NTERM-NUM].  */
@@ -522,33 +520,33 @@ static const yytype_int8 yydefgoto[] =
 static const yytype_uint8 yytable[] =
 {
        6,     7,     8,     9,    16,    12,    13,    14,    15,    10,
-      17,    13,    19,    20,    21,    22,     1,     0,     2,     3,
-      12,    13,     4,    11,    12,    13,    14,    15,    16,    12,
-      13,    14,    16,    12,    13
+      17,    14,    19,    20,    21,    22,    11,    12,    13,    14,
+      15,     0,     1,     0,     2,     3,     4,    12,    13,    14,
+      15,    13,    14,    15,    14,    15
 };
 
 static const yytype_int8 yycheck[] =
 {
-       0,     1,     2,    14,     3,     4,     5,     6,     7,     0,
-       9,     5,    12,    13,    14,    15,     8,    -1,    10,    11,
-       4,     5,    14,     3,     4,     5,     6,     7,     3,     4,
-       5,     6,     3,     4,     5
+       0,     1,     2,    12,     3,     4,     5,     6,     7,     0,
+       9,     6,    12,    13,    14,    15,     3,     4,     5,     6,
+       7,    -1,     8,    -1,    10,    11,    12,     4,     5,     6,
+       7,     5,     6,     7,     6,     7
 };
 
   /* YYSTOS[STATE-NUM] -- The (internal number of the) accessing
      symbol of state STATE-NUM.  */
 static const yytype_uint8 yystos[] =
 {
-       0,     8,    10,    11,    14,    16,    17,    17,    17,    14,
-       0,     3,     4,     5,     6,     7,     3,     9,    17,    17,
-      17,    17,    17
+       0,     8,    10,    11,    12,    14,    15,    15,    15,    12,
+       0,     3,     4,     5,     6,     7,     3,     9,    15,    15,
+      15,    15,    15
 };
 
   /* YYR1[YYN] -- Symbol number of symbol that rule YYN derives.  */
 static const yytype_uint8 yyr1[] =
 {
-       0,    15,    16,    17,    17,    17,    17,    17,    17,    17,
-      17,    17
+       0,    13,    14,    15,    15,    15,    15,    15,    15,    15,
+      15,    15
 };
 
   /* YYR2[YYN] -- Number of symbols on the right hand side of rule YYN.  */
@@ -1232,67 +1230,67 @@ yyreduce:
   switch (yyn)
     {
         case 2:
-#line 48 "Bison/expr.ypp" /* yacc.c:1646  */
+#line 47 "Bison/expr.ypp" /* yacc.c:1646  */
     { res = (yyvsp[-1].exp); }
-#line 1238 "Bison/expr.tab.cpp" /* yacc.c:1646  */
+#line 1236 "Bison/expr.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 3:
-#line 52 "Bison/expr.ypp" /* yacc.c:1646  */
+#line 51 "Bison/expr.ypp" /* yacc.c:1646  */
     { (yyval.exp) = new EConst((yyvsp[0].ival));              }
-#line 1244 "Bison/expr.tab.cpp" /* yacc.c:1646  */
+#line 1242 "Bison/expr.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 4:
-#line 53 "Bison/expr.ypp" /* yacc.c:1646  */
+#line 52 "Bison/expr.ypp" /* yacc.c:1646  */
     { (yyval.exp) = new VNot((yyvsp[0].ival));                }
-#line 1250 "Bison/expr.tab.cpp" /* yacc.c:1646  */
+#line 1248 "Bison/expr.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 5:
-#line 54 "Bison/expr.ypp" /* yacc.c:1646  */
+#line 53 "Bison/expr.ypp" /* yacc.c:1646  */
     { (yyval.exp) = (yyvsp[-1].exp);                          }
-#line 1256 "Bison/expr.tab.cpp" /* yacc.c:1646  */
+#line 1254 "Bison/expr.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 6:
-#line 55 "Bison/expr.ypp" /* yacc.c:1646  */
+#line 54 "Bison/expr.ypp" /* yacc.c:1646  */
     { (yyval.exp) = new EConj((yyvsp[-2].exp), (yyvsp[0].exp));           }
-#line 1262 "Bison/expr.tab.cpp" /* yacc.c:1646  */
+#line 1260 "Bison/expr.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 7:
-#line 56 "Bison/expr.ypp" /* yacc.c:1646  */
+#line 55 "Bison/expr.ypp" /* yacc.c:1646  */
     { (yyval.exp) = new EDisj((yyvsp[-2].exp), (yyvsp[0].exp));           }
-#line 1268 "Bison/expr.tab.cpp" /* yacc.c:1646  */
+#line 1266 "Bison/expr.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 8:
-#line 57 "Bison/expr.ypp" /* yacc.c:1646  */
+#line 56 "Bison/expr.ypp" /* yacc.c:1646  */
     { (yyval.exp) = new ENot((yyvsp[0].exp));                }
-#line 1274 "Bison/expr.tab.cpp" /* yacc.c:1646  */
+#line 1272 "Bison/expr.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 9:
-#line 58 "Bison/expr.ypp" /* yacc.c:1646  */
+#line 57 "Bison/expr.ypp" /* yacc.c:1646  */
     { (yyval.exp) = new EXor((yyvsp[-2].exp), (yyvsp[0].exp));            }
-#line 1280 "Bison/expr.tab.cpp" /* yacc.c:1646  */
+#line 1278 "Bison/expr.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 10:
-#line 59 "Bison/expr.ypp" /* yacc.c:1646  */
+#line 58 "Bison/expr.ypp" /* yacc.c:1646  */
     { (yyval.exp) = new EImply((yyvsp[-2].exp), (yyvsp[0].exp));          }
-#line 1286 "Bison/expr.tab.cpp" /* yacc.c:1646  */
+#line 1284 "Bison/expr.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 11:
-#line 60 "Bison/expr.ypp" /* yacc.c:1646  */
+#line 59 "Bison/expr.ypp" /* yacc.c:1646  */
     { (yyval.exp) = new EEq((yyvsp[-2].exp), (yyvsp[0].exp));             }
-#line 1292 "Bison/expr.tab.cpp" /* yacc.c:1646  */
+#line 1290 "Bison/expr.tab.cpp" /* yacc.c:1646  */
     break;
 
 
-#line 1296 "Bison/expr.tab.cpp" /* yacc.c:1646  */
+#line 1294 "Bison/expr.tab.cpp" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1520,6 +1518,6 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 62 "Bison/expr.ypp" /* yacc.c:1906  */
+#line 61 "Bison/expr.ypp" /* yacc.c:1906  */
 
 

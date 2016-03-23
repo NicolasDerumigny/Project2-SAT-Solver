@@ -21,10 +21,10 @@ extern bool verbose;
 [ \t]*"/\\"[ \t]*                                                                { if (verbose) cout<<"And\n"; return TK_CONJ;   }
 [ \t]*"0"?[ \t]*\n                                                               { if (verbose) cout<<"Conj\n"; return TK_CONJ;   }
 [ \t]*"\\/"[ \t]*                                                                { if (verbose) cout<<"Disj\n"; return TK_DISJ;   }
-[ \t]+                                                                           { if (verbose) cout<<"Disj\n"; return TK_DISJ;   }
 [ \t]*"X"[ \t]*                                                                  { if (verbose) cout<<"Xor\n"; return TK_XOR;    }
 [ \t]*"=>"[ \t]*                                                                 { if (verbose) cout<<"Imply\n"; return TK_IMPLY;  }
 [ \t]*"<=>"[ \t]*                                                                { if (verbose) cout<<"Equivalent\n"; return TK_EQ;     }
+[ \t]+                                                                           { if (verbose) cout<<"Disj\n"; return TK_DISJ;   }
 [ \t]*"~"[ \t]*                                                                  { if (verbose) cout<<"Negated expression\n"; return TK_ENOT;   }
 "-"                                                                              { if (verbose) cout<<"Negated variable\n"; return TK_VNOT;   }
 c[^\n]*\n                                                                        ;

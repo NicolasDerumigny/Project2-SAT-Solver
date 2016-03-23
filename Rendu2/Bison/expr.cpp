@@ -137,7 +137,6 @@ void EConj::eval_tseitin()//op1 et op2 seront des formules
     formRoot->merge(form2);
     formRoot->merge(form3);
     (op1->form)->merge(formRoot);
-    delete op2;
     this->form=op1->form;
 }
 
@@ -150,7 +149,7 @@ EDisj::EDisj(Expr * e1, Expr * e2) : op1(e1), op2(e2) {}
 
 string EDisj::to_string()
 {
-    return op1->to_string() + " \\/ " +  op2->to_string();
+    return "(" + op1->to_string() + ") "+ " \\/ " + " (" + op2->to_string() +")";
 }
 
 void EDisj::eval()
@@ -178,21 +177,21 @@ void EDisj::eval_tseitin()
 
     formRoot->set_formule_tseitin(false);//la variable est Ep,
     form1->set_formule_tseitin(false);//la variable est Ep1
-    form3->set_formule_tseitin(true);//la variable est non Ep2
     form2->f_ClauseUnsatisfied = new clause;
     form2->l_ClauseUnsatisfied = form2->f_ClauseUnsatisfied;
+    form3->set_formule_tseitin(true);//la variable est non Ep2
 
-    {
+    {//form1
         litt *l11 = new litt,
                 *l13 = new litt;
-        l11->set_litt(formRoot->f_ClauseUnsatisfied->f_ElementAlive->variable,true);
-        l13->set_litt(form3->f_ClauseUnsatisfied->f_ElementAlive->variable,false);
+        l11->set_litt(formRoot->f_ClauseUnsatisfied->f_ElementAlive->variable,true);//nnEp
+        l13->set_litt(form3->f_ClauseUnsatisfied->f_ElementAlive->variable,false);//Ep2
         form1->f_ClauseUnsatisfied->f_ElementAlive->next_litt=l11;
         l11->next_litt=l13;
         form1->f_ClauseUnsatisfied->l_ElementAlive=l13;
     }
 
-    {
+    {//form2
         litt *l21 = new litt, *l22 = new litt;
         l21->set_litt(formRoot->f_ClauseUnsatisfied->f_ElementAlive->variable,false);
         l22->set_litt(form1->f_ClauseUnsatisfied->f_ElementAlive->variable,true);
@@ -201,7 +200,7 @@ void EDisj::eval_tseitin()
         l21->next_litt=l22;
     }
 
-    {
+    {//form3
         litt *l31 = new litt;
         l31->set_litt(formRoot->f_ClauseUnsatisfied->f_ElementAlive->variable,false);
         form3->f_ClauseUnsatisfied->f_ElementAlive->next_litt=l31;
@@ -339,14 +338,9 @@ void ENot::eval_tseitin()
 
 EXor::EXor(Expr * e1, Expr * e2) : EDisj(new EConj(e2, new ENot(e1)),new EConj(e1, new ENot(e2))) {}
 
-string EXor::to_string()
-{
-    return "(" + op1->to_string() + " X " +  op2->to_string() + ")";
-}
-
 void EXor::eval()
 {
-    cerr<<"Fatal error : Negated expression shall never be used in input, use -tseitin for this."<<endl;
+    cerr<<"Fatal error : Xor expression shall never be used in input, use -tseitin for this."<<endl;
     exit(-1);
 }
 
@@ -356,11 +350,6 @@ void EXor::eval()
 
 
 EImply::EImply(Expr * e1, Expr * e2) : EDisj(e2, new ENot(e1)) {}
-
-string EImply::to_string()
-{
-    return "(" + op1->to_string() + " → " +  op2->to_string() + ")";
-}
 
 void EImply::eval()
 {
@@ -373,11 +362,6 @@ void EImply::eval()
 /**********************************/
 
 EEq::EEq(Expr * e1, Expr * e2) : EDisj(new EConj(e1,e2),new EConj(new ENot(e1),new ENot(e2))) {}
-
-string EEq::to_string()
-{
-    return "(" + op1->to_string() + " ↔ " +  op2->to_string() + ")";
-}
 
 void EEq::eval()
 {

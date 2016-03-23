@@ -28,15 +28,14 @@ Expr *res = NULL;
 // by convention), and associate each with a field of the union:
 %token TK_CONJ TK_DISJ TK_XOR TK_IMPLY TK_EQ
 %token TK_LPAREN TK_RPAREN TK_ENOT TK_VNOT
-%token TK_EOF TK_FLINE
 %token <ival> TK_VAR
 %type <exp> expression
 
-%left TK_EQ
-%left TK_IMPLY
 %left TK_CONJ
 %left TK_DISJ
 %left TK_XOR
+%left TK_EQ
+%left TK_IMPLY
 %left TK_ENOT
 
 
