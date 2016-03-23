@@ -141,6 +141,7 @@ void formule::preprocessing() {
 	for (clause* cl=this->f_ClauseUnsatisfied;cl != nullptr || cl_need_back;cl=cl->next_clause) {
         if (cl_need_back){
 			cl=cl_prev;
+			cl_prev=nullptr;
 			cl_need_back = false;
 		}
 		li_need_back = false;
@@ -148,6 +149,7 @@ void formule::preprocessing() {
 		for (litt* li = cl->f_ElementAlive;li != nullptr || li_need_back;li = li->next_litt) {
 			if (li_need_back){
 				li=li_prev;
+				li_prev=nullptr;
 				li_need_back = false;
 			}
 			if (li->neg){

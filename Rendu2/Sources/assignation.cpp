@@ -15,6 +15,7 @@ void assignation::updateLitt(bool alive){
 			for (litt* li = cl->f_ElementAlive;li != nullptr || li_need_back;li=li->next_litt){//si un littéral (donc la variable) est déjà mort on ne fait rien.
                 if (li_need_back){
 					li=li_prev;
+					li_prev=nullptr;
 					li_need_back = false;
 				}
                 if (li->variable == this->variable) {
@@ -41,6 +42,7 @@ void assignation::updateLitt(bool alive){
 			for (litt* li = cl->f_ElementDead;li != nullptr || li_need_back;li=li->next_litt) {//si un littéral (donc la variable) est déjà mort on ne fait rien.
                 if (li_need_back){
 					li=li_prev;
+					li_prev=nullptr;
 					li_need_back = false;
 				}
                 if (li->variable == this->variable) {
@@ -76,6 +78,7 @@ void assignation::updateClause(bool alive){
 			for (clause* cl2 = instance->f_ClauseUnsatisfied;cl2 != nullptr || cl_need_back;cl2=cl2->next_clause){//On parcours les clauses non satisfaites à la recherche de cl
 				if (cl_need_back){
 					cl2=cl_prev;
+					cl_prev=nullptr;
 					cl_need_back = false;
 				}
 				if (cl2 == cl)
@@ -103,6 +106,7 @@ void assignation::updateClause(bool alive){
 			for (clause* cl2 = instance->f_ClauseSatisfied;cl2 != nullptr || cl_need_back;cl2=cl2->next_clause){//On parcours les clauses non satisfaites à la recherche de cl
 				if (cl_need_back){
 					cl2=cl_prev;
+					cl_prev=nullptr;
 					cl_need_back = false;
 				}
 				if (cl2 == cl)
