@@ -50,14 +50,42 @@ int main(int argc, char** argv) {
 		new_var->assignValue(1,true);
         //on fait un pari : la freeVar de decide est à vrai
 		
-        //deduce
-		while(assignUniqueLitt() or assignUniquePolarity())
-            continue;
-
-        if(verbose) {
-            cout<<"\n------------Next step :-----------------\n";
+		if(verbose) {
+            cout<<"\n------------Next step after decide:-----------------\n";
             instance->print();
         }
+		if (verbose){
+			fprintf(stderr,"heap of assignations : [var_id,bet]");
+			for (auto& ass:assignations)
+				fprintf(stderr,"[%i,%i],",ass->variable->id,ass->bet);
+			fprintf(stderr,"\n\n");
+		}
+		
+        //deduce
+		while(assignUniqueLitt() or assignUniquePolarity()){
+            if(verbose) {
+	            cout<<"\n------------Next step after deduce:-----------------\n";
+	            instance->print();
+	        }
+			if (verbose){
+				fprintf(stderr,"heap of assignations : [var_id,bet]");
+				for (auto& ass:assignations)
+					fprintf(stderr,"[%i,%i],",ass->variable->id,ass->bet);
+				fprintf(stderr,"\n\n");
+			}
+			continue;
+		}
+
+        if(verbose) {
+            cout<<"\n------------Next step after deduce:-----------------\n";
+            instance->print();
+        }
+		if (verbose){
+			fprintf(stderr,"heap of assignations : [var_id,bet]");
+			for (auto& ass:assignations)
+				fprintf(stderr,"[%i,%i],",ass->variable->id,ass->bet);
+			fprintf(stderr,"\n\n");
+		}
 
         //backtrack
         while(!check()){
@@ -72,6 +100,10 @@ int main(int argc, char** argv) {
             }
         }
 		
+		if(verbose) {
+            cout<<"\n------------Next step after backtrack:-----------------\n";
+            instance->print();
+        }
 		if (verbose){
 			fprintf(stderr,"heap of assignations : [var_id,bet]");
 			for (auto& ass:assignations)
