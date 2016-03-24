@@ -6,7 +6,7 @@ Pour compiler, lancer
 make
 
 Pour exécuter le programme, lancer
-./resol FichierSource.cnf [-v] [-time] [moms | rand | dlis]
+./resol FichierSource.cnf [-v | -vv] [-time] [moms | rand | dlis]
 
 Le fichier source doit être de la forme :
 
@@ -56,15 +56,27 @@ L'ensemble des fonctions des parse, de gestion de l'annalyse syntaxique et de fo
 
 -------------
 
+Fonctionnalités :
+
+Gère les formules en forme cnf ou non.
+
+Pré-traitement des entrées.
+
+Algorithme DPLL basique.
+
+Heuristiques (défaut, rand, moms, dlis).
+
+-------------
+
 Améliorations :
 
 On ne prend pas en compte les clauses déclarées avant la ligne d'en-tête.
 
 On gère mal des commentaires ne commençant pas par 'c'.
 
-Pré-traiter les entrées. (en particulier, gérer la mise à jour de clauseInto des clauses supprimées, voire gérer le linkage (clauseInto) avec le prétraitement). Majoritairement traité !
+Améliorer le pré-traitement les entrées. (possiblement, gérer le linkage (clauseInto) avec le prétraitement).
 
-Improve assignUniquePolarity, if non(x1) et x1 dans clauses.
+Améliorer assignUniquePolarity, if non(x1) et x1 dans clauses.
 
 -------------
 
@@ -82,6 +94,7 @@ Ruben S. :
 - decide.cpp
 - generate_cnf.sh
 - Heuristiques
+- preprocessing
 
 -------------
 
