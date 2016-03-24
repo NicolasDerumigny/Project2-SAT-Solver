@@ -3,8 +3,15 @@
 bool assignUniqueLitt(){
 	bool haveChanged = false;
 	litt* li;
+	bool cl_need_back = false;
+	clause* cl_prev = nullptr;
 	for (clause* cl=instance->f_ClauseUnsatisfied;cl != nullptr;cl=cl->next_clause){
-        if (cl != nullptr){
+        if (cl_need_back){
+		cl=cl_prev;
+		cl_prev=nullptr;
+		cl_need_back = false;
+		}
+		if (cl != nullptr){
             li = cl->getUniqueLittAlive(); //Amélioration : vérifier si la clause est de la forme {x1 or x1 or ... or x1}, la même variable avec la même polarité... Ou au pire on peut faire du prétraitement de la clause...
             if (li != nullptr){
                 if (li->variable->value != -1){
@@ -20,6 +27,13 @@ bool assignUniqueLitt(){
                 else
                     li->variable->assignValue(0,false);
                 haveChanged = true;
+				if (cl_prev != nullptr)
+					cl2 = cl_prev;//On évite de casser la chaîne de parcours de la boucle for...
+				else if (instance->f_ClauseUnsatisfied != nullptr){
+					cl2 = instance->f_ClauseUnsatisfied;
+					cl_need_back = true;
+				} else//there is nothing left
+					break;
             }
         }
 	}
