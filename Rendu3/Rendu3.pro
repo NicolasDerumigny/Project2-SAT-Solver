@@ -65,7 +65,7 @@ BISONSOURCES = Bison/expr.ypp
 
 
 flexsource.input = FLEXSOURCES
-flexsource.output = ../Rendu2/Bison/${QMAKE_FILE_BASE}.yy.cpp
+flexsource.output = ../Rendu3/Bison/${QMAKE_FILE_BASE}.yy.cpp
 flexsource.commands = flex -std=c++11 -w -o ${QMAKE_FILE_BASE}.yy.cpp -d ${QMAKE_FILE_IN}
 flexsource.name = Flex Sources ${QMAKE_FILE_IN}.yy.cpp
 flexsource.CONFIG += target_predeps
@@ -73,7 +73,7 @@ flexsource.CONFIG += target_predeps
 QMAKE_EXTRA_COMPILERS += flexsource
 
 bisonsource.input = BISONSOURCES
-bisonsource.output = ../Rendu2/Bison/${QMAKE_FILE_BASE}.tab.cpp
+bisonsource.output = ../Rendu3/Bison/${QMAKE_FILE_BASE}.tab.cpp
 bisonsource.commands = bison --report=all -o ${QMAKE_FILE_BASE}.tab.cpp ${QMAKE_FILE_IN}
 bisonsource.name = Bison Sources ${QMAKE_FILE_IN}.ypp
 bisonsource.CONFIG += target_predeps
