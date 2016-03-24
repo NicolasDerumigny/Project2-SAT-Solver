@@ -28,9 +28,9 @@ bool assignUniqueLitt(){
                     li->variable->assignValue(0,false);
                 haveChanged = true;
 				if (cl_prev != nullptr)
-					cl2 = cl_prev;//On évite de casser la chaîne de parcours de la boucle for...
+					cl = cl_prev;//On évite de casser la chaîne de parcours de la boucle for...
 				else if (instance->f_ClauseUnsatisfied != nullptr){
-					cl2 = instance->f_ClauseUnsatisfied;
+					cl = instance->f_ClauseUnsatisfied;
 					cl_need_back = true;
 				} else//there is nothing left
 					break;

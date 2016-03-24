@@ -193,8 +193,10 @@ void formule::preprocessing() {
 		}
 		if (isTauto) {
 			removeClause(&this->f_ClauseUnsatisfied,&this->l_ClauseUnsatisfied,cl,cl_prev);
+			for (litt* li = cl->f_ElementAlive;li != nullptr;li = li->next_litt){//supprimer la clause cl des clauseInto
+				li->variable->clauseInto.erase(std::remove(li->variable->clauseInto.begin(), li->variable->clauseInto.end(), cl), li->variable->clauseInto.end());
+			}
 			cl->free_clause();
-			//TODO supprimer la clause des clauseInto
 			if (cl_prev != nullptr)
 				cl = cl_prev;//On évite de casser la chaîne de parcours de la boucle for...
 			else if (this->f_ClauseUnsatisfied != nullptr){
@@ -204,5 +206,10 @@ void formule::preprocessing() {
 				break;
 		}
 		cl_prev = cl;
+	}
+	//supprimer les doublons de clauseInto
+	for (auto& v:v_var){
+		sort(v->clauseInto.begin(), v->clauseInto.end());
+		v->clauseInto.erase(std::unique(v->clauseInto.begin(), v->clauseInto.end()), v->clauseInto.end());
 	}
 }
