@@ -66,8 +66,6 @@ Pré-traiter les entrées. (en particulier, gérer la mise à jour de clauseInto
 
 Improve assignUniquePolarity, if non(x1) et x1 dans clauses.
 
-Correction parcours liste chainée clauses dans les deux fonctions de deduce.cpp
-
 -------------
 
 Répartition du travail :
