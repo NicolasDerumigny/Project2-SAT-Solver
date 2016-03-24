@@ -209,7 +209,9 @@ void formule::preprocessing() {
 	}
 	//supprimer les doublons de clauseInto
 	for (auto& v:v_var){
-		sort(v->clauseInto.begin(), v->clauseInto.end());
-		v->clauseInto.erase(std::unique(v->clauseInto.begin(), v->clauseInto.end()), v->clauseInto.end());
+		if (v != nullptr){
+			sort(v->clauseInto.begin(), v->clauseInto.end());
+			v->clauseInto.erase(std::unique(v->clauseInto.begin(), v->clauseInto.end()), v->clauseInto.end());
+		}
 	}
 }

@@ -33,8 +33,8 @@ int main(int argc, char** argv) {
 
     if(verbose) instance->print();
 
-//	instance->preprocessing();
-//	if(verbose) {cout << "Formula after preprocessing :\n";instance->print();}
+	instance->preprocessing();
+	if(verbose) {cout << "Formula after preprocessing :\n";instance->print();}
 	var* new_var = nullptr;
 	if (heuristic == 0)
 		new_var = getFreeVar();

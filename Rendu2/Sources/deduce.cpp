@@ -36,6 +36,7 @@ bool assignUniqueLitt(){
 					break;
             }
         }
+		cl_prev=cl;
 	}
 	return haveChanged;
 }
