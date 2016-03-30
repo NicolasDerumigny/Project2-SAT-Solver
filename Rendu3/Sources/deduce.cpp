@@ -1,34 +1,31 @@
 #include "deduce.h"
 
-bool assignUnique(){
-    if (!interactive)
-        return assignUniqueLitt() or assignUniquePolarity();
-    else
-        return assignUniqueLitt();
-}
-
 bool assignUniqueLitt(){
-	bool haveChanged = false;
+	bool haveChanged = true;
 	litt* li;
-	for (clause* cl=instance->f_ClauseUnsatisfied;cl != nullptr;cl=cl->next_clause){
-        if (cl != nullptr){
-            li = cl->getUniqueLittAlive(); //Amélioration : vérifier si la clause est de la forme {x1 or x1 or ... or x1}, la même variable avec la même polarité... Ou au pire on peut faire du prétraitement de la clause...
-            if (li != nullptr){
-                if (li->variable->value != -1){
-                    cerr << "Warning: clause contains an assigned litteral that is still alive\n\n";
-                    cerr << "Litteral is :";
-                    li->print();
-                    cl->print();
-                    cerr << "\n\n\n";
-                    exit(-1);
-				}
-                if (li->neg == false)
-                    li->variable->assignValue(1,false);
-                else
-                    li->variable->assignValue(0,false);
-                haveChanged = true;
-            }
-        }
+	while (haveChanged){
+		haveChanged = false;
+		for (clause* cl=instance->f_ClauseUnsatisfied;cl != nullptr;cl=cl->next_clause){
+			if (cl != nullptr){
+		        li = cl->getUniqueLittAlive(); //Amélioration : vérifier si la clause est de la forme {x1 or x1 or ... or x1}, la même variable avec la même polarité... Ou au pire on peut faire du prétraitement de la clause...
+		        if (li != nullptr){
+		            if (li->variable->value != -1){
+		                cerr << "Warning: clause contains an assigned litteral that is still alive\n\n";
+		                cerr << "Litteral is :";
+		                li->print();
+		                cl->print();
+		                cerr << "\n\n\n";
+		                exit(-1);
+					}
+		            if (li->neg == false)
+		                li->variable->assignValue(1,false);
+		            else
+		                li->variable->assignValue(0,false);
+		            haveChanged = true;
+					break;
+		        }
+		    }
+		}
 	}
 	return haveChanged;
 }
