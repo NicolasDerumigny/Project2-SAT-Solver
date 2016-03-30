@@ -36,7 +36,7 @@ bool backtrack(){
                     }else if(command=="t\n"){
                         interactive=false;
                     }else
-                        cerr<<"No valid command found, continuing anyway"<endl;
+                        cerr<<"No valid command found, continuing anyway"<<endl;
                 }
             }
             assignations[i]->updateStatus(true);
