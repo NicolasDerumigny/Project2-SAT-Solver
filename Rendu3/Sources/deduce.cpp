@@ -1,5 +1,6 @@
 #include "deduce.h"
 
+
 bool assignUnique(){
     if (!interactive)
         return assignUniqueLitt() or assignUniquePolarity();

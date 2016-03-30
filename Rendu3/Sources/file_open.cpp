@@ -1,5 +1,6 @@
 #include "file_open.h"
 
+
 void checkCorrectFile(){
     struct stat buff;
     if (!stat(path, &buff)){//si l'ouverture à fonctionnée
