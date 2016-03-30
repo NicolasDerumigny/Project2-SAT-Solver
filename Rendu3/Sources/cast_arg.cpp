@@ -2,6 +2,7 @@
 
 
 void cast_arg(int argc, char** argv){
+    bool found=false;
     for (int i=1; i<argc;i++){
         if (!strcmp(argv[i],"-tseitin"))
             isTseitin=true;
@@ -22,5 +23,19 @@ void cast_arg(int argc, char** argv){
                 heuristic=2;
         if (!strcmp(argv[i],"-dlis"))
                 heuristic=3;
+
+        if (strlen(argv[i])<1024 and !found){
+                     char buf[1024]="";
+                     strcpy(buf,argv[i]);
+                     reverse(buf, &buf[strlen(buf)]);
+                     if(!strncmp(buf,"fnc.",4)){
+                         strcpy(path,argv[i]);
+                     }
+                     if(!strncmp(buf,"rof.",4)){
+                         strcpy(path,argv[i]);
+                     }
+                     found=true;
+
+
     }
 }
