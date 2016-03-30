@@ -1,5 +1,6 @@
 #include "backtrack.h"
 
+
 bool check(){//renvoie false si il existe une clause insatisfaite qui n'a plus de littéraux vivants (formule insatisfiable)
 	for (clause* cl=instance->f_ClauseUnsatisfied;cl != nullptr;cl=cl->next_clause)
         if (cl->nbLittAlive()==0)
@@ -27,6 +28,18 @@ bool backtrack(){
             assignations.pop_back();
             i--;
         }else{
+            if(interactive){
+                string command;
+                cin>>command;
+                if (command!="c\n"){
+                    if (command=="g\n"){
+                        //TODO : create graph !
+                    }else if(command=="t\n"){
+                        interactive=false;
+                    }else
+                        cerr<<"No valid command found, continuing anyway"<<endl;
+                }
+            }
             assignations[i]->updateStatus(true);
             //on ne change les clauses que là où les variables sont mortes !
             //i.e. les clauses sont consiférées satisfaites ou non en fonctions

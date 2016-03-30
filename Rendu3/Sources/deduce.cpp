@@ -1,5 +1,13 @@
 #include "deduce.h"
 
+
+bool assignUnique(){
+    if (!interactive)
+        return assignUniqueLitt() or assignUniquePolarity();
+    else
+        return assignUniqueLitt();
+}
+
 bool assignUniqueLitt(){
 	bool haveChanged = true;
 	litt* li;

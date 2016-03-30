@@ -1,6 +1,6 @@
 #include "file_open.h"
 
-void checkCorrectFile(char* file_dir){
+void checkCorrectFile(){
     struct stat buff;
     if (!stat(file_dir, &buff)){//si l'ouverture à fonctionnée
         if (!S_ISREG(buff.st_mode)){

@@ -1,18 +1,14 @@
 #include <vector>
 using namespace std;
 #include "global_variables.h"
-
-
 #include "var.h"
 #include "litt.h"
 #include "clause.h"
 #include "formule.h"
 #include "assignation.h"
-
 #include "decide.h"
 #include "deduce.h"
 #include "backtrack.h"
-
 #include "file_open.h"
 #include "cast_arg.h"
 
