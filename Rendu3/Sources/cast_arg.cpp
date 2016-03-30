@@ -35,7 +35,6 @@ void cast_arg(int argc, char** argv){
                          strcpy(path,argv[i]);
                      }
                      found=true;
-
-
+        }
     }
 }
