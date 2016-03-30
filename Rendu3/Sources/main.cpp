@@ -13,6 +13,7 @@ using namespace std;
 #include "cast_arg.h"
 
 
+
 int main(int argc, char** argv) {
     cast_arg(argc, argv);
     if (timePerf) fprintf(stderr,"begin: %f s\n",(double) checkpoint/CLOCKS_PER_SEC);
