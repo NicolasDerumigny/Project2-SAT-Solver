@@ -18,14 +18,14 @@ int main(int argc, char** argv) {
     if (timePerf) fprintf(stderr,"begin: %f s\n",(double) checkpoint/CLOCKS_PER_SEC);
 
     if(!isTseitin){
-        checkCorrectFile(argv[1]);
-        checkHeaderAndParse(argv[1]);
+        checkCorrectFile();
+        checkHeaderAndParse();
     }
     if (timePerf){
         checkpoint = clock();
         fprintf(stderr,"check: %f s\n",(double) checkpoint/CLOCKS_PER_SEC);
     }
-    parse(argv[1]);
+    parse();
 
     if(verbose) instance->print();
 
