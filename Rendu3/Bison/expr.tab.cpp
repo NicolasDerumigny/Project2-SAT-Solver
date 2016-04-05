@@ -447,8 +447,8 @@ static const yytype_uint8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    47,    47,    51,    52,    53,    54,    55,    56,    57,
-      58,    59
+       0,    46,    46,    50,    51,    52,    53,    54,    55,    56,
+      57,    58
 };
 #endif
 
@@ -1230,61 +1230,61 @@ yyreduce:
   switch (yyn)
     {
         case 2:
-#line 47 "Bison/expr.ypp" /* yacc.c:1646  */
+#line 46 "Bison/expr.ypp" /* yacc.c:1646  */
     { res = (yyvsp[-1].exp); }
 #line 1236 "Bison/expr.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 3:
-#line 51 "Bison/expr.ypp" /* yacc.c:1646  */
+#line 50 "Bison/expr.ypp" /* yacc.c:1646  */
     { (yyval.exp) = new EConst((yyvsp[0].ival));              }
 #line 1242 "Bison/expr.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 4:
-#line 52 "Bison/expr.ypp" /* yacc.c:1646  */
+#line 51 "Bison/expr.ypp" /* yacc.c:1646  */
     { (yyval.exp) = new VNot((yyvsp[0].ival));                }
 #line 1248 "Bison/expr.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 5:
-#line 53 "Bison/expr.ypp" /* yacc.c:1646  */
+#line 52 "Bison/expr.ypp" /* yacc.c:1646  */
     { (yyval.exp) = (yyvsp[-1].exp);                          }
 #line 1254 "Bison/expr.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 6:
-#line 54 "Bison/expr.ypp" /* yacc.c:1646  */
+#line 53 "Bison/expr.ypp" /* yacc.c:1646  */
     { (yyval.exp) = new EConj((yyvsp[-2].exp), (yyvsp[0].exp));           }
 #line 1260 "Bison/expr.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 7:
-#line 55 "Bison/expr.ypp" /* yacc.c:1646  */
+#line 54 "Bison/expr.ypp" /* yacc.c:1646  */
     { (yyval.exp) = new EDisj((yyvsp[-2].exp), (yyvsp[0].exp));           }
 #line 1266 "Bison/expr.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 8:
-#line 56 "Bison/expr.ypp" /* yacc.c:1646  */
+#line 55 "Bison/expr.ypp" /* yacc.c:1646  */
     { (yyval.exp) = new ENot((yyvsp[0].exp));                }
 #line 1272 "Bison/expr.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 9:
-#line 57 "Bison/expr.ypp" /* yacc.c:1646  */
+#line 56 "Bison/expr.ypp" /* yacc.c:1646  */
     { (yyval.exp) = new EXor((yyvsp[-2].exp), (yyvsp[0].exp));            }
 #line 1278 "Bison/expr.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 10:
-#line 58 "Bison/expr.ypp" /* yacc.c:1646  */
+#line 57 "Bison/expr.ypp" /* yacc.c:1646  */
     { (yyval.exp) = new EImply((yyvsp[-2].exp), (yyvsp[0].exp));          }
 #line 1284 "Bison/expr.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 11:
-#line 59 "Bison/expr.ypp" /* yacc.c:1646  */
+#line 58 "Bison/expr.ypp" /* yacc.c:1646  */
     { (yyval.exp) = new EEq((yyvsp[-2].exp), (yyvsp[0].exp));             }
 #line 1290 "Bison/expr.tab.cpp" /* yacc.c:1646  */
     break;
@@ -1518,6 +1518,6 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 61 "Bison/expr.ypp" /* yacc.c:1906  */
+#line 60 "Bison/expr.ypp" /* yacc.c:1906  */
 
 

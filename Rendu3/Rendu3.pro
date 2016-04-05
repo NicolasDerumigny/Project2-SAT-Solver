@@ -39,7 +39,8 @@ SOURCES += \
     Sources/file_open.cpp \
     Sources/cast_arg.cpp \
     Bison/expr.cpp \
-    Bison/expr.l
+    Bison/expr.l \
+    Bison/expr.ypp
 
 HEADERS += \
     Header/var.h \
