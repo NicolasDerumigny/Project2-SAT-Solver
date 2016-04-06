@@ -25,6 +25,10 @@ bool assignUniqueLitt(){
 		                cerr << "\n\n\n";
 		                exit(-1);
 					}
+                    for (litt* li2=cl->f_ElementDead;li2 != nullptr;li2=li2->next_litt)
+                        li->variable->varConflict.push_back(li2->variable);
+                    sort(li->variable->varConflict.begin(), li->variable->varConflict.end());
+                    li->variable->varConflict.erase(std::unique(li->variable->varConflict.begin(), li->variable->varConflict.end()), li->variable->varConflict.end());
 		            if (li->neg == false)
 		                li->variable->assignValue(1,false);
 		            else

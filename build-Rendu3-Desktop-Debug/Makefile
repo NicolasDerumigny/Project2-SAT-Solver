@@ -57,7 +57,8 @@ SOURCES       = ../Rendu3/Sources/main.cpp \
 		../Rendu3/Sources/file_open.cpp \
 		../Rendu3/Sources/cast_arg.cpp \
 		../Rendu3/Bison/expr.cpp \
-		../Rendu3/Bison/expr.l 
+		../Rendu3/Bison/expr.l \
+		../Rendu3/Bison/expr.ypp 
 OBJECTS       = ../Rendu3/Bison/expr.yy.cpp \
 		../Rendu3/Bison/expr.tab.cpp \
 		main.o \
@@ -71,6 +72,7 @@ OBJECTS       = ../Rendu3/Bison/expr.yy.cpp \
 		assignation.o \
 		file_open.o \
 		cast_arg.o \
+		expr.o \
 		expr.o \
 		expr.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
@@ -137,7 +139,8 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		../Rendu3/Sources/file_open.cpp \
 		../Rendu3/Sources/cast_arg.cpp \
 		../Rendu3/Bison/expr.cpp \
-		../Rendu3/Bison/expr.l
+		../Rendu3/Bison/expr.l \
+		../Rendu3/Bison/expr.ypp
 QMAKE_TARGET  = resol
 DESTDIR       = #avoid trailing-slash linebreak
 TARGET        = resol
@@ -286,7 +289,7 @@ qmake_all: FORCE
 
 dist: 
 	@test -d .tmp/resol1.0.0 || mkdir -p .tmp/resol1.0.0
-	$(COPY_FILE) --parents $(DIST) .tmp/resol1.0.0/ && $(COPY_FILE) --parents ../Rendu3/Bison/expr.l .tmp/resol1.0.0/ && $(COPY_FILE) --parents ../Rendu3/Bison/expr.ypp .tmp/resol1.0.0/ && $(COPY_FILE) --parents ../Rendu3/Header/var.h ../Rendu3/Bison/expr.hpp ../Rendu3/Bison/expr.tab.hpp ../Rendu3/Header/litt.h ../Rendu3/Header/clause.h ../Rendu3/Header/formule.h ../Rendu3/Header/assignation.h ../Rendu3/Header/global_variables.h ../Rendu3/Header/deduce.h ../Rendu3/Header/decide.h ../Rendu3/Header/backtrack.h ../Rendu3/Header/file_open.h ../Rendu3/Header/global_variable_extern.h ../Rendu3/Header/cast_arg.h .tmp/resol1.0.0/ && $(COPY_FILE) --parents ../Rendu3/Sources/main.cpp ../Rendu3/Sources/var.cpp ../Rendu3/Sources/formule.cpp ../Rendu3/Sources/clause.cpp ../Rendu3/Sources/litt.cpp ../Rendu3/Sources/deduce.cpp ../Rendu3/Sources/decide.cpp ../Rendu3/Sources/backtrack.cpp ../Rendu3/Sources/assignation.cpp ../Rendu3/Sources/file_open.cpp ../Rendu3/Sources/cast_arg.cpp ../Rendu3/Bison/expr.cpp ../Rendu3/Bison/expr.l .tmp/resol1.0.0/ && (cd `dirname .tmp/resol1.0.0` && $(TAR) resol1.0.0.tar resol1.0.0 && $(COMPRESS) resol1.0.0.tar) && $(MOVE) `dirname .tmp/resol1.0.0`/resol1.0.0.tar.gz . && $(DEL_FILE) -r .tmp/resol1.0.0
+	$(COPY_FILE) --parents $(DIST) .tmp/resol1.0.0/ && $(COPY_FILE) --parents ../Rendu3/Bison/expr.l .tmp/resol1.0.0/ && $(COPY_FILE) --parents ../Rendu3/Bison/expr.ypp .tmp/resol1.0.0/ && $(COPY_FILE) --parents ../Rendu3/Header/var.h ../Rendu3/Bison/expr.hpp ../Rendu3/Bison/expr.tab.hpp ../Rendu3/Header/litt.h ../Rendu3/Header/clause.h ../Rendu3/Header/formule.h ../Rendu3/Header/assignation.h ../Rendu3/Header/global_variables.h ../Rendu3/Header/deduce.h ../Rendu3/Header/decide.h ../Rendu3/Header/backtrack.h ../Rendu3/Header/file_open.h ../Rendu3/Header/global_variable_extern.h ../Rendu3/Header/cast_arg.h .tmp/resol1.0.0/ && $(COPY_FILE) --parents ../Rendu3/Sources/main.cpp ../Rendu3/Sources/var.cpp ../Rendu3/Sources/formule.cpp ../Rendu3/Sources/clause.cpp ../Rendu3/Sources/litt.cpp ../Rendu3/Sources/deduce.cpp ../Rendu3/Sources/decide.cpp ../Rendu3/Sources/backtrack.cpp ../Rendu3/Sources/assignation.cpp ../Rendu3/Sources/file_open.cpp ../Rendu3/Sources/cast_arg.cpp ../Rendu3/Bison/expr.cpp ../Rendu3/Bison/expr.l ../Rendu3/Bison/expr.ypp .tmp/resol1.0.0/ && (cd `dirname .tmp/resol1.0.0` && $(TAR) resol1.0.0.tar resol1.0.0 && $(COMPRESS) resol1.0.0.tar) && $(MOVE) `dirname .tmp/resol1.0.0`/resol1.0.0.tar.gz . && $(DEL_FILE) -r .tmp/resol1.0.0
 
 
 clean:compiler_clean 
@@ -317,7 +320,14 @@ compiler_flexsource_clean:
 compiler_bisonsource_make_all: ../Rendu3/Bison/expr.tab.cpp
 compiler_bisonsource_clean:
 	-$(DEL_FILE) ../Rendu3/Bison/expr.tab.cpp
-../Rendu3/Bison/expr.tab.cpp: ../Rendu3/Bison/expr.ypp
+../Rendu3/Bison/expr.tab.cpp: ../Rendu3/Bison/expr.hpp \
+		../Rendu3/Header/litt.h \
+		../Rendu3/Header/global_variable_extern.h \
+		../Rendu3/Header/var.h \
+		../Rendu3/Header/clause.h \
+		../Rendu3/Header/assignation.h \
+		../Rendu3/Header/formule.h \
+		../Rendu3/Bison/expr.ypp
 	bison --report=all -o expr.tab.cpp ../Rendu3/Bison/expr.ypp
 
 compiler_rcc_make_all:
@@ -450,6 +460,15 @@ expr.o: ../Rendu3/Bison/expr.cpp ../Rendu3/Bison/expr.hpp \
 
 expr.o: ../Rendu3/Bison/expr.l ../Rendu3/Bison/expr.tab.hpp
 	$(CC) -c $(CFLAGS) $(INCPATH) -o expr.o ../Rendu3/Bison/expr.l
+
+expr.o: ../Rendu3/Bison/expr.ypp ../Rendu3/Bison/expr.hpp \
+		../Rendu3/Header/litt.h \
+		../Rendu3/Header/global_variable_extern.h \
+		../Rendu3/Header/var.h \
+		../Rendu3/Header/clause.h \
+		../Rendu3/Header/assignation.h \
+		../Rendu3/Header/formule.h
+	$(CC) -c $(CFLAGS) $(INCPATH) -o expr.o ../Rendu3/Bison/expr.ypp
 
 ####### Install
 
