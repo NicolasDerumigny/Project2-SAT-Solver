@@ -35,6 +35,11 @@ void cast_arg(int argc, char** argv){
         if (!strcmp(argv[i],"-dlis"))
                 heuristic=3;
 
+        if (!strcmp(argv[i],"-cl"))
+            clLearning=true;
+        if (!strcmp(argv[i],"-interac"))
+            interactive=true;
+
         if (strlen(argv[i])<1024 and !found){
                      char buf[1024]="";
                      strcpy(buf,argv[i]);

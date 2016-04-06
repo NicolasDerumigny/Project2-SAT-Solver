@@ -33,6 +33,12 @@ bool backtrack(){
                 cin>>command;
                 if (command!="c\n"){
                     if (command=="g\n"){
+                        for(assignation* ass:assignations)
+                                for(var* v2:ass->variable->varConflict){
+                                    ass->variable->print();
+                                    cerr << "induced by";
+                                    v2->print();
+                                }
                         //TODO : create graph !
                     }else if(command=="t\n"){
                         interactive=false;

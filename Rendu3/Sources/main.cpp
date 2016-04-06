@@ -59,7 +59,7 @@ int main(int argc, char** argv) {
 		}
 		
         //deduce
-		while(assignUniqueLitt() or assignUniquePolarity()){
+        while(assignUniqueLitt() || ((!clLearning) && (assignUniquePolarity()) ) ){
             if(verbose2) {
 	            cout<<"\n------------Next step after deduce:-----------------\n";
 	            instance->print();

@@ -29,5 +29,6 @@ extern bool verbose2;
 extern bool timePerf;
 extern bool interactive;
 extern bool verboseParser;
+extern bool clLearning;
 extern char path[1024];
 #endif // GLOBAL_VARIABLE_EXTERN_H

@@ -68,7 +68,7 @@ var* getDlisFreeVar() {
 			if (li->neg == true)
 				track_var[li->variable->id].first += 1;
 			else
-				track_var[li->variable->id].second += 1;
+                track_var[li->variable->id].second += 1;
 		}
 		for (unsigned long varid = 0;varid < v_var.size();varid++) {
 			variables[varid].first += (track_var[varid].first > 0);
