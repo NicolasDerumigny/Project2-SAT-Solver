@@ -2,6 +2,7 @@
 #define DEDUCE_H
 #include <vector>
 #include <utility>
+#include <algorithm>
 #include "formule.h"
 #include "litt.h"
 #include "global_variable_extern.h"

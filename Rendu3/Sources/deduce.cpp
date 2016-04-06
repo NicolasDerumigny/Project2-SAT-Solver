@@ -25,11 +25,13 @@ bool assignUniqueLitt(){
 		                cerr << "\n\n\n";
 		                exit(-1);
 					}
-                    for (litt* li2=cl->f_ElementDead;li2 != nullptr;li2=li2->next_litt)
-                        li->variable->varConflict.push_back(li2->variable);
-                    sort(li->variable->varConflict.begin(), li->variable->varConflict.end());
-                    li->variable->varConflict.erase(std::unique(li->variable->varConflict.begin(), li->variable->varConflict.end()), li->variable->varConflict.end());
-		            if (li->neg == false)
+                    if (interactive){
+                            for (litt* li2=cl->f_ElementDead;li2 != nullptr;li2=li2->next_litt)
+                                li->variable->varConflict.push_back(li2->variable);
+                        sort(li->variable->varConflict.begin(), li->variable->varConflict.end());
+                        li->variable->varConflict.erase(std::unique(li->variable->varConflict.begin(), li->variable->varConflict.end()), li->variable->varConflict.end());
+                    }
+                    if (li->neg == false)
 		                li->variable->assignValue(1,false);
 		            else
 		                li->variable->assignValue(0,false);
@@ -43,7 +45,9 @@ bool assignUniqueLitt(){
 }
 
 bool assignUniquePolarity(){
-	bool haveChanged = false;
+    if (clLearning)
+        fprintf(stderr,"Warning: Unique polarity deduction while learning from clauses");
+    bool haveChanged = false;
     vector<pair<int,int> > variables (v_var.size(), std::make_pair(0,0));
     //vector contenant pour chaque variable une paire (nb_fois_vue_niée,nb_fois_vue_non_niée)
     for (clause* cl=instance->f_ClauseUnsatisfied;cl != nullptr;cl=cl->next_clause)
