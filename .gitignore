@@ -35,4 +35,4 @@ resol
 
 # Temp QT Creator
 *.pro.user*
-build-Rendu2-Desktop-Debug
+build-*
