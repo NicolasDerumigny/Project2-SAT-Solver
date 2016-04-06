@@ -8,14 +8,16 @@ using namespace std;
 
 
 class clause;
+class var;
 
 class formule{
 public:
     void set_formule(int varid, bool neg);
     void set_formule_tseitin(bool neg);
+    void set_formule_var(var* var, bool neg);
     void print();
     void free_formule();
-	void preprocessing();
+    void preprocessing();
 
     clause* f_ClauseSatisfied=nullptr;
     clause* f_ClauseUnsatisfied=nullptr;
