@@ -1,6 +1,7 @@
 #ifndef DEF_EXPR
 #define DEF_EXPR
 
+#include "../Header/var.h"
 #include "../Header/litt.h"
 #include "../Header/clause.h"
 #include "../Header/formule.h"
@@ -21,7 +22,8 @@ public:
     virtual void eval()=0;
     virtual void eval_tseitin()=0;
     formule *form=nullptr;
-	virtual ~Expr(){}
+    var *varRoot=nullptr;
+    virtual ~Expr(){}
 };
 
 /***********************************/

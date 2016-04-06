@@ -1,4 +1,17 @@
 #include "formule.h"
+void formule::set_formule_var(var* var, bool neg){
+    litt* new_litt = new litt;
+    new_litt->set_litt(var, neg);
+    clause* new_clause = new clause;
+    new_clause->set_clause(new_litt);
+    var->clauseInto.push_back(new_clause);
+    this->f_ClauseUnsatisfied = new_clause;
+    this->l_ClauseUnsatisfied = new_clause;
+    this->f_ClauseSatisfied = nullptr;
+    this->l_ClauseSatisfied = nullptr;
+}
+
+
 void formule::set_formule(int varid, bool neg){
     var* new_var=nullptr;
     //Afficher une erreur dans le cas ou la variable n'y est pas ET CONTINUER QUAND MEME
@@ -18,34 +31,15 @@ void formule::set_formule(int varid, bool neg){
     }else{
         new_var=v_var[varid];
     }
-    litt* new_litt;
-    new_litt=new litt;
-    new_litt->set_litt(new_var, neg);
-    clause* new_clause;
-    new_clause = new clause;
-    new_clause->set_clause(new_litt);
-	new_var->clauseInto.push_back(new_clause);
-	this->f_ClauseUnsatisfied = new_clause;
-	this->l_ClauseUnsatisfied = new_clause;
-	this->f_ClauseSatisfied = nullptr;
-    this->l_ClauseSatisfied = nullptr;
+    set_formule_var(new_var, neg);
 }
 
 void formule::set_formule_tseitin(bool neg){
     var* new_var = new var;
     new_var->set_var(v_var_tseitin.size());
     v_var_tseitin.push_back(new_var);
-    litt* new_litt = new litt;
-    new_litt->set_litt(new_var, neg);
-    clause* new_clause = new clause;
-    new_clause->set_clause(new_litt);
-    new_var->clauseInto.push_back(new_clause);
-    this->f_ClauseUnsatisfied = new_clause;
-    this->l_ClauseUnsatisfied = new_clause;
-    this->f_ClauseSatisfied = nullptr;
-    this->l_ClauseSatisfied = nullptr;
+    set_formule_var(new_var, neg);
 }
-
 
 void formule::merge(formule* formule2){
     if (formule2->l_ClauseSatisfied != nullptr){//formule2 n'est pas vide
