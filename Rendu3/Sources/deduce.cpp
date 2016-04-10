@@ -15,7 +15,9 @@ bool assignUniqueLitt(){
 		haveChanged = false;
 		for (clause* cl=instance->f_ClauseUnsatisfied;cl != nullptr;cl=cl->next_clause){
 			if (cl != nullptr){
-		        li = cl->getUniqueLittAlive(); //Amélioration : vérifier si la clause est de la forme {x1 or x1 or ... or x1}, la même variable avec la même polarité... Ou au pire on peut faire du prétraitement de la clause...
+                li = cl->getUniqueLittAlive();
+                //Amélioration : vérifier si la clause est de la forme {x1 or x1 or ... or x1}
+                //la même variable avec la même polarité... Ou au pire on peut faire du prétraitement de la clause...
 		        if (li != nullptr){
 		            if (li->variable->value != -1){
 		                cerr << "Warning: clause contains an assigned litteral that is still alive\n\n";
@@ -33,8 +35,9 @@ bool assignUniqueLitt(){
                     }
                     if (li->neg == false)
 		                li->variable->assignValue(1,false);
-		            else
-		                li->variable->assignValue(0,false);
+                    else{
+                        li->variable->assignValue(0,false);
+                    }
 		            haveChanged = true;
 					break;
 		        }
@@ -42,6 +45,23 @@ bool assignUniqueLitt(){
 		}
 	}
 	return haveChanged;
+}
+
+bool assignNewWatched(){
+    bool changed=false;
+    if(wl){//si on est dans les watched litterals, il faut vérifier que le litteral n'est pas surveillé
+        if (cl->w_litt_1==li or cl->w_litt_2==li){
+            cl->w_litt_1=(cl->w_litt_1==li)?cl->w_litt_2:cl->w_litt_1;
+            //li est maintenant le litteral watched numero 2
+            for(litt* li2=cl->f_ElementAlive;li2!=nullptr; li2=li2->suiv){
+                if (li2!=cl->w_litt_2){
+                    cl->w_litt_2=li2;
+                    changed=true;
+                }
+            }
+        }
+    }
+    return changed;
 }
 
 bool assignUniquePolarity(){

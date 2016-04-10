@@ -30,5 +30,6 @@ extern bool timePerf;
 extern bool interactive;
 extern bool verboseParser;
 extern bool clLearning;
+extern bool wl;
 extern char path[1024];
 #endif // GLOBAL_VARIABLE_EXTERN_H

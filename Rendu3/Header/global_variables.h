@@ -25,6 +25,7 @@ bool timePerf=false;
 bool interactive=false;
 bool verboseParser=false;
 bool clLearning=false;
+bool wl=false;
 int heuristic=0;
 char path[1024]="";
 //valeur de base des arguments
