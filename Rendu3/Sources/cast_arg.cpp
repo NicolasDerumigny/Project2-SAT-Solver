@@ -14,6 +14,17 @@ void cast_arg(int argc, char** argv){
 			verbose=true;
 		}
 
+        if (!strcmp(argv[i],"-vvp")){
+            verbose2=true;
+            verbose=true;
+            verboseParser=true;
+        }
+
+
+        if (!strcmp(argv[i],"-vp")){
+            verboseParser=true;
+        }
+
         if (!strcmp(argv[i],"-time"))
             timePerf=true;
 

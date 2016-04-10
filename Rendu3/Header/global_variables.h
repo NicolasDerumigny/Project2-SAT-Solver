@@ -23,6 +23,7 @@ bool verbose=false;
 bool verbose2=false;
 bool timePerf=false;
 bool interactive=false;
+bool verboseParser=false;
 bool clLearning=false;
 int heuristic=0;
 char path[1024]="";

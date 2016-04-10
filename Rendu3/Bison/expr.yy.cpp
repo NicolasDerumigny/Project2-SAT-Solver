@@ -515,7 +515,7 @@ char *yytext;
 using namespace std;
 #define YY_DECL extern "C" int yylex()
 #include "expr.tab.hpp"
-extern bool verbose;
+extern bool verboseParser;
 #line 520 "Bison/expr.yy.cpp"
 
 #define INITIAL 0
@@ -805,58 +805,58 @@ YY_RULE_SETUP
 case 3:
 YY_RULE_SETUP
 #line 19 "Bison/expr.l"
-{ if (verbose) cout<<"Left par\n"; return TK_LPAREN; }
+{ if (verboseParser) cerr<<"Left par\n"; return TK_LPAREN; }
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
 #line 20 "Bison/expr.l"
-{ if (verbose) cout<<"Right par\n"; return TK_RPAREN; }
+{ if (verboseParser) cerr<<"Right par\n"; return TK_RPAREN; }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
 #line 21 "Bison/expr.l"
-{ if (verbose) cout<<"And\n"; return TK_CONJ;   }
+{ if (verboseParser) cerr<<"And\n"; return TK_CONJ;   }
 	YY_BREAK
 case 6:
 /* rule 6 can match eol */
 YY_RULE_SETUP
 #line 22 "Bison/expr.l"
-{ if (verbose) cout<<"Conj\n"; return TK_CONJ;   }
+{ if (verboseParser) cerr<<"Conj\n"; return TK_CONJ;   }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
 #line 23 "Bison/expr.l"
-{ if (verbose) cout<<"Disj\n"; return TK_DISJ;   }
+{ if (verboseParser) cerr<<"Disj\n"; return TK_DISJ;   }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
 #line 24 "Bison/expr.l"
-{ if (verbose) cout<<"Xor\n"; return TK_XOR;    }
+{ if (verboseParser) cerr<<"Xor\n"; return TK_XOR;    }
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
 #line 25 "Bison/expr.l"
-{ if (verbose) cout<<"Imply\n"; return TK_IMPLY;  }
+{ if (verboseParser) cerr<<"Imply\n"; return TK_IMPLY;  }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
 #line 26 "Bison/expr.l"
-{ if (verbose) cout<<"Equivalent\n"; return TK_EQ;     }
+{ if (verboseParser) cerr<<"Equivalent\n"; return TK_EQ;     }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
 #line 27 "Bison/expr.l"
-{ if (verbose) cout<<"Disj\n"; return TK_DISJ;   }
+{ if (verboseParser) cerr<<"Disj\n"; return TK_DISJ;   }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
 #line 28 "Bison/expr.l"
-{ if (verbose) cout<<"Negated expression\n"; return TK_ENOT;   }
+{ if (verboseParser) cerr<<"Negated expression\n"; return TK_ENOT;   }
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
 #line 29 "Bison/expr.l"
-{ if (verbose) cout<<"Negated variable\n"; return TK_VNOT;   }
+{ if (verboseParser) cerr<<"Negated variable\n"; return TK_VNOT;   }
 	YY_BREAK
 case 14:
 /* rule 14 can match eol */
