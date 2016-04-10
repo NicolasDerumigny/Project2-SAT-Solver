@@ -19,8 +19,8 @@ extern vector<var*> v_var_tseitin;
 
 extern formule * instance;
 //une formule pour les gouverner tous
-extern clock_t checkpoint;
 
+extern clock_t checkpoint;
 
 extern int heuristic;
 extern bool isTseitin;

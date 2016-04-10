@@ -28,7 +28,7 @@ Générateur aléatoire de formules :
 
 ./Rendu1/Examples/generate_cnf.sh
 
-usage : generate_cnf.sh [nombre de variables] [nombre de clauses] [nombre max de littéraux par clauses] ([non-rand])
+usage : generate_cnf.sh [nombre de variables] [nombre de clauses] [nombre max de littéraux par clauses] ([non-rand | tseitin])
 
 L'ajout aléatoire de commentaires n'a pas été pris en compte (par manque de générateur aléatoire de phrases installé par défaut sur les machines libre-service).
 L'option non-rand permet de fixer le nombre de littéraux par clause, utile pour les tests de performance.
@@ -41,7 +41,7 @@ Ce programme évalue le fichier à l'aide de bison/flex : et construit au fur et
 - Des objets de type formules, contenants des objets de types clauses séparées en satisfaites et insatisfaites
 - Des objets de type clauses, contenant des objets de types littéraux séparées en vivants et morts, et un id unique par clause
 - Des objets de type littéraux, contenant un pointeur vers un objet de type variable et un bouléen désignant si la variable est niée ou non
-- Des objets de type variables, contenant leur numéro et leur affectation (vrai/faux/non attribuée), ainsi qu'un vector de pointeur vers les clauses le contenant
+- Des objets de type variables, contenant leur numéro et leur affectation (vrai/faux/non attribuée), ainsi qu'un vector de pointeurs vers les clauses le contenant et un vector représentant les conflits (pointeur vers les variables qui l'impliquent)
 - Des objets de type assignation, contenant une variable et si sa valeur est un pari ou non
 
 Une fonction d'affichage de la sortie bison est implémentée au moyen da la méthode to_string()

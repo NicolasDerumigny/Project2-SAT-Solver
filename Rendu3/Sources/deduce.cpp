@@ -26,8 +26,8 @@ bool assignUniqueLitt(){
 		                exit(-1);
 					}
                     if (interactive){
-                            for (litt* li2=cl->f_ElementDead;li2 != nullptr;li2=li2->next_litt)
-                                li->variable->varConflict.push_back(li2->variable);
+                        for (litt* li2=cl->f_ElementDead;li2 != nullptr;li2=li2->next_litt)
+                            li->variable->varConflict.push_back(li2->variable);
                         sort(li->variable->varConflict.begin(), li->variable->varConflict.end());
                         li->variable->varConflict.erase(std::unique(li->variable->varConflict.begin(), li->variable->varConflict.end()), li->variable->varConflict.end());
                     }
