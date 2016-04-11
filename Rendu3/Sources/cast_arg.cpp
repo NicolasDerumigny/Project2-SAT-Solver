@@ -37,8 +37,12 @@ void cast_arg(int argc, char** argv){
 
         if (!strcmp(argv[i],"-cl"))
             clLearning=true;
+
         if (!strcmp(argv[i],"-interac"))
             interactive=true;
+
+        if (!strcmp(argv[i],"-wl"))
+            wl=true;
 
         if (strlen(argv[i])<1024 and !found){
                      char buf[1024]="";
@@ -46,11 +50,15 @@ void cast_arg(int argc, char** argv){
                      reverse(buf, &buf[strlen(buf)]);
                      if(!strncmp(buf,"fnc.",4)){
                          strcpy(path,argv[i]);
+                         found=true;
                      }
                      if(!strncmp(buf,"rof.",4)){
                          strcpy(path,argv[i]);
+                         found=true;
                      }
-                     found=true;
         }
+
+
+
     }
 }

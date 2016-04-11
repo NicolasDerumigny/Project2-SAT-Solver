@@ -208,4 +208,19 @@ void formule::preprocessing() {
 			v->clauseInto.erase(std::unique(v->clauseInto.begin(), v->clauseInto.end()), v->clauseInto.end());
 		}
 	}
+
+
+
+    /* -------- Watched Litterals -------- */
+    if(wl){
+        for(clause* cl=instance->f_ClauseUnsatisfied; cl!=nullptr; cl=cl->suiv){
+            if(cl->f_ElementAlive != cl->f_ElementDead){
+                cl->w_litt_1=cl->f_ElementAlive;
+                cl->w_litt_2=cl->f_ElementAlive->suiv;
+            }else{
+                cerr<<"Error : can't apply watched litterals method : returning to normal state"<<end;
+                wl=false;
+            }
+        }
+    }
 }

@@ -137,35 +137,30 @@ void clause::free_clause(){
 }
 
 bool clause::isSatisfied(){
-    for(litt* course=this->f_ElementDead;course!=nullptr;course=course->next_litt){
-        if (course->neg){
-            if (course->variable->value==0){
-                return true;
-            }
-        }else{
-            if (course->variable->value==1){
-                return true;
-            }
-        }
-    }
-//Si la clause est vide on renvoie bien qu'elle est insatisfiable
-
-
-    /*for (auto& s:this->mElementDead)
-        if (s.second != nullptr){
-            if (s.second->neg){
-                //si nié, le litt est vraie si la variable est à 0
-                if (s.second->variable->value==0){
+    if(wl){
+        if(this->w_litt_1->variable->value==0 and this->w_litt_1->neg==true)
+            return true;
+        if(this->w_litt_1->variable->value==1 and this->w_litt_1->neg==false)
+            return true;
+        if(this->w_litt_2->variable->value==0 and this->w_litt_2->neg==true)
+            return true;
+        if(this->w_litt_2->variable->value==1 and this->w_litt_2->neg==false)
+            return true;
+        return false;
+    }else{
+        for(litt* course=this->f_ElementDead;course!=nullptr;course=course->next_litt){
+            if (course->neg){
+                if (course->variable->value==0){
                     return true;
                 }
             }else{
-                //si non nié, le litt est vrai si une variable est à 1
-                if (s.second->variable->value==1){
+                if (course->variable->value==1){
                     return true;
                 }
             }
-        }*/
-    return false;
+        }
+        return false;
+    }
 }
 
 void removeClause(clause **first_cl,clause **last_cl,clause *cur_cl,clause *prev_cl) {

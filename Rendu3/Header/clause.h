@@ -24,8 +24,8 @@ public:
     litt* f_ElementDead=nullptr;//premier de la liste chainée
     litt* l_ElementDead=nullptr;//dernier de la liste chainée
 
-    //map<unsigned int,litt*> mElementAlive;
-    //map<unsigned int,litt*> mElementDead;
+    litt* w_litt_1=nullptr;
+    litt* w_litt_2=nullptr;
 };
 
 void removeClause(clause **first_cl,clause **last_cl,clause *cur_cl,clause *prev_cl);
