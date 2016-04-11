@@ -5,7 +5,7 @@
 #include "assignation.h"
 
 
-bool check();
-bool backtrack();
+clause* getConflict();
+bool backtrack(clause *cl_Conflict);
 
 #endif // BACKTRACK_H

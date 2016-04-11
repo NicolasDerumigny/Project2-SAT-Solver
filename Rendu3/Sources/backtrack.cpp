@@ -1,20 +1,20 @@
 #include "backtrack.h"
 
 
-bool check(){//renvoie false si il existe une clause insatisfaite qui n'a plus de littéraux vivants (formule insatisfiable)
+clause* getConflict(){//renvoie (si elle existe) un pointeur vers une clause insatisfaite qui n'a plus de littéraux vivants (formule insatisfiable), ou nullptr sinon.
 	for (clause* cl=instance->f_ClauseUnsatisfied;cl != nullptr;cl=cl->next_clause)
         if (cl->nbLittAlive()==0)
-			return false;
+            return cl;
 //    for (auto& s:instance->mClauseUnsatisfied){
 //        if (s.second != nullptr and s.second->nbLittAlive()==0){
 //            return false;
 //        }
 //    }
-    return true;
+    return nullptr;
 }
 
 
-bool backtrack(){
+bool backtrack(clause* cl_Conflict){
     //renvoie false si le backtrack n'as pas marché
     //-> plus de retour en arrière possible
     //rappel : assignations et instance sont globales
@@ -43,6 +43,12 @@ bool backtrack(){
                         fprintf(stderr,"%i -> %i;\n",v2->id,ass->variable->id);
                     }
                 }
+                //On affiche le conflict
+                fprintf(stderr,"conflict [fillcolor=lightred];\n");
+                //On affiche les liaisons avec les variables responsables du conflit
+                for(litt* li = cl_Conflict->f_ElementDead;li != nullptr;li = li->next_litt)
+                    fprintf(stderr,"%i -> conflict;\n",li->variable->id);
+                fprintf(stderr,"}\n");
                 //TODO : discuss data structure implementation
                 //TODO : create graph !
             }else if(command=="t\n"){

@@ -6,7 +6,7 @@ Pour compiler, lancer
 make
 
 Pour exécuter le programme, lancer
-./resol FichierSource.cnf [-v] [-time] [moms | rand | dlis]
+./resol FichierSource.cnf [-v | -vv] [-time] [-moms | -rand | -dlis] [-tseitin] [-cl]
 
 Le fichier source doit être de la forme :
 
@@ -32,6 +32,7 @@ usage : generate_cnf.sh [nombre de variables] [nombre de clauses] [nombre max de
 
 L'ajout aléatoire de commentaires n'a pas été pris en compte (par manque de générateur aléatoire de phrases installé par défaut sur les machines libre-service).
 L'option non-rand permet de fixer le nombre de littéraux par clause, utile pour les tests de performance.
+L'option tseitin permet de générer des tests pour tseitin (opérateurs choisis aléatoirement parmi : 'X' '\/' '/\' '=>' '<=>' '~' ' ').
 
 -------------
 
@@ -54,6 +55,8 @@ Trois variables globales sont déclarées dans global_variable :
 
 L'ensemble des fonctions des parse, de gestion de l'annalyse syntaxique et de formattage du texte entré est dans file_open.cpp.
 
+L'instance est pré-traitée juste avant de commencer l'algorithme DPLL.
+
 -------------
 
 Améliorations :
@@ -64,7 +67,9 @@ On gère mal des commentaires ne commençant pas par 'c'.
 
 Pré-traiter les entrées. (en particulier, gérer la mise à jour de clauseInto des clauses supprimées, voire gérer le linkage (clauseInto) avec le prétraitement). Majoritairement traité !
 
-Improve assignUniquePolarity, if non(x1) et x1 dans clauses.
+Improve assignUniquePolarity, if non(x1) et x1 dans clauses. (Traité dans le prétraitement).
+
+Créer un script de test général gérant aussi les performances.
 
 -------------
 

@@ -42,6 +42,8 @@ int main(int argc, char** argv) {
 	else if (heuristic == 3)
 		new_var = getDlisFreeVar();
 
+    clause* cl_conflict = nullptr;
+
     while(new_var!=nullptr){
 		//decide (suite)
 		new_var->assignValue(1,true);
@@ -85,8 +87,9 @@ int main(int argc, char** argv) {
 		}
 
         //backtrack
-        while(!check()){
-            if(!backtrack()){
+        cl_conflict = getConflict();
+        while(cl_conflict != nullptr){
+            if(!backtrack(cl_conflict)){
                 if (verbose){
 					fprintf(stderr,"heap of assignations : [var_id,bet,value]\n");
 					for (auto& ass:assignations)
@@ -101,6 +104,7 @@ int main(int argc, char** argv) {
                 }
                 return 0;
             }
+            cl_conflict=getConflict();
         }
 		
 		if(verbose2) {
