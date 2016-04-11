@@ -71,6 +71,8 @@ Improve assignUniquePolarity, if non(x1) et x1 dans clauses. (Traité dans le pr
 
 Créer un script de test général gérant aussi les performances.
 
+Commencer DPLL par les décuctions possibles (implique de revoir backtrack...)
+
 -------------
 
 Répartition du travail :

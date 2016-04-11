@@ -20,38 +20,54 @@ bool backtrack(clause* cl_Conflict){
     //rappel : assignations et instance sont globales
     if(interactive){
         string command;
+        cout<<"Backtrack breakpoint, enter a command: ";
         cin>>command;
-        if (command!="c\n"){
+        if (command!="c"){
             if (command=="g"){
-                fprintf(stderr,"digraph conflict {\nnode [style=\"filled,rounded\",shape=circle,fillcolor=white];\n");
+                FILE* graph_file = fopen("./graph.dot","w");
+                if (graph_file == nullptr){
+                    perror("Warning: Unable to write conflict graph");
+                    fprintf(stderr,"Outputting graph on stderr\n");
+                    graph_file = nullptr;
+                }
+                var* var_decided = nullptr;
+                fprintf(graph_file,"digraph conflict {\nnode [style=\"filled,rounded\",shape=circle,fillcolor=white];\n");
                 for(assignation* ass:assignations){
                     //On affiche la variable du niveau courant
-                    fprintf(stderr,"%i [label=<",ass->variable->id);
+                    fprintf(graph_file,"%i [label=<",ass->variable->id);
                     if (ass->variable->value == 0)
-                        fprintf(stderr,"¬");
-                    fprintf(stderr,"p<SUB>%i</SUB>",ass->variable->id);
-                    if (ass->bet == 1)
-                        fprintf(stderr,"<SUP>d</SUP>");
-                    fprintf(stderr,">,fillcolor=lightblue];\n");
+                        fprintf(graph_file,"¬");
+                    fprintf(graph_file,"p<SUB>%i</SUB>",ass->variable->id);
+                    if (ass->bet == 1){
+                        fprintf(graph_file,"<SUP>d</SUP>");
+                        var_decided = ass->variable;
+                    }
+                    fprintf(graph_file,">,fillcolor=lightblue];\n");
                     //On l'affiche alors en bleu
                     for(var* v2:ass->variable->varConflict){
                         //On affiche la variable à l'origine de la déduction
-                        fprintf(stderr,"%i [label=<",v2->id);
+                        fprintf(graph_file,"%i [label=<",v2->id);
                         if (v2->value == 0)
-                            fprintf(stderr,"¬");
-                        fprintf(stderr,"p<SUB>%i</SUB>>];\n",v2->id);
-                        fprintf(stderr,"%i -> %i;\n",v2->id,ass->variable->id);
+                            fprintf(graph_file,"¬");
+                        fprintf(graph_file,"p<SUB>%i</SUB>",v2->id);
+                        if (v2 == var_decided)
+                            fprintf(graph_file,"<SUP>d</SUP>>];\n");
+                        else
+                            fprintf(graph_file,">];\n");
+                        fprintf(graph_file,"%i -> %i;\n",v2->id,ass->variable->id);
                     }
                 }
                 //On affiche le conflict
-                fprintf(stderr,"conflict [fillcolor=lightred];\n");
+                fprintf(graph_file,"conflict [fillcolor=red];\n");
                 //On affiche les liaisons avec les variables responsables du conflit
                 for(litt* li = cl_Conflict->f_ElementDead;li != nullptr;li = li->next_litt)
-                    fprintf(stderr,"%i -> conflict;\n",li->variable->id);
-                fprintf(stderr,"}\n");
+                    fprintf(graph_file,"%i -> conflict;\n",li->variable->id);
+                fprintf(graph_file,"}\n");
+                if (fclose(graph_file) != 0)
+                    perror("Warning: Unable to close the conflict graph file, possible I/O errors incoming");
                 //TODO : discuss data structure implementation
                 //TODO : create graph !
-            }else if(command=="t\n"){
+            }else if(command=="t"){
                 interactive=false;
             }else
                 cerr<<"No valid command found, continuing anyway"<<endl;

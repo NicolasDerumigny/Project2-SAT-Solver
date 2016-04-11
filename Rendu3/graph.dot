@@ -1,0 +1,6 @@
+digraph conflict {
+node [style="filled,rounded",shape=circle,fillcolor=white];
+1 [label=<¬p<SUB>1</SUB>>,fillcolor=lightblue];
+conflict [fillcolor=red];
+1 -> conflict;
+}
