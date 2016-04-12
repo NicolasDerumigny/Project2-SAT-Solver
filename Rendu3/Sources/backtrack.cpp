@@ -78,7 +78,7 @@ bool backtrack(clause* cl_Conflict){
                         perror("Warning: unable to convert graph");
                     }*/
                     if (system("dot -Tps:cairo graph.dot -o graph.ps") != 0)
-                        fprintf(stderr,"Warning: unable to convert conflict graph\n");
+                        fprintf(stderr,"Warning: unable to convert conflict graph. Maybe dot is not installed\nTo solve it, run: sudo apt-get install graphviz\n");
                     else
                         if (system("evince graph.ps 2> /dev/null &") != 0)
                             fprintf(stderr,"Warning: unable to display graph. Maybe evince is not installed\nTo solve it, run: sudo apt-get install evince\n");
