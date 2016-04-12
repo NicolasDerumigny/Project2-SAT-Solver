@@ -91,7 +91,7 @@ bool backtrack(clause* cl_Conflict){
     }
     int i=assignations.size()-1;
     bool hasChanged=false;
-    while (i>=0){
+    while ((i>=0) && (!hasChanged)){
         if (assignations[i]->bet==false){
             assignations[i]->variable->value=-1;
             assignations[i]->updateStatus(true);
