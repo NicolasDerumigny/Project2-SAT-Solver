@@ -194,6 +194,7 @@ clause* clause::copy(){
     bool first=true;
     for(litt* li=this->f_ElementAlive;li!=nullptr;li=li->next_litt){
         litt* new_litt=li->copy();
+        li->variable->clauseInto.push_back(new_clause);
 
         if (this->w_litt_1==li)
             new_clause->w_litt_1=new_litt;
@@ -207,11 +208,13 @@ clause* clause::copy(){
         }else{
             new_clause->l_ElementAlive->next_litt=new_litt;
             new_clause->l_ElementAlive=new_litt;
+        }
     }
 
 
     for(litt* li=this->f_ElementDead;li!=nullptr;li=li->next_litt){
         litt* new_litt=li->copy();
+        li->variable->clauseInto.push_back(new_clause);
 
         if (this->w_litt_1==li)
             new_clause->w_litt_1=new_litt;
@@ -224,5 +227,8 @@ clause* clause::copy(){
         }else{
             new_clause->l_ElementDead->next_litt=new_litt;
             new_clause->l_ElementDead=new_litt;
+        }
     }
+
+    return new_clause;
 }
