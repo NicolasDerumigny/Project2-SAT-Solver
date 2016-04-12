@@ -26,7 +26,10 @@ bool assignUniqueLitt(){
                     cerr << "\n\n\n";
                     exit(-1);
                 }
-
+                /*if (clLearning){
+                    li->variable->clConflict = cl;
+                    li->variable->
+                }*/
                 if (interactive){
                     for (litt* li2=cl->f_ElementDead;li2 != nullptr;li2=li2->next_litt)
                         li->variable->varConflict.push_back(li2->variable);

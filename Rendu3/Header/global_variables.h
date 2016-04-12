@@ -7,6 +7,7 @@ class var;
 class formule;
 
 vector<assignation*> assignations;
+int level_cur = 0;
 //création du vector qui contient les assignations réalisées
 
 vector<var*> v_var;

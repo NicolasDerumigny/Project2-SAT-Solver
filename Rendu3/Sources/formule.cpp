@@ -205,6 +205,7 @@ void formule::preprocessing() {
 				li->variable->clauseInto.erase(std::remove(li->variable->clauseInto.begin(), li->variable->clauseInto.end(), cl), li->variable->clauseInto.end());
 			}
 			cl->free_clause();
+            delete cl;
 			if (cl_prev != nullptr)
 				cl = cl_prev;//On évite de casser la chaîne de parcours de la boucle for...
 			else if (this->f_ClauseUnsatisfied != nullptr){
