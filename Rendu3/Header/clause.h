@@ -16,6 +16,7 @@ public:
     int nbLittAlive();
     litt* getUniqueLittAlive();
     bool existsWatchedNonAlive();
+    clause* copy();
     void free_clause();
 
     clause* next_clause = nullptr;

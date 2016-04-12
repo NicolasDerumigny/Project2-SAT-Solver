@@ -12,6 +12,7 @@ public:
     void set_litt(var* var_entry, bool neg);
     void print();
     void free_litt();
+    litt* copy();
 
     var* variable;
     bool neg;

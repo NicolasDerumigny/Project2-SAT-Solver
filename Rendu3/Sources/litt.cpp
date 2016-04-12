@@ -17,6 +17,12 @@ void litt::print(){
     }
 }
 
+litt* litt::copy(){
+    litt* new_litt=new litt;
+    new_litt->set_litt(this->variable,this->neg);
+    return new_litt;
+}
+
 void removeLitt(litt **first_li,litt **last_li,litt *cur_li,litt *prev_li) {
     if (cur_li == *first_li){//On est au début de la liste
         *first_li = cur_li->next_litt;
