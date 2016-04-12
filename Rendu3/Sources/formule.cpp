@@ -212,15 +212,15 @@ void formule::preprocessing() {
 
 
     /* -------- Watched Litterals -------- */
-    /*if(wl){
-        for(clause* cl=instance->f_ClauseUnsatisfied; cl!=nullptr; cl=cl->suiv){
+    if(wl){
+        for(clause* cl=instance->f_ClauseUnsatisfied; cl!=nullptr; cl=cl->next_clause){
             if(cl->f_ElementAlive != cl->f_ElementDead){
                 cl->w_litt_1=cl->f_ElementAlive;
-                cl->w_litt_2=cl->f_ElementAlive->suiv;
+                cl->w_litt_2=cl->f_ElementAlive->next_litt;
             }else{
-                cerr<<"Error : can't apply watched litterals method : returning to normal state"<<end;
+                cerr<<"Error : can't apply watched litterals method : returning to normal state"<<endl;
                 wl=false;
             }
         }
-    }*/
+    }
 }

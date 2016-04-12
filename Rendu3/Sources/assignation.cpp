@@ -13,7 +13,8 @@ void assignation::updateLitt(bool alive){
         if (alive == false) { //si on tue une variable, on recherche les littéraux associés dans les éléments vivants et on les transfères vers les morts.
             li_need_back = false;
 			li_prev = nullptr;
-            for (litt* li = cl->f_ElementAlive;li != nullptr or li_need_back;li=li->next_litt){//si un littéral (donc la variable) est déjà mort on ne fait rien.
+            for (litt* li = cl->f_ElementAlive;li != nullptr or li_need_back;li=li->next_litt){
+                //si un littéral (donc la variable) est déjà mort on ne fait rien.
                 if (li_need_back){
 					li=li_prev;
 					li_prev=nullptr;
@@ -84,23 +85,22 @@ void assignation::updateClause(bool alive){
 					cl_need_back = false;
 				}
 				if (cl2 == cl)
-					if (cl2->isSatisfied()){//on enlève cl2 de la liste simplement chainée des clauses non satisfaites, puis on l'ajoute aux clauses satisfaites
+                    if (cl2->isSatisfied()){
+                        //on enlève cl2 de la liste simplement chainée des clauses non satisfaites, puis on l'ajoute aux clauses satisfaites
                         removeClause(&instance->f_ClauseUnsatisfied,&instance->l_ClauseUnsatisfied,cl2,cl_prev);
                         appendClause(&instance->f_ClauseSatisfied,&instance->l_ClauseSatisfied,cl2);
 						if (cl_prev != nullptr)
-							cl2 = cl_prev;//On évite de casser la chaîne de parcours de la boucle for...
+                            cl2 = cl_prev;
+                        //On évite de casser la chaîne de parcours de la boucle for...
 						else if (instance->f_ClauseUnsatisfied != nullptr){
 							cl2 = instance->f_ClauseUnsatisfied;
 							cl_need_back = true;
 						} else//there is nothing left
 							break;
-					}
+                    }
 				cl_prev = cl2;
-			}
-//            if (instance->mClauseUnsatisfied[cl->id] != nullptr and cl->isSatisfied()) {//si la clause est déjà satisfaite on ne fait rien
-//                instance->mClauseSatisfied[cl->id] = instance->mClauseUnsatisfied[cl->id];
-//                instance->mClauseUnsatisfied[cl->id] = nullptr;
-//            }
+            }
+
         } else {
             //et réciproquement...
 			cl_need_back = false;

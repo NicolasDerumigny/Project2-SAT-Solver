@@ -26,7 +26,8 @@ bool assignUniqueLitt(){
 		                cl->print();
 		                cerr << "\n\n\n";
 		                exit(-1);
-					}
+                    }
+
                     if (interactive){
                         for (litt* li2=cl->f_ElementDead;li2 != nullptr;li2=li2->next_litt)
                             li->variable->varConflict.push_back(li2->variable);
@@ -47,22 +48,20 @@ bool assignUniqueLitt(){
 	return haveChanged;
 }
 
-/*bool assignNewWatched(){
+bool assignNewWatched(clause * cl, litt* li){
     bool changed=false;
-    if(wl){//si on est dans les watched litterals, il faut vérifier que le litteral n'est pas surveillé
-        if (cl->w_litt_1==li or cl->w_litt_2==li){
-            cl->w_litt_1=(cl->w_litt_1==li)?cl->w_litt_2:cl->w_litt_1;
-            //li est maintenant le litteral watched numero 2
-            for(litt* li2=cl->f_ElementAlive;li2!=nullptr; li2=li2->suiv){
-                if (li2!=cl->w_litt_2){
-                    cl->w_litt_2=li2;
-                    changed=true;
-                }
+    if (cl->w_litt_1==li or cl->w_litt_2==li){
+        cl->w_litt_1=(cl->w_litt_1==li)?cl->w_litt_2:cl->w_litt_1;
+        //li est maintenant le litteral watched numero 2
+        for(litt* li2=cl->f_ElementAlive;li2!=nullptr; li2=li2->next_litt){
+            if (li2!=cl->w_litt_2){
+                cl->w_litt_2=li2;
+                changed=true;
             }
         }
     }
     return changed;
-}*/
+}
 
 bool assignUniquePolarity(){
     if (clLearning)
