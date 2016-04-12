@@ -11,6 +11,5 @@ using namespace std;
 bool assignUniqueLitt();
 bool assignUniquePolarity();
 bool assignUnique();
-bool assignNewWatched(clause * cl, litt* li);
 
 #endif // DEDUCE_H

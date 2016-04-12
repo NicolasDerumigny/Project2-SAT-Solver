@@ -23,14 +23,17 @@ void assignation::updateLitt(bool alive){
                 if (li->variable == this->variable) {
                     removeLitt(&cl->f_ElementAlive,&cl->l_ElementAlive,li,li_prev);
                     appendLitt(&cl->f_ElementDead,&cl->l_ElementDead,li);
+                    assignNewWatched(cl,li);
 					if (li_prev != nullptr)
 						li = li_prev;//On évite de casser la chaîne de parcours de la boucle for...
 					else if (cl->f_ElementAlive != nullptr){//on est au début
 						li = cl->f_ElementAlive;
 						li_need_back = true;
 					} else//there is nothing left
-						break;
+                        break;
                 }
+                //renvoie false si on n'a pas trouvé d'autre litteral possible
+                //cependant, si rien n'a été trouvé, on fera bien le backtrack
 				li_prev = li;
 			}
 //			for (auto& li:cl->mElementAlive)//si un littéral (donc la variable) est déjà mort on ne fait rien.
@@ -125,12 +128,29 @@ void assignation::updateClause(bool alive){
 					}
 				cl_prev = cl2;
 			}
-//            if (instance->mClauseSatisfied[cl->id] != nullptr and !cl->isSatisfied()) {
-//                instance->mClauseUnsatisfied[cl->id] = instance->mClauseSatisfied[cl->id];
-//                instance->mClauseSatisfied[cl->id] = nullptr;
-//            }
+        if (cl->existsWatchedNonAlive())
+            cerr<<"Error : There exist false watched litterals in an alive clause"<<endl;
         }
 }
+
+
+
+bool assignation::assignNewWatched(clause * cl, litt* li){
+    bool changed=false;
+    if (cl->w_litt_1==li or cl->w_litt_2==li){
+        cl->w_litt_1=(cl->w_litt_1==li)?cl->w_litt_2:cl->w_litt_1;
+        //li est maintenant le litteral watched numero 2
+        for(litt* li2=cl->f_ElementAlive;li2!=nullptr; li2=li2->next_litt){
+            if (li2!=cl->w_litt_1){
+                cl->w_litt_2=li2;
+                changed=true;
+                break;
+            }
+        }
+    }
+    return changed;
+}
+
 
 void assignation::updateStatus(bool alive){
     this->updateLitt(alive);

@@ -123,6 +123,20 @@ void formule::free_formule(){
 
 /* ----------- formula preprocessing --------------- */
 void formule::preprocessing() {
+    /* -------- Watched Litterals -------- */
+    if(wl){
+        for(clause* cl=instance->f_ClauseUnsatisfied; cl!=nullptr; cl=cl->next_clause){
+            if(cl->f_ElementAlive != cl->l_ElementAlive){
+                cl->w_litt_1=cl->f_ElementAlive;
+                cl->w_litt_2=cl->f_ElementAlive->next_litt;
+            }else{
+                cerr<<"Error : can't apply watched litterals method : returning to normal state"<<endl;
+                wl=false;
+                break;
+            }
+        }
+    }
+
 	//la détection des clauses unitaires se fait via la function assignUniqueLitt() de deduce.cpp
 	//élimination des doublons (vivants) et des clauses tautologiques (non satisfaites)
 	vector<pair<int,int> > variables (v_var.size(), std::make_pair(0,0));
@@ -208,19 +222,4 @@ void formule::preprocessing() {
 			v->clauseInto.erase(std::unique(v->clauseInto.begin(), v->clauseInto.end()), v->clauseInto.end());
 		}
 	}
-
-
-
-    /* -------- Watched Litterals -------- */
-    if(wl){
-        for(clause* cl=instance->f_ClauseUnsatisfied; cl!=nullptr; cl=cl->next_clause){
-            if(cl->f_ElementAlive != cl->f_ElementDead){
-                cl->w_litt_1=cl->f_ElementAlive;
-                cl->w_litt_2=cl->f_ElementAlive->next_litt;
-            }else{
-                cerr<<"Error : can't apply watched litterals method : returning to normal state"<<endl;
-                wl=false;
-            }
-        }
-    }
 }
