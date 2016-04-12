@@ -7,6 +7,8 @@
 
 
 clause* getConflict();
-bool backtrack(clause *cl_Conflict);
+bool backtrack();
+bool conflictAnal(clause *cl_Conflict);
+clause* getUIPClause(clause *cl_Conflict);
 
 #endif // BACKTRACK_H

@@ -89,7 +89,7 @@ int main(int argc, char** argv) {
         //backtrack
         cl_conflict = getConflict();
         while(cl_conflict != nullptr){
-            if(!backtrack(cl_conflict)){
+            if( ((clLearning) && (!conflictAnal(cl_conflict))) || ((!clLearning) && (!backtrack())) ){
                 if (verbose){
 					fprintf(stderr,"heap of assignations : [var_id,bet,value]\n");
 					for (auto& ass:assignations)

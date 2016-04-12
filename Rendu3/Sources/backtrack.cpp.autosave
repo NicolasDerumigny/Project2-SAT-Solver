@@ -124,5 +124,5 @@ bool conflictAnal(clause* cl_Conflict){//Renvoie false si l'analyse de conflit n
 }
 
 clause* getUIPClause(clause *cl_Conflict){
-
+    
 }
