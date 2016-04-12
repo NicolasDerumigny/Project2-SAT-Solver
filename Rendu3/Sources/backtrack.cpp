@@ -24,6 +24,7 @@ bool backtrack(clause* cl_Conflict){
         cin>>command;
         if (command!="c"){
             if (command=="g"){
+//                getUIP
                 FILE* graph_file = fopen("./graph.dot","w");
                 if (graph_file == nullptr){
                     perror("Warning: Unable to write conflict graph");
