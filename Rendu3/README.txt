@@ -113,6 +113,7 @@ Nicolas D. :
 - backtrack.cpp
 - Tseitin
 - Littéraux surveillés
+- Fonctions mineurs dans les apprentissages de clauses (copie)
 
 Ruben S. :
 - deduce.cpp
