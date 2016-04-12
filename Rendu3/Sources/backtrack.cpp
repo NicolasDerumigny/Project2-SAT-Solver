@@ -90,8 +90,8 @@ bool backtrack(clause* cl_Conflict){
         }
     }
     int i=assignations.size()-1;
-    bool hasChanged=false;
-    while ((i>=0) && (!hasChanged)){
+    int level_back = 0;
+    while ((i>=0) && (level_back == 0)){
         if (assignations[i]->bet==false){
             assignations[i]->variable->value=-1;
             assignations[i]->updateStatus(true);
@@ -103,7 +103,7 @@ bool backtrack(clause* cl_Conflict){
         }else{
             assignations[i]->updateStatus(true);
             //on ne change les clauses que là où les variables sont mortes !
-            //i.e. les clauses sont consiférées satisfaites ou non en fonctions
+            //i.e. les clauses sont considérées satisfaites ou non en fonctions
             //de leurs litteraux mort uniquement !
             assignations[i]->bet=false;
             assignations[i]->variable->value=(1-assignations[i]->variable->value);
@@ -112,9 +112,9 @@ bool backtrack(clause* cl_Conflict){
             //ceci n'est pas possible en théorie, car toute variable dans
             //assignation est assignée
             assignations[i]->updateStatus(false);
-            hasChanged=true;
+            level_back++;
             break;
         }
     }
-    return hasChanged;
+    return (level_back != 0);
 }
