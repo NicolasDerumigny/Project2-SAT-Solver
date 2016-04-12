@@ -10,6 +10,7 @@ class formule;
 class assignation;
 
 extern vector<assignation*> assignations;
+extern int level_cur;
 //création du vector qui contient les assignations réalisées
 
 extern vector<var*> v_var;

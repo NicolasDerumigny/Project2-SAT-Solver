@@ -113,7 +113,6 @@ bool backtrack(clause* cl_Conflict){
             //assignation est assignée
             assignations[i]->updateStatus(false);
             level_back++;
-            break;
         }
     }
     return (level_back != 0);
