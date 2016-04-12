@@ -95,7 +95,8 @@ bool backtrack(clause* cl_Conflict){
         if (assignations[i]->bet==false){
             assignations[i]->variable->value=-1;
             assignations[i]->updateStatus(true);
-            assignations[i]->variable->varConflict.clear();
+            if (interactive)
+                assignations[i]->variable->varConflict.clear();
             delete assignations[i];
             assignations.pop_back();
             i--;
