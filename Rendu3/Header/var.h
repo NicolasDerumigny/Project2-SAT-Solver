@@ -19,6 +19,7 @@ public:
     vector<clause*> clauseInto;
     //amélioration possible : metttre deux map des clauses la contenant et ne la contenant pas
     vector<var*> varConflict;
+    clause* clConflict;
 };
 
 #endif // VAR_H
