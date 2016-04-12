@@ -47,7 +47,7 @@ bool assignUniqueLitt(){
 	return haveChanged;
 }
 
-bool assignNewWatched(){
+/*bool assignNewWatched(){
     bool changed=false;
     if(wl){//si on est dans les watched litterals, il faut vérifier que le litteral n'est pas surveillé
         if (cl->w_litt_1==li or cl->w_litt_2==li){
@@ -62,7 +62,7 @@ bool assignNewWatched(){
         }
     }
     return changed;
-}
+}*/
 
 bool assignUniquePolarity(){
     if (clLearning)

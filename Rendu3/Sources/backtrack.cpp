@@ -28,7 +28,7 @@ bool backtrack(clause* cl_Conflict){
                 if (graph_file == nullptr){
                     perror("Warning: Unable to write conflict graph");
                     fprintf(stderr,"Outputting graph on stderr\n");
-                    graph_file = nullptr;
+                    graph_file = stderr;
                 }
                 var* var_decided = nullptr;
                 fprintf(graph_file,"digraph conflict {\nnode [style=\"filled,rounded\",shape=circle,fillcolor=white];\n");
@@ -67,6 +67,22 @@ bool backtrack(clause* cl_Conflict){
                     perror("Warning: Unable to close the conflict graph file, possible I/O errors incoming");
                 //TODO : discuss data structure implementation
                 //TODO : create graph !
+                if (graph_file != stderr){
+                    /*int val_ret = fork();
+                    if (val_ret == 0){//On est dans le fils
+                            execvp("dot","dot -Tps:cairo graph.dot -o graph.ps");
+                            exit(0);
+                    } else if (val_ret > 0){//On est dans le père
+                        waitpid(val_ret,nullptr,0);
+                    } else {
+                        perror("Warning: unable to convert graph");
+                    }*/
+                    if (system("dot -Tps:cairo graph.dot -o graph.ps") != 0)
+                        fprintf(stderr,"Warning: unable to convert conflict graph\n");
+                    else
+                        if (system("evince graph.ps 2> /dev/null &") != 0)
+                            fprintf(stderr,"Warning: unable to display graph. Maybe evince is not installed\nTo solve it, run: sudo apt-get install evince\n");
+                }
             }else if(command=="t"){
                 interactive=false;
             }else

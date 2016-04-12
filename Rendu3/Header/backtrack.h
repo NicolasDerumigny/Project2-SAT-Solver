@@ -3,6 +3,7 @@
 #include "formule.h"
 #include "global_variable_extern.h"
 #include "assignation.h"
+#include <stdlib.h>
 
 
 clause* getConflict();

@@ -57,6 +57,12 @@ L'ensemble des fonctions des parse, de gestion de l'annalyse syntaxique et de fo
 
 L'instance est pré-traitée juste avant de commencer l'algorithme DPLL.
 
+Avec les options -cl et -interac il est possible de voir le graphe des conflits en tapant 'g' lorsque le message "backtrack breakpoint" apparaît.
+Pour cela, le fichier graph.dot est généré dans le dossier courant, puis il est converti en graph.ps, puis affiché avec evince.
+Important : Linux est réquis pour cette étape.
+Attention : l'étape de convertion et d'affichage nécéssite d'avoir préalablement installé dot (testé avec la version 2.38.0 et 2.36.0 installée sur les salles libre service) et evince (installé aussi sur les salles libre service).
+Pour vous les procurer, lancer dans un terminal : sudo apt-get update ; sudo apt-get install graphviz evince
+
 -------------
 
 Améliorations :
@@ -69,9 +75,11 @@ Pré-traiter les entrées. (en particulier, gérer la mise à jour de clauseInto
 
 Improve assignUniquePolarity, if non(x1) et x1 dans clauses. (Traité dans le prétraitement).
 
-Créer un script de test général gérant aussi les performances.
+Créer un script de test général gérant aussi les performances. (en cours)
 
 Commencer DPLL par les décuctions possibles (implique de revoir backtrack...)
+
+Rendre le code portable sur Mac et Windows (pour l'appel à dot et à evince)
 
 -------------
 

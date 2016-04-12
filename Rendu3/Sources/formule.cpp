@@ -212,7 +212,7 @@ void formule::preprocessing() {
 
 
     /* -------- Watched Litterals -------- */
-    if(wl){
+    /*if(wl){
         for(clause* cl=instance->f_ClauseUnsatisfied; cl!=nullptr; cl=cl->suiv){
             if(cl->f_ElementAlive != cl->f_ElementDead){
                 cl->w_litt_1=cl->f_ElementAlive;
@@ -222,5 +222,5 @@ void formule::preprocessing() {
                 wl=false;
             }
         }
-    }
+    }*/
 }
