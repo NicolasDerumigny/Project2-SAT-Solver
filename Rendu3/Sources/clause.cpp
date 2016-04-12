@@ -69,19 +69,7 @@ litt* clause::getUniqueLittAlive(){
     //et est unique. Sinon, renvoie nullptr.
     if (this->f_ElementAlive!= nullptr and this->f_ElementAlive==this->l_ElementAlive)
         return this->f_ElementAlive;
-    else
-        return nullptr;
-    /*
-    int result=0;
-    for (auto& li:this->mElementAlive)
-		if (li.second != nullptr){
-			result++;
-			unique_litt=li.second;
-        }
-	if (result == 1)
-		return unique_litt;
-	else
-        return nullptr;*/
+    return nullptr;
 }
 
 void clause::print(){
@@ -187,4 +175,16 @@ void appendClause(clause **first_cl, clause **last_cl,clause *cur_cl) {
         *last_cl = cur_cl;
         (*last_cl)->next_clause = nullptr;
 	}
+}
+
+bool clause::existsWatchedNonAlive(){
+    if(this->w_litt_1->variable->value==0 and this->w_litt_1->neg==true)
+        return false;
+    if(this->w_litt_1->variable->value==1 and this->w_litt_1->neg==false)
+        return false;
+    if(this->w_litt_2->variable->value==0 and this->w_litt_2->neg==true)
+        return false;
+    if(this->w_litt_2->variable->value==1 and this->w_litt_2->neg==false)
+        return false;
+    return true;
 }

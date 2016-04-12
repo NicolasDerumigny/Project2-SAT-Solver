@@ -15,6 +15,7 @@ public:
 	void updateClause(bool alive);
 	void updateStatus(bool alive);
     void print();
+    bool assignNewWatched(clause * cl, litt* li);
 
     bool bet;
     //True si l'assignation est dûe à un paris

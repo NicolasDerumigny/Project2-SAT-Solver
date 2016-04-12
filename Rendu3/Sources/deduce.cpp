@@ -13,61 +13,41 @@ bool assignUniqueLitt(){
 	litt* li;
 	while (haveChanged){
 		haveChanged = false;
-		for (clause* cl=instance->f_ClauseUnsatisfied;cl != nullptr;cl=cl->next_clause){
-			if (cl != nullptr){
-                li = cl->getUniqueLittAlive();
-                //Amélioration : vérifier si la clause est de la forme {x1 or x1 or ... or x1}
-                //la même variable avec la même polarité... Ou au pire on peut faire du prétraitement de la clause...
-		        if (li != nullptr){
-		            if (li->variable->value != -1){
-		                cerr << "Warning: clause contains an assigned litteral that is still alive\n\n";
-		                cerr << "Litteral is :";
-		                li->print();
-		                cl->print();
-		                cerr << "\n\n\n";
-		                exit(-1);
-					}
-                    /*if (clLearning){
-                        li->variable->clConflict = cl;
-                        li->variable->
-                    }*/
-                    if (interactive){
-                        for (litt* li2=cl->f_ElementDead;li2 != nullptr;li2=li2->next_litt)
-                            li->variable->varConflict.push_back(li2->variable);
-                        sort(li->variable->varConflict.begin(), li->variable->varConflict.end());
-                        li->variable->varConflict.erase(std::unique(li->variable->varConflict.begin(), li->variable->varConflict.end()), li->variable->varConflict.end());
-                    }
-                    if (li->neg == false)
-		                li->variable->assignValue(1,false);
-                    else{
-                        li->variable->assignValue(0,false);
-                    }
-		            haveChanged = true;
-					break;
-		        }
+        for (clause* cl=instance->f_ClauseUnsatisfied;cl != nullptr;cl=cl->next_clause){
+            li = cl->getUniqueLittAlive();
+            //Amélioration : vérifier si la clause est de la forme {x1 or x1 or ... or x1}
+            //la même variable avec la même polarité... Ou au pire on peut faire du prétraitement de la clause...
+            if (li != nullptr){
+                if (li->variable->value != -1){
+                    cerr << "Warning: clause contains an assigned litteral that is still alive\n\n";
+                    cerr << "Litteral is :";
+                    li->print();
+                    cl->print();
+                    cerr << "\n\n\n";
+                    exit(-1);
+                }
+                /*if (clLearning){
+                    li->variable->clConflict = cl;
+                    li->variable->
+                }*/
+                if (interactive){
+                    for (litt* li2=cl->f_ElementDead;li2 != nullptr;li2=li2->next_litt)
+                        li->variable->varConflict.push_back(li2->variable);
+                    sort(li->variable->varConflict.begin(), li->variable->varConflict.end());
+                    li->variable->varConflict.erase(std::unique(li->variable->varConflict.begin(), li->variable->varConflict.end()), li->variable->varConflict.end());
+                }
+                if (li->neg == false)
+                    li->variable->assignValue(1,false);
+                else{
+                    li->variable->assignValue(0,false);
+                }
+                haveChanged = true;
+                break;
 		    }
 		}
 	}
 	return haveChanged;
 }
-
-/*bool assignNewWatched(){
-    bool changed=false;
-    if(wl){//si on est dans les watched litterals, il faut vérifier que le litteral n'est pas surveillé
-        if (cl->w_litt_1==li or cl->w_litt_2==li){
-            cl->w_litt_1=(cl->w_litt_1==li)?cl->w_litt_2:cl->w_litt_1;
-            //li est maintenant le litteral watched numero 2
-            for(litt* li2=cl->f_ElementAlive;li2!=nullptr; li2=li2->suiv){
-                if (li2!=cl->w_litt_2){
-                    cl->w_litt_2=li2;
-                    changed=true;
-                }
-            }
-        }
-    }
-    return changed;
-}*/
-
 bool assignUniquePolarity(){
     if (clLearning)
         fprintf(stderr,"Warning: Unique polarity deduction while learning from clauses");

@@ -15,6 +15,7 @@ public:
     void merge(clause* cl);
     int nbLittAlive();
     litt* getUniqueLittAlive();
+    bool existsWatchedNonAlive();
     void free_clause();
 
     clause* next_clause = nullptr;
