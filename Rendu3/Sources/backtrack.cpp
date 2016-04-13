@@ -71,7 +71,7 @@ bool backtrack(){
 
 bool conflictAnal(clause* cl_Conflict){//Renvoie false si l'analyse de conflit ne peut plus remonter (comment?)
     clause* UIPclause = getUIPClause(cl_Conflict);
-    if(interactive){
+    if(interactive){//On affiche le graphe
         string command;
         cout<<"Backtrack breakpoint, enter a command: ";
         cin>>command;
@@ -91,7 +91,7 @@ bool conflictAnal(clause* cl_Conflict){//Renvoie false si l'analyse de conflit n
                     fprintf(graph_file,"%i [label=<",ass->variable->id);
                     if (ass->variable->value == 0)
                         fprintf(graph_file,"¬");
-                    fprintf(graph_file,"p<SUB>%i</SUB>",ass->variable->id);
+                    fprintf(graph_file,"p<SUB>%i</SUB><SUP>%i</SUP>",ass->variable->id,ass->variable->level_ass);
                     if (ass->bet == 1){
                         fprintf(graph_file,"<SUP>d</SUP>");
                         var_decided = ass->variable;
@@ -103,7 +103,7 @@ bool conflictAnal(clause* cl_Conflict){//Renvoie false si l'analyse de conflit n
                         fprintf(graph_file,"%i [label=<",v2->id);
                         if (v2->value == 0)
                             fprintf(graph_file,"¬");
-                        fprintf(graph_file,"p<SUB>%i</SUB>",v2->id);
+                        fprintf(graph_file,"p<SUB>%i</SUB><SUP>%i</SUP>",v2->id,v2->level_ass);
                         if (v2 == var_decided)
                             fprintf(graph_file,"<SUP>d</SUP>>];\n");
                         else
@@ -152,6 +152,27 @@ bool conflictAnal(clause* cl_Conflict){//Renvoie false si l'analyse de conflit n
                 cerr<<"No valid command found, continuing anyway"<<endl;
         }
     }
+    //on procède à l'analyse de conflit
+    int level_max_back = 0;
+    for(litt* li = UIPclause->f_ElementDead;li != nullptr;li = li->next_litt) {
+        if (li->variable->level_ass != level_cur && li->variable->level_ass > level_max_back)
+            level_max_back = li->variable->level_ass;
+    }
+    appendClause(&(instance->f_ClauseUnsatisfied),&(instance->f_ClauseUnsatisfied),UIPclause);
+    //on backtrack jusqu'à level_max_back
+    /*while (level_cur > level_max_back){
+        if (assignations[i]->bet==true)
+            level_cur--;
+        assignations[i]->variable->value=-1;
+        assignations[i]->updateStatus(true);
+        if (clLearning)
+            assignations[i]->variable->clConflict = nullptr;
+        if (interactive)
+            assignations[i]->variable->varConflict.clear();
+        delete assignations[i];
+        assignations.pop_back();
+        i--;
+    }*/
     return true;
 }
 
