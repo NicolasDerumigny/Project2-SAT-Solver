@@ -191,9 +191,10 @@ bool clause::existsWatchedNonAlive(){
 
 clause* clause::copy(){
     clause* new_clause=new clause;
+    litt* new_litt;
     bool first=true;
     for(litt* li=this->f_ElementAlive;li!=nullptr;li=li->next_litt){
-        litt* new_litt=li->copy();
+        new_litt=li->copy();
         li->variable->clauseInto.push_back(new_clause);
 
         if (this->w_litt_1==li)
@@ -205,6 +206,7 @@ clause* clause::copy(){
         if (first){
             new_clause->f_ElementAlive=li;
             new_clause->l_ElementAlive=li;
+            first=false;//mettre un compteur booléen c'est bien, l'incrémenter c'est encore mieux...
         }else{
             new_clause->l_ElementAlive->next_litt=new_litt;
             new_clause->l_ElementAlive=new_litt;
@@ -213,7 +215,7 @@ clause* clause::copy(){
 
 
     for(litt* li=this->f_ElementDead;li!=nullptr;li=li->next_litt){
-        litt* new_litt=li->copy();
+        new_litt=li->copy();
         li->variable->clauseInto.push_back(new_clause);
 
         if (this->w_litt_1==li)
@@ -224,6 +226,7 @@ clause* clause::copy(){
         if (first){
             new_clause->f_ElementDead=li;
             new_clause->l_ElementDead=li;
+            first=false;
         }else{
             new_clause->l_ElementDead->next_litt=new_litt;
             new_clause->l_ElementDead=new_litt;

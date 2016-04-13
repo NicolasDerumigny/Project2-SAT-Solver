@@ -28,7 +28,6 @@ bool assignUniqueLitt(){
                 }
                 if (clLearning){
                     li->variable->clConflict = cl;
-                    li->variable->level_ass = level_cur;
                 }
                 if (interactive){
                     for (litt* li2=cl->f_ElementDead;li2 != nullptr;li2=li2->next_litt)

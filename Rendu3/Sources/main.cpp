@@ -109,9 +109,9 @@ int main(int argc, char** argv) {
             else if (heuristic == 3)
                 new_var = getDlisFreeVar();
             if (new_var != nullptr) {
-                new_var->assignValue(1,true);//on fait un pari : la freeVar de decide est à vrai
                 if (clLearning)
                     level_cur++;
+                new_var->assignValue(1,true);//on fait un pari : la freeVar de decide est à vrai
             } else //On a plus de variables libres et pas de conflit
                 break;
 

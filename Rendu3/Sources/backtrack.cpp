@@ -163,9 +163,12 @@ bool conflictAnal(clause* cl_Conflict){//Renvoie false si l'analyse de conflit n
         if (li->variable->level_ass != level_cur && li->variable->level_ass > level_max_back)
             level_max_back = li->variable->level_ass;
     }
-    appendClause(&(instance->f_ClauseUnsatisfied),&(instance->f_ClauseUnsatisfied),UIPclause);
+    instance->print();
+    appendClause(&(instance->f_ClauseUnsatisfied),&(instance->l_ClauseUnsatisfied),UIPclause);
+    instance->print();
     //on backtrack jusqu'à level_max_back
-    /*while (level_cur > level_max_back){
+    int i = assignations.size()-1;
+    while (level_cur > level_max_back && i>=0){
         if (assignations[i]->bet==true)
             level_cur--;
         assignations[i]->variable->value=-1;
@@ -177,7 +180,7 @@ bool conflictAnal(clause* cl_Conflict){//Renvoie false si l'analyse de conflit n
         delete assignations[i];
         assignations.pop_back();
         i--;
-    }*/
+    }
     return true;
 }
 
@@ -260,6 +263,12 @@ clause* getUIPClause(clause *cl_Conflict){
                     }
                 }
                 li_prev = li;
+            }
+            //on met à jour les clauseInto (clLearned éliminé pour var_ref, et suppression des doublons)
+            var_ref->clauseInto.erase(std::remove(var_ref->clauseInto.begin(), var_ref->clauseInto.end(), clLearned), var_ref->clauseInto.end());
+            for(litt* li = clLearned->f_ElementDead;li != nullptr || li_need_back;li = li->next_litt){
+                sort(li->variable->clauseInto.begin(), li->variable->clauseInto.end());
+                li->variable->clauseInto.erase(std::unique(li->variable->clauseInto.begin(), li->variable->clauseInto.end()), li->variable->clauseInto.end());
             }
             for (auto& v:variables){
                 if (v.first != 0 and v.second != 0){//la clause est tautologique
