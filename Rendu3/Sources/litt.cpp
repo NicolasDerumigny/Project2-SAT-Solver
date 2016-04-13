@@ -49,3 +49,11 @@ void appendLitt(litt **first_li,litt **last_li,litt *cur_li) {
         (*last_li)->next_litt = nullptr;
 	}
 }
+
+string litt::proof_str(){
+    string answer="";
+    if (this->neg)
+        answer="\\neg";
+    answer = answer + "X_{" + to_string(this->variable->id) + "}";
+    return answer;
+}

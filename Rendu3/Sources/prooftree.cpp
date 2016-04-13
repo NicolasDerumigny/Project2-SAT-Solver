@@ -19,25 +19,30 @@ void writingAssign(assignation* ass){
         //c'est un paris : deduction a partir des deux premisses
         //(x=vrai prouve faux, x=faux prouve faux)
         if(ass->variable->value==1){
-            prooftree_fs<<"\\UnaryInf{"<<instance->proof_str()<<", X"<<ass->variable->id<<"=0";
-            prooftree_fs<<"\\vdash \\bot}\n";
-            prooftree_fs<<"\\UnaryInf{"<<instance->proof_str()<<"\\vdash X"<<ass->variable->id<<"=1}\n";
+            prooftree_fs<<"\\AxiomC{}\n";
+            //l'axiome de la derivation en cours
+            prooftree_fs<<"\\UnaryInfC{$"<<instance->proof_str()<<",\\; X_{"<<ass->variable->id<<"}=0";
+            prooftree_fs<<"\\vdash \\bot$}\n";
+            prooftree_fs<<"\\UnaryInfC{$"<<instance->proof_str()<<"\\vdash X_{"<<ass->variable->id<<"}=1$}\n";
+            prooftree_fs<<"\\AxiomC{}\n";
+            //l'axiome de la prochaine derivation
         }
 
         if(ass->variable->value==0)
-            prooftree_fs<<"\\BinaryInf{"<<instance->proof_str()<<"\\vdash \\bot}\n";
+            prooftree_fs<<"\\BinaryInfC{$"<<instance->proof_str()<<"\\vdash \\bot$}\n";
             //si on a deja annulé le paris
 
     }else{
         //il s'agit d'une deduction : equivalence logique : deduction unitaire"
-        prooftree_fs<<"\\UnaryInf{"<<instance->proof_str()<<"\\to \\bot}\n";
+        prooftree_fs<<"\\UnaryInfC{$"<<instance->proof_str()<<"\\to \\bot$}\n";
     }
 }
 
 
 void deleteProofTree(){
-    prooftree_fs<<"\\BinaryInf{"<<instance->proof_str()<<"\\vdash \\bot}\n";
-    prooftree_fs<<"\\UnaryInf{"<<instance->proof_str()<<"\\to \\bot}\n";
+    //nope, il suffit de prends ceux qui sont a faux, pas a vrai !!
+    prooftree_fs<<"\\BinaryInfC{$"<<instance->proof_str()<<"\\vdash \\bot$}\n";
+    prooftree_fs<<"\\UnaryInfC{$"<<instance->proof_str()<<"\\to \\bot$}\n";
     prooftree_fs<<"\\end{prooftree}\n\n";
     prooftree_fs<<"\\end{document}";
     prooftree_fs.close();

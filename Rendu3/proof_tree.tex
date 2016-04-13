@@ -8,11 +8,13 @@
 \begin{document}
 
 \begin{prooftree}
-\UnaryInf{, X1=0\vdash \bot}
-\UnaryInf{\vdash X1=1}
-\UnaryInf{\to \bot}
-\BinaryInf{\vdash \bot}
-\UnaryInf{\to \bot}
+\AxiomC{}
+\UnaryInfC{$(),\; X_{1}=0\vdash \bot$}
+\UnaryInfC{$()\vdash X_{1}=1$}
+\AxiomC{}
+\UnaryInfC{$()\to \bot$}
+\BinaryInfC{$(X_{496})\vdash \bot$}
+\UnaryInfC{$(X_{496})\to \bot$}
 \end{prooftree}
 
 \end{document}

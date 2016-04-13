@@ -232,3 +232,16 @@ clause* clause::copy(){
 
     return new_clause;
 }
+
+string clause::proof_str(){
+    string answer="";
+    bool first=true;
+    for(litt* li=this->f_ElementAlive; li!=nullptr;li=li->next_litt){
+        if (!first)
+            answer = answer + " \\lor " + li->proof_str();
+        else
+            answer = li->proof_str();
+        first=false;
+    }
+    return answer;
+}

@@ -227,6 +227,14 @@ void formule::preprocessing() {
 
 string formule::proof_str(){
     string answer="";
-    //TOODO
+    bool first=true;
+    for(clause* cl=this->f_ClauseUnsatisfied; cl!=nullptr;cl=cl->next_clause){
+        if (!first)
+            answer = answer + ") \\land (" + cl->proof_str();
+        else
+            answer = "(" + cl->proof_str();
+        first=false;
+    }
+    answer = answer + ")";
     return answer;
 }
