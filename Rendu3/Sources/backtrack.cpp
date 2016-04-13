@@ -117,9 +117,9 @@ bool conflictAnal(clause* cl_Conflict){//Renvoie false si l'analyse de conflit n
                     }
                 }
                 //On affiche l'UIP
+                fprintf(stderr,"The learned clause is :");
+                UIPclause->print();
                 for(litt* li = UIPclause->f_ElementDead;li != nullptr;li = li->next_litt){
-                    fprintf(stderr,"The learned clause is :");
-                    UIPclause->print();
                     if (li->variable->level_ass == level_cur)
                         fprintf(graph_file,"%i [fillcolor=yellow];\n",li->variable->id);
                     else
@@ -163,9 +163,7 @@ bool conflictAnal(clause* cl_Conflict){//Renvoie false si l'analyse de conflit n
         if (li->variable->level_ass != level_cur && li->variable->level_ass > level_max_back)
             level_max_back = li->variable->level_ass;
     }
-    instance->print();
     appendClause(&(instance->f_ClauseUnsatisfied),&(instance->l_ClauseUnsatisfied),UIPclause);
-    instance->print();
     //on backtrack jusqu'à level_max_back
     int i = assignations.size()-1;
     while (level_cur > level_max_back && i>=0){
@@ -199,7 +197,7 @@ clause* getUIPClause(clause *cl_Conflict){
         //On récupère li_ref pour faire une résolution si nécessaire
         var_ref = nullptr;
         unique = true;
-        for(litt* li=clLearned->f_ElementAlive;li!=nullptr;li=li->next_litt){
+        for(litt* li=clLearned->f_ElementDead;li!=nullptr;li=li->next_litt){
             if (li->variable->level_ass == level_cur){
                 if (var_ref == nullptr)
                     var_ref = li->variable;
@@ -223,7 +221,9 @@ clause* getUIPClause(clause *cl_Conflict){
         if (!unique){//on va faire une résolution via li_ref
             if (var_ref->clConflict == nullptr)
                 fprintf(stderr,"Fatal: Attempt to build learned clause via a variable deduced by no direct clause\n");
+            clLearned->print();var_ref->clConflict->print();cl_Conflict->print();printf("%p,%p\n",clLearned,cl_Conflict);
             clLearned->merge(var_ref->clConflict->copy());
+            clLearned->print();var_ref->clConflict->print();cl_Conflict->print();printf("%p,%p\n",clLearned,cl_Conflict);
             //On enlève les doublons et les occurences à li_ref ou sa négation
             li_need_back = false;
             li_prev = nullptr;

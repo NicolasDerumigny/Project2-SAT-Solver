@@ -204,8 +204,8 @@ clause* clause::copy(){
 
 
         if (first){
-            new_clause->f_ElementAlive=li;
-            new_clause->l_ElementAlive=li;
+            new_clause->f_ElementAlive=new_litt;//faire une copie d'un littéral c'est bien, l'utiliser c'est mieux...
+            new_clause->l_ElementAlive=new_litt;
             first=false;//mettre un compteur booléen c'est bien, l'incrémenter c'est encore mieux...
         }else{
             new_clause->l_ElementAlive->next_litt=new_litt;
@@ -224,8 +224,8 @@ clause* clause::copy(){
             new_clause->w_litt_2=new_litt;
 
         if (first){
-            new_clause->f_ElementDead=li;
-            new_clause->l_ElementDead=li;
+            new_clause->f_ElementDead=new_litt;
+            new_clause->l_ElementDead=new_litt;
             first=false;
         }else{
             new_clause->l_ElementDead->next_litt=new_litt;

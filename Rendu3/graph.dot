@@ -4,8 +4,7 @@ node [style="filled,rounded",shape=circle,fillcolor=white];
 2 [label=<p<SUB>2</SUB><SUP>1</SUP>>,fillcolor=lightblue];
 1 [label=<p<SUB>1</SUB><SUP>1</SUP><SUP>d</SUP>>];
 1 -> 2;
-2 [fillcolor=yellow];
+1 [fillcolor=yellow];
 conflict [fillcolor=red];
 1 -> conflict;
-2 -> conflict;
 }
