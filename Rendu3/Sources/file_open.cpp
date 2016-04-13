@@ -205,6 +205,8 @@ void parse(){
 }
 
 void freeAll(){
+    if (proof)
+        deleteProofTree();
     instance->free_formule();
     for (unsigned long i=0; i<v_var.size(); i++)
         delete v_var[i];
@@ -213,7 +215,7 @@ void freeAll(){
         assignations[i]=nullptr;
     }
     delete instance;
-	delete res;
+    delete res;
 }
 
 void print_output(){

@@ -13,6 +13,7 @@ public:
     void print();
     void free_litt();
     litt* copy();
+    string proof_str();
 
     var* variable;
     bool neg;

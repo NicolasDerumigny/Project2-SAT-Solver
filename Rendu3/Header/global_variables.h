@@ -2,6 +2,8 @@
 #define GLOBAL_VARIABLES_H
 #include <ctime>
 #include <vector>
+#include <fstream>
+
 class assignation;
 class var;
 class formule;
@@ -12,6 +14,7 @@ int level_cur = 0;
 
 vector<var*> v_var;
 vector<var*> v_var_tseitin;
+vector<int> bets;
 int nbr_var=0;
 //création du vector qui contiendra tous les pointeurs vers les variables
 
@@ -29,6 +32,8 @@ bool clLearning=false;
 bool wl=false;
 int heuristic=0;
 char path[1024]="";
+bool proof=false;
+fstream prooftree_fs;
 //valeur de base des arguments
 //heuristic = 0 (basic), 1 (rand), 2 (moms), 3 (dlis)
 
