@@ -104,12 +104,13 @@ Rendre le code portable sur Mac et Windows (pour l'appel à dot et à evince, ai
 
 Revoir l'algorithme utilisé car après un backtrack, on décide directement. deduce avant ?
 while(){
-decide
+
 deduce
 
-while(conflict){
+if(conflits){
 backtrack || conflictAnal
-deduce
+}else{
+decide
 }
 
 }

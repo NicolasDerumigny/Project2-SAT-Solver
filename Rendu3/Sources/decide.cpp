@@ -3,7 +3,6 @@
 var* getFreeVar() {
 	for (var* s:v_var) {
         if (s != nullptr && s->value == -1) {
-            level_cur++;
             return s;
 		}
 	}
@@ -29,7 +28,6 @@ var* getRandFreeVar() {
 			new_var = v_var[i_var];
 		}
 	}
-    level_cur++;
 	return new_var;
 }
 
@@ -58,7 +56,6 @@ var* getMomsFreeVar() {
 			}
 		}
 	}
-    level_cur++;
 	return new_var;
 }
 
@@ -94,7 +91,6 @@ var* getDlisFreeVar() {
 	}
 	if (new_var == nullptr)
 		new_var = getFreeVar();
-    level_cur++;
 	return new_var;
 }
 

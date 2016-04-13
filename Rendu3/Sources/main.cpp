@@ -33,35 +33,13 @@ int main(int argc, char** argv) {
 	if(verbose) {cout << "Formula after preprocessing :\n";instance->print();}
 
 	var* new_var = nullptr;
-	if (heuristic == 0)
-		new_var = getFreeVar();
-	else if (heuristic == 1)
-		new_var = getRandFreeVar();
-	else if (heuristic == 2)
-		new_var = getMomsFreeVar();
-	else if (heuristic == 3)
-		new_var = getDlisFreeVar();
 
     clause* cl_conflict = nullptr;
 
-    while(new_var!=nullptr){
-		//decide (suite)
-		new_var->assignValue(1,true);
-        //on fait un pari : la freeVar de decide est à vrai
-		
-		if(verbose2) {
-            cout<<"\n------------Next step after decide:-----------------\n";
-            instance->print();
-        }
-		if (verbose){
-			fprintf(stderr,"heap of assignations : [var_id,bet,value]\n");
-			for (auto& ass:assignations)
-				fprintf(stderr,"[%i,%i,%i],",ass->variable->id,ass->bet,ass->variable->value);
-			fprintf(stderr,"\n\n");
-		}
+    while(instance->f_ClauseUnsatisfied!=nullptr){
 		
         //deduce
-        while(assignUniqueLitt() || ((!clLearning) && (assignUniquePolarity()) ) ){
+        while(assignUniqueLitt() || ((!clLearning) && (assignUniquePolarity()) ) ){//si clLearning alors on ne lance pas assignUniquePolarity car && est paresseux
             if(verbose2) {
 	            cout<<"\n------------Next step after deduce:-----------------\n";
 	            instance->print();
@@ -86,17 +64,17 @@ int main(int argc, char** argv) {
 			fprintf(stderr,"\n\n");
 		}
 
-        //backtrack
+        //vérifie si conflit
         cl_conflict = getConflict();
-        while(cl_conflict != nullptr){
+        if (cl_conflict != nullptr){//Conflit détecté, backtrack ou analyse de conflit
             if( ((clLearning) && (!conflictAnal(cl_conflict))) || ((!clLearning) && (!backtrack())) ){
                 if (verbose){
-					fprintf(stderr,"heap of assignations : [var_id,bet,value]\n");
-					for (auto& ass:assignations)
-						fprintf(stderr,"[%i,%i,%i],",ass->variable->id,ass->bet,ass->variable->value);
-					fprintf(stderr,"\n\n");
-				}
-				cout<<"s UNSATISFIABLE"<<endl;
+                    fprintf(stderr,"heap of assignations : [var_id,bet,value]\n");
+                    for (auto& ass:assignations)
+                        fprintf(stderr,"[%i,%i,%i],",ass->variable->id,ass->bet,ass->variable->value);
+                    fprintf(stderr,"\n\n");
+                }
+                cout<<"s UNSATISFIABLE"<<endl;
                 freeAll();
                 if (timePerf){
                     checkpoint = clock();
@@ -104,29 +82,44 @@ int main(int argc, char** argv) {
                 }
                 return 0;
             }
-            cl_conflict=getConflict();
+
+            if(verbose2) {
+                cout<<"\n------------Next step after backtrack:-----------------\n";
+                instance->print();
+            }
+            if (verbose){
+                fprintf(stderr,"heap of assignations : [var_id,bet,value]\n");
+                for (auto& ass:assignations)
+                    fprintf(stderr,"[%i,%i,%i],",ass->variable->id,ass->bet,ass->variable->value);
+                fprintf(stderr,"\n\n");
+            }
+        } else {//Pas de conflit, decide
+            if (heuristic == 0)
+                new_var = getFreeVar();
+            else if (heuristic == 1)
+                new_var = getRandFreeVar();
+            else if (heuristic == 2)
+                new_var = getMomsFreeVar();
+            else if (heuristic == 3)
+                new_var = getDlisFreeVar();
+            if (new_var != nullptr) {
+                new_var->assignValue(1,true);//on fait un pari : la freeVar de decide est à vrai
+                if (clLearning)
+                    level_cur++;
+            } else //On a plus de variable libre et pas de conflit
+                break;
+
+            if(verbose2) {
+                cout<<"\n------------Next step after decide:-----------------\n";
+                instance->print();
+            }
+            if (verbose){
+                fprintf(stderr,"heap of assignations : [var_id,bet,value]\n");
+                for (auto& ass:assignations)
+                    fprintf(stderr,"[%i,%i,%i],",ass->variable->id,ass->bet,ass->variable->value);
+                fprintf(stderr,"\n\n");
+            }
         }
-		
-		if(verbose2) {
-            cout<<"\n------------Next step after backtrack:-----------------\n";
-            instance->print();
-        }
-		if (verbose){
-			fprintf(stderr,"heap of assignations : [var_id,bet,value]\n");
-			for (auto& ass:assignations)
-				fprintf(stderr,"[%i,%i,%i],",ass->variable->id,ass->bet,ass->variable->value);
-			fprintf(stderr,"\n\n");
-		}
-		
-		//decide
-        if (heuristic == 0)
-			new_var = getFreeVar();
-		else if (heuristic == 1)
-			new_var = getRandFreeVar();
-		else if (heuristic == 2)
-			new_var = getMomsFreeVar();
-		else if (heuristic == 3)
-			new_var = getDlisFreeVar();
     }
     cout<<"s SATISFIABLE"<<endl;
     print_output();

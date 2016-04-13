@@ -70,7 +70,7 @@ bool conflictAnal(clause* cl_Conflict){//Renvoie false si l'analyse de conflit n
                     fprintf(graph_file,"%i [label=<",ass->variable->id);
                     if (ass->variable->value == 0)
                         fprintf(graph_file,"¬");
-                    fprintf(graph_file,"p<SUB>%i</SUB>",ass->variable->id);
+                    fprintf(graph_file,"p<SUB>%i</SUB><SUP>%i</SUP>",ass->variable->id,ass->variable->level_ass);
                     if (ass->bet == 1){
                         fprintf(graph_file,"<SUP>d</SUP>");
                         var_decided = ass->variable;
@@ -82,7 +82,7 @@ bool conflictAnal(clause* cl_Conflict){//Renvoie false si l'analyse de conflit n
                         fprintf(graph_file,"%i [label=<",v2->id);
                         if (v2->value == 0)
                             fprintf(graph_file,"¬");
-                        fprintf(graph_file,"p<SUB>%i</SUB>",v2->id);
+                        fprintf(graph_file,"p<SUB>%i</SUB><SUP>%i</SUP>",v2->id,v2->level_ass);
                         if (v2 == var_decided)
                             fprintf(graph_file,"<SUP>d</SUP>>];\n");
                         else
