@@ -22,7 +22,7 @@ void writeDeduction(assignation* ass){
     prooftree_fs<<to_string(ass->variable->value)<<"$}\n";
 }
 
-void writingAssign(assignation* ass){
+void writeAssign(assignation* ass){
     if (bets[assignations.size()-1]){
         //c'est un paris : deduction a partir des deux premisses
         //(x=vrai prouve faux, x=faux prouve faux)

@@ -6,7 +6,7 @@
 #include "formule.h"
 
 void setNewProofTree();
-void writingAssign(assignation* ass);
+void writeAssign(assignation* ass);
 void deleteProofTree();
 void writeAxiom();
 void writeBinary();
