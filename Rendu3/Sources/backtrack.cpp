@@ -171,6 +171,8 @@ clause* getUIPClause(clause *cl_Conflict){
             }
         }
         if (!unique){//on va faire une résolution via li_ref
+            if (var_ref->clConflict == nullptr)
+                fprintf(stderr,"Fatal: Attempt to build learned clause via a variable deduced by no direct clause\n");
             clLearned->merge(var_ref->clConflict->copy());
             //On enlève les doublons et les occurences à li_ref ou sa négation
             li_need_back = false;
