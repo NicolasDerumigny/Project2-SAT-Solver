@@ -15,21 +15,41 @@ clause* getConflict(){//renvoie (si elle existe) un pointeur vers une clause ins
 
 
 bool backtrack(){
+    if(proof){
+        bool willFail=false, firstTry=true;
+        for(int i=0;i<(int)assignations.size();i++){
+            if (bets[i])
+                firstTry=false;
+                if(assignations[i]->bet==true){
+                    willFail=false;
+                    break;
+                }
+            }
+        if (!willFail or firstTry)
+            writeAxiom();
+    }
     //renvoie false si le backtrack n'as pas marché
     //-> plus de retour en arrière possible
     //rappel : assignations et instance sont globales
     int i=assignations.size()-1;
     int level_back = 0;
     while ((i>=0) && (level_back == 0)){
-        if(proof)
-            writingAssign(assignations[i]);
         if (assignations[i]->bet==false){
             assignations[i]->variable->value=-1;
             assignations[i]->updateStatus(true);
             if (interactive)
                 assignations[i]->variable->varConflict.clear();
+
+            if(proof){
+                writingAssign(assignations[i]);
+            }
+            if(proof and assignations[i]->bet==0 and bets[i])
+                writeBinary();
+            //la deduction binaire ne se fait qu'apres avoir ramené a la vie le litteral
+
             delete assignations[i];
             assignations.pop_back();
+            bets.pop_back();
             i--;
         }else{
             assignations[i]->updateStatus(true);
@@ -44,6 +64,10 @@ bool backtrack(){
             //assignation est assignée
             assignations[i]->updateStatus(false);
             level_back++;
+
+            if(proof){
+                writingAssign(assignations[i]);
+            }
 //            level_cur--; //TODO
         }
     }

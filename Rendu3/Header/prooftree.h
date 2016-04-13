@@ -8,6 +8,8 @@
 void setNewProofTree();
 void writingAssign(assignation* ass);
 void deleteProofTree();
-
+void writeAxiom();
+void writeBinary();
+void writeDeduction(assignation* ass);
 
 #endif // PROOFTREE_H

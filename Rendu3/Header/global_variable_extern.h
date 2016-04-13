@@ -17,6 +17,7 @@ extern int level_cur;
 extern vector<var*> v_var;
 extern int nbr_var;
 extern vector<var*> v_var_tseitin;
+extern vector<int> bets;
 //création du vector qui contiendra tous les pointeurs vers les variables
 
 extern formule * instance;

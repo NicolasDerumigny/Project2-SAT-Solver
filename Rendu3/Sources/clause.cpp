@@ -233,7 +233,7 @@ clause* clause::copy(){
     return new_clause;
 }
 
-string clause::proof_str(){
+string clause::proof_str(bool complete){
     string answer="";
     bool first=true;
     for(litt* li=this->f_ElementAlive; li!=nullptr;li=li->next_litt){
@@ -243,5 +243,15 @@ string clause::proof_str(){
             answer = li->proof_str();
         first=false;
     }
+     if (complete){
+         for(litt* li=this->f_ElementDead; li!=nullptr;li=li->next_litt){
+             if (!first)
+                 answer = answer + " \\lor " + li->proof_str();
+             else
+                 answer = li->proof_str();
+             first=false;
+         }
+     }
+
     return answer;
 }

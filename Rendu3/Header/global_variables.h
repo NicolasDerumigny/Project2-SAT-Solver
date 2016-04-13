@@ -14,6 +14,7 @@ int level_cur = 0;
 
 vector<var*> v_var;
 vector<var*> v_var_tseitin;
+vector<int> bets;
 int nbr_var=0;
 //création du vector qui contiendra tous les pointeurs vers les variables
 

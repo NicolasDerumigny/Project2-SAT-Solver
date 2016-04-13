@@ -225,16 +225,28 @@ void formule::preprocessing() {
 	}
 }
 
-string formule::proof_str(){
+string formule::proof_str(bool complete, bool completeCl){
     string answer="";
     bool first=true;
     for(clause* cl=this->f_ClauseUnsatisfied; cl!=nullptr;cl=cl->next_clause){
         if (!first)
-            answer = answer + ") \\land (" + cl->proof_str();
+            answer = answer + ") \\land (" + cl->proof_str(completeCl);
         else
-            answer = "(" + cl->proof_str();
+            answer = "(" + cl->proof_str(completeCl);
         first=false;
     }
+
+    if (complete){
+        for(clause* cl=this->f_ClauseSatisfied; cl!=nullptr;cl=cl->next_clause){
+            if (!first)
+                answer = answer + ") \\land (" + cl->proof_str(completeCl);
+            else
+                answer = "(" + cl->proof_str(completeCl);
+            first=false;
+        }
+    }
+
     answer = answer + ")";
+
     return answer;
 }

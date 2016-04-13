@@ -18,7 +18,7 @@ public:
     bool existsWatchedNonAlive();
     clause* copy();
     void free_clause();
-    string proof_str();
+    string proof_str(bool complete);
 
     clause* next_clause = nullptr;
 
