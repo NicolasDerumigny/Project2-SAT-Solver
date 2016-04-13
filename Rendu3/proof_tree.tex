@@ -1,0 +1,18 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{bussproofs}
+\usepackage{amssymb}
+\usepackage[utf8]{inputenc}
+\usepackage[francais]{babel}
+
+\begin{document}
+
+\begin{prooftree}
+\UnaryInf{, X1=0\vdash \bot}
+\UnaryInf{\vdash X1=1}
+\UnaryInf{\to \bot}
+\BinaryInf{\vdash \bot}
+\UnaryInf{\to \bot}
+\end{prooftree}
+
+\end{document}

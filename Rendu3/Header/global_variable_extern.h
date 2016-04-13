@@ -2,6 +2,7 @@
 #define GLOBAL_VARIABLE_EXTERN_H
 #include <ctime>
 #include <vector>
+#include <fstream>
 #include "var.h"
 using namespace std;
 
@@ -33,4 +34,6 @@ extern bool verboseParser;
 extern bool clLearning;
 extern bool wl;
 extern char path[1024];
+extern bool proof;
+extern fstream prooftree_fs;
 #endif // GLOBAL_VARIABLE_EXTERN_H

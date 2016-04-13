@@ -214,6 +214,8 @@ void freeAll(){
     }
     delete instance;
 	delete res;
+    if (proof)
+        deleteProofTree();
 }
 
 void print_output(){

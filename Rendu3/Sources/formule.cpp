@@ -224,3 +224,9 @@ void formule::preprocessing() {
 		}
 	}
 }
+
+string formule::proof_str(){
+    string answer="";
+    //TOODO
+    return answer;
+}

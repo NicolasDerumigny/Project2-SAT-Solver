@@ -21,6 +21,8 @@ bool backtrack(){
     int i=assignations.size()-1;
     int level_back = 0;
     while ((i>=0) && (level_back == 0)){
+        if(proof)
+            writingAssign(assignations[i]);
         if (assignations[i]->bet==false){
             assignations[i]->variable->value=-1;
             assignations[i]->updateStatus(true);

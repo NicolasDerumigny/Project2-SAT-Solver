@@ -9,7 +9,7 @@
 #include "../Bison/expr.hpp"
 #include "../Bison/expr.tab.hpp"
 #include "global_variable_extern.h"
-//extern "C" int yyparse();
+#include "prooftree.h"
 using namespace std;
 extern "C" FILE *yyin;
 extern Expr *res;

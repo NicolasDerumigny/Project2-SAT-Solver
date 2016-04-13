@@ -11,6 +11,7 @@ using namespace std;
 #include "backtrack.h"
 #include "file_open.h"
 #include "cast_arg.h"
+#include "prooftree.h"
 
 
 int main(int argc, char** argv) {
@@ -25,6 +26,11 @@ int main(int argc, char** argv) {
         checkpoint = clock();
         fprintf(stderr,"check: %f s\n",(double) checkpoint/CLOCKS_PER_SEC);
     }
+
+    if(proof){
+        setNewProofTree();
+    }
+
     parse();
 
     if(verbose) instance->print();

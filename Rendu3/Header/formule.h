@@ -18,6 +18,7 @@ public:
     void print();
     void free_formule();
     void preprocessing();
+    string proof_str();
 
     clause* f_ClauseSatisfied=nullptr;
     clause* f_ClauseUnsatisfied=nullptr;

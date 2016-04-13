@@ -3,6 +3,7 @@
 #include "formule.h"
 #include "global_variable_extern.h"
 #include "assignation.h"
+#include "prooftree.h"
 #include <stdlib.h>
 
 
