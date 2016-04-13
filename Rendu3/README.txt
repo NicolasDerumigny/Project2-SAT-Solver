@@ -102,6 +102,17 @@ Commencer DPLL par les déductions possibles (implique de revoir backtrack...)
 
 Rendre le code portable sur Mac et Windows (pour l'appel à dot et à evince, ainsi que bison)
 
+Revoir l'algorithme utilisé car après un backtrack, on décide directement. deduce avant ?
+while(){
+decide
+deduce
+
+while(conflict){
+backtrack || conflictAnal
+deduce
+}
+}
+
 -------------
 
 Répartition du travail :
@@ -120,7 +131,7 @@ Ruben S. :
 - decide.cpp
 - generate_cnf.sh
 - Heuristiques
-- Apprentissage de clauses
+- Graphe + Apprentissage de clauses (en cours)
 
 -------------
 
