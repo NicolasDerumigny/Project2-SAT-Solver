@@ -111,6 +111,7 @@ while(conflict){
 backtrack || conflictAnal
 deduce
 }
+
 }
 
 -------------
