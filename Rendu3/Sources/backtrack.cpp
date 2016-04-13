@@ -165,7 +165,7 @@ bool conflictAnal(clause* cl_Conflict){//Renvoie false si l'analyse de conflit n
     }
     appendClause(&(instance->f_ClauseUnsatisfied),&(instance->f_ClauseUnsatisfied),UIPclause);
     //on backtrack jusqu'à level_max_back
-    while (level_cur > level_max_back){
+    /*while (level_cur > level_max_back){
         if (assignations[i]->bet==true)
             level_cur--;
         assignations[i]->variable->value=-1;
@@ -177,7 +177,7 @@ bool conflictAnal(clause* cl_Conflict){//Renvoie false si l'analyse de conflit n
         delete assignations[i];
         assignations.pop_back();
         i--;
-    }
+    }*/
     return true;
 }
 
