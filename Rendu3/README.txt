@@ -131,6 +131,9 @@ Apprentissage de clauses :
 
 Pour l'apprentissage on suit l'algorithme du cours et on construit ainsi iterativement l'ensemble UIP.
 
+Un exemple concret pas à pas pourra être suivi avec ./resol Examples/TestGraph.cnf -cl-interac -vv
+(tous les littéraux sont déduits/pariés à vrai, jusqu'à un conflit...) 
+
 On constate des performances plus importantes avec l'option -cl en particulier lorsqu'il y a de nombreux conflits.
 
 (en effet, on peut lancer :
@@ -148,7 +151,6 @@ Alors, on passe d'un temps d'éxécution moyen de 1.237 s sans option, à 0.655 
 )
 
 -------------
-
 
 Améliorations :
 
