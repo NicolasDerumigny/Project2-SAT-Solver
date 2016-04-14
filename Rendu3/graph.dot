@@ -1,10 +1,27 @@
 digraph conflict {
 node [style="filled,rounded",shape=circle,fillcolor=white];
-1 [label=<p<SUB>1</SUB><SUP>1</SUP><SUP>d</SUP>>,fillcolor=lightblue];
-2 [label=<p<SUB>2</SUB><SUP>1</SUP>>,fillcolor=lightblue];
-1 [label=<p<SUB>1</SUB><SUP>1</SUP><SUP>d</SUP>>];
-1 -> 2;
-1 [fillcolor=yellow];
+1 [label=<p<SUB>1</SUB><SUP>0</SUP>>,fillcolor=lightblue];
+6 [label=<p<SUB>6</SUB><SUP>0</SUP>>,fillcolor=lightblue];
+2 [label=<p<SUB>2</SUB><SUP>1</SUP><SUP>d</SUP>>,fillcolor=lightblue];
+3 [label=<p<SUB>3</SUB><SUP>1</SUP>>,fillcolor=lightblue];
+6 [label=<p<SUB>6</SUB><SUP>0</SUP>>];
+6 -> 3;
+2 [label=<p<SUB>2</SUB><SUP>1</SUP><SUP>d</SUP>>];
+2 -> 3;
+4 [label=<p<SUB>4</SUB><SUP>2</SUP><SUP>d</SUP>>,fillcolor=lightblue];
+5 [label=<p<SUB>5</SUB><SUP>2</SUP>>,fillcolor=lightblue];
+2 [label=<p<SUB>2</SUB><SUP>1</SUP>>];
+2 -> 5;
+4 [label=<p<SUB>4</SUB><SUP>2</SUP><SUP>d</SUP>>];
+4 -> 5;
+1 [fillcolor=purple];
+2 [fillcolor=purple];
+3 [fillcolor=purple];
+4 [fillcolor=yellow];
 conflict [fillcolor=red];
 1 -> conflict;
+2 -> conflict;
+3 -> conflict;
+4 -> conflict;
+5 -> conflict;
 }

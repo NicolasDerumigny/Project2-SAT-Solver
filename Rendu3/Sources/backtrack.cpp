@@ -75,7 +75,11 @@ bool backtrack(){
 }
 
 bool conflictAnal(clause* cl_Conflict){//Renvoie false si l'analyse de conflit ne peut plus remonter (comment?)
-    clause* UIPclause = getUIPClause(cl_Conflict);
+    if (level_cur == 0 && !interactive)//on a un conflit qui n'est pas lié à des paris
+        return false;//alors la formule est unsatisfiable
+    clause* UIPclause;
+    if (level_cur != 0)
+        UIPclause = getUIPClause(cl_Conflict);
     if(interactive){//On affiche le graphe
         string command;
         cout<<"Backtrack breakpoint, enter a command: ";
@@ -92,38 +96,41 @@ bool conflictAnal(clause* cl_Conflict){//Renvoie false si l'analyse de conflit n
                 var* var_decided = nullptr;
                 fprintf(graph_file,"digraph conflict {\nnode [style=\"filled,rounded\",shape=circle,fillcolor=white];\n");
                 for(assignation* ass:assignations){
-                    //On affiche la variable du niveau courant
-                    fprintf(graph_file,"%i [label=<",ass->variable->id);
-                    if (ass->variable->value == 0)
-                        fprintf(graph_file,"¬");
-                    fprintf(graph_file,"p<SUB>%i</SUB><SUP>%i</SUP>",ass->variable->id,ass->variable->level_ass);
-                    if (ass->bet == 1){
-                        fprintf(graph_file,"<SUP>d</SUP>");
-                        var_decided = ass->variable;
-                    }
-                    fprintf(graph_file,">,fillcolor=lightblue];\n");
-                    //On l'affiche alors en bleu
-                    for(var* v2:ass->variable->varConflict){
-                        //On affiche la variable à l'origine de la déduction
-                        fprintf(graph_file,"%i [label=<",v2->id);
-                        if (v2->value == 0)
+                    if (ass->variable->level_ass == level_cur){//On affiche la variable du niveau courant
+                        fprintf(graph_file,"%i [label=<",ass->variable->id);
+                        if (ass->variable->value == 0)
                             fprintf(graph_file,"¬");
-                        fprintf(graph_file,"p<SUB>%i</SUB><SUP>%i</SUP>",v2->id,v2->level_ass);
-                        if (v2 == var_decided)
-                            fprintf(graph_file,"<SUP>d</SUP>>];\n");
-                        else
-                            fprintf(graph_file,">];\n");
-                        fprintf(graph_file,"%i -> %i;\n",v2->id,ass->variable->id);
+                        fprintf(graph_file,"p<SUB>%i</SUB><SUP>%i</SUP>",ass->variable->id,ass->variable->level_ass);
+                        if (ass->bet == 1){
+                            fprintf(graph_file,"<SUP>d</SUP>");
+                            var_decided = ass->variable;
+                        }
+                        fprintf(graph_file,">,fillcolor=lightblue];\n");
+                        //On l'affiche alors en bleu
+                        for(var* v2:ass->variable->varConflict){
+                            //On affiche la variable à l'origine de la déduction
+                            fprintf(graph_file,"%i [label=<",v2->id);
+                            if (v2->value == 0)
+                                fprintf(graph_file,"¬");
+                            fprintf(graph_file,"p<SUB>%i</SUB><SUP>%i</SUP>",v2->id,v2->level_ass);
+                            if (v2 == var_decided)
+                                fprintf(graph_file,"<SUP>d</SUP>>];\n");
+                            else
+                                fprintf(graph_file,">];\n");
+                            fprintf(graph_file,"%i -> %i;\n",v2->id,ass->variable->id);
+                        }
                     }
                 }
                 //On affiche l'UIP
-                fprintf(stderr,"The learned clause is :");
-                UIPclause->print();
-                for(litt* li = UIPclause->f_ElementDead;li != nullptr;li = li->next_litt){
-                    if (li->variable->level_ass == level_cur)
-                        fprintf(graph_file,"%i [fillcolor=yellow];\n",li->variable->id);
-                    else
-                        fprintf(graph_file,"%i [fillcolor=purple];\n",li->variable->id);
+                if (level_cur != 0){
+                    fprintf(stderr,"The learned clause is :");
+                    UIPclause->print();
+                    for(litt* li = UIPclause->f_ElementDead;li != nullptr;li = li->next_litt){
+                        if (li->variable->level_ass == level_cur)
+                            fprintf(graph_file,"%i [fillcolor=yellow];\n",li->variable->id);
+                        else
+                            fprintf(graph_file,"%i [fillcolor=purple];\n",li->variable->id);
+                    }
                 }
                 //On affiche le conflict
                 fprintf(graph_file,"conflict [fillcolor=red];\n");
@@ -157,6 +164,8 @@ bool conflictAnal(clause* cl_Conflict){//Renvoie false si l'analyse de conflit n
                 cerr<<"No valid command found, continuing anyway"<<endl;
         }
     }
+    if (level_cur == 0)
+        return false;
     //on procède à l'analyse de conflit
     int level_max_back = 0;
     for(litt* li = UIPclause->f_ElementDead;li != nullptr;li = li->next_litt) {
@@ -221,9 +230,9 @@ clause* getUIPClause(clause *cl_Conflict){
         if (!unique){//on va faire une résolution via li_ref
             if (var_ref->clConflict == nullptr)
                 fprintf(stderr,"Fatal: Attempt to build learned clause via a variable deduced by no direct clause\n");
-            clLearned->print();var_ref->clConflict->print();cl_Conflict->print();printf("%p,%p\n",clLearned,cl_Conflict);
+//            clLearned->print();var_ref->clConflict->print();cl_Conflict->print();printf("%p,%p\n",clLearned,cl_Conflict);
             clLearned->merge(var_ref->clConflict->copy());
-            clLearned->print();var_ref->clConflict->print();cl_Conflict->print();printf("%p,%p\n",clLearned,cl_Conflict);
+//            clLearned->print();var_ref->clConflict->print();cl_Conflict->print();printf("%p,%p\n",clLearned,cl_Conflict);
             //On enlève les doublons et les occurences à li_ref ou sa négation
             li_need_back = false;
             li_prev = nullptr;
