@@ -88,11 +88,15 @@ void clause::print(){
     for(litt* course=this->f_ElementDead;course!=nullptr;course=course->next_litt){
         course->print();
     }
-    /*
-    for (auto& s:this->mElementDead)
-        if (s.second != nullptr)
-			s.second->print();
-            */
+
+    if (this->w_litt_1!=nullptr){
+        cout<<"\n Watching :"<<endl;
+        (this->w_litt_1)->print();
+        (this->w_litt_2)->print();
+        cout<<endl;
+    }
+
+
     cout<<"\n------------------------------------------------------";
     cout<<endl;
 }
@@ -178,6 +182,9 @@ void appendClause(clause **first_cl, clause **last_cl,clause *cur_cl) {
 }
 
 bool clause::existsWatchedNonAlive(){
+    //renvoie false si un des watched litterals est a vrai ou si les deux sont non assignés
+    if(this->w_litt_1->variable->value==-1 and this->w_litt_1->variable->value==-1)
+        return false;
     if(this->w_litt_1->variable->value==0 and this->w_litt_1->neg==true)
         return false;
     if(this->w_litt_1->variable->value==1 and this->w_litt_1->neg==false)

@@ -224,7 +224,7 @@ clause* getUIPClause(clause *cl_Conflict){
                                 break;
                         }//on break forcément car on a au moins li_ref dans assignations
                     } else {
-                        fprintf(stderr,"Warning: duplicates detected while learning clauses");
+                        fprintf(stderr,"Warning: duplicates detected while learning clauses\n");
                     }
                 }
             }
@@ -246,6 +246,9 @@ clause* getUIPClause(clause *cl_Conflict){
                 }
                 if (li->neg){
                     if ((variables[li->variable->id].first > 0) || (li->variable == var_ref)){//si on a un doublon dans la clause ou var_ref, on l'élimine
+                        if (wl)
+                            if (!assignNewWatched(clLearned,li))
+                                cerr<<"Error: A new watched litteral was not found in the alive elements of learnt clause after deduce\n";
                         removeLitt(&clLearned->f_ElementDead,&clLearned->l_ElementDead,li,li_prev);
                         delete li;
                         if (li_prev != nullptr)
@@ -260,6 +263,9 @@ clause* getUIPClause(clause *cl_Conflict){
                     }
                 } else {
                     if (variables[li->variable->id].second > 0 || (li->variable == var_ref)){//si on a un doublon dans la clause ou var_ref, on l'élimine
+                        if (wl)
+                            if (!assignNewWatched(clLearned,li))
+                                cerr<<"Error: A new watched litteral was not found in the alive elements of learnt clause after deduce\n";
                         removeLitt(&clLearned->f_ElementDead,&clLearned->l_ElementDead,li,li_prev);
                         delete li;
                         if (li_prev != nullptr)
