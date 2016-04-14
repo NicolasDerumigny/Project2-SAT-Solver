@@ -74,7 +74,7 @@ Trois variables globales sont déclarées dans global_variable :
 - v_var, le vecteur des pointeur de toutes les variables utilisées (ou nullptr si elles ne sont pas présentes dans la formule)
 - assignations, le vectors des pointeurs vers paris effectués
 
-En outre, chaque argument (-tseitin, -wl, etc) est lié à un bouléen global indiquant si l'option est activée ou non.
+En outre, chaque argument (-tseitin, -wl, -cl, etc) est lié à un bouléen global indiquant si l'option est activée ou non.
 
 File_open.cpp contient l'ensemble des fonctions vérifiants la syntaxe, effectuant l'analyse syntaxique et libérant la memoire.
 
@@ -101,24 +101,7 @@ On ne prend pas en compte les clauses déclarées avant la ligne d'en-tête.
 
 On gère mal des commentaires ne commençant pas par 'c'.
 
-Créer un script de test général gérant aussi les performances. (en cours)
-
-Commencer DPLL par les déductions possibles (implique de revoir backtrack...)
-
 Rendre le code portable sur Mac et Windows (pour l'appel à dot et à evince, ainsi que bison)
-
-Revoir l'algorithme utilisé car après un backtrack, on décide directement. deduce avant ?
-while(){
-
-deduce
-
-if(conflits){
-backtrack || conflictAnal
-}else{
-decide
-}
-
-}
 
 -------------
 

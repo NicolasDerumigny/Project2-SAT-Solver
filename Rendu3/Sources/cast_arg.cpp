@@ -34,11 +34,13 @@ void cast_arg(int argc, char** argv){
                 heuristic=2;
         if (!strcmp(argv[i],"-dlis"))
                 heuristic=3;
+        if (!strcmp(argv[i],"-vsids"))
+                heuristic=4;
 
         if (!strcmp(argv[i],"-cl"))
             clLearning=true;
 
-        if (!strcmp(argv[i],"-interac"))
+        if (!strcmp(argv[i],"-cl-interac"))
             interactive=true;
 
         if (!strcmp(argv[i],"-wl"))

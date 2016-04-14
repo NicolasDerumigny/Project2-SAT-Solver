@@ -22,6 +22,7 @@ public:
     clause* clConflict = nullptr;
     bool bet = false;
     int level_ass = 0;
+    float score = 0;
 };
 
 #endif // VAR_H

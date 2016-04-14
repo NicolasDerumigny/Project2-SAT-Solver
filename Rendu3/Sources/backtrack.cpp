@@ -142,8 +142,6 @@ bool conflictAnal(clause* cl_Conflict){//Renvoie false si l'analyse de conflit n
                 fprintf(graph_file,"}\n");
                 if (fclose(graph_file) != 0)
                     perror("Warning: Unable to close the conflict graph file, possible I/O errors incoming");
-                //TODO : discuss data structure implementation
-                //TODO : create graph !
                 if (graph_file != stderr){
                     /*int val_ret = fork();
                     if (val_ret == 0){//On est dans le fils
@@ -171,6 +169,8 @@ bool conflictAnal(clause* cl_Conflict){//Renvoie false si l'analyse de conflit n
     //on procède à l'analyse de conflit
     int level_max_back = 0;
     for(litt* li = UIPclause->f_ElementDead;li != nullptr;li = li->next_litt) {
+        if (heuristic == 4)
+            li->variable->score+=32;
         if (li->variable->level_ass != level_cur && li->variable->level_ass > level_max_back)
             level_max_back = li->variable->level_ass;
     }
