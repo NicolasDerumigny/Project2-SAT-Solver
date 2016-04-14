@@ -26,6 +26,7 @@ void var::set_var(int id){
 
 void var::assignValue(int value,bool bet) {
 	this->value=value;
+    this->bet=bet;
     if (clLearning){
         this->level_ass = level_cur;
     }

@@ -20,6 +20,7 @@ public:
     //amélioration possible : metttre deux map des clauses la contenant et ne la contenant pas
     vector<var*> varConflict;
     clause* clConflict = nullptr;
+    bool bet = false;
     int level_ass = 0;
 };
 

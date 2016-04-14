@@ -57,6 +57,7 @@ bool backtrack(){
             //i.e. les clauses sont considérées satisfaites ou non en fonctions
             //de leurs litteraux mort uniquement !
             assignations[i]->bet=false;
+            assignations[i]->variable->bet=false;
             assignations[i]->variable->value=(1-assignations[i]->variable->value);
             //attention, si la variable venait à ne pas etre assignée
             //(value == -1), le backtrack fail lamentablement
@@ -93,7 +94,6 @@ bool conflictAnal(clause* cl_Conflict){//Renvoie false si l'analyse de conflit n
                     fprintf(stderr,"Outputting graph on stderr\n");
                     graph_file = stderr;
                 }
-                var* var_decided = nullptr;
                 fprintf(graph_file,"digraph conflict {\nnode [style=\"filled,rounded\",shape=circle,fillcolor=white];\n");
                 for(assignation* ass:assignations){
                     if (ass->variable->level_ass == level_cur){//On affiche la variable du niveau courant
@@ -101,10 +101,8 @@ bool conflictAnal(clause* cl_Conflict){//Renvoie false si l'analyse de conflit n
                         if (ass->variable->value == 0)
                             fprintf(graph_file,"¬");
                         fprintf(graph_file,"p<SUB>%i</SUB><SUP>%i</SUP>",ass->variable->id,ass->variable->level_ass);
-                        if (ass->bet == 1){
+                        if (ass->bet)
                             fprintf(graph_file,"<SUP>d</SUP>");
-                            var_decided = ass->variable;
-                        }
                         fprintf(graph_file,">,fillcolor=lightblue];\n");
                         //On l'affiche alors en bleu
                         for(var* v2:ass->variable->varConflict){
@@ -113,7 +111,7 @@ bool conflictAnal(clause* cl_Conflict){//Renvoie false si l'analyse de conflit n
                             if (v2->value == 0)
                                 fprintf(graph_file,"¬");
                             fprintf(graph_file,"p<SUB>%i</SUB><SUP>%i</SUP>",v2->id,v2->level_ass);
-                            if (v2 == var_decided)
+                            if (v2->bet)
                                 fprintf(graph_file,"<SUP>d</SUP>>];\n");
                             else
                                 fprintf(graph_file,">];\n");
@@ -140,7 +138,7 @@ bool conflictAnal(clause* cl_Conflict){//Renvoie false si l'analyse de conflit n
                     if (li->variable->value == 0)
                         fprintf(graph_file,"¬");
                     fprintf(graph_file,"p<SUB>%i</SUB><SUP>%i</SUP>",li->variable->id,li->variable->level_ass);
-                    if (li->variable == var_decided)
+                    if (li->variable->bet)
                         fprintf(graph_file,"<SUP>d</SUP>>];\n");
                     else
                         fprintf(graph_file,">];\n");
