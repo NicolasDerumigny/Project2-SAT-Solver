@@ -86,6 +86,11 @@ Important : Linux est requis pour cette étape.
 Attention : l'étape de convertion et d'affichage nécéssite d'avoir préalablement installé dot (testé avec la version 2.38.0 et 2.36.0 installée sur les salles libre service) et evince (installé aussi sur les salles libre service).
 Pour vous les procurer, lancer dans un terminal : sudo apt-get update ; sudo apt-get install graphviz evince
 
+-------------
+
+Apprentissage de clauses :
+
+Pour l'apprentissage
 
 -------------
 
