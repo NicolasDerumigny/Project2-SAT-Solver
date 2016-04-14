@@ -24,7 +24,8 @@ void assignation::updateLitt(bool alive){
                 if (li->variable == this->variable) {
                     removeLitt(&cl->f_ElementAlive,&cl->l_ElementAlive,li,li_prev);
                     appendLitt(&cl->f_ElementDead,&cl->l_ElementDead,li);
-                    assignNewWatched(cl,li);
+                    if (needNewWatched(cl,li))
+                        assignNewWatched(cl,li);
 					if (li_prev != nullptr)
 						li = li_prev;//On évite de casser la chaîne de parcours de la boucle for...
 					else if (cl->f_ElementAlive != nullptr){//on est au début
@@ -140,6 +141,13 @@ void assignation::updateStatus(bool alive){
 
 void assignation::print(){
     this->variable->print();
+}
+
+bool needNewWatched(clause * cl, litt* li){
+    if (cl->w_litt_1==li or cl->w_litt_2==li)
+        return true;
+    else
+        return false;
 }
 
 bool assignNewWatched(clause * cl, litt* li){

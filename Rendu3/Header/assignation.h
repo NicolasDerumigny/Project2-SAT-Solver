@@ -22,5 +22,5 @@ public:
 };
 
 bool assignNewWatched(clause * cl, litt* li);
-
+bool needNewWatched(clause * cl, litt* li);
 #endif // ASSIGNATION_H
