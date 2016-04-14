@@ -47,13 +47,36 @@ Le fichier source doit être de la forme :
 
 Générateur aléatoire de formules :
 
-./Rendu1/Examples/generate_cnf.sh
+./Rendu3/Examples/generate_cnf.sh
 
-usage : generate_cnf.sh [nombre de variables] [nombre de clauses] [nombre max de littéraux par clauses] ([non-rand | tseitin])
+usage : generate_cnf.sh [nombre de variables] [nombre de clauses] [nombre max de littéraux par clauses] (non-rand) (tseitin)
 
 L'ajout aléatoire de commentaires n'a pas été pris en compte (par manque de générateur aléatoire de phrases installé par défaut sur les machines libre-service).
 L'option non-rand permet de fixer le nombre de littéraux par clause, utile pour les tests de performance.
 L'option tseitin permet de générer des tests pour tseitin (opérateurs choisis aléatoirement parmi : 'X' '\/' '/\' '=>' '<=>' '~' ' ').
+
+
+
+Testeur d'options :
+
+./Rendu3/Examples/allSatTests.sh 
+
+Usage : allSatTest.sh "[lien vers le solveur]" "[lien vers generate_cnf]" [nombre de tests] [nombre de variables] [nombre de clauses] [nombre de littéraux par clauses] ("save") (-v)
+L'option "save" permet de conserver les tests générés d'une session à l'autre (pour plus de stabilité des mesures)
+
+Teste actuellement les 4 heuristiques basiques (normal, rand, moms, dlis) avec/sans -cl
+
+
+
+Testeur avancé:
+
+./Rendu3/Examples/SatTest.sh
+
+
+Usage : "[lien vers generate_cnf.sh]" "[lien vers solveur]" [nombre de variables maximum] [ratio : nb clauses / nb variables] [ratio : nb variables / nb litt par clause] ("[options pour le solveur]")
+Attention : les ratios doivent être entiers
+
+Permet de tracer un graphe des performances des différentes étapes du programme pour un ensemble d'options donné, par example : "-cl -rand" est acceptable pour ("[options pour le solveur]").
 
 ------------------------------------
 
@@ -86,11 +109,43 @@ Important : Linux est requis pour cette étape.
 Attention : l'étape de convertion et d'affichage nécéssite d'avoir préalablement installé dot (testé avec la version 2.38.0 et 2.36.0 installée sur les salles libre service) et evince (installé aussi sur les salles libre service).
 Pour vous les procurer, lancer dans un terminal : sudo apt-get update ; sudo apt-get install graphviz evince
 
+Résumé de l'algorithme :
+
+while(Formule insatisfaite){
+	Deduce
+
+	if(conflits){
+		Backtrack || Analyse de conflits
+		if(backtrack impossible){
+			Formule insatisfiable
+		}
+	} else {
+		Decide
+	}
+}
+Formule satisfiable
+
 -------------
 
 Apprentissage de clauses :
 
-Pour l'apprentissage
+Pour l'apprentissage on suit l'algorithme du cours et on construit ainsi iterativement l'ensemble UIP.
+
+On constate des performances plus importantes avec l'option -cl en particulier lorsqu'il y a de nombreux conflits.
+
+(en effet, on peut lancer :
+Examples/allSatTests.sh ./resol Examples/generate_cnf.sh 10 50 500 500 -v
+
+Cela compare les différentes options implémentées sur 10 tests de 50 variables, 500 clauses et 500 littéraux par clause.
+On trouve alors 1.744 s en moyenne par éxécution sans aucune option, contre 1.745 s avec -cl.
+En effet, ce type de configuration entraîne très peu de déductions ni de conflits.
+
+Par contre, en lançant :
+Examples/allSatTests.sh ./resol Examples/generate_cnf.sh 10 50 5000 20 -v
+
+On a de nombreuses clauses avec peu de littéraux par clause, ce qui entraîne des déductions et des conflicts.
+Alors, on passe d'un temps d'éxécution moyen de 1.237 s sans option, à 0.655 s avec l'option -cl
+)
 
 -------------
 
@@ -101,7 +156,11 @@ On ne prend pas en compte les clauses déclarées avant la ligne d'en-tête.
 
 On gère mal des commentaires ne commençant pas par 'c'.
 
-Rendre le code portable sur Mac et Windows (pour l'appel à dot et à evince, ainsi que bison)
+Rendre le code portable sur Mac et Windows (pour l'appel à dot et à evince, ainsi que bison). (non-nécessaire)
+
+Tester mieux l'heuristique vsids, implémentée, mais juste essayée sur une poignée d'examples.
+
+Tracer les performances comme avec SatTest.sh, mais juste la durée globale pour les différentes options (SatTestGeneral.sh) (WIP)
 
 -------------
 
@@ -113,15 +172,20 @@ Nicolas D. :
 - file_open.cpp
 - backtrack.cpp
 - Tseitin
-- Littéraux surveillés
-- Fonctions mineurs dans les apprentissages de clauses (copie)
+- Littéraux surveillés (WIP)
+- Fonction mineure dans les apprentissages de clauses (copy)
+- Explication de conflit avec arbre de preuve
 
 Ruben S. :
 - deduce.cpp
 - decide.cpp
 - generate_cnf.sh
-- Heuristiques
-- Graphe + Apprentissage de clauses (en cours)
+- Heuristiques (rand, moms, dlis, vsids)
+- Graphe des conflicts
+- Apprentissage de clauses
+- allSatTests.sh
+- SatTest.sh
+- SatTestGeneral.sh (WIP)
 
 -------------
 

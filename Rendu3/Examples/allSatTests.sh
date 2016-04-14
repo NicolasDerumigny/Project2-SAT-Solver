@@ -1,9 +1,9 @@
 #!/bin/bash
 
 function echo_help {
-	echo 'Usage : allSatTest.sh "[lien vers le solveur]" "[lien vers generate_cnf]" [nombre de tests] [nombre de variables] [nombre de clauses] [nombre max de littéraux par clauses] ("save") (-v)'
+	echo 'Usage : allSatTest.sh "[lien vers le solveur]" "[lien vers generate_cnf]" [nombre de tests] [nombre de variables] [nombre de clauses] [nombre de littéraux par clauses] ("save") (-v)'
 	echo "L'option \"save\" permet de conserver les tests générés d'une session à l'autre"
-	echo "Le nombre de tests réel est doublé du fait que l'on génère aussi avec tseitin" 
+#	echo "Le nombre de tests réel est doublé du fait que l'on génère aussi avec tseitin" 
 }
 
 [[ $# -lt 6 ]] && echo_help && exit
@@ -17,7 +17,7 @@ nb_litt="$6"
 add_option=" $7 $8 "
 tests_found="$(ls|grep "rstaub_allSatTests_autogen_*.*"|wc -l)"
 
-if ([ $tests_found != 0 ] && [ $[$tests_found%2] == 0 ])
+if ([ $tests_found != 0 ]) # && [ $[$tests_found%2] == 0 ])
 then
 	echo "$tests_found tests retrouvés avec succès. Évaluation des performances sur ces tests."
 else #genere tests normaux et tseitin dans le dossier courant
@@ -40,7 +40,7 @@ fi
 
 for heur_opt in "" "-rand" "-dlis" "-moms" #"-cl -vsids" "-cl -forget"
 do
-	for wl_opt in "" #"-wl"
+	for wl_opt in "" #"-wl" watched litterals are still work in progress...
 	do
 		for cl_opt in "" "-cl"
 		do
@@ -58,7 +58,7 @@ do
 #				echo "$(minisat $fichier 2> /dev/null |tail -1) == $satisfiability"
 #				echo $fichier
 #				[[ "$(minisat $fichier 2> /dev/null |tail -1)" == "$satisfiability" ]] && true_results=$[$true_results+1]
-				[[ "$add_option" =~ " -v " ]] && [[ $[$tested%($nb_tests/20)] == 0 ]] && echo "$[((100*$tested)/$nb_tests)]% testés : temps=$(echo "$time_total/$tested"|bc -l)" #correction=$(echo "100*$true_results/$tested"|bc)"
+				[[ "$add_option" =~ " -v " ]] && [[ $[$tested%($nb_tests/10)] == 0 ]] && echo "$[((100*$tested)/$nb_tests)]% testés : temps=$(echo "$time_total/$tested"|bc -l)" #correction=$(echo "100*$true_results/$tested"|bc)"
 			done
 			echo -e "Avec options : $heur_opt $wl_opt $cl_opt \t-> temps moyen = $(echo "$time_total/$tested"|bc -l)"
 #			tseitin_opt="-tseitin"
@@ -76,4 +76,4 @@ do
 		done
 	done
 done
-if ()
+[[ "$add_option" =~ " save " ]] && exit || rm rstaub_allSatTests_autogen_*.*

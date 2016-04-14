@@ -11,5 +11,6 @@ var* getFreeVar();
 var* getRandFreeVar();
 var* getMomsFreeVar();
 var* getDlisFreeVar();
+var* getVsidsVar();
 
 #endif // DECIDE_H

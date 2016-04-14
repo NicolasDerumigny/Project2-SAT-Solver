@@ -108,6 +108,8 @@ int main(int argc, char** argv) {
                 new_var = getMomsFreeVar();
             else if (heuristic == 3)
                 new_var = getDlisFreeVar();
+            else if (heuristic == 4)
+                new_var = getVsidsVar();
             if (new_var != nullptr) {
                 if (clLearning)
                     level_cur++;

@@ -94,4 +94,15 @@ var* getDlisFreeVar() {
 	return new_var;
 }
 
+var* getVsidsVar() {
+    float score = 0;
+    var* selection = nullptr;
+    for (var* s:v_var) {
+        if (s != nullptr && s->value == -1 && s->score >= score) {
+            selection = s;
+        }
+    }
+    return selection;
+}
+
 //voir var::assignValue avec value=1 par défaut et bet=true

@@ -174,6 +174,11 @@ bool conflictAnal(clause* cl_Conflict){//Renvoie false si l'analyse de conflit n
         if (li->variable->level_ass != level_cur && li->variable->level_ass > level_max_back)
             level_max_back = li->variable->level_ass;
     }
+    if (heuristic == 4)
+        for(auto& v:v_var){
+            if (v != nullptr)
+               v->score = v->score / 2;
+        }
     appendClause(&(instance->f_ClauseUnsatisfied),&(instance->l_ClauseUnsatisfied),UIPclause);
     //on backtrack jusqu'à level_max_back
     int i = assignations.size()-1;
