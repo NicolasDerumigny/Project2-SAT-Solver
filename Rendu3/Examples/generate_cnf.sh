@@ -1,6 +1,6 @@
 #!/bin/bash
 
-[[ $# -lt 3 ]] && echo "Nombre d'arguments insuffisant : generate_cnf.sh [nombre de variables] [nombre de clauses] [nombre max de littéraux par clauses] ([non-rand]) ([tseitin])" && exit
+[[ $# -lt 3 ]] && echo "Nombre d'arguments insuffisant : generate_cnf.sh [nombre de variables] [nombre de clauses] [nombre max de littéraux par clauses] (\"non-rand\") (\"tseitin\")" && exit
 
 nb_var=$1
 nb_clauses=$2
