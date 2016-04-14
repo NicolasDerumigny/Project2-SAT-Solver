@@ -129,6 +129,8 @@ void formule::preprocessing() {
             if(cl->f_ElementAlive != cl->l_ElementAlive){
                 cl->w_litt_1=cl->f_ElementAlive;
                 cl->w_litt_2=cl->f_ElementAlive->next_litt;
+                if(verbose2)
+                    cerr<<"Sucessfully set watched litterals for one clause\n";
             }else{
                 cerr<<"Error : can't apply watched litterals method : returning to normal state"<<endl;
                 wl=false;

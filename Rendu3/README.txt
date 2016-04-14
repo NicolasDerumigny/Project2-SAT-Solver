@@ -192,5 +192,7 @@ Ruben S. :
 Progression par rapport au rendu 2 :
 - debogage complet de tseitin et des listes chainées
 - littéraux surveillés, testé avec succès sur des formules à grand nombre de littéraux par clause
-- apprentissage des clause : en cours
+- apprentissage des clause
+- fichiers de test global du solveur : satTest, allSatTest et SatTestGeneral
+
 

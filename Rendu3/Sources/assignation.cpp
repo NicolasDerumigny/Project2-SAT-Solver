@@ -74,7 +74,6 @@ void assignation::updateLitt(bool alive){
 }
 
 void assignation::updateClause(bool alive){
-    // Amélioration : au lieu de revérifier s'il existe un littéral qui satifait la clause (méthode isSatisfied), if faudrait uniquement vérifier les littéraux associées à la variable
 	bool cl_need_back = false;
 	clause* cl_prev = nullptr;
     for (auto& cl:this->variable->clauseInto)
@@ -104,7 +103,6 @@ void assignation::updateClause(bool alive){
                     }
 				cl_prev = cl2;
             }
-
         } else {
             //et réciproquement...
 			cl_need_back = false;
@@ -126,32 +124,13 @@ void assignation::updateClause(bool alive){
 							cl_need_back = true;
 						} else//there is nothing left
 							break;
-					}
-				cl_prev = cl2;
-			}
-        if (wl && cl->existsWatchedNonAlive())
-            cerr<<"Error : There exist false watched litterals in an alive clause"<<endl;
-        }
-}
-
-
-
-bool assignation::assignNewWatched(clause * cl, litt* li){
-    bool changed=false;
-    if (cl->w_litt_1==li or cl->w_litt_2==li){
-        cl->w_litt_1=(cl->w_litt_1==li)?cl->w_litt_2:cl->w_litt_1;
-        //li est maintenant le litteral watched numero 2
-        for(litt* li2=cl->f_ElementAlive;li2!=nullptr; li2=li2->next_litt){
-            if (li2!=cl->w_litt_1){
-                cl->w_litt_2=li2;
-                changed=true;
-                break;
+                    }
+                if (wl && cl2->existsWatchedNonAlive() && cl2->isSatisfied())
+                    cerr<<"Error : There exist false watched litterals in an alive clause"<<endl;
+                cl_prev = cl2;
             }
         }
-    }
-    return changed;
 }
-
 
 void assignation::updateStatus(bool alive){
     this->updateLitt(alive);
@@ -161,4 +140,34 @@ void assignation::updateStatus(bool alive){
 
 void assignation::print(){
     this->variable->print();
+}
+
+bool assignNewWatched(clause * cl, litt* li){
+    bool changed=false;
+    if (cl->w_litt_1==li or cl->w_litt_2==li){
+        cl->w_litt_1=(cl->w_litt_1==li)?cl->w_litt_2:cl->w_litt_1;
+        //li est maintenant le litteral watched numero 2
+        for(litt* li2=cl->f_ElementAlive;li2!=nullptr; li2=li2->next_litt){
+            if (li2!=cl->w_litt_1 and li2!=li){
+                cl->w_litt_2=li2;
+                changed=true;
+                break;
+            }
+        }
+        if (!changed){
+            //si jamais on n'a pas réussi a changer, on va bouger sur un litteral mort
+            //(au cas ou on supprime le litteral en question
+            for(litt* li2=cl->f_ElementAlive;li2!=nullptr; li2=li2->next_litt){
+                if (li2!=cl->w_litt_1 and li2!=li){
+                    cl->w_litt_2=li2;
+                    changed=true;
+                    break;
+                }
+            }
+
+        }
+
+    }else
+        return true;
+    return changed;
 }
