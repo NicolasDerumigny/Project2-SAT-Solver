@@ -16,17 +16,7 @@ clause* getConflict(){//renvoie (si elle existe) un pointeur vers une clause ins
 
 bool backtrack(){
     if(proof){
-        bool willFail=false, firstTry=true;
-        for(int i=0;i<(int)assignations.size();i++){
-            if (bets[i])
-                firstTry=false;
-                if(assignations[i]->bet==true){
-                    willFail=false;
-                    break;
-                }
-            }
-        if (!willFail or firstTry)
-            writeAxiom();
+        writeAxiom();
     }
     //renvoie false si le backtrack n'as pas marché
     //-> plus de retour en arrière possible
@@ -35,13 +25,16 @@ bool backtrack(){
     int level_back = 0;
     while ((i>=0) && (level_back == 0)){
         if (assignations[i]->bet==false){
+            if(proof){
+                writeDeduce(assignations[i]);
+            }
             assignations[i]->variable->value=-1;
             assignations[i]->updateStatus(true);
             if (interactive)
                 assignations[i]->variable->varConflict.clear();
 
             if(proof){
-                writingAssign(assignations[i]);
+                writeAssign(assignations[i]);
             }
             if(proof and assignations[i]->bet==0 and bets[i])
                 writeBinary();
@@ -52,10 +45,16 @@ bool backtrack(){
             bets.pop_back();
             i--;
         }else{
+            if(proof){
+                writeDeduce(assignations[i]);
+            }
             assignations[i]->updateStatus(true);
             //on ne change les clauses que là où les variables sont mortes !
             //i.e. les clauses sont considérées satisfaites ou non en fonctions
             //de leurs litteraux mort uniquement !
+            if(proof){
+                writeAssign(assignations[i]);
+            }
             assignations[i]->bet=false;
             assignations[i]->variable->bet=false;
             assignations[i]->variable->value=(1-assignations[i]->variable->value);
@@ -65,10 +64,6 @@ bool backtrack(){
             //assignation est assignée
             assignations[i]->updateStatus(false);
             level_back++;
-
-            if(proof){
-                writingAssign(assignations[i]);
-            }
 //            level_cur--; //TODO
         }
     }
