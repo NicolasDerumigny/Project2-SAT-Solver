@@ -108,7 +108,7 @@ bool conflictAnal(clause* cl_Conflict){//Renvoie false si l'analyse de conflit n
                         fprintf(graph_file,">,fillcolor=lightblue];\n");
                         //On l'affiche alors en bleu
                         for(var* v2:ass->variable->varConflict){
-                            //On affiche la variable à l'origine de la déduction
+                            //On affiche les variables à l'origine de la déduction
                             fprintf(graph_file,"%i [label=<",v2->id);
                             if (v2->value == 0)
                                 fprintf(graph_file,"¬");
@@ -135,8 +135,17 @@ bool conflictAnal(clause* cl_Conflict){//Renvoie false si l'analyse de conflit n
                 //On affiche le conflict
                 fprintf(graph_file,"conflict [fillcolor=red];\n");
                 //On affiche les liaisons avec les variables responsables du conflit
-                for(litt* li = cl_Conflict->f_ElementDead;li != nullptr;li = li->next_litt)
+                for(litt* li = cl_Conflict->f_ElementDead;li != nullptr;li = li->next_litt){
+                    fprintf(graph_file,"%i [label=<",li->variable->id);
+                    if (li->variable->value == 0)
+                        fprintf(graph_file,"¬");
+                    fprintf(graph_file,"p<SUB>%i</SUB><SUP>%i</SUP>",li->variable->id,li->variable->level_ass);
+                    if (li->variable == var_decided)
+                        fprintf(graph_file,"<SUP>d</SUP>>];\n");
+                    else
+                        fprintf(graph_file,">];\n");
                     fprintf(graph_file,"%i -> conflict;\n",li->variable->id);
+                }
                 fprintf(graph_file,"}\n");
                 if (fclose(graph_file) != 0)
                     perror("Warning: Unable to close the conflict graph file, possible I/O errors incoming");
