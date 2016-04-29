@@ -40,8 +40,10 @@ void cast_arg(int argc, char** argv){
         if (!strcmp(argv[i],"-cl"))
             clLearning=true;
 
-        if (!strcmp(argv[i],"-cl-interac"))
+        if (!strcmp(argv[i],"-cl-interac")){
             interactive=true;
+            clLearning=true;
+        }
 
         if (!strcmp(argv[i],"-wl"))
             wl=true;

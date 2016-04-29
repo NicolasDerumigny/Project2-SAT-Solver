@@ -46,7 +46,7 @@ void writeBinary(){
 
 void deleteProofTree(){
     //nope, il suffit de prends ceux qui sont a faux, pas a vrai !!
-    prooftree_fs<<"\\UnaryInfC{$"<<instance->proof_str(true,true)<<"\\to \\bot$}\n";
+    prooftree_fs<<"\\UnaryInfC{$\\vdash"<<instance->proof_str(true,true)<<"\\to \\bot$}\n";
     prooftree_fs<<"\\end{prooftree}\n\n";
     prooftree_fs<<"\\end{document}";
     prooftree_fs.close();
