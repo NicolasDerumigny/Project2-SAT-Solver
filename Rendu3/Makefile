@@ -8,7 +8,7 @@ LIBLEX=-lfl
 #yacc/bison
 YACC=bison
 #flags
-CFLAGS=-g -std=c++11 -Wall -Wextra -Wpedantic -Wno-write-strings -I Header/ 
+CFLAGS=-g -std=c++11 -Wall -Wextra -Weverything -Wpedantic -Wno-write-strings -I Header/ 
 SRC= $(wildcard Sources/*.cpp)
 OBJ= $(SRC:.cpp=.o)
 

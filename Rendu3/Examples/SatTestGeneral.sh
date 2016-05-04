@@ -1,6 +1,6 @@
 #!/bin/bash
 
-[[ $# -lt 7 ]] && echo -e 'Usage : "[lien vers generate_cnf.sh]" "[lien vers solveur]" [nombre de tests] [nombre de variables] [nombre de clauses] [nombre de littéraux par clauses] ["options" pour le solveur]\n\nAttention : les ratios doivent être entiers\nLes options pour le solveur devront être séparés par un espace et avec guillemets englobants pour chaque groupe. Example : "-cl" "" "-rand" "-dlis -tseitin" est acceptable' && exit
+[[ $# -lt 7 ]] && echo -e 'Usage : "[lien vers generate_cnf.sh | lien vers fichiers de tests]" "[lien vers solveur]" [nombre de tests] [nombre de variables] [nombre de clauses] [nombre de littéraux par clauses] ["options" pour le solveur]\n\nAttention : les ratios doivent être entiers\nLes options pour le solveur devront être séparés par un espace et avec guillemets englobants pour chaque groupe. Example : "-cl" "" "-rand" "-dlis -tseitin" est acceptable\nAstuce : si on fournit les tests (ex : "/tmp/*.cnf"), alors il est préférable de mettre le nombre de tests à 1' && exit
 
 generator_path="$1"
 shift
