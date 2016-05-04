@@ -1,5 +1,5 @@
 #include <vector>
-using namespace std;
+
 #include "global_variables.h"
 #include "var.h"
 #include "litt.h"
@@ -36,7 +36,7 @@ int main(int argc, char** argv) {
     if(verbose) instance->print();
 
 	instance->preprocessing();
-	if(verbose) {cout << "Formula after preprocessing :\n";instance->print();}
+    if(verbose) {std::cout << "Formula after preprocessing :\n";instance->print();}
 
 	var* new_var = nullptr;
 
@@ -47,7 +47,7 @@ int main(int argc, char** argv) {
         //deduce
         while(assignUniqueLitt() || ((!clLearning) && (assignUniquePolarity()) ) ){//si clLearning alors on ne lance pas assignUniquePolarity car && est paresseux
             if(verbose2) {
-	            cout<<"\n------------Next step after deduce:-----------------\n";
+                std::cout<<"\n------------Next step after deduce:-----------------\n";
 	            instance->print();
 	        }
 			if (verbose){
@@ -60,7 +60,7 @@ int main(int argc, char** argv) {
 		}
 
         if(verbose2) {
-            cout<<"\n------------Next step after deduce:-----------------\n";
+            std::cout<<"\n------------Next step after deduce:-----------------\n";
             instance->print();
         }
 		if (verbose){
@@ -80,7 +80,7 @@ int main(int argc, char** argv) {
                         fprintf(stderr,"[%i,%i,%i],",ass->variable->id,ass->bet,ass->variable->value);
                     fprintf(stderr,"\n\n");
                 }
-                cout<<"s UNSATISFIABLE"<<endl;
+                std::cout<<"s UNSATISFIABLE"<<std::endl;
                 freeAll();
                 if (timePerf){
                     checkpoint = clock();
@@ -90,7 +90,7 @@ int main(int argc, char** argv) {
             }
 
             if(verbose2) {
-                cout<<"\n------------Next step after backtrack:-----------------\n";
+                std::cout<<"\n------------Next step after backtrack:-----------------\n";
                 instance->print();
             }
             if (verbose){
@@ -118,7 +118,7 @@ int main(int argc, char** argv) {
                 break;
 
             if(verbose2) {
-                cout<<"\n------------Next step after decide:-----------------\n";
+                std::cout<<"\n------------Next step after decide:-----------------\n";
                 instance->print();
             }
             if (verbose){
@@ -129,7 +129,7 @@ int main(int argc, char** argv) {
             }
         }
     }
-    cout<<"s SATISFIABLE"<<endl;
+    std::cout<<"s SATISFIABLE"<<std::endl;
     print_output();
     freeAll();
     if (timePerf){
@@ -139,4 +139,3 @@ int main(int argc, char** argv) {
 
     return 0;
 }
-

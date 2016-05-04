@@ -1,5 +1,9 @@
 #ifndef GLOBAL_VARIABLES_H
 #define GLOBAL_VARIABLES_H
+#ifdef __clang__
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wc++98-compat"
+#endif
 #include <ctime>
 #include <vector>
 #include <fstream>
@@ -8,13 +12,13 @@ class assignation;
 class var;
 class formule;
 
-vector<assignation*> assignations;
+std::vector<assignation*> assignations;
 int level_cur = 0;
 //création du vector qui contient les assignations réalisées
 
-vector<var*> v_var;
-vector<var*> v_var_tseitin;
-vector<int> bets;
+std::vector<var*> v_var;
+std::vector<var*> v_var_tseitin;
+std::vector<int> bets;
 int nbr_var=0;
 //création du vector qui contiendra tous les pointeurs vers les variables
 
@@ -33,7 +37,7 @@ bool wl=false;
 int heuristic=0;
 char path[1024]="";
 bool proof=false;
-fstream prooftree_fs;
+std::fstream prooftree_fs;
 //valeur de base des arguments
 //heuristic = 0 (basic), 1 (rand), 2 (moms), 3 (dlis)
 

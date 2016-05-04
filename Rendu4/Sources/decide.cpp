@@ -60,8 +60,8 @@ var* getMomsFreeVar() {
 }
 
 var* getDlisFreeVar() {
-	vector<pair<int,int> > variables (v_var.size(), std::make_pair(0,0));
-	vector<pair<int,int> > track_var (v_var.size(), std::make_pair(0,0));
+    std::vector<std::pair<int,int> > variables (v_var.size(), std::make_pair(0,0));
+    std::vector<std::pair<int,int> > track_var (v_var.size(), std::make_pair(0,0));
 	//vector contenant pour chaque variable une paire (nb_clauses_vue_niée,nb_clauses_vue_non_niée)
 	for (clause* cl = instance->f_ClauseUnsatisfied;cl != nullptr;cl=cl->next_clause) {
 		for (litt* li = cl->f_ElementAlive;li != nullptr;li = li->next_litt) {

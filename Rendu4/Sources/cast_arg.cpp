@@ -54,7 +54,7 @@ void cast_arg(int argc, char** argv){
         if (strlen(argv[i])<1024 and !found){
                      char buf[1024]="";
                      strcpy(buf,argv[i]);
-                     reverse(buf, &buf[strlen(buf)]);
+                     std::reverse(buf, &buf[strlen(buf)]);
                      if(!strncmp(buf,"fnc.",4)){
                          strcpy(path,argv[i]);
                          found=true;

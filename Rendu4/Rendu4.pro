@@ -46,7 +46,6 @@ SOURCES += \
 HEADERS += \
     Header/var.h \
     Bison/expr.hpp \
-    Bison/expr.tab.hpp \
     Header/litt.h \
     Header/clause.h \
     Header/formule.h \

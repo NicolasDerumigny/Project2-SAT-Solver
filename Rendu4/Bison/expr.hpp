@@ -122,6 +122,7 @@ public:
     std::string to_string();
     void eval();
     void eval_tseitin();
+    ~ENot(){}
 private:
     Expr * op1;
 };
@@ -137,6 +138,7 @@ public:
     std::string to_string();
     void eval();
     void eval_tseitin();
+    ~VNot(){}
 private:
     int value;
 };

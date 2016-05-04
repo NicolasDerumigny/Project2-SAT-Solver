@@ -8,12 +8,12 @@ void litt::set_litt(var* var_entry, bool neg){
 
 void litt::print(){
     if (this->neg){
-        cout<<" ¬v"<<this->variable->id;
-        cout<<"("<<this->variable->id<<" = "<<this->variable->value<<") ";
+        std::cout<<" ¬v"<<this->variable->id;
+        std::cout<<"("<<this->variable->id<<" = "<<this->variable->value<<") ";
     }
     else{
-        cout<<" v"<<this->variable->id;
-        cout<<"("<<this->variable->id<<" = "<<this->variable->value<<") ";
+        std::cout<<" v"<<this->variable->id;
+        std::cout<<"("<<this->variable->id<<" = "<<this->variable->value<<") ";
     }
 }
 
@@ -50,10 +50,10 @@ void appendLitt(litt **first_li,litt **last_li,litt *cur_li) {
 	}
 }
 
-string litt::proof_str(){
-    string answer="";
+std::string litt::proof_str(){
+    std::string answer="";
     if (this->neg)
         answer="\\neg ";
-    answer = answer + "X_{" + to_string(this->variable->id) + "}";
+    answer = answer + "X_{" + std::to_string(this->variable->id) + "}";
     return answer;
 }

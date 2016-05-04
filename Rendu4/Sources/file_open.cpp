@@ -4,27 +4,27 @@ void checkCorrectFile(){
     struct stat buff;
     if (!stat(path, &buff)){//si l'ouverture à fonctionnée
         if (!S_ISREG(buff.st_mode)){
-            cerr<<"This file specified is not a regular file"<<endl;
+            std::cerr<<"This file specified is not a regular file"<<std::endl;
             exit(-1);
         }//on vérifie que le fichier en entrée est bien un fichier normal
     }else{
-        cerr<<"Failed to open file : "<<path<<endl;
+        std::cerr<<"Failed to open file : "<<path<<std::endl;
         exit(-1);
     }
 }
 
 void checkHeaderAndParse(){
-    ifstream eFile;
-    eFile.open(path, ifstream::in);
+    std::ifstream eFile;
+    eFile.open(path, std::ifstream::in);
 
 
 
-    string p,cnf;
+    std::string p,cnf;
     int V, C=-1, D=-1;
 
     int nbr_line=1,s=0;
-    string line;
-    while(getline(eFile, line)){
+    std::string line;
+    while(std::getline(eFile, line)){
         nbr_line++;
         if (line[0]!='c'){
             s=line.size();
@@ -32,7 +32,7 @@ void checkHeaderAndParse(){
         }
     }
     {
-        stringstream str;
+        std::stringstream str;
         str << line;
         str >> p >> cnf >> V >> C >> D;
         str.str("");
@@ -96,9 +96,9 @@ void checkHeaderAndParse(){
 
 
     if (p!="p" or cnf!="cnf" or C==-1 or D!=-1){l:
-        cerr<<"Bad file format: header should be before clause declaration and respect scrupulously the following syntax:"<< endl;
-        cerr<<"p cnf V C"<<endl;
-        cerr<<"Where V is the maximum number of variables, and C the number of clauses"<<endl;
+        std::cerr<<"Bad file format: header should be before clause declaration and respect scrupulously the following syntax:"<< std::endl;
+        std::cerr<<"p cnf V C"<<std::endl;
+        std::cerr<<"Where V is the maximum number of variables, and C the number of clauses"<<std::endl;
         if (p!="p" or cnf!="cnf" or C==-1 or D!=-1)
             exit(-1);
     }
@@ -107,38 +107,38 @@ void checkHeaderAndParse(){
 
 
     int nbr_C=0;
-    while(getline(eFile, line)){
+    while(std::getline(eFile, line)){
         if (line[0]!='c')
             nbr_C++;
         int size=line.size();
 
         {
-            stringstream str;
-            reverse(line.begin(), line.end());
+            std::stringstream str;
+            std::reverse(line.begin(), line.end());
             str << line;
             str >> D;
         }
 
         if (line[0]!='0' and line[size-1]!='c'){
-            cerr<<"Warning (line "<< nbr_line<<"): Non-comments lines must end by 0 and ends by one or more spaces"<<endl;
+            std::cerr<<"Warning (line "<< nbr_line<<"): Non-comments lines must end by 0 and ends by one or more spaces"<<std::endl;
         }
         if (line[size-1]!='c' and D!=0){
             //si ce n'est pas un commentaire et que la string ne se termine pas par " 0"
-            cerr<<"Error (line "<< nbr_line<<"): Non-comments lines must end by 0, exiting "<<endl;
+            std::cerr<<"Error (line "<< nbr_line<<"): Non-comments lines must end by 0, exiting "<<std::endl;
             exit(-1);
         }
         /*if (line!="c xxx" and line[0]=='c'){
-            cerr<<"Warning (line "<< nbr_line<<"): comment line is not scrupulously \"c xxx\", continuing anyway."<<endl;
+            cerr<<"Warning (line "<< nbr_line<<"): comment line is not scrupulously \"c xxx\", continuing anyway."<<std::endl;
         }*/
         if (line[size-1]=='c' and line[size-2]!=' '){
-            cerr<<"Warning (line "<< nbr_line<<"): comments lines must be scrupulously of the form \"c xxx\", continuing anyway."<<endl;
+            std::cerr<<"Warning (line "<< nbr_line<<"): comments lines must be scrupulously of the form \"c xxx\", continuing anyway."<<std::endl;
         }
         nbr_line++;
     }
 
 
     if (nbr_C!=C)
-        cerr<<"Warning : "<<C<<" clauses were declared in header line but found "<< nbr_C <<", continuing anyway"<<endl;
+        std::cerr<<"Warning : "<<C<<" clauses were declared in header line but found "<< nbr_C <<", continuing anyway"<<std::endl;
     eFile.close();
 
     for(int i=0;i<=V;i++)
@@ -146,7 +146,7 @@ void checkHeaderAndParse(){
 }
 
 void yyerror(const char *s) {
-    cerr << "EEK, parse error!  Message: " << s << endl;
+    std::cerr << "EEK, parse error!  Message: " << s << std::endl;
     // might as well halt now:
     exit(-1);
 }
@@ -164,8 +164,8 @@ void parse(){
                 fprintf(stderr,"parse: %f s\n",(double) checkpoint/CLOCKS_PER_SEC);
             }
             if(verbose){
-                cerr << "Formula in input:"<<endl;
-                cerr <<res->to_string() << endl;
+                std::cerr << "Formula in input:"<<std::endl;
+                std::cerr <<res->to_string() << std::endl;
             }
 
             if (isTseitin){
@@ -183,7 +183,7 @@ void parse(){
             }
         } while (!feof(yyin));
         if(0!=yylex_destroy())
-            cerr<<"Warning : can't delete lex parser !";
+            std::cerr<<"Warning : can't delete lex parser !";
         fclose(inputFile);
 
         nbr_var=v_var.size();
@@ -199,7 +199,7 @@ void parse(){
             v_var_tseitin.clear();
         }
     }else{
-        cerr<<"Error : couldn't open file : "<<path<<endl;
+        std::cerr<<"Error : couldn't open file : "<<path<<std::endl;
         exit(-1);
     }
 }
@@ -223,8 +223,8 @@ void print_output(){
         if (v_var[i]!=nullptr)
             v_var[i]->print();
         else
-            cout<<i;
-        cout<<" ";
+            std::cout<<i;
+        std::cout<<" ";
     }
-    cout<<0<<endl;
+    std::cout<<0<<std::endl;
 }

@@ -18,8 +18,8 @@ void formule::set_formule(int varid, bool neg){
     if (varid>=int(v_var.size())){
         int oldsize=int(v_var.size());
         if (!isTseitin){
-            cerr<<"Warning : variable number "<<varid<<" not declared in header line (max "<< oldsize - 1;
-            cerr<<"), continuing anyway"<<endl;
+            std::cerr<<"Warning : variable number "<<varid<<" not declared in header line (max "<< oldsize - 1;
+            std::cerr<<"), continuing anyway"<<std::endl;
         }
         for (int i=0; i<varid-oldsize+1;i++)
             v_var.push_back(nullptr);
@@ -74,21 +74,21 @@ void formule::merge(formule* formule2){
 }
 
 void formule::print(){
-    cout<<"Satisfied :"<<endl;
+    std::cout<<"Satisfied :"<<std::endl;
 	for (clause* cl = this->f_ClauseSatisfied;cl != nullptr;cl=cl->next_clause){
 		cl->print();
 	}
 //    for (auto& s:this->mClauseSatisfied)
 //        if (s.second != nullptr)
 //			s.second->print();
-    cout<<"Unsatisfied :"<<endl;
+    std::cout<<"Unsatisfied :"<<std::endl;
 	for (clause* cl = this->f_ClauseUnsatisfied;cl != nullptr;cl=cl->next_clause){
 		cl->print();
 	}
 //    for (auto& s:this->mClauseUnsatisfied)
 //        if (s.second != nullptr)
 //			s.second->print();
-    cout<<endl<<endl;
+    std::cout<<std::endl<<std::endl;
 
 }
 
@@ -130,9 +130,9 @@ void formule::preprocessing() {
                 cl->w_litt_1=cl->f_ElementAlive;
                 cl->w_litt_2=cl->f_ElementAlive->next_litt;
                 if(verbose2)
-                    cerr<<"Sucessfully set watched litterals for one clause\n";
+                    std::cerr<<"Sucessfully set watched litterals for one clause\n";
             }else{
-                cerr<<"Error : can't apply watched litterals method : returning to normal state"<<endl;
+                std::cerr<<"Error : can't apply watched litterals method : returning to normal state"<<std::endl;
                 wl=false;
                 break;
             }
@@ -141,7 +141,7 @@ void formule::preprocessing() {
 
 	//la détection des clauses unitaires se fait via la function assignUniqueLitt() de deduce.cpp
 	//élimination des doublons (vivants) et des clauses tautologiques (non satisfaites)
-	vector<pair<int,int> > variables (v_var.size(), std::make_pair(0,0));
+    std::vector<std::pair<int,int> > variables (v_var.size(), std::make_pair(0,0));
 	//vector contenant pour chaque variable une paire (nb_fois_vue_niée,nb_fois_vue_non_niée)
 	bool isTauto;
 	bool li_need_back;
@@ -227,8 +227,8 @@ void formule::preprocessing() {
 	}
 }
 
-string formule::proof_str(bool complete, bool completeCl){
-    string answer="";
+std::string formule::proof_str(bool complete, bool completeCl){
+    std::string answer="";
     bool first=true;
     for(clause* cl=this->f_ClauseUnsatisfied; cl!=nullptr;cl=cl->next_clause){
         if (!first)

@@ -4,7 +4,7 @@
 #include "litt.h"
 #include "clause.h"
 #include "formule.h"
-using namespace std;
+
 
 class var;
 

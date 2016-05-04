@@ -127,7 +127,7 @@ void assignation::updateClause(bool alive){
 							break;
                     }
                 if (wl && cl2->existsWatchedNonAlive() && cl2->isSatisfied())
-                    cerr<<"Error : There exist false watched litterals in an alive clause"<<endl;
+                    std::cerr<<"Error : There exist false watched litterals in an alive clause"<<std::endl;
                 cl_prev = cl2;
             }
         }

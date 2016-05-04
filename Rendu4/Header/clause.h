@@ -3,7 +3,7 @@
 #include <map>
 #include <iostream>
 #include "global_variable_extern.h"
-using namespace std;
+
 
 class litt;
 
@@ -18,7 +18,7 @@ public:
     bool existsWatchedNonAlive();
     clause* copy();
     void free_clause();
-    string proof_str(bool complete);
+    std::string proof_str(bool complete);
 
     clause* next_clause = nullptr;
 
