@@ -30,6 +30,19 @@
 # Temporaries
 *~
 
+# LaTeX
+*.tex
+*.aux
+*.log
+*.pdf
+
+# Graph.ps
+*.dot
+*.ps
+
+# Tests generated
+rstaub_allSatTests_autogen_*.*
+
 # Resol
 resol
 

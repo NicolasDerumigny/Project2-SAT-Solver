@@ -19,6 +19,7 @@ public:
     int level_ass = 0;
 
     bool bet = false;
+    bool UIP = false;
     float score = 0;
 
 
