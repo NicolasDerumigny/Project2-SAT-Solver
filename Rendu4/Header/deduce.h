@@ -6,7 +6,7 @@
 #include "formule.h"
 #include "litt.h"
 #include "global_variable_extern.h"
-using namespace std;
+
 
 bool assignUniqueLitt();
 bool assignUniquePolarity();

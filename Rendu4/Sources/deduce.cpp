@@ -19,11 +19,11 @@ bool assignUniqueLitt(){
             //la même variable avec la même polarité... Ou au pire on peut faire du prétraitement de la clause...
             if (li != nullptr){
                 if (li->variable->value != -1){
-                    cerr << "Warning: clause contains an assigned litteral that is still alive\n\n";
-                    cerr << "Litteral is :";
+                    std::cerr << "Warning: clause contains an assigned litteral that is still alive\n\n";
+                    std::cerr << "Litteral is :";
                     li->print();
                     cl->print();
-                    cerr << "\n\n\n";
+                    std::cerr << "\n\n\n";
                     exit(-1);
                 }
                 if (clLearning){
@@ -51,7 +51,7 @@ bool assignUniquePolarity(){
     if (clLearning)
         fprintf(stderr,"Warning: Unique polarity deduction while learning from clauses");
     bool haveChanged = false;
-    vector<pair<int,int> > variables (v_var.size(), std::make_pair(0,0));
+    std::vector<std::pair<int,int> > variables (v_var.size(), std::make_pair(0,0));
     //vector contenant pour chaque variable une paire (nb_fois_vue_niée,nb_fois_vue_non_niée)
     for (clause* cl=instance->f_ClauseUnsatisfied;cl != nullptr;cl=cl->next_clause)
 // 	for (auto& cl:instance->mClauseUnsatisfied)

@@ -2,18 +2,18 @@
 
 
 void var::print(){
-    //affiche juste l'affectation, pas d'espace ni de endl
+    //affiche juste l'affectation, pas d'espace ni de std::endl
     switch (this->value){
         case 1:
-            cout<<this->id;
+            std::cout<<this->id;
             break;
 
         case 0:
-            cout<<"-"<<this->id;
+            std::cout<<"-"<<this->id;
             break;
 
        case -1:
-            cout<<"±"<<this->id;
+            std::cout<<"±"<<this->id;
             break;
    }
 }

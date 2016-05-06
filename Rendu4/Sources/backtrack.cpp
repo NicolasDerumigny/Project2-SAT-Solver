@@ -77,9 +77,9 @@ bool conflictAnal(clause* cl_Conflict){//Renvoie false si l'analyse de conflit n
     if (level_cur != 0)
         UIPclause = getUIPClause(cl_Conflict);
     if(interactive){//On affiche le graphe
-        string command;
-        cout<<"Backtrack breakpoint, enter a command: ";
-        cin>>command;
+        std::string command;
+        std::cout<<"Backtrack breakpoint, enter a command: ";
+        std::cin>>command;
         if (command!="c"){
             if (command=="g"){
 //                getUIP
@@ -161,7 +161,7 @@ bool conflictAnal(clause* cl_Conflict){//Renvoie false si l'analyse de conflit n
             }else if(command=="t"){
                 interactive=false;
             }else
-                cerr<<"No valid command found, continuing anyway"<<endl;
+                std::cerr<<"No valid command found, continuing anyway"<<std::endl;
         }
     }
     if (level_cur == 0)
@@ -206,7 +206,7 @@ clause* getUIPClause(clause *cl_Conflict){
     assignation* ass = nullptr;
     bool li_need_back;
     litt* li_prev;
-    vector<pair<int,int> > variables (v_var.size(), std::make_pair(0,0));
+    std::vector<std::pair<int,int> > variables (v_var.size(), std::make_pair(0,0));
     //vector contenant pour chaque variable une paire (nb_fois_vue_niée,nb_fois_vue_non_niée)
 
     while(!unique){

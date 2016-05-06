@@ -2,7 +2,7 @@
 #define LITT_H
 #include <map>
 #include "global_variable_extern.h"
-using namespace std;
+
 
 class var;
 
@@ -13,7 +13,7 @@ public:
     void print();
     void free_litt();
     litt* copy();
-    string proof_str();
+    std::string proof_str();
 
     var* variable;
     bool neg;

@@ -1,7 +1,7 @@
 %{
 #include <cstdio>
 #include <iostream>
-using namespace std;
+
 #include "expr.hpp"
 
 // stuff from flex that bison needs to know about:

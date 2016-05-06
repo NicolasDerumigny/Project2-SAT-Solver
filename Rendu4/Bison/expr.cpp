@@ -1,10 +1,10 @@
 #include "expr.hpp"
-#include "clause.h"
-#include "var.h"
-#include "litt.h"
-#include "formule.h"
+#include "../Header/clause.h"
+#include "../Header/var.h"
+#include "../Header/litt.h"
+#include "../Header/formule.h"
 
-using namespace std;
+
 
 /*************************************/
 /**********  Constants   ************/
@@ -12,11 +12,11 @@ using namespace std;
 
 EConst::EConst(int val) : value(val) {}
 
-string EConst::to_string()
+std::string EConst::to_string()
 {
-    ostringstream oss;
+    std::ostringstream oss;
     oss << "v" << value;
-    string result = oss.str();
+    std::string result = oss.str();
     return result;
 }
 
@@ -74,7 +74,7 @@ void EConst::eval_tseitin()
 
 EConj::EConj(Expr * e1, Expr * e2) : op1(e1), op2(e2) {}
 
-string EConj::to_string()
+std::string EConj::to_string()
 {
     return "(" + op1->to_string() + ")" + " /\\ " + "(" +  op2->to_string() + ")";
 }
@@ -156,7 +156,7 @@ void EConj::eval_tseitin()//op1 et op2 seront des formules
 
 EDisj::EDisj(Expr * e1, Expr * e2) : op1(e1), op2(e2) {}
 
-string EDisj::to_string()
+std::string EDisj::to_string()
 {
     return "(" + op1->to_string() + ") "+ " \\/ " + " (" + op2->to_string() +")";
 }
@@ -238,11 +238,11 @@ void EDisj::eval_tseitin()
 
 VNot::VNot(int val) : value(val) {}
 
-string VNot::to_string()
+std::string VNot::to_string()
 {
-    ostringstream oss;
+    std::ostringstream oss;
     oss << "¬v" << value;
-    string result = oss.str();
+    std::string result = oss.str();
     return result;
 }
 
@@ -300,14 +300,14 @@ void VNot::eval_tseitin()
 
 ENot::ENot(Expr * e1) : op1(e1) {}
 
-string ENot::to_string()
+std::string ENot::to_string()
 {
     return "¬(" + op1->to_string() + ")";
 }
 
 void ENot::eval()
 {
-    cerr<<"Fatal error : Negated expression shall never be used in input, use -tseitin for this."<<endl;
+    std::cerr<<"Fatal error : Negated expression shall never be used in input, use -tseitin for this."<<std::endl;
     exit(-1);
 }
 
@@ -365,7 +365,7 @@ EXor::EXor(Expr * e1, Expr * e2) : EDisj(new EConj(e2, new ENot(e1)),new EConj(e
 
 void EXor::eval()
 {
-    cerr<<"Fatal error : Xor expression shall never be used in input, use -tseitin for this."<<endl;
+    std::cerr<<"Fatal error : Xor expression shall never be used in input, use -tseitin for this."<<std::endl;
     exit(-1);
 }
 
@@ -378,7 +378,7 @@ EImply::EImply(Expr * e1, Expr * e2) : EDisj(e2, new ENot(e1)) {}
 
 void EImply::eval()
 {
-    cerr<<"Fatal error : Negated expression shall never be used in input, use -tseitin for this."<<endl;
+    std::cerr<<"Fatal error : Negated expression shall never be used in input, use -tseitin for this."<<std::endl;
     exit(-1);
 }
 
@@ -390,6 +390,6 @@ EEq::EEq(Expr * e1, Expr * e2) : EDisj(new EConj(e1,e2),new EConj(new ENot(e1),n
 
 void EEq::eval()
 {
-    cerr<<"Fatal error : Negated expression shall never be used in input, use -tseitin for this."<<endl;
+    std::cerr<<"Fatal error : Negated expression shall never be used in input, use -tseitin for this."<<std::endl;
     exit(-1);
 }

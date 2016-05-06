@@ -1,7 +1,7 @@
 #include "prooftree.h"
 
 void setNewProofTree(){
-    prooftree_fs.open("proof_tree.tex",fstream::out);
+    prooftree_fs.open("proof_tree.tex",std::fstream::out);
     prooftree_fs<<"\\documentclass[a4paper,12pt]{article}\n\n";
     prooftree_fs<<"\\usepackage{bussproofs}\n";
     prooftree_fs<<"\\usepackage{amssymb}\n";
@@ -18,7 +18,7 @@ void writeAxiom(){
 
 void writeDeduce(assignation* ass){
     prooftree_fs<<"\\UnaryInfC{$"<<instance->proof_str(false,false)<<",\\; X_{"<<ass->variable->id<<"}=";
-    prooftree_fs<<to_string(ass->variable->value)<<"\\vdash \\bot$}\n";
+    prooftree_fs<<std::to_string(ass->variable->value)<<"\\vdash \\bot$}\n";
 }
 
 void writeAssign(assignation* ass){

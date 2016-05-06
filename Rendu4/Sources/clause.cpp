@@ -73,8 +73,8 @@ litt* clause::getUniqueLittAlive(){
 }
 
 void clause::print(){
-    cout<<"\n------------------------------------------------------\n";
-    cout<<"\tAlive :  ";
+    std::cout<<"\n------------------------------------------------------\n";
+    std::cout<<"\tAlive :  ";
     for(litt* course=this->f_ElementAlive;course!=nullptr;course=course->next_litt){
         course->print();
     }
@@ -83,22 +83,22 @@ void clause::print(){
         if (s.second != nullptr)
 			s.second->print();
      */
-    cout<<endl;
-    cout<<"\tDead :   ";
+    std::cout<<std::endl;
+    std::cout<<"\tDead :   ";
     for(litt* course=this->f_ElementDead;course!=nullptr;course=course->next_litt){
         course->print();
     }
 
     if (this->w_litt_1!=nullptr){
-        cout<<"\n Watching :"<<endl;
+        std::cout<<"\n Watching :"<<std::endl;
         (this->w_litt_1)->print();
         (this->w_litt_2)->print();
-        cout<<endl;
+        std::cout<<std::endl;
     }
 
 
-    cout<<"\n------------------------------------------------------";
-    cout<<endl;
+    std::cout<<"\n------------------------------------------------------";
+    std::cout<<std::endl;
 }
 
 void clause::free_clause(){
@@ -243,8 +243,8 @@ clause* clause::copy(){
     return new_clause;
 }
 
-string clause::proof_str(bool complete){
-    string answer="";
+std::string clause::proof_str(bool complete){
+    std::string answer="";
     bool first=true;
     for(litt* li=this->f_ElementAlive; li!=nullptr;li=li->next_litt){
         if (!first)

@@ -4,7 +4,7 @@
 #include "clause.h"
 #include "assignation.h"
 #include "global_variable_extern.h"
-using namespace std;
+
 class clause;
 
 class var{
@@ -16,13 +16,17 @@ public:
     int id;
     int value;
     //-1 : unassigned, 0=false, 1 = true
-    vector<clause*> clauseInto;
-    //amélioration possible : metttre deux map des clauses la contenant et ne la contenant pas
-    vector<var*> varConflict;
-    clause* clConflict = nullptr;
-    bool bet = false;
     int level_ass = 0;
+
+    bool bet = false;
     float score = 0;
+
+
+    clause* clConflict = nullptr;
+
+    std::vector<clause*> clauseInto;
+    //amélioration possible : metttre deux map des clauses la contenant et ne la contenant pas
+    std::vector<var*> varConflict;
 };
 
 #endif // VAR_H
