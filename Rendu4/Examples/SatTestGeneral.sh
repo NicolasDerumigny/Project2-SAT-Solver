@@ -36,11 +36,11 @@ done
 rm /tmp/results.dat
 for i in $(seq 1 $nb_tests)
 do
-	[[ "$generator_path" =~ "generate_cnf.sh" ]] && "$generator_path" $nb_var $nb_clauses $nb_litt non-rand > /tmp/test.cnf || cp $(ls $generator_path|cut -d\  -f$[$i%($nb_files+1)]) /tmp/test.cnf
+	[[ "$generator_path" =~ "generate_cnf.sh" ]] && "$generator_path" $nb_var $nb_clauses $nb_litt non-rand > /tmp/test.cnf || cp $(ls $generator_path|tr '\n' ' '|cut -d\  -f$[$i%($nb_files+1)]) /tmp/test.cnf
 	for j in $(seq 0 $[$nb_opt-1])
 	do
 		echo "${options[$j]}"
-		results="$("$solver_path" /tmp/test.cnf -time "${options[$j]}" 3>&1 1>&2 2>&3-)"
+		results="$("$solver_path" /tmp/test.cnf -time ${options[$j]} 3>&1 1>&2 2>&3-)"
 		l_begin[$j]="$(echo "${l_begin[$j]} + $(echo "$results"|grep "^begin: [0-9.]* s$"|sed 's/^begin: \([0-9.]\+\) s$/\1/g')"|bc -l)"
 		l_check[$j]="$(echo "${l_check[$j]} + $(echo "$results"|grep "^check: [0-9.]* s$"|sed 's/^check: \([0-9.]\+\) s$/\1/g')"|bc -l)"
 		l_parse[$j]="$(echo "${l_parse[$j]} + $(echo "$results"|grep "^parse: [0-9.]* s$"|sed 's/^parse: \([0-9.]\+\) s$/\1/g')"|bc -l)"
@@ -49,6 +49,15 @@ do
 	done
 	#echo "$results, ${l_begin[*]}, ${l_check[*]}, ${l_parse[*]}, ${l_create[*]}, ${l_end[*]}"
 done #2>> /tmp/results.dat
+
+for j in $(seq 0 $[$nb_opt-1])
+do
+	l_begin[$j]="$(echo "${l_begin[$j]}/$nb_tests"|bc -l)"
+	l_check[$j]="$(echo "${l_check[$j]}/$nb_tests"|bc -l)"
+	l_parse[$j]="$(echo "${l_parse[$j]}/$nb_tests"|bc -l)"
+	l_create[$j]="$(echo "${l_create[$j]}/$nb_tests"|bc -l)"
+	l_end[$j]="$(echo "${l_end[$j]}/$nb_tests"|bc -l)"
+done
 
 echo -e "option\\step\tbegin\tcheck\tparse\tcreate\tend" > /tmp/results.dat
 for j in $(seq 0 $[$nb_opt-1])
