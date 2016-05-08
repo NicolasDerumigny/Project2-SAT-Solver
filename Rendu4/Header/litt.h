@@ -1,6 +1,7 @@
 #ifndef LITT_H
 #define LITT_H
 #include <map>
+#include <stdint.h>
 #include "global_variable_extern.h"
 
 
@@ -9,16 +10,17 @@ class var;
 class litt{
 
 public:
+    litt* next_litt=nullptr;
+    //struct of chained list
+    var* variable;
+    bool neg;
+    char padding[7];
+
     void set_litt(var* var_entry, bool neg);
     void print();
     void free_litt();
     litt* copy();
     std::string proof_str();
-
-    var* variable;
-    bool neg;
-    litt* next_litt=nullptr;
-    //struct of chained list
 };
 
 

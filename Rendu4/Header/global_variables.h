@@ -1,8 +1,9 @@
 #ifndef GLOBAL_VARIABLES_H
 #define GLOBAL_VARIABLES_H
 #ifdef __clang__
-#pragma clang diagnostic push
+#if __cplusplus == 201103L
 #pragma clang diagnostic ignored "-Wc++98-compat"
+#endif
 #endif
 #include <ctime>
 #include <vector>
