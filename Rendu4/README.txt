@@ -165,8 +165,8 @@ Tester mieux l'heuristique vsids, implémentée, mais juste essayée sur une poi
 Tracer les performances comme avec SatTest.sh, mais juste la durée globale pour les différentes options (SatTestGeneral.sh) (Done)
 
 Utiliser des listes doublement chainées, pour améliorer les performances (actuellement, plus de 90% du temps passé sur la recherche de prev_clause, dans updateClause)
-	litt.cpp
-	formule.cpp
+	litt.cpp ok
+	formule.cpp 
 	deduce.cpp
 	decide.cpp
 	clause.cpp
