@@ -160,9 +160,18 @@ On gère mal des commentaires ne commençant pas par 'c'.
 
 Rendre le code portable sur Mac et Windows (pour l'appel à dot et à evince, ainsi que bison). (non-nécessaire)
 
-Tester mieux l'heuristique vsids, implémentée, mais juste essayée sur une poignée d'examples.
+Tester mieux l'heuristique vsids, implémentée, mais juste essayée sur une poignée d'examples. 
 
-Tracer les performances comme avec SatTest.sh, mais juste la durée globale pour les différentes options (SatTestGeneral.sh) (WIP)
+Tracer les performances comme avec SatTest.sh, mais juste la durée globale pour les différentes options (SatTestGeneral.sh) (Done)
+
+Utiliser des listes doublement chainées, pour améliorer les performances (actuellement, plus de 90% du temps passé sur la recherche de prev_clause, dans updateClause)
+	litt.cpp
+	formule.cpp
+	deduce.cpp
+	decide.cpp
+	clause.cpp
+	backtrack.cpp
+	assignation.cpp
 
 -------------
 

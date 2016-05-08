@@ -1,0 +1,186 @@
+        -:    0:Source:Sources/assignation.cpp
+        -:    0:Graph:Sources/assignation.gcno
+        -:    0:Data:Sources/assignation.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    1:#include "assignation.h"
+        -:    2:
+        -:    3:
+  1294829:    4:void assignation::set_assign(var* variable,bool bet1) {
+  1294829:    5:    bets.push_back(bet1);
+  1294829:    6:    this->variable=variable;
+  1294829:    7:    this->bet=bet1;
+  1294829:    8:}
+        -:    9:
+  2627234:   10:void assignation::updateLitt(bool alive){
+  2627234:   11:	bool li_need_back = false;
+  2627234:   12:	litt* li_prev = nullptr;
+ 36596322:   13:    for (auto& cl:this->variable->clauseInto){
+ 33969088:   14:        if (alive == false) { //si on tue une variable, on recherche les littéraux associés dans les éléments vivants et on les transfères vers les morts.
+ 16985189:   15:            li_need_back = false;
+ 16985189:   16:			li_prev = nullptr;
+ 40207051:   17:            for (litt* li = cl->f_ElementAlive;li != nullptr or li_need_back;li=li->next_litt){
+        -:   18:                //si un littéral (donc la variable) est déjà mort on ne fait rien.
+ 30256186:   19:                if (li_need_back){
+  4746791:   20:					li=li_prev;
+  4746791:   21:					li_prev=nullptr;
+  4746791:   22:					li_need_back = false;
+        -:   23:				}
+ 30256186:   24:                if (li->variable == this->variable) {
+ 16985189:   25:                    removeLitt(&cl->f_ElementAlive,&cl->l_ElementAlive,li,li_prev);
+ 16985189:   26:                    appendLitt(&cl->f_ElementDead,&cl->l_ElementDead,li);
+ 16985189:   27:                    if (needNewWatched(cl,li))
+    #####:   28:                        assignNewWatched(cl,li);
+ 16985189:   29:					if (li_prev != nullptr)
+  5204074:   30:						li = li_prev;//On évite de casser la chaîne de parcours de la boucle for...
+ 11781115:   31:					else if (cl->f_ElementAlive != nullptr){//on est au début
+  4746791:   32:						li = cl->f_ElementAlive;
+  4746791:   33:						li_need_back = true;
+        -:   34:					} else//there is nothing left
+  7034324:   35:                        break;
+        -:   36:                }
+        -:   37:                //renvoie false si on n'a pas trouvé d'autre litteral possible
+        -:   38:                //cependant, si rien n'a été trouvé, on fera bien le backtrack
+ 23221862:   39:				li_prev = li;
+        -:   40:			}
+        -:   41://			for (auto& li:cl->mElementAlive)//si un littéral (donc la variable) est déjà mort on ne fait rien.
+        -:   42://                if (li.second != nullptr && li.second->variable == this->variable) {
+        -:   43://                    cl->mElementDead[li.first] = li.second;
+        -:   44://                    li.second = nullptr;
+        -:   45://				}
+        -:   46:        } else { //et réciproquement...
+ 16983899:   47:            li_need_back = false;
+ 16983899:   48:			li_prev = nullptr;
+ 51346187:   49:			for (litt* li = cl->f_ElementDead;li != nullptr || li_need_back;li=li->next_litt) {//si un littéral (donc la variable) est déjà mort on ne fait rien.
+ 37681990:   50:                if (li_need_back){
+    #####:   51:					li=li_prev;
+    #####:   52:					li_prev=nullptr;
+    #####:   53:					li_need_back = false;
+        -:   54:				}
+ 37681990:   55:                if (li->variable == this->variable) {
+ 16983899:   56:                    removeLitt(&cl->f_ElementDead,&cl->l_ElementDead,li,li_prev);
+ 16983899:   57:                    appendLitt(&cl->f_ElementAlive,&cl->l_ElementAlive,li);
+ 16983899:   58:					if (li_prev != nullptr)
+ 13664197:   59:						li = li_prev;//On évite de casser la chaîne de parcours de la boucle for...
+  3319702:   60:					else if (cl->f_ElementDead != nullptr) {
+    #####:   61:						li = cl->f_ElementDead;
+    #####:   62:						li_need_back = true;
+        -:   63:					} else//there is nothing left
+  3319702:   64:						break;
+        -:   65:                }
+ 34362288:   66:				li_prev = li;
+        -:   67:			}
+        -:   68://			for (auto& li:cl->mElementDead)
+        -:   69://                if (li.second != nullptr && li.second->variable == this->variable) {
+        -:   70://                    cl->mElementAlive[li.first] = li.second;
+        -:   71://                    li.second = nullptr;
+        -:   72://                }
+        -:   73:        }
+        -:   74:    }
+  2627234:   75:}
+        -:   76:
+  2627234:   77:void assignation::updateClause(bool alive){
+  2627234:   78:	bool cl_need_back = false;
+  2627234:   79:	clause* cl_prev = nullptr;
+ 36596322:   80:    for (auto& cl:this->variable->clauseInto)
+ 33969088:   81:        if (alive == false) {
+        -:   82:            //si on assigne (on tue) une variable, on recherche les clauses associés qui sont encore non satisfaites, et on les met à jour
+ 16985189:   83:			cl_need_back = false;
+ 16985189:   84:			cl_prev = nullptr;
+2164491083:   85:			for (clause* cl2 = instance->f_ClauseUnsatisfied;cl2 != nullptr || cl_need_back;cl2=cl2->next_clause){//On parcours les clauses non satisfaites à la recherche de cl
+2147505895:   86:				if (cl_need_back){
+    87571:   87:					cl2=cl_prev;
+    87571:   88:					cl_prev=nullptr;
+    87571:   89:					cl_need_back = false;
+        -:   90:				}
+2147505895:   91:				if (cl2 == cl)
+  8556046:   92:                    if (cl2->isSatisfied()){
+        -:   93:                        //on enlève cl2 de la liste simplement chainée des clauses non satisfaites, puis on l'ajoute aux clauses satisfaites
+  4802011:   94:                        removeClause(&instance->f_ClauseUnsatisfied,&instance->l_ClauseUnsatisfied,cl2,cl_prev);
+  4802011:   95:                        appendClause(&instance->f_ClauseSatisfied,&instance->l_ClauseSatisfied,cl2);
+  4802011:   96:						if (cl_prev != nullptr)
+  4714439:   97:                            cl2 = cl_prev;
+        -:   98:                        //On évite de casser la chaîne de parcours de la boucle for...
+    87572:   99:						else if (instance->f_ClauseUnsatisfied != nullptr){
+    87571:  100:							cl2 = instance->f_ClauseUnsatisfied;
+    87571:  101:							cl_need_back = true;
+        -:  102:						} else//there is nothing left
+        1:  103:							break;
+        -:  104:                    }
+2147505894:  105:				cl_prev = cl2;
+        -:  106:            }
+        -:  107:        } else {
+        -:  108:            //et réciproquement...
+ 16983899:  109:			cl_need_back = false;
+ 16983899:  110:			cl_prev = nullptr;
+5177755546:  111:			for (clause* cl2 = instance->f_ClauseSatisfied;cl2 != nullptr || cl_need_back;cl2=cl2->next_clause){//On parcours les clauses non satisfaites à la recherche de cl
+5160771648:  112:				if (cl_need_back){
+        7:  113:					cl2=cl_prev;
+        7:  114:					cl_prev=nullptr;
+        7:  115:					cl_need_back = false;
+        -:  116:				}
+5160771648:  117:				if (cl2 == cl)
+ 13230167:  118:					if (!cl2->isSatisfied()){//on enlève cl2 de la liste simplement chainée des clauses satisfaites, puis on l'ajoute aux clauses non satisfaites
+  4801581:  119:                        removeClause(&instance->f_ClauseSatisfied,&instance->l_ClauseSatisfied,cl2,cl_prev);
+  4801581:  120:                        appendClause(&instance->f_ClauseUnsatisfied,&instance->l_ClauseUnsatisfied,cl2);
+  4801581:  121:						if (cl_prev != nullptr)
+  4801573:  122:							cl2 = cl_prev;//On évite de casser la chaîne de parcours de la boucle for...
+        8:  123:						else if (instance->f_ClauseSatisfied != nullptr){
+        7:  124:							cl2 = instance->f_ClauseSatisfied;
+        7:  125:							cl_need_back = true;
+        -:  126:						} else//there is nothing left
+        1:  127:							break;
+        -:  128:                    }
+5160771647:  129:                if (wl && cl2->existsWatchedNonAlive() && cl2->isSatisfied())
+    #####:  130:                    std::cerr<<"Error : There exist false watched litterals in an alive clause"<<std::endl;
+5160771647:  131:                cl_prev = cl2;
+        -:  132:            }
+        -:  133:        }
+  2627234:  134:}
+        -:  135:
+  2627234:  136:void assignation::updateStatus(bool alive){
+  2627234:  137:    this->updateLitt(alive);
+  2627234:  138:    this->updateClause(alive);
+  2627234:  139:}
+        -:  140:
+        -:  141:
+    #####:  142:void assignation::print(){
+    #####:  143:    this->variable->print();
+    #####:  144:}
+        -:  145:
+ 16985189:  146:bool needNewWatched(clause * cl, litt* li){
+ 16985189:  147:    if (cl->w_litt_1==li or cl->w_litt_2==li)
+    #####:  148:        return true;
+        -:  149:    else
+ 16985189:  150:        return false;
+        -:  151:}
+        -:  152:
+    #####:  153:bool assignNewWatched(clause * cl, litt* li){
+    #####:  154:    bool changed=false;
+    #####:  155:    if (cl->w_litt_1==li or cl->w_litt_2==li){
+    #####:  156:        cl->w_litt_1=(cl->w_litt_1==li)?cl->w_litt_2:cl->w_litt_1;
+        -:  157:        //li est maintenant le litteral watched numero 2
+    #####:  158:        for(litt* li2=cl->f_ElementAlive;li2!=nullptr; li2=li2->next_litt){
+    #####:  159:            if (li2!=cl->w_litt_1 and li2!=li){
+    #####:  160:                cl->w_litt_2=li2;
+    #####:  161:                changed=true;
+    #####:  162:                break;
+        -:  163:            }
+        -:  164:        }
+    #####:  165:        if (!changed){
+        -:  166:            //si jamais on n'a pas réussi a changer, on va bouger sur un litteral mort
+        -:  167:            //(au cas ou on supprime le litteral en question
+    #####:  168:            for(litt* li2=cl->f_ElementAlive;li2!=nullptr; li2=li2->next_litt){
+    #####:  169:                if (li2!=cl->w_litt_1 and li2!=li){
+    #####:  170:                    cl->w_litt_2=li2;
+    #####:  171:                    changed=true;
+    #####:  172:                    break;
+        -:  173:                }
+        -:  174:            }
+        -:  175:
+    #####:  176:        }
+        -:  177:
+        -:  178:    }else
+    #####:  179:        return true;
+    #####:  180:    return changed;
+        3:  181:}

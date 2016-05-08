@@ -18,6 +18,7 @@ public:
     var* variable;
     bool neg;
     litt* next_litt=nullptr;
+    litt* prev_litt=nullptr;
     //struct of chained list
 };
 

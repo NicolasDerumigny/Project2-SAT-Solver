@@ -21,6 +21,7 @@ public:
     std::string proof_str(bool complete);
 
     clause* next_clause = nullptr;
+    clause* prev_clause = nullptr;
 
     litt* f_ElementAlive=nullptr;//premier de la liste chainée
     litt* l_ElementAlive=nullptr;//dernier de la liste chainée
