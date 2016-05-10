@@ -48,6 +48,7 @@ void formule::merge(formule* formule2){
             this->l_ClauseSatisfied = formule2->l_ClauseSatisfied;
         } else {//formule n'est pas vide
             this->l_ClauseSatisfied->next_clause = formule2->f_ClauseSatisfied;
+            formule2->f_ClauseSatisfied->prev_clause = this->l_ClauseSatisfied;
             this->l_ClauseSatisfied = formule2->l_ClauseSatisfied;
         }
     }
@@ -57,6 +58,7 @@ void formule::merge(formule* formule2){
             this->l_ClauseUnsatisfied = formule2->l_ClauseUnsatisfied;
         } else {
             this->l_ClauseUnsatisfied->next_clause = formule2->f_ClauseUnsatisfied;
+            formule2->f_ClauseUnsatisfied->prev_clause = this->l_ClauseUnsatisfied;
             this->l_ClauseUnsatisfied = formule2->l_ClauseUnsatisfied;
         }
     }

@@ -27,6 +27,7 @@ void clause::merge(clause* cl2){
         if (cl2->l_ElementAlive!=nullptr){
             if(this->l_ElementAlive!=nullptr){
                 this->l_ElementAlive->next_litt=cl2->f_ElementAlive;
+                cl2->f_ElementAlive->prev_litt=this->l_ElementAlive;
             }else{
                 this->f_ElementAlive=cl2->f_ElementAlive;
             }
@@ -36,6 +37,7 @@ void clause::merge(clause* cl2){
         if (cl2->l_ElementDead!=nullptr){
             if(this->l_ElementDead!=nullptr){
                 this->l_ElementDead->next_litt=cl2->f_ElementDead;
+                cl2->f_ElementDead->prev_litt=this->l_ElementDead;
             }else{
                 this->f_ElementDead=cl2->f_ElementDead;
             }
@@ -155,17 +157,18 @@ bool clause::isSatisfied(){
     }
 }
 
-void removeClause(clause **first_cl,clause **last_cl,clause *cur_cl,clause *prev_cl) {
+void removeClause(clause **first_cl,clause **last_cl,clause *cur_cl) {
     if (cur_cl == *first_cl){//On est au début de la liste
         *first_cl = cur_cl->next_clause;
 	} else {
-		if (prev_cl == nullptr) fprintf(stderr, "Fatal: An unexpected error occured in removeClause (prev_cl==nullptr but cur_cl!=first_cl)");
-		prev_cl->next_clause = cur_cl->next_clause;
+        if (cur_cl->prev_clause == nullptr) fprintf(stderr, "Fatal: An unexpected error occured in removeClause (prev_cl==nullptr but cur_cl!=first_cl)");
+        cur_cl->prev_clause->next_clause = cur_cl->next_clause;
 	}
     if (cur_cl == *last_cl){//On est à la fin de la liste
-        *last_cl = prev_cl;
-        if (*last_cl != nullptr)
-            (*last_cl)->next_clause = nullptr;
+        *last_cl = cur_cl->prev_clause;
+    } else {
+        if (cur_cl->next_clause == nullptr) fprintf(stderr, "Fatal: An unexpected error occured in removeClause (next_cl==nullptr but cur_cl!=last_cl)");
+        cur_cl->next_clause->prev_clause = cur_cl->prev_clause;
 	}
 }
 
@@ -174,8 +177,10 @@ void appendClause(clause **first_cl, clause **last_cl,clause *cur_cl) {
         *first_cl = cur_cl;
         *last_cl = cur_cl;
         (*last_cl)->next_clause = nullptr;
+        (*first_cl)->prev_clause = nullptr;
 	} else {
         (*last_cl)->next_clause = cur_cl;
+        cur_cl->prev_clause = *last_cl
         *last_cl = cur_cl;
         (*last_cl)->next_clause = nullptr;
 	}
@@ -216,6 +221,7 @@ clause* clause::copy(){
             first=false;//mettre un compteur booléen c'est bien, l'incrémenter c'est encore mieux...
         }else{
             new_clause->l_ElementAlive->next_litt=new_litt;
+            new_litt->prev_litt=new_clause->l_ElementAlive;
             new_clause->l_ElementAlive=new_litt;
         }
     }
@@ -236,6 +242,7 @@ clause* clause::copy(){
             first=false;
         }else{
             new_clause->l_ElementDead->next_litt=new_litt;
+            new_litt->prev_litt=new_clause->l_ElementDead;
             new_clause->l_ElementDead=new_litt;
         }
     }

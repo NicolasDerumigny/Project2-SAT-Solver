@@ -166,9 +166,9 @@ Tracer les performances comme avec SatTest.sh, mais juste la durée globale pour
 
 Utiliser des listes doublement chainées, pour améliorer les performances (actuellement, plus de 90% du temps passé sur la recherche de prev_clause, dans updateClause)
 	litt.cpp ok
-	formule.cpp 
-	deduce.cpp
-	decide.cpp
+	formule.cpp ok sauf preprocessing
+	deduce.cpp ok
+	decide.cpp ok
 	clause.cpp
 	backtrack.cpp
 	assignation.cpp
