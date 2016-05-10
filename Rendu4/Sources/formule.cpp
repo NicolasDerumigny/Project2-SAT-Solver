@@ -166,7 +166,7 @@ void formule::preprocessing() {
 			}
 			if (li->neg){
 				if (variables[li->variable->id].first > 0){//si on a un doublon dans la clause, on l'élimine
-					removeLitt(&cl->f_ElementAlive,&cl->l_ElementAlive,li,li_prev);
+                    removeLitt(&cl->f_ElementAlive,&cl->l_ElementAlive,li);
 					delete li;
 					if (li_prev != nullptr)
 						li = li_prev;//On évite de casser la chaîne de parcours de la boucle for...
@@ -180,7 +180,7 @@ void formule::preprocessing() {
 				}
 			} else {
 				if (variables[li->variable->id].second > 0){//si on a un doublon dans la clause, on l'élimine
-					removeLitt(&cl->f_ElementAlive,&cl->l_ElementAlive,li,li_prev);
+                    removeLitt(&cl->f_ElementAlive,&cl->l_ElementAlive,li);
 					delete li;
 					if (li_prev != nullptr)
 						li = li_prev;//On évite de casser la chaîne de parcours de la boucle for...
@@ -204,7 +204,7 @@ void formule::preprocessing() {
 			v.second = 0;
 		}
 		if (isTauto) {
-			removeClause(&this->f_ClauseUnsatisfied,&this->l_ClauseUnsatisfied,cl,cl_prev);
+            removeClause(&this->f_ClauseUnsatisfied,&this->l_ClauseUnsatisfied,cl);
 			for (litt* li = cl->f_ElementAlive;li != nullptr;li = li->next_litt){//supprimer la clause cl des clauseInto
 				li->variable->clauseInto.erase(std::remove(li->variable->clauseInto.begin(), li->variable->clauseInto.end(), cl), li->variable->clauseInto.end());
 			}
