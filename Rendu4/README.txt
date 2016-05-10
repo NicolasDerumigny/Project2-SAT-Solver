@@ -171,7 +171,7 @@ Utiliser des listes doublement chainées, pour améliorer les performances (actu
 	decide.cpp ok
 	clause.cpp ok
 	backtrack.cpp ok
-	assignation.cpp
+	assignation.cpp ok
 
 -------------
 

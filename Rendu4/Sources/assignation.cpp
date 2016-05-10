@@ -22,7 +22,7 @@ void assignation::updateLitt(bool alive){
 					li_need_back = false;
 				}
                 if (li->variable == this->variable) {
-                    removeLitt(&cl->f_ElementAlive,&cl->l_ElementAlive,li,li_prev);
+                    removeLitt(&cl->f_ElementAlive,&cl->l_ElementAlive,li);
                     appendLitt(&cl->f_ElementDead,&cl->l_ElementDead,li);
                     if (needNewWatched(cl,li))
                         assignNewWatched(cl,li);
@@ -53,7 +53,7 @@ void assignation::updateLitt(bool alive){
 					li_need_back = false;
 				}
                 if (li->variable == this->variable) {
-                    removeLitt(&cl->f_ElementDead,&cl->l_ElementDead,li,li_prev);
+                    removeLitt(&cl->f_ElementDead,&cl->l_ElementDead,li);
                     appendLitt(&cl->f_ElementAlive,&cl->l_ElementAlive,li);
 					if (li_prev != nullptr)
 						li = li_prev;//On évite de casser la chaîne de parcours de la boucle for...
@@ -75,61 +75,69 @@ void assignation::updateLitt(bool alive){
 }
 
 void assignation::updateClause(bool alive){
-	bool cl_need_back = false;
-	clause* cl_prev = nullptr;
+//	bool cl_need_back = false;
+//	clause* cl_prev = nullptr;
     for (auto& cl:this->variable->clauseInto)
         if (alive == false) {
             //si on assigne (on tue) une variable, on recherche les clauses associés qui sont encore non satisfaites, et on les met à jour
-			cl_need_back = false;
-			cl_prev = nullptr;
-			for (clause* cl2 = instance->f_ClauseUnsatisfied;cl2 != nullptr || cl_need_back;cl2=cl2->next_clause){//On parcours les clauses non satisfaites à la recherche de cl
-				if (cl_need_back){
-					cl2=cl_prev;
-					cl_prev=nullptr;
-					cl_need_back = false;
-				}
-				if (cl2 == cl)
-                    if (cl2->isSatisfied()){
-                        //on enlève cl2 de la liste simplement chainée des clauses non satisfaites, puis on l'ajoute aux clauses satisfaites
-                        removeClause(&instance->f_ClauseUnsatisfied,&instance->l_ClauseUnsatisfied,cl2,cl_prev);
-                        appendClause(&instance->f_ClauseSatisfied,&instance->l_ClauseSatisfied,cl2);
-						if (cl_prev != nullptr)
-                            cl2 = cl_prev;
-                        //On évite de casser la chaîne de parcours de la boucle for...
-						else if (instance->f_ClauseUnsatisfied != nullptr){
-							cl2 = instance->f_ClauseUnsatisfied;
-							cl_need_back = true;
-						} else//there is nothing left
-							break;
-                    }
-				cl_prev = cl2;
+//			cl_need_back = false;
+//			cl_prev = nullptr;
+//			for (clause* cl2 = instance->f_ClauseUnsatisfied;cl2 != nullptr || cl_need_back;cl2=cl2->next_clause){//On parcours les clauses non satisfaites à la recherche de cl
+//				if (cl_need_back){
+//					cl2=cl_prev;
+//					cl_prev=nullptr;
+//					cl_need_back = false;
+//				}
+//				if (cl2 == cl)
+//                    if (cl2->isSatisfied()){
+//                        //on enlève cl2 de la liste simplement chainée des clauses non satisfaites, puis on l'ajoute aux clauses satisfaites
+//                        removeClause(&instance->f_ClauseUnsatisfied,&instance->l_ClauseUnsatisfied,cl2,cl_prev);
+//                        appendClause(&instance->f_ClauseSatisfied,&instance->l_ClauseSatisfied,cl2);
+            if (cl->isSatisfied()){//on enlève cl2 de la liste simplement chainée des clauses non satisfaites, puis on l'ajoute aux clauses satisfaites
+                removeClause(&instance->f_ClauseUnsatisfied,&instance->l_ClauseUnsatisfied,cl);
+                appendClause(&instance->f_ClauseSatisfied,&instance->l_ClauseSatisfied,cl);
             }
+//						if (cl_prev != nullptr)
+//                            cl2 = cl_prev;
+//                        //On évite de casser la chaîne de parcours de la boucle for...
+//						else if (instance->f_ClauseUnsatisfied != nullptr){
+//							cl2 = instance->f_ClauseUnsatisfied;
+//							cl_need_back = true;
+//						} else//there is nothing left
+//							break;
+//                    }
+//				cl_prev = cl2;
+//            }
         } else {
             //et réciproquement...
-			cl_need_back = false;
-			cl_prev = nullptr;
-			for (clause* cl2 = instance->f_ClauseSatisfied;cl2 != nullptr || cl_need_back;cl2=cl2->next_clause){//On parcours les clauses non satisfaites à la recherche de cl
-				if (cl_need_back){
-					cl2=cl_prev;
-					cl_prev=nullptr;
-					cl_need_back = false;
-				}
-				if (cl2 == cl)
-					if (!cl2->isSatisfied()){//on enlève cl2 de la liste simplement chainée des clauses satisfaites, puis on l'ajoute aux clauses non satisfaites
-                        removeClause(&instance->f_ClauseSatisfied,&instance->l_ClauseSatisfied,cl2,cl_prev);
-                        appendClause(&instance->f_ClauseUnsatisfied,&instance->l_ClauseUnsatisfied,cl2);
-						if (cl_prev != nullptr)
-							cl2 = cl_prev;//On évite de casser la chaîne de parcours de la boucle for...
-						else if (instance->f_ClauseSatisfied != nullptr){
-							cl2 = instance->f_ClauseSatisfied;
-							cl_need_back = true;
-						} else//there is nothing left
-							break;
-                    }
-                if (wl && cl2->existsWatchedNonAlive() && cl2->isSatisfied())
-                    std::cerr<<"Error : There exist false watched litterals in an alive clause"<<std::endl;
-                cl_prev = cl2;
+//			cl_need_back = false;
+//			cl_prev = nullptr;
+//			for (clause* cl2 = instance->f_ClauseSatisfied;cl2 != nullptr || cl_need_back;cl2=cl2->next_clause){//On parcours les clauses non satisfaites à la recherche de cl
+//				if (cl_need_back){
+//					cl2=cl_prev;
+//					cl_prev=nullptr;
+//					cl_need_back = false;
+//				}
+//				if (cl2 == cl)
+//					if (!cl2->isSatisfied()){//on enlève cl2 de la liste simplement chainée des clauses satisfaites, puis on l'ajoute aux clauses non satisfaites
+//                        removeClause(&instance->f_ClauseSatisfied,&instance->l_ClauseSatisfied,cl2,cl_prev);
+//                        appendClause(&instance->f_ClauseUnsatisfied,&instance->l_ClauseUnsatisfied,cl2);
+            if (!cl->isSatisfied()){//on enlève cl2 de la liste simplement chainée des clauses satisfaites, puis on l'ajoute aux clauses non satisfaites
+                removeClause(&instance->f_ClauseSatisfied,&instance->l_ClauseSatisfied,cl);
+                appendClause(&instance->f_ClauseUnsatisfied,&instance->l_ClauseUnsatisfied,cl);
             }
+//						if (cl_prev != nullptr)
+//							cl2 = cl_prev;//On évite de casser la chaîne de parcours de la boucle for...
+//						else if (instance->f_ClauseSatisfied != nullptr){
+//							cl2 = instance->f_ClauseSatisfied;
+//							cl_need_back = true;
+//						} else//there is nothing left
+//							break;
+//                    }
+//                if (wl && cl2->existsWatchedNonAlive() && cl2->isSatisfied())
+//                    std::cerr<<"Error : There exist false watched litterals in an alive clause"<<std::endl;
+//                cl_prev = cl2;
+//            }
         }
 }
 
