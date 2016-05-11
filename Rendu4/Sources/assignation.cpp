@@ -93,9 +93,10 @@ void assignation::updateClause(bool alive){
 //                        //on enlève cl2 de la liste simplement chainée des clauses non satisfaites, puis on l'ajoute aux clauses satisfaites
 //                        removeClause(&instance->f_ClauseUnsatisfied,&instance->l_ClauseUnsatisfied,cl2,cl_prev);
 //                        appendClause(&instance->f_ClauseSatisfied,&instance->l_ClauseSatisfied,cl2);
-            if (cl->isSatisfied()){//on enlève cl2 de la liste simplement chainée des clauses non satisfaites, puis on l'ajoute aux clauses satisfaites
+            if (!cl->satisfied && cl->isSatisfied()){//on enlève cl2 de la liste simplement chainée des clauses non satisfaites, puis on l'ajoute aux clauses satisfaites
                 removeClause(&instance->f_ClauseUnsatisfied,&instance->l_ClauseUnsatisfied,cl);
                 appendClause(&instance->f_ClauseSatisfied,&instance->l_ClauseSatisfied,cl);
+                cl->satisfied = true;
             }
 //						if (cl_prev != nullptr)
 //                            cl2 = cl_prev;
@@ -122,9 +123,10 @@ void assignation::updateClause(bool alive){
 //					if (!cl2->isSatisfied()){//on enlève cl2 de la liste simplement chainée des clauses satisfaites, puis on l'ajoute aux clauses non satisfaites
 //                        removeClause(&instance->f_ClauseSatisfied,&instance->l_ClauseSatisfied,cl2,cl_prev);
 //                        appendClause(&instance->f_ClauseUnsatisfied,&instance->l_ClauseUnsatisfied,cl2);
-            if (!cl->isSatisfied()){//on enlève cl2 de la liste simplement chainée des clauses satisfaites, puis on l'ajoute aux clauses non satisfaites
+            if (cl->satisfied && !cl->isSatisfied()){//on enlève cl2 de la liste simplement chainée des clauses satisfaites, puis on l'ajoute aux clauses non satisfaites
                 removeClause(&instance->f_ClauseSatisfied,&instance->l_ClauseSatisfied,cl);
                 appendClause(&instance->f_ClauseUnsatisfied,&instance->l_ClauseUnsatisfied,cl);
+                cl->satisfied = false;
             }
 //						if (cl_prev != nullptr)
 //							cl2 = cl_prev;//On évite de casser la chaîne de parcours de la boucle for...

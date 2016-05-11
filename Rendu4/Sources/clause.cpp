@@ -6,6 +6,7 @@ void clause::set_clause(litt* litt_entry){
     this->f_ElementDead=nullptr;
     this->l_ElementAlive=litt_entry;
     this->l_ElementDead=nullptr;
+    this->satisfied=false;
     //this->mElementAlive[0]=litt_entry;
     //this->mElementDead[0]=nullptr;
 }
@@ -180,7 +181,7 @@ void appendClause(clause **first_cl, clause **last_cl,clause *cur_cl) {
         (*first_cl)->prev_clause = nullptr;
 	} else {
         (*last_cl)->next_clause = cur_cl;
-        cur_cl->prev_clause = *last_cl
+        cur_cl->prev_clause = *last_cl;
         *last_cl = cur_cl;
         (*last_cl)->next_clause = nullptr;
 	}

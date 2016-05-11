@@ -12,6 +12,7 @@ public:
     void set_clause(litt* litt_entry);
     void print();
     bool isSatisfied();
+    bool satisfied = false;
     void merge(clause* cl);
     int nbLittAlive();
     litt* getUniqueLittAlive();

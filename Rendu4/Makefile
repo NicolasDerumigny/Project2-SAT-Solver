@@ -1,7 +1,7 @@
 #example name
 NAME=expr
 #compiler name
-CC=clang++
+CC=g++
 #lex name+path
 LEX=flex
 LIBLEX=-lfl
@@ -9,8 +9,9 @@ LIBLEX=-lfl
 YACC=bison
 #flags
 CXX= -std=c++11
+CFLAGS= -g -pg $(CXX) -Wall -Wextra -Wpedantic -Wno-write-strings -I Header/
 #CFLAGS= -g -pg -fprofile-arcs -ftest-coverage -lgcov -coverage $(CXX) -Wall -Wextra -Wpedantic -Wno-write-strings -I Header/
-CFLAGS= $(CXX) -Wall -Wextra -Wpedantic -Weverything -Wno-write-strings -I Header/
+#CFLAGS= $(CXX) -Wall -Wextra -Wpedantic -Weverything -Wno-write-strings -I Header/
 SRC= $(wildcard Sources/*.cpp)
 OBJ= $(patsubst Sources/%.cpp, Build/%.o, $(SRC))
 
