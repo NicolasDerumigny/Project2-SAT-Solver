@@ -24,6 +24,6 @@ public:
 
 
 void appendLitt(litt **first_li,litt **last_li,litt *cur_li);
-void removeLitt(litt **first_li,litt **last_li,litt *cur_li,litt *prev_li);
+void removeLitt(litt **first_li,litt **last_li,litt *cur_li);
 
 #endif // LITT_H

@@ -32,7 +32,7 @@ public:
     litt* w_litt_2=nullptr;
 };
 
-void removeClause(clause **first_cl,clause **last_cl,clause *cur_cl,clause *prev_cl);
+void removeClause(clause **first_cl,clause **last_cl,clause *cur_cl);
 void appendClause(clause **first_cl, clause **last_cl,clause *cur_cl);
 
 #endif // CLAUSE_H
