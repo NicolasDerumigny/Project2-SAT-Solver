@@ -10,7 +10,7 @@ var* getFreeVar() {
 }
 
 var* getRandFreeVar() {
-	srand(time(NULL));
+    srand((unsigned int)time(NULL));
 	var* new_var = nullptr;
 	bool no_more = true;
 	for (var* s:v_var) {
@@ -23,7 +23,7 @@ var* getRandFreeVar() {
 		return nullptr;
 	unsigned int i_var;
 	while (new_var == nullptr) {
-		i_var = rand() % v_var.size();
+        i_var = (unsigned int) rand() % v_var.size();
 		if (v_var[i_var] != nullptr && v_var[i_var]->value == -1) {
 			new_var = v_var[i_var];
 		}

@@ -22,7 +22,8 @@ void checkHeaderAndParse(){
     std::string p,cnf;
     int V, C=-1, D=-1;
 
-    int nbr_line=1,s=0;
+    int nbr_line=1;
+    unsigned long s=0;
     std::string line;
     while(std::getline(eFile, line)){
         nbr_line++;
@@ -60,14 +61,13 @@ void checkHeaderAndParse(){
 
 
 
-    if((7+1*(        V<=((1        *01       -1)))+(C<=0)//
-    +//              ||  \\\       $@4       c=|)
-    ceil(log(        1*   abs      (V)        +000+1)/log\
-    (10              /*    */)     )+1               *ceil
-    (log(abs(        C)     +1)/log(10       ))-s))goto l;
+    if((bool)        (7+1*(     V<=       ((1*01-1)))+//
+    (C*              1<=0)+     //c       c=|)
+    ceil(log(        1*  abs    (V)        +000+1)/log\
+    (10              ))   +1    */*               */ceil
+    (log(abs(        C)    +1)/log(       10))-s))goto l;
 
-            /*~~~~~~(: syntax nazi :)~~~~~~*/
-
+              /*~~~~~~(: syntax nazi :)~~~~~~*/
 
 
 
@@ -110,7 +110,7 @@ void checkHeaderAndParse(){
     while(std::getline(eFile, line)){
         if (line[0]!='c')
             nbr_C++;
-        int size=line.size();
+        unsigned long size=line.size();
 
         {
             std::stringstream str;
@@ -190,9 +190,9 @@ void parse(){
 
         if(isTseitin){
             //merge les variables tseitin et les autres
-            int nbr_tseitin=v_var_tseitin.size();
-            int shift=v_var.size();
-            for(int i=0;i<nbr_tseitin;i++)
+            unsigned long nbr_tseitin=v_var_tseitin.size();
+            unsigned long shift=v_var.size();
+            for(unsigned long i=0;i<nbr_tseitin;i++)
                 v_var_tseitin[i]->id=i+shift;
 
             v_var.insert(v_var.end(),v_var_tseitin.begin(),v_var_tseitin.end());
@@ -219,7 +219,7 @@ void freeAll(){
 }
 
 void print_output(){
-    for(int i=1; i<nbr_var;i++){
+    for(unsigned long i=1; i<nbr_var;i++){
         if (v_var[i]!=nullptr)
             v_var[i]->print();
         else

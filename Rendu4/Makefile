@@ -1,23 +1,33 @@
 #example name
 NAME=expr
 #compiler name
-CC=g++
+CXX=clang++
 #lex name+path
 LEX=flex
 LIBLEX=-lfl
 #yacc/bison
 YACC=bison
 #flags
-CXX= -std=c++11
-CFLAGS= -g -pg $(CXX) -Wall -Wextra -Wpedantic -Wno-write-strings -I Header/
-#CFLAGS= -g -pg -fprofile-arcs -ftest-coverage -lgcov -coverage $(CXX) -Wall -Wextra -Wpedantic -Wno-write-strings -I Header/
-#CFLAGS= $(CXX) -Wall -Wextra -Wpedantic -Weverything -Wno-write-strings -I Header/
+FLAGXX= -std=c++11
+CFLAGS= -g $(FLAGXX) -Wall -Wextra -Wpedantic -Wno-write-strings -I Header/
+#CFLAGS= -g -pg -fprofile-arcs -ftest-coverage -lgcov -coverage $(FLAGXX) -Wall -Wextra -Wpedantic -Wno-write-strings -I Header/
+WFLAG= -Weverything
 SRC= $(wildcard Sources/*.cpp)
+BIZ= $(wildcard Bison/*.cpp)
 OBJ= $(patsubst Sources/%.cpp, Build/%.o, $(SRC))
 
 
-all: Bison/$(NAME).tab.cpp Bison/$(NAME).yy.cpp Bison/$(NAME).cpp $(OBJ)
-	$(CC) $(CFLAGS) -o resol $^ $(LIBLEX)
+all: Build/$(NAME).o Build/$(NAME).tab.o Build/$(NAME).yy.o $(OBJ)
+	$(CXX) $(CFLAGS) $(WFLAG) -o resol $^ $(LIBLEX)
+
+Build/$(NAME).tab.o: Bison/$(NAME).tab.cpp
+	$(CXX) $(CFLAGS) -o $@ -c $< $(CFLAGS) 
+
+Build/$(NAME).yy.o: Bison/$(NAME).yy.cpp
+	$(CXX) $(CFLAGS) -o $@ -c $< $(CFLAGS) 
+
+Build/$(NAME).o: Bison/$(NAME).cpp
+	$(CXX) $(CFLAGS) $(WFLAG) -o $@ -c $< $(CFLAGS) 
 
 Bison/$(NAME).yy.cpp :  Bison/$(NAME).l
 	$(LEX)  -w -o $@ $^
@@ -29,5 +39,5 @@ clean:
 	rm -f *~ Bison/$(NAME).yy.cpp Bison/$(NAME).tab.cpp Bison/$(NAME).tab.hpp Bison/$(NAME).output Build/*.o
 
 Build/%.o: Sources/%.cpp
-	$(CC) -o $@ -c $< $(CFLAGS) 
+	$(CXX) -o $@ -c $< $(CFLAGS) $(WFLAG)
 

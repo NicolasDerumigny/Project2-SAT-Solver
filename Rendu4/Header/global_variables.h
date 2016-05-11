@@ -1,12 +1,14 @@
 #ifndef GLOBAL_VARIABLES_H
 #define GLOBAL_VARIABLES_H
 #ifdef __clang__
-#pragma clang diagnostic push
+#if __cplusplus == 201103L
 #pragma clang diagnostic ignored "-Wc++98-compat"
+#endif
 #endif
 #include <ctime>
 #include <vector>
 #include <fstream>
+#include "global_variable_extern.h"
 
 class assignation;
 class var;
@@ -19,7 +21,7 @@ int level_cur = 0;
 std::vector<var*> v_var;
 std::vector<var*> v_var_tseitin;
 std::vector<int> bets;
-int nbr_var=0;
+unsigned long nbr_var=0;
 //création du vector qui contiendra tous les pointeurs vers les variables
 
 formule *instance;

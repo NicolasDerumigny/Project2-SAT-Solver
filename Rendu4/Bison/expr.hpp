@@ -23,7 +23,7 @@ public:
     virtual void eval_tseitin()=0;
     formule *form=nullptr;
     var *varRoot=nullptr;
-    virtual ~Expr(){}
+    virtual ~Expr();
 };
 
 /***********************************/
@@ -38,6 +38,7 @@ public:
     void eval();
     void eval_tseitin();
 	~EConst(){}
+    char padding[4];
 private:
     int value;
 };
@@ -139,6 +140,7 @@ public:
     void eval();
     void eval_tseitin();
     ~VNot(){}
+    char padding[4];
 private:
     int value;
 };

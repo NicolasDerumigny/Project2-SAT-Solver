@@ -1,10 +1,10 @@
 #include "assignation.h"
 
 
-void assignation::set_assign(var* variable,bool bet1) {
-    bets.push_back(bet1);
-    this->variable=variable;
-    this->bet=bet1;
+void assignation::set_assign(var* variable_enter, bool bet_enter) {
+    bets.push_back(bet_enter);
+    this->variable=variable_enter;
+    this->bet=bet_enter;
 }
 
 void assignation::updateLitt(bool alive){
