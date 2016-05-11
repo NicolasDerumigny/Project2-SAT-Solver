@@ -13,6 +13,7 @@ public:
     void set_litt(var* var_entry, bool neg_entry);
     void print();
     void free_litt();
+    bool isTrue();
     litt* copy();
     std::string proof_str();
 

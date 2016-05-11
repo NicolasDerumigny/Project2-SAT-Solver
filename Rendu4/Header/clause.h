@@ -35,5 +35,5 @@ public:
 
 void removeClause(clause **first_cl,clause **last_cl,clause *cur_cl);
 void appendClause(clause **first_cl, clause **last_cl,clause *cur_cl);
-
+litt* getFirstTrue(litt* entry);
 #endif // CLAUSE_H

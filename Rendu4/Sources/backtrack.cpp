@@ -307,6 +307,47 @@ clause* getUIPClause(clause *cl_Conflict){
             }
         }
     }
+
+    if(wl){
+         bool found1=false, found2=false;
+         clLearned->w_litt_1=getFirstTrue(clLearned->f_ElementDead);
+         found1=(clLearned->w_litt_1!=nullptr);
+         clLearned->w_litt_2=getFirstTrue(clLearned->w_litt_1->next_litt);
+         found2=(clLearned->w_litt_2!=nullptr);
+
+         if(found1 and !found2){
+             if (clLearned->w_litt_1->prev_litt!=nullptr)
+                 clLearned->w_litt_2=clLearned->w_litt_1->prev_litt;
+             else
+                 clLearned->w_litt_2=clLearned->w_litt_1->next_litt;
+             found2=clLearned->w_litt_2!=nullptr;
+         }
+
+         if(!found1){
+             clLearned->w_litt_1=clLearned->f_ElementDead;
+             found1=clLearned->w_litt_1!=nullptr;
+             clLearned->w_litt_2=clLearned->l_ElementDead;
+             found2=clLearned->w_litt_2!=nullptr and clLearned->w_litt_2!=clLearned->w_litt_1;
+         }
+
+
+
+         if(!found1){
+             clLearned->w_litt_1=clLearned->f_ElementAlive;
+             found1=clLearned->w_litt_1!=nullptr;
+             clLearned->w_litt_2=clLearned->l_ElementAlive;
+             found2=clLearned->w_litt_2!=nullptr and clLearned->w_litt_2!=clLearned->w_litt_1;
+         }else if(!found2){
+             clLearned->w_litt_2=clLearned->f_ElementAlive;
+             found2=clLearned->w_litt_2!=nullptr and clLearned->w_litt_2!=clLearned->w_litt_1;
+         }
+
+         if(!found2){
+            std::cerr<<"Error : can't apply watched litterals method (one clause learned has only one variable) : returning to normal state"<<std::endl;
+            wl=false;
+         }
+    }
+
     return clLearned;
 }
 

@@ -33,4 +33,6 @@ public:
     void assignValue(int value_enter, bool bet_enter);
 };
 
+void set_var_tseitin(var **new_var);
+
 #endif // VAR_H

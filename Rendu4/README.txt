@@ -83,8 +83,8 @@ Permet de tracer un graphe des performances des différentes étapes du programm
 Description :
 
 Ce programme évalue le fichier à l'aide de bison/flex : et construit au fur et à mesure (par appels à la méthode Expr::eval) :
-- Des objets de type formules, contenants des objets de types clauses séparées en satisfaites et insatisfaites via des listes chainées
-- Des objets de type clauses, contenant des objets de types littéraux séparées en vivants et morts via des listes chainées, et la clause suivante dans la liste
+- Des objets de type formules, contenants des objets de types clauses séparées en satisfaites et insatisfaites via des listes doublement chainées
+- Des objets de type clauses, contenant des objets de types littéraux séparées en vivants et morts via des listes doublement chainées, et la clause suivante dans la liste
 - Des objets de type littéraux, contenant un pointeur vers un objet de type variable et un bouléen désignant si la variable est niée ou non, et son suivant dans la liste
 - Des objets de type variables, contenant leur numéro et leur affectation (vrai/faux/non attribuée), ainsi qu'un vector de pointeurs vers les clauses le contenant et un vector représentant les conflits (pointeur vers les variables qui l'impliquent)
 - Des objets de type assignation, contenant une variable et si sa valeur est un pari ou non

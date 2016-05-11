@@ -61,3 +61,10 @@ std::string litt::proof_str(){
     answer = answer + "X_{" + std::to_string(this->variable->id) + "}";
     return answer;
 }
+
+bool litt::isTrue(){
+    if(neg)
+        return (variable->value==0);
+    else
+        return (variable->value==1);
+}

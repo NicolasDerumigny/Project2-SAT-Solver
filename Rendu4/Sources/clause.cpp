@@ -273,3 +273,11 @@ std::string clause::proof_str(bool complete){
 
     return answer;
 }
+
+litt* getFirstTrue(litt * entry){
+    litt* parcours=nullptr;
+    for(parcours=entry; parcours!=nullptr; parcours=parcours->next_litt)
+        if(parcours->isTrue())
+            break;
+    return parcours;
+}

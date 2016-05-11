@@ -189,9 +189,14 @@ void parse(){
         nbr_var=v_var.size();
 
         if(isTseitin){
-            //merge les variables tseitin et les autres
             unsigned long nbr_tseitin=v_var_tseitin.size();
             unsigned long shift=v_var.size();
+            //merge les variables tseitin et les autres+rajoute la variable racine
+            formule * Root = new formule;
+            Root->set_formule_var(v_var_tseitin[nbr_tseitin-1],false);
+            instance->merge(Root);
+
+
             for(unsigned long i=0;i<nbr_tseitin;i++)
                 v_var_tseitin[i]->id=i+shift;
 
