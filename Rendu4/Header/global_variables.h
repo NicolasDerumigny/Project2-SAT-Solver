@@ -8,6 +8,7 @@
 #include <ctime>
 #include <vector>
 #include <fstream>
+#include "global_variable_extern.h"
 
 class assignation;
 class var;
@@ -20,7 +21,7 @@ int level_cur = 0;
 std::vector<var*> v_var;
 std::vector<var*> v_var_tseitin;
 std::vector<int> bets;
-int nbr_var=0;
+unsigned long nbr_var=0;
 //création du vector qui contiendra tous les pointeurs vers les variables
 
 formule *instance;

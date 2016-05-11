@@ -12,7 +12,7 @@ class var;
 
 class formule{
 public:
-    void set_formule(int varid, bool neg);
+    void set_formule(unsigned long varid, bool neg);
     void set_formule_tseitin(bool neg);
     void set_formule_var(var* var, bool neg);
     void print();

@@ -10,7 +10,7 @@ class var;
 
 class assignation{
 public:
-    void set_assign(var* variable,bool bet);
+    void set_assign(var* variable_enter ,bool bet_enter);
 	void updateLitt(bool alive);
 	void updateClause(bool alive);
 	void updateStatus(bool alive);

@@ -12,16 +12,16 @@ void formule::set_formule_var(var* var, bool neg){
 }
 
 
-void formule::set_formule(int varid, bool neg){
+void formule::set_formule(unsigned long varid, bool neg){
     var* new_var=nullptr;
     //Afficher une erreur dans le cas ou la variable n'y est pas ET CONTINUER QUAND MEME
-    if (varid>=int(v_var.size())){
-        int oldsize=int(v_var.size());
+    if (varid>=v_var.size()){
+        unsigned long oldsize=v_var.size();
         if (!isTseitin){
             std::cerr<<"Warning : variable number "<<varid<<" not declared in header line (max "<< oldsize - 1;
             std::cerr<<"), continuing anyway"<<std::endl;
         }
-        for (int i=0; i<varid-oldsize+1;i++)
+        for (unsigned long i=0; i<varid-oldsize+1;i++)
             v_var.push_back(nullptr);
     }
     if (v_var[varid]==nullptr){

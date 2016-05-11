@@ -14,9 +14,8 @@ public:
     //struct of chained list
     var* variable;
     bool neg;
-    char padding[7];
 
-    void set_litt(var* var_entry, bool neg);
+    void set_litt(var* var_entry, bool neg_entry);
     void print();
     void free_litt();
     litt* copy();

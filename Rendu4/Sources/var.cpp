@@ -19,14 +19,14 @@ void var::print(){
 }
 
 
-void var::set_var(int id){
-    this->id=id;
+void var::set_var(unsigned long id_enter){
+    this->id=id_enter;
     this->value=-1;
 }
 
-void var::assignValue(int value,bool bet) {
-	this->value=value;
-    this->bet=bet;
+void var::assignValue(int value_enter ,bool bet_enter) {
+    this->value=value_enter;
+    this->bet=bet_enter;
     if (clLearning){
         this->level_ass = level_cur;
     }
@@ -35,7 +35,7 @@ void var::assignValue(int value,bool bet) {
 //On ajoute cette assignation dans la pile d'assignations en précisant qu'il s'agit d'un pari.
 	assignation* new_assign;
 	new_assign = new assignation;
-	new_assign->set_assign(this,bet);
+    new_assign->set_assign(this,bet_enter);
     new_assign->updateStatus(false);
 	assignations.push_back(new_assign);
 }

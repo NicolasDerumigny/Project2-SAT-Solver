@@ -17,7 +17,7 @@ extern int yylex_destroy  (void);
 
 void checkCorrectFile();
 void checkHeaderAndParse();
-void yyerror(const char *s);
+[[noreturn]] void yyerror(const char *s);
 void parse();
 void freeAll();
 void print_output();

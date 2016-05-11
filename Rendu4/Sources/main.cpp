@@ -53,7 +53,7 @@ int main(int argc, char** argv) {
 			if (verbose){
 				fprintf(stderr,"heap of assignations : [var_id,bet,value]\n");
 				for (auto& ass:assignations)
-					fprintf(stderr,"[%i,%i,%i],",ass->variable->id,ass->bet,ass->variable->value);
+                    fprintf(stderr,"[%lu,%i,%i],",ass->variable->id,ass->bet,ass->variable->value);
 				fprintf(stderr,"\n\n");
 			}
 			continue;
@@ -66,7 +66,7 @@ int main(int argc, char** argv) {
 		if (verbose){
 			fprintf(stderr,"heap of assignations : [var_id,bet,value]\n");
 			for (auto& ass:assignations)
-				fprintf(stderr,"[%i,%i,%i],",ass->variable->id,ass->bet,ass->variable->value);
+                fprintf(stderr,"[%lu,%i,%i],",ass->variable->id,ass->bet,ass->variable->value);
 			fprintf(stderr,"\n\n");
 		}
 
@@ -77,7 +77,7 @@ int main(int argc, char** argv) {
                 if (verbose){
                     fprintf(stderr,"heap of assignations : [var_id,bet,value]\n");
                     for (auto& ass:assignations)
-                        fprintf(stderr,"[%i,%i,%i],",ass->variable->id,ass->bet,ass->variable->value);
+                        fprintf(stderr,"[%lu,%i,%i],",ass->variable->id,ass->bet,ass->variable->value);
                     fprintf(stderr,"\n\n");
                 }
                 std::cout<<"s UNSATISFIABLE"<<std::endl;
@@ -96,7 +96,7 @@ int main(int argc, char** argv) {
             if (verbose){
                 fprintf(stderr,"heap of assignations : [var_id,bet,value]\n");
                 for (auto& ass:assignations)
-                    fprintf(stderr,"[%i,%i,%i],",ass->variable->id,ass->bet,ass->variable->value);
+                    fprintf(stderr,"[%lu,%i,%i],",ass->variable->id,ass->bet,ass->variable->value);
                 fprintf(stderr,"\n\n");
             }
         } else {//Pas de conflit, decide
@@ -124,7 +124,7 @@ int main(int argc, char** argv) {
             if (verbose){
                 fprintf(stderr,"heap of assignations : [var_id,bet,value]\n");
                 for (auto& ass:assignations)
-                    fprintf(stderr,"[%i,%i,%i],",ass->variable->id,ass->bet,ass->variable->value);
+                    fprintf(stderr,"[%lu,%i,%i],",ass->variable->id,ass->bet,ass->variable->value);
                 fprintf(stderr,"\n\n");
             }
         }

@@ -21,9 +21,9 @@ bool backtrack(){
     //renvoie false si le backtrack n'as pas marché
     //-> plus de retour en arrière possible
     //rappel : assignations et instance sont globales
-    int i=assignations.size()-1;
-    int level_back = 0;
-    while ((i>=0) && (level_back == 0)){
+    unsigned long i=assignations.size()-1;
+    unsigned long level_back = 0;
+    while (level_back == 0){
         if (assignations[i]->bet==false){
             if(proof){
                 writeDeduce(assignations[i]);
@@ -43,6 +43,8 @@ bool backtrack(){
             delete assignations[i];
             assignations.pop_back();
             bets.pop_back();
+            if (i==0)
+                break;
             i--;
         }else{
             if(proof){
@@ -73,7 +75,7 @@ bool backtrack(){
 bool conflictAnal(clause* cl_Conflict){//Renvoie false si l'analyse de conflit ne peut plus remonter (comment?)
     if (level_cur == 0 && !interactive)//on a un conflit qui n'est pas lié à des paris
         return false;//alors la formule est unsatisfiable
-    clause* UIPclause;
+    clause* UIPclause=nullptr;
     if (level_cur != 0)
         UIPclause = getUIPClause(cl_Conflict);
     if(interactive){//On affiche le graphe
@@ -92,10 +94,10 @@ bool conflictAnal(clause* cl_Conflict){//Renvoie false si l'analyse de conflit n
                 fprintf(graph_file,"digraph conflict {\nnode [style=\"filled,rounded\",shape=circle,fillcolor=white];\n");
                 for(assignation* ass:assignations){
                     if (ass->variable->level_ass == level_cur){//On affiche la variable du niveau courant
-                        fprintf(graph_file,"%i [label=<",ass->variable->id);
+                        fprintf(graph_file,"%lu [label=<",ass->variable->id);
                         if (ass->variable->value == 0)
                             fprintf(graph_file,"¬");
-                        fprintf(graph_file,"p<SUB>%i</SUB><SUP>%i</SUP>",ass->variable->id,ass->variable->level_ass);
+                        fprintf(graph_file,"p<SUB>%lu</SUB><SUP>%i</SUP>",ass->variable->id,ass->variable->level_ass);
                         if (ass->bet)
                             fprintf(graph_file,"<SUP>d</SUP>");
                         if (ass->variable->UIP){//On l'affiche alors en bleu ou en violet si il appartient à l'ensemble UIP
@@ -105,15 +107,15 @@ bool conflictAnal(clause* cl_Conflict){//Renvoie false si l'analyse de conflit n
                             fprintf(graph_file,">,fillcolor=lightblue];\n");
                         for(var* v2:ass->variable->varConflict){
                             //On affiche les variables à l'origine de la déduction
-                            fprintf(graph_file,"%i [label=<",v2->id);
+                            fprintf(graph_file,"%lu [label=<",v2->id);
                             if (v2->value == 0)
                                 fprintf(graph_file,"¬");
-                            fprintf(graph_file,"p<SUB>%i</SUB><SUP>%i</SUP>",v2->id,v2->level_ass);
+                            fprintf(graph_file,"p<SUB>%lu</SUB><SUP>%i</SUP>",v2->id,v2->level_ass);
                             if (v2->bet)
                                 fprintf(graph_file,"<SUP>d</SUP>>];\n");
                             else
                                 fprintf(graph_file,">];\n");
-                            fprintf(graph_file,"%i -> %i;\n",v2->id,ass->variable->id);
+                            fprintf(graph_file,"%lu -> %lu;\n",v2->id,ass->variable->id);
                         }
                     }
                 }
@@ -123,24 +125,24 @@ bool conflictAnal(clause* cl_Conflict){//Renvoie false si l'analyse de conflit n
                     UIPclause->print();
                     for(litt* li = UIPclause->f_ElementDead;li != nullptr;li = li->next_litt){
                         if (li->variable->level_ass == level_cur)
-                            fprintf(graph_file,"%i [fillcolor=yellow];\n",li->variable->id);
+                            fprintf(graph_file,"%lu [fillcolor=yellow];\n",li->variable->id);
 //                        else
-//                            fprintf(graph_file,"%i [fillcolor=purple];\n",li->variable->id);
+//                            fprintf(graph_file,"%lu [fillcolor=purple];\n",li->variable->id);
                     }
                 }
                 //On affiche le conflict
                 fprintf(graph_file,"conflict [fillcolor=red];\n");
                 //On affiche les liaisons avec les variables responsables du conflit
                 for(litt* li = cl_Conflict->f_ElementDead;li != nullptr;li = li->next_litt){
-                    fprintf(graph_file,"%i [label=<",li->variable->id);
+                    fprintf(graph_file,"%lu [label=<",li->variable->id);
                     if (li->variable->value == 0)
                         fprintf(graph_file,"¬");
-                    fprintf(graph_file,"p<SUB>%i</SUB><SUP>%i</SUP>",li->variable->id,li->variable->level_ass);
+                    fprintf(graph_file,"p<SUB>%lu</SUB><SUP>%i</SUP>",li->variable->id,li->variable->level_ass);
                     if (li->variable->bet)
                         fprintf(graph_file,"<SUP>d</SUP>>];\n");
                     else
                         fprintf(graph_file,">];\n");
-                    fprintf(graph_file,"%i -> conflict;\n",li->variable->id);
+                    fprintf(graph_file,"%lu -> conflict;\n",li->variable->id);
                 }
                 fprintf(graph_file,"}\n");
                 if (fclose(graph_file) != 0)
@@ -184,8 +186,8 @@ bool conflictAnal(clause* cl_Conflict){//Renvoie false si l'analyse de conflit n
         }
     appendClause(&(instance->f_ClauseUnsatisfied),&(instance->l_ClauseUnsatisfied),UIPclause);
     //on backtrack jusqu'à level_max_back
-    int i = assignations.size()-1;
-    while (level_cur > level_max_back && i>=0){
+    unsigned long i = assignations.size()-1;
+    while (level_cur > level_max_back){
         if (assignations[i]->bet==true)
             level_cur--;
         assignations[i]->variable->value=-1;
@@ -196,6 +198,8 @@ bool conflictAnal(clause* cl_Conflict){//Renvoie false si l'analyse de conflit n
             assignations[i]->variable->varConflict.clear();
         delete assignations[i];
         assignations.pop_back();
+        if(i==0)
+            break;
         i--;
     }
     return true;
@@ -223,12 +227,15 @@ clause* getUIPClause(clause *cl_Conflict){
                 else {
                     if (li->variable != var_ref){//On évite d'être préoccupé par les doublons
                         unique = false;
-                        for(int i = assignations.size()-1;i>=0;i--){//On conserve dans var_ref, le littéral déduit le plus tard (on fait ici l'hypothèse qu'il n'existe pas de littéraux déduits au niveau n avant le littéral décidé au niveau n. Sinon, var_ref n'est pas assuré d'être déduit et non décidé)
+                        for(unsigned long i = assignations.size()-1;;i--){
+                            //On conserve dans var_ref, le littéral déduit le plus tard (on fait ici l'hypothèse qu'il n'existe pas de littéraux déduits au niveau n avant le littéral décidé au niveau n. Sinon, var_ref n'est pas assuré d'être déduit et non décidé)
                             ass = assignations[i];
                             if (ass->variable == li->variable){
                                 var_ref = li->variable;
                                 break;
                             } else if (ass->variable == var_ref)
+                                break;
+                            if (i==0)
                                 break;
                         }//on break forcément car on a au moins var_ref dans assignations
                     } else {

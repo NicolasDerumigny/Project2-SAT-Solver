@@ -18,7 +18,7 @@ extern int level_cur;
 //création du vector qui contient les assignations réalisées
 
 extern std::vector<var*> v_var;
-extern int nbr_var;
+extern unsigned long nbr_var;
 extern std::vector<var*> v_var_tseitin;
 extern std::vector<int> bets;
 //création du vector qui contiendra tous les pointeurs vers les variables

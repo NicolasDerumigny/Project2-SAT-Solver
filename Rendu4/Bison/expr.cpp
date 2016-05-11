@@ -28,7 +28,7 @@ void EConst::eval()
 {
     formule* new_form;
     new_form= new formule();
-    new_form->set_formule(value, false);
+    new_form->set_formule((unsigned int) value, false);
     this->form=new_form;
 }
 
@@ -39,7 +39,7 @@ void EConst::eval_tseitin()
             *form2 = new formule;
 
     formRoot->set_formule_tseitin(false);//la variable est Ep,
-    form1->set_formule(value, false);//la variable est x
+    form1->set_formule((unsigned int) value, false);//la variable est x
     form2->f_ClauseUnsatisfied = new clause;
     form2->l_ClauseUnsatisfied = form2->f_ClauseUnsatisfied;
 
@@ -253,7 +253,7 @@ std::string VNot::to_string()
 void VNot::eval()
 {
     formule* new_form = new formule();
-    new_form->set_formule(value, true);
+    new_form->set_formule((unsigned int) value, true);
     this->form=new_form;
 }
 
@@ -264,7 +264,7 @@ void VNot::eval_tseitin()
             *form2 = new formule;
 
     formRoot->set_formule_tseitin(false);//la variable est Ep,
-    form1->set_formule(value, true);//la variable est non x
+    form1->set_formule((unsigned int) value, true);//la variable est non x
     form2->f_ClauseUnsatisfied = new clause;
     form2->l_ClauseUnsatisfied = form2->f_ClauseUnsatisfied;
 

@@ -38,5 +38,5 @@ clean:
 	rm -f *~ Bison/$(NAME).yy.cpp Bison/$(NAME).tab.cpp Bison/$(NAME).tab.hpp Bison/$(NAME).output Build/*.o
 
 Build/%.o: Sources/%.cpp
-	$(CXX) -o $@ -c $< $(CFLAGS) 
+	$(CXX) -o $@ -c $< $(CFLAGS) $(WFLAG)
 

@@ -1,7 +1,7 @@
 #include "litt.h"
 
-void litt::set_litt(var* var_entry, bool neg){
-    this->neg=neg;
+void litt::set_litt(var* var_entry, bool neg_entry){
+    this->neg=neg_entry;
     this->variable=var_entry;
     this->next_litt=nullptr;
 }

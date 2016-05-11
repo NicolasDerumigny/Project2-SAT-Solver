@@ -70,7 +70,7 @@ bool assignUniquePolarity(){
 					if (li.second->neg == false)
 						variables[li.second->variable->id].second++;
                 }*/
-	int id=0;
+    unsigned long id=0;
 	for (auto& variable:variables){ //pour chaque variable non assignée, on vérifie qu'elle n'apparait pas à la fois comme variable niée et non niée
 		if (v_var[id] != nullptr && variable.first == 0 && variable.second != 0){
 			v_var[id]->assignValue(1,false);

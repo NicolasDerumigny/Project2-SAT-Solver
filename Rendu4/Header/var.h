@@ -10,7 +10,7 @@ class clause;
 class var{
 public:
 
-    int id;
+    unsigned long id;
     int value;
     //-1 : unassigned, 0=false, 1 = true
     int level_ass = 0;
@@ -21,8 +21,6 @@ public:
     bool bet = false;
     bool UIP = false;
 
-    char padding[6];
-
     clause* clConflict = nullptr;
 
     std::vector<clause*> clauseInto;
@@ -30,9 +28,9 @@ public:
     std::vector<var*> varConflict;
 
 
-    void set_var(int id);
+    void set_var(unsigned long id_enter);
     void print();
-    void assignValue(int value,bool bet);
+    void assignValue(int value_enter, bool bet_enter);
 };
 
 #endif // VAR_H
