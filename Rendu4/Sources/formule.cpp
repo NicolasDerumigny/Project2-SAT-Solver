@@ -126,21 +126,6 @@ void formule::free_formule(){
 /* ----------- formula preprocessing --------------- */
 void formule::preprocessing() {
     /* -------- Watched Litterals -------- */
-    if(wl){
-        for(clause* cl=instance->f_ClauseUnsatisfied; cl!=nullptr; cl=cl->next_clause){
-            if(cl->f_ElementAlive != cl->l_ElementAlive){
-                cl->w_litt_1=cl->f_ElementAlive;
-                cl->w_litt_2=cl->f_ElementAlive->next_litt;
-                if(verbose2)
-                    std::cerr<<"Sucessfully set watched litterals for one clause\n";
-            }else{
-                std::cerr<<"Error : can't apply watched litterals method : returning to normal state"<<std::endl;
-                wl=false;
-                break;
-            }
-        }
-    }
-
 	//la détection des clauses unitaires se fait via la function assignUniqueLitt() de deduce.cpp
 	//élimination des doublons (vivants) et des clauses tautologiques (non satisfaites)
     std::vector<std::pair<int,int> > variables (v_var.size(), std::make_pair(0,0));
@@ -227,6 +212,21 @@ void formule::preprocessing() {
 			v->clauseInto.erase(std::unique(v->clauseInto.begin(), v->clauseInto.end()), v->clauseInto.end());
 		}
 	}
+
+    if(wl){
+        for(clause* cl=instance->f_ClauseUnsatisfied; cl!=nullptr; cl=cl->next_clause){
+            if(cl->f_ElementAlive != cl->l_ElementAlive){
+                cl->w_litt_1=cl->f_ElementAlive;
+                cl->w_litt_2=cl->f_ElementAlive->next_litt;
+                if(verbose2)
+                    std::cerr<<"Sucessfully set watched litterals for one clause\n";
+            }else{
+                std::cerr<<"Error : can't apply watched litterals method (one clause has only one variable after preprocessing) : returning to normal state"<<std::endl;
+                wl=false;
+                break;
+            }
+        }
+    }
 }
 
 std::string formule::proof_str(bool complete, bool completeCl){

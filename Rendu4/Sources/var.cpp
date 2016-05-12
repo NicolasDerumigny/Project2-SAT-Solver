@@ -39,3 +39,9 @@ void var::assignValue(int value_enter ,bool bet_enter) {
     new_assign->updateStatus(false);
 	assignations.push_back(new_assign);
 }
+
+void set_var_tseitin(var ** new_var){
+    *new_var = new var;
+    (*new_var)->set_var(v_var_tseitin.size());
+    v_var_tseitin.push_back(*new_var);
+}
