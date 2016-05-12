@@ -7,6 +7,7 @@ void clause::set_clause(litt* litt_entry){
     this->l_ElementAlive=litt_entry;
     this->l_ElementDead=nullptr;
     this->satisfied=false;
+    this->isLearned=false;
     //this->mElementAlive[0]=litt_entry;
     //this->mElementDead[0]=nullptr;
 }

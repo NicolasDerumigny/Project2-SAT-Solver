@@ -202,11 +202,102 @@ bool conflictAnal(clause* cl_Conflict){//Renvoie false si l'analyse de conflit n
             break;
         i--;
     }
+
+    if (clHeuristic == 1){//on applique l'heuristique forget juste après l'analyse de conflit, car on ne veut pas s'encombrer de clauses inutiles pour le deduce qui vient, mais on veut avoir plus de chance que les clauses à supprimer ne soient pas déjà utilisées à ce niveau
+        UIPclause->score += 32;
+        bool isRemovable = true;
+        bool cl_need_back = false;
+        clause* cl_prev = nullptr;
+        for (clause* cl=instance->f_ClauseUnsatisfied;cl != nullptr || cl_need_back;cl=cl->next_clause){
+            if (cl_need_back){
+                cl=cl_prev;
+                cl_prev=nullptr;
+                cl_need_back = false;
+            }
+            if (cl->isLearned){
+                cl->score = cl->score / 2;
+                if (cl->score <= 1){
+                    isRemovable = true;
+                    for (var* v:v_var){//on vérifie que cette clause n'est pas responsable de l'assignation d'une variable au niveau courant
+                        if (v != nullptr){
+                            if (v->clConflict == cl){
+                                isRemovable = false;
+                            }
+                        }
+                    }
+                    if (isRemovable){
+                        removeClause(&instance->f_ClauseUnsatisfied,&instance->l_ClauseUnsatisfied,cl);
+                        for (litt* li = cl->f_ElementAlive;li != nullptr;li = li->next_litt){//supprimer la clause cl des clauseInto
+                            li->variable->clauseInto.erase(std::remove(li->variable->clauseInto.begin(), li->variable->clauseInto.end(), cl), li->variable->clauseInto.end());
+                        }
+                        for (litt* li = cl->f_ElementDead;li != nullptr;li = li->next_litt){//supprimer la clause cl des clauseInto
+                            li->variable->clauseInto.erase(std::remove(li->variable->clauseInto.begin(), li->variable->clauseInto.end(), cl), li->variable->clauseInto.end());
+                        }
+                        cl->free_clause();
+                        delete cl;
+                        if (cl_prev != nullptr)
+                            cl = cl_prev;//On évite de casser la chaîne de parcours de la boucle for...
+                        else if (instance->f_ClauseUnsatisfied != nullptr){
+                            cl = instance->f_ClauseUnsatisfied;
+                            cl_need_back = true;
+                        } else//there is nothing left
+                            break;
+                    }
+                }
+            }
+            cl_prev = cl;
+        }
+        cl_need_back = false;
+        cl_prev = nullptr;
+        for (clause* cl=instance->f_ClauseSatisfied;cl != nullptr || cl_need_back;cl=cl->next_clause){
+            if (cl_need_back){
+                cl=cl_prev;
+                cl_prev=nullptr;
+                cl_need_back = false;
+            }
+            if (cl->isLearned){
+                cl->score = cl->score / 2;
+                if (cl->score <= 1){
+                    isRemovable = true;
+                    for (var* v:v_var){//on vérifie que cette clause n'est pas responsable de l'assignation d'une variable au niveau courant
+                        if (v != nullptr){
+                            if (v->clConflict == cl){
+                                isRemovable = false;
+                            }
+                        }
+                    }
+                    if (isRemovable){
+                        removeClause(&instance->f_ClauseSatisfied,&instance->l_ClauseSatisfied,cl);
+                        for (litt* li = cl->f_ElementAlive;li != nullptr;li = li->next_litt){//supprimer la clause cl des clauseInto
+                            li->variable->clauseInto.erase(std::remove(li->variable->clauseInto.begin(), li->variable->clauseInto.end(), cl), li->variable->clauseInto.end());
+                        }
+                        for (litt* li = cl->f_ElementDead;li != nullptr;li = li->next_litt){//supprimer la clause cl des clauseInto
+                            li->variable->clauseInto.erase(std::remove(li->variable->clauseInto.begin(), li->variable->clauseInto.end(), cl), li->variable->clauseInto.end());
+                        }
+                        cl->free_clause();
+                        delete cl;
+                        if (cl_prev != nullptr)
+                            cl = cl_prev;//On évite de casser la chaîne de parcours de la boucle for...
+                        else if (instance->f_ClauseUnsatisfied != nullptr){
+                            cl = instance->f_ClauseUnsatisfied;
+                            cl_need_back = true;
+                        } else//there is nothing left
+                            break;
+                    }
+                }
+            }
+            cl_prev = cl;
+        }
+    }
+
     return true;
 }
 
 clause* getUIPClause(clause *cl_Conflict){
     clause* clLearned = cl_Conflict->copy();
+    if (clHeuristic == 1){
+        cl_Conflict->score += 32;
+    }
 
     var* var_ref = nullptr;
     bool unique = false;
@@ -250,6 +341,10 @@ clause* getUIPClause(clause *cl_Conflict){
             if (var_ref->clConflict == nullptr)
                 fprintf(stderr,"Fatal: Attempt to build learned clause via a variable deduced by no direct clause\n");
 //            clLearned->print();var_ref->clConflict->print();cl_Conflict->print();printf("%p,%p\n",clLearned,cl_Conflict);
+            if (clHeuristic == 1){
+                var_ref->clConflict->score += 32;
+            }
+//            fprintf(stderr,"copy of clause %p\n",var_ref->clConflict);
             clLearned->merge(var_ref->clConflict->copy());
 //            clLearned->print();var_ref->clConflict->print();cl_Conflict->print();printf("%p,%p\n",clLearned,cl_Conflict);
             //On enlève les doublons et les occurences des littéraux associés à var_ref ou leur négation
@@ -307,6 +402,7 @@ clause* getUIPClause(clause *cl_Conflict){
             }
         }
     }
+    clLearned->isLearned=true;
     return clLearned;
 }
 

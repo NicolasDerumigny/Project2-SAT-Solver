@@ -12,7 +12,7 @@ make clean
 
 
 Pour exécuter le programme, lancer
-./resol FichierSource[.cnf | .for] [-v | -vv] [-time] [-moms | -rand | -dlis] [-tseitin] [-cl] [-wl]
+./resol FichierSource[.cnf | .for] [-v | -vv] [-time] [-moms | -rand | -dlis] [-tseitin] [-cl | -cl -vsids] [-wl]
 
 Le fichier source doit être de la forme :
 
@@ -64,7 +64,7 @@ Testeur d'options :
 Usage : allSatTest.sh "[lien vers le solveur]" "[lien vers generate_cnf]" [nombre de tests] [nombre de variables] [nombre de clauses] [nombre de littéraux par clauses] ("save") (-v)
 L'option "save" permet de conserver les tests générés d'une session à l'autre (pour plus de stabilité des mesures)
 
-Teste actuellement les 4 heuristiques basiques (normal, rand, moms, dlis) avec/sans -cl
+Teste actuellement les 4 heuristiques basiques (normal, rand, moms, dlis) avec/sans -cl et vsids avec -cl
 
 
 
@@ -164,7 +164,7 @@ Tester mieux l'heuristique vsids, implémentée, mais juste essayée sur une poi
 
 Tracer les performances comme avec SatTest.sh, mais juste la durée globale pour les différentes options (SatTestGeneral.sh) (Done)
 
-Utiliser des listes doublement chainées, pour améliorer les performances (actuellement, plus de 90% du temps passé sur la recherche de prev_clause, dans updateClause)
+Utiliser des listes doublement chainées, pour améliorer les performances (actuellement, environ 92% du temps passé sur la recherche de prev_clause, dans updateClause)
 	litt.cpp ok
 	formule.cpp ok
 	deduce.cpp ok
@@ -196,7 +196,7 @@ Ruben S. :
 - Apprentissage de clauses
 - allSatTests.sh
 - SatTest.sh
-- SatTestGeneral.sh (WIP)
+- SatTestGeneral.sh
 
 -------------
 

@@ -37,6 +37,7 @@ bool verboseParser=false;
 bool clLearning=false;
 bool wl=false;
 int heuristic=0;
+int clHeuristic=0;
 char path[1024]="";
 bool proof=false;
 std::fstream prooftree_fs;
