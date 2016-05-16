@@ -42,7 +42,7 @@ int main(int argc, char** argv) {
 
     clause* cl_conflict = nullptr;
 
-    while(instance->f_ClauseUnsatisfied!=nullptr){
+    while(instance->f_ClauseUnsatisfied!=nullptr && (satModEq && checkAssign())){
 		
         //deduce
         while(assignUniqueLitt() || ((!clLearning) && (assignUniquePolarity()) ) ){//si clLearning alors on ne lance pas assignUniquePolarity car && est paresseux

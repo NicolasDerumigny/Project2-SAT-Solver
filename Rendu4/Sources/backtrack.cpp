@@ -1,15 +1,14 @@
 #include "backtrack.h"
 
 
+bool checkAssign(){
+    for ()
+}
+
 clause* getConflict(){//renvoie (si elle existe) un pointeur vers une clause insatisfaite qui n'a plus de littéraux vivants (formule insatisfiable), ou nullptr sinon.
 	for (clause* cl=instance->f_ClauseUnsatisfied;cl != nullptr;cl=cl->next_clause)
         if (cl->nbLittAlive()==0)
             return cl;
-//    for (auto& s:instance->mClauseUnsatisfied){
-//        if (s.second != nullptr and s.second->nbLittAlive()==0){
-//            return false;
-//        }
-//    }
     return nullptr;
 }
 
