@@ -36,6 +36,7 @@ bool interactive=false;
 bool verboseParser=false;
 bool clLearning=false;
 bool wl=false;
+bool satModEq=false;
 int heuristic=0;
 char path[1024]="";
 bool proof=false;

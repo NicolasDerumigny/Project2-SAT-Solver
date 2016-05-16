@@ -37,6 +37,7 @@ extern bool interactive;
 extern bool verboseParser;
 extern bool clLearning;
 extern bool wl;
+extern bool satModEq;
 extern char path[1024];
 extern bool proof;
 extern std::fstream prooftree_fs;

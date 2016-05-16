@@ -11,7 +11,7 @@ class var{
 public:
 
     unsigned long id;
-    int value;
+    long value;
     //-1 : unassigned, 0=false, 1 = true
     int level_ass = 0;
 
