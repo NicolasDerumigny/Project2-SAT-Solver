@@ -42,6 +42,9 @@ void cast_arg(int argc, char** argv){
         if (!strcmp(argv[i],"-cl"))
             clLearning=true;
 
+        if (!strcmp(argv[i],"-smte"))
+            satModEq=true;
+
         if (!strcmp(argv[i],"-cl-interac")){
             interactive=true;
             clLearning=true;

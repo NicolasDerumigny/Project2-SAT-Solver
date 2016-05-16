@@ -41,7 +41,8 @@ SOURCES += \
     Bison/expr.cpp \
     Bison/expr.l \
     Bison/expr.ypp \
-    Sources/prooftree.cpp
+    Sources/prooftree.cpp \
+    Sources/union.cpp
 
 HEADERS += \
     Header/var.h \
@@ -57,7 +58,8 @@ HEADERS += \
     Header/file_open.h \
     Header/global_variable_extern.h \
     Header/cast_arg.h \
-    Header/prooftree.h
+    Header/prooftree.h \
+    Header/union.h
 
 OTHER_FILES +=  \
     $$FLEXSOURCES \
