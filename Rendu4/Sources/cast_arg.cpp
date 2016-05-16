@@ -36,6 +36,8 @@ void cast_arg(int argc, char** argv){
                 heuristic=3;
         if (!strcmp(argv[i],"-vsids"))
                 heuristic=4;
+        if (!strcmp(argv[i],"-forget"))
+                clHeuristic=1;
 
         if (!strcmp(argv[i],"-cl"))
             clLearning=true;

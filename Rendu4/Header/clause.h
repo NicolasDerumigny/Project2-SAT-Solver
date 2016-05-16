@@ -15,6 +15,8 @@ public:
     bool satisfied = false;
     void merge(clause* cl);
     int nbLittAlive();
+    float score = 0;
+    bool isLearned = false;
     litt* getUniqueLittAlive();
     bool existsWatchedNonAlive();
     clause* copy();

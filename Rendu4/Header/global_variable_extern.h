@@ -29,6 +29,7 @@ extern formule * instance;
 extern clock_t checkpoint;
 
 extern int heuristic;
+extern int clHeuristic;
 extern bool isTseitin;
 extern bool verbose;
 extern bool verbose2;
