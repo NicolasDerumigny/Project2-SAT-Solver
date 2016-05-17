@@ -9,7 +9,7 @@ LIBLEX=-lfl
 YACC=bison
 #flags
 FLAGXX= -std=c++11
-CFLAGS= -g -pg $(FLAGXX) -Wall -Wextra -Wpedantic -Wno-write-strings -I Header/
+CFLAGS= -O3 $(FLAGXX) -Wall -Wextra -Wpedantic -Wno-write-strings -I Header/
 #CFLAGS= -g -pg -fprofile-arcs -ftest-coverage -lgcov -coverage $(FLAGXX) -Wall -Wextra -Wpedantic -Wno-write-strings -I Header/
 WFLAG= -Weverything
 SRC= $(wildcard Sources/*.cpp)

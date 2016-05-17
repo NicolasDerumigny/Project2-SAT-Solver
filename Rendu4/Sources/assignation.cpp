@@ -7,20 +7,26 @@ void assignation::set_assign(var* variable_enter, bool bet_enter) {
     this->bet=bet_enter;
 }
 
+sem_t sem_clauseInto;
+
 void* updateLitt_t(void* arg){
     bool li_need_back = false;
     litt* li_prev = nullptr;
     bool alive = ((arg_updateLitt*) arg)->alive;
     var* arg_variable = ((arg_updateLitt*) arg)->variable;
-    sem_t sem_clauseInto = ((arg_updateLitt*) arg)->sem_clauseInto;
+//    sem_t sem_clauseInto = ((arg_updateLitt*) arg)->sem_clauseInto;
+    int val;
     while(true){
-        if (sem_wait(&sem_clauseInto) != 0){perror("sem_wait: ");}
+        if (sem_wait(&sem_clauseInto) != 0){perror("sem_wait: ");}//On entre dans la section critique
+        sem_getvalue(&sem_clauseInto,&val);
+//        fprintf(stderr,"entering SC, sem=%i\n",val);
         if (index_t >= ((arg_updateLitt*) arg)->variable->clauseInto.size()){
+//            fprintf(stderr,"index_t is full\n");
             if (sem_post(&sem_clauseInto) != 0){perror("sem_post: ");}
             break;
         }
         clause* cl = ((arg_updateLitt*) arg)->variable->clauseInto[index_t];
-        fprintf(stderr,"using %i\n",index_t);
+//        fprintf(stderr,"using %i\n",index_t);
         index_t++;
         if (sem_post(&sem_clauseInto) != 0){perror("sem_post: ");}
         if (alive == false) { //si on tue une variable, on recherche les littéraux associés dans les éléments vivants et on les transfères vers les morts.
@@ -79,26 +85,28 @@ void* updateLitt_t(void* arg){
 
 void assignation::updateLitt(bool alive){
     bool threadsWorked = false;
+//    fprintf(stderr,"threading %lu\n",this->variable->clauseInto.size());
     if (nb_threads != 0){
-        sem_t sem_clauseInto;
+//        fprintf(stderr,"threading\n");
         if (sem_init(&sem_clauseInto,0,1) != 0){perror("sem_init: ");};
         arg_updateLitt arg;
         arg.alive=alive;
-        arg.sem_clauseInto=sem_clauseInto;
+//        arg.sem_clauseInto=sem_clauseInto;
         arg.variable=this->variable;
         index_t = 0;
         pthread_t thread_workers[nb_threads];
         for (int i=0;i<nb_threads;i++){
-            fprintf(stderr,"creating thread %i\n",i);
+//            fprintf(stderr,"creating thread %i\n",i);
             if (pthread_create(&thread_workers[i],nullptr,updateLitt_t,&arg) != 0){perror("pthread_create: ");}
             else{
-                fprintf(stderr,"created thread %i\n",i);
+//                fprintf(stderr,"created thread %i\n",i);
                 threadsWorked = true;
             }
         }
         for (int i=0;i<nb_threads;i++){
             if (pthread_join(thread_workers[i],nullptr) != 0){perror("pthread_join: ");}
         }
+        if (sem_destroy(&sem_clauseInto) != 0){perror("sem_destroy: ");}
     }
     if (nb_threads == 0 || !threadsWorked){
         bool li_need_back = false;

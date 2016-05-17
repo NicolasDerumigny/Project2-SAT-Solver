@@ -25,7 +25,7 @@ public:
 
 typedef struct {
     bool alive;
-    sem_t sem_clauseInto;
+//    sem_t sem_clauseInto;
     var* variable;
 } arg_updateLitt;
 
