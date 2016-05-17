@@ -66,12 +66,12 @@ void assignation::updateLitt(bool alive){
 
 void assignation::updateClause(bool alive){
     for (auto& cl:this->variable->clauseInto){
-        if (alive == false) {
+        if (alive == false or wl) {
             if (!cl->satisfied && cl->isSatisfied()){//on enlève cl de la liste simplement chainée des clauses non satisfaites, puis on l'ajoute aux clauses satisfaites
                 removeClause(&instance->f_ClauseUnsatisfied,&instance->l_ClauseUnsatisfied,cl);
                 appendClause(&instance->f_ClauseSatisfied,&instance->l_ClauseSatisfied,cl);
             }
-        } else if(alive == true) {
+        } if(alive == true or wl) {
             if (cl->satisfied && !cl->isSatisfied()){//on enlève cl de la liste simplement chainée des clauses satisfaites, puis on l'ajoute aux clauses non satisfaites
                 removeClause(&instance->f_ClauseSatisfied,&instance->l_ClauseSatisfied,cl);
                 appendClause(&instance->f_ClauseUnsatisfied,&instance->l_ClauseUnsatisfied,cl);
