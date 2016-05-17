@@ -2,6 +2,47 @@
 
 
 bool checkAssign(){
+//    std::map<unsigned long,union_set<unsigned long> > valToSet;
+//    unsigned long left_nb;
+//    unsigned long right_nb;
+//    for (assignation* ass:assignations){
+//        if (ass->variable != nullptr){//on crée des sets pour chaque élément de la théorie rencontré
+//            left_nb = std::get<0>(varToEq[ass->variable->id]);
+//            right_nb = std::get<1>(varToEq[ass->variable->id]);
+//            if (!valToSet.count(left_nb)){
+//                union_set<unsigned long> left (left_nb);
+//                valToSet[left_nb] = left;
+//            }
+//            if (!valToSet.count(right_nb)){
+//                union_set<unsigned long> right (right_nb);
+//                valToSet[right_nb] = right;
+//            }
+//        }
+//    }
+//    for (assignation* ass:assignations){//si deux éléments sont égaux, on fusionne les sets
+//        if ((ass->variable->value == 1 && std::get<2>(varToEq[ass->variable->id])) || (ass->variable->value == 0 && !std::get<2>(varToEq[ass->variable->id]))){
+//            left_nb = std::get<0>(varToEq[ass->variable->id]);
+//            right_nb = std::get<1>(varToEq[ass->variable->id]);
+//            merge(&valToSet[left_nb],&valToSet[right_nb]);
+//        }
+//    }
+//    for (assignation* ass:assignations){
+//        if ((ass->variable->value == 0 && std::get<2>(varToEq[ass->variable->id])) || (ass->variable->value == 1 && !std::get<2>(varToEq[ass->variable->id]))){
+//            left_nb = std::get<0>(varToEq[ass->variable->id]);
+//            right_nb = std::get<1>(varToEq[ass->variable->id]);
+//            if (valToSet[left_nb].find() == valToSet[right_nb].find()){//Alors c'est insatisfiable dans la théorie
+//                clause* new_clause = new clause;
+//                new_clause->set_clause(nullptr);
+//                for (assignation* ass:assignations){
+//                    litt* new_litt = new litt;
+//                    new_litt->set_litt(ass->variable,(ass->variable->value == 1));
+//                    appendLitt(&new_clause->f_ElementDead,&new_clause->l_ElementDead,new_litt);
+//                }
+//                appendClause(&instance->f_ClauseUnsatisfied,&instance->l_ClauseUnsatisfied,new_clause);
+//                return false;
+//            }
+//        }
+//    }
     return true;
 }
 

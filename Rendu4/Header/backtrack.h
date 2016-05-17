@@ -1,5 +1,6 @@
 #ifndef BACKTRACK_H
 #define BACKTRACK_H
+#include "union.h"
 #include "formule.h"
 #include "global_variable_extern.h"
 #include "assignation.h"
