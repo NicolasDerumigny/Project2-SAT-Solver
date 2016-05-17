@@ -12,7 +12,7 @@ make clean
 
 
 Pour exécuter le programme, lancer
-./resol FichierSource[.cnf | .for] [-v | -vv] [-time] [-moms | -rand | -dlis] [-tseitin] [-cl | -cl -vsids] [-wl]
+./resol FichierSource[.cnf | .for] [-v | -vv] [-time] [-moms | -rand | -dlis] [-tseitin] [-cl | -cl -vsids -forget] [-wl] [-thread]
 
 Le fichier source doit être de la forme :
 
@@ -77,6 +77,18 @@ Usage : "[lien vers generate_cnf.sh]" "[lien vers solveur]" [nombre de variables
 Attention : les ratios doivent être entiers
 
 Permet de tracer un graphe des performances des différentes étapes du programme pour un ensemble d'options donné, par example : "-cl -rand" est acceptable pour ("[options pour le solveur]").
+
+Testeur graphique :
+
+Usage : "[lien vers generate_cnf.sh | lien vers fichiers de tests]" "[lien vers solveur]" [nombre de tests] [nombre de variables] [nombre de clauses] [nombre de littéraux par clauses] ["options" pour le solveur]
+
+Permet de tracer et comparer visuellement les performances du solveur sur différentes options
+
+Attention : les ratios doivent être entiers
+Les options pour le solveur devront être séparés par un espace et avec guillemets englobants pour chaque groupe. Example : "-cl" "" "-rand" "-dlis -tseitin" est acceptable
+Attention : Les liens vers les fichiers de test doivent être entre guillemets, séparés par des espaces. Ainsi, les chemins contenant des espaces (même échappés par un \) ne peuvent pas être utilisés.
+Attention : le fichier temporaire /tmp/test.cnf sera créé/remplacé.
+Astuce : si on fournit les tests (ex : "/tmp/*.cnf"), alors il est conseillé de renseigner le nombre de fichiers fournis dans le nombre de tests (Si plus est indiqué, des tests sont refaits. Si moins, tous les tests ne sont pas effectués). De même, les champs [nombre de variables/clauses/littéraux] ne seront pas considérés (mais restent obligatoires)
 
 ------------------------------------
 

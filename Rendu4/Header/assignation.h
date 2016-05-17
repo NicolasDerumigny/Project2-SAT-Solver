@@ -6,6 +6,7 @@
 #include "formule.h"
 #include <semaphore.h>
 #include <pthread.h>
+#define NB_THREADS 4
 
 
 class var;

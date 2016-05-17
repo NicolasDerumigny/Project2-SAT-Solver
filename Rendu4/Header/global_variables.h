@@ -29,7 +29,7 @@ unsigned long nbr_var=0;
 formule *instance;
 //une formule pour les gouverner tous
 clock_t checkpoint = clock();
-int index_t;
+unsigned long index_t;
 
 bool isTseitin=false;
 bool verbose=false;

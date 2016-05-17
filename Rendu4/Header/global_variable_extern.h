@@ -29,7 +29,7 @@ extern formule * instance;
 //une formule pour les gouverner tous
 
 extern clock_t checkpoint;
-extern int index_t;
+extern unsigned long index_t;
 
 extern int heuristic;
 extern int clHeuristic;

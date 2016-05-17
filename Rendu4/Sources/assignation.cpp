@@ -94,7 +94,8 @@ void assignation::updateLitt(bool alive){
 //        arg.sem_clauseInto=sem_clauseInto;
         arg.variable=this->variable;
         index_t = 0;
-        pthread_t thread_workers[nb_threads];
+        nb_threads = NB_THREADS;
+        pthread_t thread_workers[NB_THREADS];
         for (int i=0;i<nb_threads;i++){
 //            fprintf(stderr,"creating thread %i\n",i);
             if (pthread_create(&thread_workers[i],nullptr,updateLitt_t,&arg) != 0){perror("pthread_create: ");}
