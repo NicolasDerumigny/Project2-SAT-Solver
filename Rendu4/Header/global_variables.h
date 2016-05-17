@@ -27,6 +27,7 @@ unsigned long nbr_var=0;
 formule *instance;
 //une formule pour les gouverner tous
 clock_t checkpoint = clock();
+int index_t;
 
 bool isTseitin=false;
 bool verbose=false;
@@ -37,6 +38,7 @@ bool verboseParser=false;
 bool clLearning=false;
 bool wl=false;
 bool satModEq=false;
+int nb_threads=0;
 int heuristic=0;
 int clHeuristic=0;
 char path[1024]="";

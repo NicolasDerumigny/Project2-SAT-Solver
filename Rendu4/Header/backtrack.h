@@ -11,5 +11,6 @@ clause* getConflict();
 bool backtrack();
 bool conflictAnal(clause *cl_Conflict);
 clause* getUIPClause(clause *cl_Conflict);
+bool checkAssign();
 
 #endif // BACKTRACK_H

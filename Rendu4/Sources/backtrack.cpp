@@ -2,7 +2,7 @@
 
 
 bool checkAssign(){
-    for ()
+    return true;
 }
 
 clause* getConflict(){//renvoie (si elle existe) un pointeur vers une clause insatisfaite qui n'a plus de littéraux vivants (formule insatisfiable), ou nullptr sinon.

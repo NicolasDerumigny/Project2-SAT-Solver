@@ -4,6 +4,8 @@
 #include "litt.h"
 #include "clause.h"
 #include "formule.h"
+#include <semaphore.h>
+#include <pthread.h>
 
 
 class var;
@@ -21,6 +23,13 @@ public:
     var* variable;
 };
 
+typedef struct {
+    bool alive;
+    sem_t sem_clauseInto;
+    var* variable;
+} arg_updateLitt;
+
+void* updateLitt_t(void* arg);
 bool assignNewWatched(clause * cl, litt* li);
 bool needNewWatched(clause * cl, litt* li);
 #endif // ASSIGNATION_H

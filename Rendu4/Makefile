@@ -18,7 +18,7 @@ OBJ= $(patsubst Sources/%.cpp, Build/%.o, $(SRC))
 
 
 all: Build/$(NAME).o Build/$(NAME).tab.o Build/$(NAME).yy.o $(OBJ)
-	$(CXX) $(CFLAGS) $(WFLAG) -o resol $^ $(LIBLEX)
+	$(CXX) $(CFLAGS) $(WFLAG) -o resol $^ $(LIBLEX) -lpthread -pthread
 
 Build/$(NAME).tab.o: Bison/$(NAME).tab.cpp
 	$(CXX) $(CFLAGS) -o $@ -c $< $(CFLAGS) 
@@ -41,3 +41,5 @@ clean:
 Build/%.o: Sources/%.cpp
 	$(CXX) -o $@ -c $< $(CFLAGS) $(WFLAG)
 
+Build/assignation.o: Sources/assignation.cpp
+	$(CXX) -o $@ -c $< $(CFLAGS) $(WFLAG) -pthread -lpthread

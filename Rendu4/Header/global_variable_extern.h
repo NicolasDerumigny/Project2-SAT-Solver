@@ -27,6 +27,7 @@ extern formule * instance;
 //une formule pour les gouverner tous
 
 extern clock_t checkpoint;
+extern int index_t;
 
 extern int heuristic;
 extern int clHeuristic;
@@ -39,6 +40,7 @@ extern bool verboseParser;
 extern bool clLearning;
 extern bool wl;
 extern bool satModEq;
+extern int nb_threads;
 extern char path[1024];
 extern bool proof;
 extern std::fstream prooftree_fs;

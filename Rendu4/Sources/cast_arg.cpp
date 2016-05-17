@@ -45,6 +45,15 @@ void cast_arg(int argc, char** argv){
         if (!strcmp(argv[i],"-smte"))
             satModEq=true;
 
+        if (!strcmp(argv[i],"-thread") || !strcmp(argv[i],"-thread4"))
+            nb_threads=4;
+
+        if (!strcmp(argv[i],"-thread2"))
+            nb_threads=2;
+
+        if (!strcmp(argv[i],"-thread8"))
+            nb_threads=8;
+
         if (!strcmp(argv[i],"-cl-interac")){
             interactive=true;
             clLearning=true;

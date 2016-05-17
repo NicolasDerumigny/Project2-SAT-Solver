@@ -7,58 +7,152 @@ void assignation::set_assign(var* variable_enter, bool bet_enter) {
     this->bet=bet_enter;
 }
 
-void assignation::updateLitt(bool alive){
-	bool li_need_back = false;
-	litt* li_prev = nullptr;
-    for (auto& cl:this->variable->clauseInto){
+void* updateLitt_t(void* arg){
+    bool li_need_back = false;
+    litt* li_prev = nullptr;
+    bool alive = ((arg_updateLitt*) arg)->alive;
+    var* arg_variable = ((arg_updateLitt*) arg)->variable;
+    sem_t sem_clauseInto = ((arg_updateLitt*) arg)->sem_clauseInto;
+    while(true){
+        if (sem_wait(&sem_clauseInto) != 0){perror("sem_wait: ");}
+        if (index_t >= ((arg_updateLitt*) arg)->variable->clauseInto.size()){
+            if (sem_post(&sem_clauseInto) != 0){perror("sem_post: ");}
+            break;
+        }
+        clause* cl = ((arg_updateLitt*) arg)->variable->clauseInto[index_t];
+        fprintf(stderr,"using %i\n",index_t);
+        index_t++;
+        if (sem_post(&sem_clauseInto) != 0){perror("sem_post: ");}
         if (alive == false) { //si on tue une variable, on recherche les littéraux associés dans les éléments vivants et on les transfères vers les morts.
             li_need_back = false;
-			li_prev = nullptr;
+            li_prev = nullptr;
             for (litt* li = cl->f_ElementAlive;li != nullptr or li_need_back;li=li->next_litt){
                 //si un littéral (donc la variable) est déjà mort on ne fait rien.
                 if (li_need_back){
-					li=li_prev;
-					li_prev=nullptr;
-					li_need_back = false;
-				}
-                if (li->variable == this->variable) {
+                    li=li_prev;
+                    li_prev=nullptr;
+                    li_need_back = false;
+                }
+                if (li->variable == arg_variable) {
                     removeLitt(&cl->f_ElementAlive,&cl->l_ElementAlive,li);
                     appendLitt(&cl->f_ElementDead,&cl->l_ElementDead,li);
                     if (needNewWatched(cl,li))
                         assignNewWatched(cl,li);
-					if (li_prev != nullptr)
-						li = li_prev;//On évite de casser la chaîne de parcours de la boucle for...
-					else if (cl->f_ElementAlive != nullptr){//on est au début
-						li = cl->f_ElementAlive;
-						li_need_back = true;
-					} else//there is nothing left
+                    if (li_prev != nullptr)
+                        li = li_prev;//On évite de casser la chaîne de parcours de la boucle for...
+                    else if (cl->f_ElementAlive != nullptr){//on est au début
+                        li = cl->f_ElementAlive;
+                        li_need_back = true;
+                    } else//there is nothing left
                         break;
                 }
                 //renvoie false si on n'a pas trouvé d'autre litteral possible
                 //cependant, si rien n'a été trouvé, on fera bien le backtrack
-				li_prev = li;
+                li_prev = li;
             }
         } else { //et réciproquement...
             li_need_back = false;
-			li_prev = nullptr;
-			for (litt* li = cl->f_ElementDead;li != nullptr || li_need_back;li=li->next_litt) {//si un littéral (donc la variable) est déjà mort on ne fait rien.
+            li_prev = nullptr;
+            for (litt* li = cl->f_ElementDead;li != nullptr || li_need_back;li=li->next_litt) {//si un littéral (donc la variable) est déjà mort on ne fait rien.
                 if (li_need_back){
-					li=li_prev;
-					li_prev=nullptr;
-					li_need_back = false;
-				}
-                if (li->variable == this->variable) {
+                    li=li_prev;
+                    li_prev=nullptr;
+                    li_need_back = false;
+                }
+                if (li->variable == arg_variable) {
                     removeLitt(&cl->f_ElementDead,&cl->l_ElementDead,li);
                     appendLitt(&cl->f_ElementAlive,&cl->l_ElementAlive,li);
-					if (li_prev != nullptr)
-						li = li_prev;//On évite de casser la chaîne de parcours de la boucle for...
-					else if (cl->f_ElementDead != nullptr) {
-						li = cl->f_ElementDead;
-						li_need_back = true;
-					} else//there is nothing left
-						break;
+                    if (li_prev != nullptr)
+                        li = li_prev;//On évite de casser la chaîne de parcours de la boucle for...
+                    else if (cl->f_ElementDead != nullptr) {
+                        li = cl->f_ElementDead;
+                        li_need_back = true;
+                    } else//there is nothing left
+                        break;
                 }
-				li_prev = li;
+                li_prev = li;
+            }
+        }
+    }
+    pthread_exit(nullptr);
+}
+
+void assignation::updateLitt(bool alive){
+    bool threadsWorked = false;
+    if (nb_threads != 0){
+        sem_t sem_clauseInto;
+        if (sem_init(&sem_clauseInto,0,1) != 0){perror("sem_init: ");};
+        arg_updateLitt arg;
+        arg.alive=alive;
+        arg.sem_clauseInto=sem_clauseInto;
+        arg.variable=this->variable;
+        index_t = 0;
+        pthread_t thread_workers[nb_threads];
+        for (int i=0;i<nb_threads;i++){
+            fprintf(stderr,"creating thread %i\n",i);
+            if (pthread_create(&thread_workers[i],nullptr,updateLitt_t,&arg) != 0){perror("pthread_create: ");}
+            else{
+                fprintf(stderr,"created thread %i\n",i);
+                threadsWorked = true;
+            }
+        }
+        for (int i=0;i<nb_threads;i++){
+            if (pthread_join(thread_workers[i],nullptr) != 0){perror("pthread_join: ");}
+        }
+    }
+    if (nb_threads == 0 || !threadsWorked){
+        bool li_need_back = false;
+        litt* li_prev = nullptr;
+        for (auto& cl:this->variable->clauseInto){
+            if (alive == false) { //si on tue une variable, on recherche les littéraux associés dans les éléments vivants et on les transfères vers les morts.
+                li_need_back = false;
+                li_prev = nullptr;
+                for (litt* li = cl->f_ElementAlive;li != nullptr or li_need_back;li=li->next_litt){
+                    //si un littéral (donc la variable) est déjà mort on ne fait rien.
+                    if (li_need_back){
+                        li=li_prev;
+                        li_prev=nullptr;
+                        li_need_back = false;
+                    }
+                    if (li->variable == this->variable) {
+                        removeLitt(&cl->f_ElementAlive,&cl->l_ElementAlive,li);
+                        appendLitt(&cl->f_ElementDead,&cl->l_ElementDead,li);
+                        if (needNewWatched(cl,li))
+                            assignNewWatched(cl,li);
+                        if (li_prev != nullptr)
+                            li = li_prev;//On évite de casser la chaîne de parcours de la boucle for...
+                        else if (cl->f_ElementAlive != nullptr){//on est au début
+                            li = cl->f_ElementAlive;
+                            li_need_back = true;
+                        } else//there is nothing left
+                            break;
+                    }
+                    //renvoie false si on n'a pas trouvé d'autre litteral possible
+                    //cependant, si rien n'a été trouvé, on fera bien le backtrack
+                    li_prev = li;
+                }
+            } else { //et réciproquement...
+                li_need_back = false;
+                li_prev = nullptr;
+                for (litt* li = cl->f_ElementDead;li != nullptr || li_need_back;li=li->next_litt) {//si un littéral (donc la variable) est déjà mort on ne fait rien.
+                    if (li_need_back){
+                        li=li_prev;
+                        li_prev=nullptr;
+                        li_need_back = false;
+                    }
+                    if (li->variable == this->variable) {
+                        removeLitt(&cl->f_ElementDead,&cl->l_ElementDead,li);
+                        appendLitt(&cl->f_ElementAlive,&cl->l_ElementAlive,li);
+                        if (li_prev != nullptr)
+                            li = li_prev;//On évite de casser la chaîne de parcours de la boucle for...
+                        else if (cl->f_ElementDead != nullptr) {
+                            li = cl->f_ElementDead;
+                            li_need_back = true;
+                        } else//there is nothing left
+                            break;
+                    }
+                    li_prev = li;
+                }
             }
         }
     }
