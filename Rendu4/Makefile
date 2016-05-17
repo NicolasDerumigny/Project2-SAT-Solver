@@ -1,7 +1,7 @@
 #example name
 NAME=expr
 #compiler name
-CXX=g++
+CXX=clang++
 #lex name+path
 LEX=flex
 LIBLEX=-lfl

@@ -19,14 +19,14 @@ void* updateLitt_t(void* arg){
     while(true){
         if (sem_wait(&sem_clauseInto) != 0){perror("sem_wait: ");}//On entre dans la section critique
         sem_getvalue(&sem_clauseInto,&val);
-//        fprintf(stderr,"entering SC, sem=%i\n",val);
+        fprintf(stderr,"entering SC, sem=%i\n",val);
         if (index_t >= ((arg_updateLitt*) arg)->variable->clauseInto.size()){
-//            fprintf(stderr,"index_t is full\n");
+            fprintf(stderr,"index_t is full\n");
             if (sem_post(&sem_clauseInto) != 0){perror("sem_post: ");}
             break;
         }
         clause* cl = ((arg_updateLitt*) arg)->variable->clauseInto[index_t];
-//        fprintf(stderr,"using %i\n",index_t);
+        fprintf(stderr,"using %lu\n",index_t);
         index_t++;
         if (sem_post(&sem_clauseInto) != 0){perror("sem_post: ");}
         if (alive == false) { //si on tue une variable, on recherche les littéraux associés dans les éléments vivants et on les transfères vers les morts.
