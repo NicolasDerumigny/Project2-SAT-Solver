@@ -18,7 +18,10 @@ void formule::set_formule(unsigned long varid, bool neg){
     if (varid>=v_var.size()){
         unsigned long oldsize=v_var.size();
         if (!isTseitin){
-            std::cerr<<"Warning : variable number "<<varid<<" not declared in header line (max "<< oldsize - 1;
+            if (oldsize==0)
+                std::cerr<<"Warning : variable number "<<varid<<" not declared in header line (max "<< oldsize ;
+            else
+                std::cerr<<"Warning : variable number "<<varid<<" not declared in header line (max "<< oldsize - 1 ;
             std::cerr<<"), continuing anyway"<<std::endl;
         }
         for (unsigned long i=0; i<varid-oldsize+1;i++)

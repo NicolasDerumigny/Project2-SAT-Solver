@@ -140,7 +140,7 @@ void checkHeaderAndParse(){
     if (nbr_C!=C)
         std::cerr<<"Warning : "<<C<<" clauses were declared in header line but found "<< nbr_C <<", continuing anyway"<<std::endl;
     eFile.close();
-
+    v_var.clear();
     for(int i=0;i<=V;i++)
         v_var.push_back(nullptr);
 }

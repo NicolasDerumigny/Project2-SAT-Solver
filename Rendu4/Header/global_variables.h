@@ -8,6 +8,8 @@
 #include <ctime>
 #include <vector>
 #include <fstream>
+#include <map>
+#include <tuple>
 #include "global_variable_extern.h"
 
 class assignation;
@@ -44,6 +46,8 @@ int clHeuristic=0;
 char path[1024]="";
 bool proof=false;
 std::fstream prooftree_fs;
+std::map<std::tuple<unsigned long, unsigned long, bool>,unsigned long > eqToVar;
+std::map<unsigned long, std::tuple<unsigned long, unsigned long, bool> > varToEq;
 //valeur de base des arguments
 //heuristic = 0 (basic), 1 (rand), 2 (moms), 3 (dlis)
 

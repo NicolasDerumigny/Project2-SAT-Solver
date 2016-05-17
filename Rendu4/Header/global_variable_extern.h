@@ -6,6 +6,8 @@
 #include <ctime>
 #include <vector>
 #include <fstream>
+#include <map>
+#include <tuple>
 #include "var.h"
 
 
@@ -44,4 +46,6 @@ extern int nb_threads;
 extern char path[1024];
 extern bool proof;
 extern std::fstream prooftree_fs;
+extern std::map< std::tuple<unsigned long, unsigned long, bool>,unsigned long > eqToVar;
+extern std::map<unsigned long, std::tuple<unsigned long, unsigned long, bool> > varToEq;
 #endif // GLOBAL_VARIABLE_EXTERN_H

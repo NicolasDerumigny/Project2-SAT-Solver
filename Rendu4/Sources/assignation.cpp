@@ -42,14 +42,14 @@ void* updateLitt_t(void* arg){
                 if (li->variable == arg_variable) {
                     removeLitt(&cl->f_ElementAlive,&cl->l_ElementAlive,li);
                     appendLitt(&cl->f_ElementDead,&cl->l_ElementDead,li);
-                    if (needNewWatched(cl,li))
+                    if (needNewWatched(cl,li) and !li->isTrue())
                         assignNewWatched(cl,li);
-                    if (li_prev != nullptr)
-                        li = li_prev;//On évite de casser la chaîne de parcours de la boucle for...
-                    else if (cl->f_ElementAlive != nullptr){//on est au début
-                        li = cl->f_ElementAlive;
+					if (li_prev != nullptr)
+						li = li_prev;//On évite de casser la chaîne de parcours de la boucle for...
+					else if (cl->f_ElementAlive != nullptr){//on est au début
+						li = cl->f_ElementAlive;
                         li_need_back = true;
-                    } else//there is nothing left
+					} else//there is nothing left
                         break;
                 }
                 //renvoie false si on n'a pas trouvé d'autre litteral possible
@@ -167,22 +167,22 @@ void assignation::updateLitt(bool alive){
 }
 
 void assignation::updateClause(bool alive){
-    for (auto& cl:this->variable->clauseInto)
+    for (auto& cl:this->variable->clauseInto){
         if (alive == false) {
-            if (!cl->satisfied && cl->isSatisfied()){//on enlève cl2 de la liste simplement chainée des clauses non satisfaites, puis on l'ajoute aux clauses satisfaites
+            if (!cl->satisfied && cl->isSatisfied()){//on enlève cl de la liste simplement chainée des clauses non satisfaites, puis on l'ajoute aux clauses satisfaites
                 removeClause(&instance->f_ClauseUnsatisfied,&instance->l_ClauseUnsatisfied,cl);
                 appendClause(&instance->f_ClauseSatisfied,&instance->l_ClauseSatisfied,cl);
-                cl->satisfied = true;
             }
-        } else {
-            if (cl->satisfied && !cl->isSatisfied()){//on enlève cl2 de la liste simplement chainée des clauses satisfaites, puis on l'ajoute aux clauses non satisfaites
+        } else if(alive == true) {
+            if (cl->satisfied && !cl->isSatisfied()){//on enlève cl de la liste simplement chainée des clauses satisfaites, puis on l'ajoute aux clauses non satisfaites
                 removeClause(&instance->f_ClauseSatisfied,&instance->l_ClauseSatisfied,cl);
                 appendClause(&instance->f_ClauseUnsatisfied,&instance->l_ClauseUnsatisfied,cl);
-                cl->satisfied = false;
             }
-            if (wl && cl->existsWatchedNonAlive() && cl->satisfied)
+            if (wl && cl->existsWatchedNonAlive() && cl->isSatisfied())
                 std::cerr<<"Error : There exist false watched litterals in an alive clause"<<std::endl;
         }
+        cl->satisfied = cl->isSatisfied();
+    }
 }
 
 void assignation::updateStatus(bool alive){

@@ -10,11 +10,26 @@
 /**********  Constants   ************/
 /***********************************/
 Expr::~Expr(){
-
 }
 
 
 EConst::EConst(int val) : value(val) {}
+
+EConst::EConst(int val1, int val2, bool eq) {
+    std::tuple<unsigned long, unsigned long, bool> work;
+    if (val1<val2){
+        int tmp=val2;
+        val2=val1;
+        val2=tmp;
+    }
+    work=std::make_tuple((unsigned long)val1, (unsigned long) val2, eq);
+    if (eqToVar.find(work)==eqToVar.end()){
+        eqToVar[work]=v_var.size();
+        varToEq[v_var.size()]=work;
+        v_var.push_back(nullptr);
+    }
+    value=eqToVar[work];
+}
 
 std::string EConst::to_string()
 {
