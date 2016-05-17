@@ -35,7 +35,6 @@ Expr *res = NULL;
 %left TK_DISJ
 %left TK_XOR
 %left TK_EQ
-%left TK_NEQ
 %left TK_IMPLY
 %left TK_ENOT
 %left TK_EG
