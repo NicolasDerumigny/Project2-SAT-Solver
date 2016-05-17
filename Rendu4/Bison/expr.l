@@ -16,6 +16,8 @@ extern bool verboseParser;
 %%
 [1-9][0-9]*                                                                      { yylval.ival = atoi(yytext); return TK_VAR; }
 ^[ \t]*                                                                          ;
+[ \t]*"="[ \t]*                                                                  { if (verboseParser) std::cerr<<"Equal\n"; return TK_EG; }
+[ \t]*"!="[ \t]*                                                                 { if (verboseParser) std::cerr<<"Not Equal\n"; return TK_NEG; }
 [ \t]*"("[ \t]*                                                                  { if (verboseParser) std::cerr<<"Left par\n"; return TK_LPAREN; }
 [ \t]*")"[ \t]*                                                                  { if (verboseParser) std::cerr<<"Right par\n"; return TK_RPAREN; }
 [ \t]*"/\\"[ \t]*                                                                { if (verboseParser) std::cerr<<"And\n"; return TK_CONJ;   }

@@ -8,6 +8,10 @@
 #include <iostream>
 #include <sstream>
 #include <string>
+#include <map>
+#include <tuple>
+extern std::map< std::tuple<unsigned long, unsigned long, bool>, unsigned long > eqToVar;
+extern std::map< unsigned long, std::tuple<unsigned long, unsigned long, bool> > varToEq;
 
 
 /***********************************/
@@ -34,13 +38,14 @@ class EConst : public Expr
 {
 public:
     EConst(int val);
+    EConst(int val1, int val2, bool eq);
     std::string to_string();
     void eval();
     void eval_tseitin();
 	~EConst(){}
     char padding[4];
 private:
-    int value;
+    unsigned long value;
 };
 
 /***********************************/
