@@ -41,8 +41,7 @@ SOURCES += \
     Bison/expr.cpp \
     Bison/expr.l \
     Bison/expr.ypp \
-    Sources/prooftree.cpp \
-    Sources/union.cpp
+    Sources/prooftree.cpp
 
 HEADERS += \
     Header/var.h \

@@ -10,12 +10,12 @@ bool checkAssign(){
             left_nb = std::get<0>(varToEq[ass->variable->id]);
             right_nb = std::get<1>(varToEq[ass->variable->id]);
             if (!valToSet.count(left_nb)){
-                union_set<unsigned long> * left = new union_set<unsigned long>(left_nb);
-                valToSet[left_nb] = *left;
+                union_set<unsigned long> left (left_nb);
+                valToSet[left_nb] = left;
             }
             if (!valToSet.count(right_nb)){
-                union_set<unsigned long> * right = new union_set<unsigned long>(right_nb);
-                valToSet[right_nb] = *right;
+                union_set<unsigned long> right (right_nb);
+                valToSet[right_nb] = right;
             }
         }
     }
@@ -23,7 +23,7 @@ bool checkAssign(){
         if ((ass->variable->value == 1 && std::get<2>(varToEq[ass->variable->id])) || (ass->variable->value == 0 && !std::get<2>(varToEq[ass->variable->id]))){
             left_nb = std::get<0>(varToEq[ass->variable->id]);
             right_nb = std::get<1>(varToEq[ass->variable->id]);
-            merge(&valToSet[left_nb],&valToSet[right_nb]);
+            merge(valToSet[left_nb],valToSet[right_nb]);
         }
     }
     for (assignation* ass:assignations){

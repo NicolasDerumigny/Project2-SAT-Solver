@@ -43,3 +43,6 @@ Build/%.o: Sources/%.cpp
 
 Build/assignation.o: Sources/assignation.cpp
 	$(CXX) -o $@ -c $< $(CFLAGS) $(WFLAG) -pthread -lpthread
+	
+Alacon:
+	$(CXX) -o resol $(CFLAGS) $(WFLAG) -pthread -lpthread $(BIZ) $(SRC) $(LIBLEX)
